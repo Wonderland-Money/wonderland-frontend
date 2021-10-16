@@ -1,0 +1,201 @@
+.sidebar {
+  min-width: 280px;
+  z-index: 2;
+  border-radius: 0 !important;
+}
+
+.MuiDrawer-paper .MuiPaper-root {
+  border-radius: 0 !important;
+}
+
+.dapp-sidebar {
+  height: 100vh;
+  border-radius: 0 !important;
+}
+
+.dapp-menu-item{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  p{
+    font-weight: 600;
+    font-size: 16px;
+    color: #FFFFFF;
+    font-family: Montserrat SemiBold;
+  }
+}
+
+.branding-header {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+  text-decoration: none;
+  margin: 20px 0 63px 0;
+  .branding-header-icon {
+    width: 50px;
+    filter: invert(1);
+    display: block;
+    margin: 0 auto;
+  }
+  .wallet-link {
+    margin: 10px;
+
+    p{
+      color: #FFFFFF;
+    }
+  }
+}
+
+.dapp-menu-top {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-bottom: 33px;
+  min-height: max-content;
+  .dapp-nav {
+    display: flex;
+    flex-flow: column;
+  }
+}
+
+.dapp-menu-bottom {
+  height: 40vh;
+  min-height: 30vh;
+}
+
+.dapp-menu-links {
+  min-height: 35vh;
+  display: flex;
+  align-items: center;
+}
+.dapp-nav a {
+  margin-top: 20px;
+  margin-left: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+  svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: -4px;
+  }
+}
+
+.dapp-menu-external-links {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: center;
+  a {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    font-family: Montserrat SemiBold;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #FFFFFF;
+
+  }
+  a svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+}
+
+.bond-discounts {
+  text-align: left;
+  padding-left: 54px;
+
+  a{
+    margin-left: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  p{
+    font-family: Montserrat;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  .bond {
+    display: block;
+    padding: unset;
+    margin-bottom: 0 0 1px 0;
+    text-decoration: none !important;
+    .bond-pair-roi {
+      float: right;
+      margin-left: 33px;
+    }
+  }
+}
+
+.social-row {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-evenly;
+  padding: 1.3rem;
+  a {
+    &:hover {
+      transform: scale(1.1);
+    }
+    img {
+      height: 20px;
+      width: 20px;
+    }
+  }
+}
+
+.mobile .show .dapp-sidebar {
+  .dapp-menu-links {
+    flex-flow: row !important;
+    justify-content: center !important;
+  }
+  .dapp-menu-external-links {
+    padding-top: 3em;
+    line-height: 200% !important;
+    justify-content: center;
+  }
+  .dapp-nav,
+  .dapp-menu-external-links {
+    flex-flow: column !important;
+    justify-content: flex-start;
+    margin: auto;
+    a {
+      padding: 0;
+      svg {
+        align-self: center;
+      }
+    }
+  }
+  .dapp-menu-external-links a {
+    justify-content: left;
+  }
+  .dapp-nav {
+    .dapp-menu-data.discounts {
+      margin-top: 2.5em;
+      .bond-discounts {
+        display: none;
+      }
+    }
+  }
+}
+
+.button-dapp-menu.active {
+  .dapp-menu-item{
+    p{
+      text-decoration: underline;
+    }
+  }
+}

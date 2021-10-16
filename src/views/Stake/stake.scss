@@ -1,0 +1,418 @@
+#stake-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  .rebase-timer {
+    margin: 0 !important;
+    line-height: 110% !important;
+  }
+
+  .stake-tab-buttons {
+    margin-bottom: 20px;
+  }
+
+  .stake-table-panel,
+  .stake-tab-panel > div.MuiBox-root {
+    width: 100%;
+    padding: 0;
+  }
+  .mobile .stake-tab-panel,
+  .mobile .stake-tab-panel > div.MuiBox-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  .ohm-card .header {
+    min-height: 3em;
+  }
+  .ohm-card.secondary .card-header {
+    min-height: 33px !important;
+    height: 20px;
+  }
+}
+
+.migrate-sohm-button {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  color: #f08080;
+  line-height: 30px;
+  svg {
+    margin-right: 8px;
+    color: inherit;
+  }
+}
+
+.migrate-sohm-button.complete {
+  color: #35ee66 !important;
+}
+
+.stake-top-metrics {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  text-align: center;
+  margin-top: 10px;
+  h5 {
+    font-weight: 400;
+  }
+  h4 {
+    font-weight: 500;
+  }
+  .stake-apy,
+  .stake-tvl,
+  .stake-index {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+.mobile .stake-top-metrics {
+  .stake-apy,
+  .stake-tvl,
+  .stake-index {
+    align-items: flex-start;
+  }
+}
+
+.mobile .stake-apy {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ohm-logo-tiny {
+  height: 14px;
+  width: 14px;
+  vertical-align: middle;
+  background-color: transparent;
+  align-self: center;
+  justify-self: center;
+}
+
+.logo-holder {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  background: none;
+  border: 0 !important;
+  border-radius: inherit;
+  color: #555;
+}
+
+.stake-action-area {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.stake-action-row {
+  justify-content: space-around;
+  align-items: center;
+  height: auto;
+}
+
+.mobile .stake-action-row {
+  justify-content: center;
+}
+
+.stake-action-row [role="tabpanel"] {
+  width: 99%;
+  min-width: 162px;
+  max-width: 220px;
+  margin: 5px;
+}
+
+.mobile .stake-action-row {
+  flex-direction: column;
+  [role="tabpanel"] {
+    max-width: 100%;
+    width: 100% !important;
+  }
+}
+
+.ohm-input {
+  max-width: 542px;
+  width: 100%;
+  margin: 5px !important;
+}
+
+.stake-button {
+  align-self: center;
+  width: 100%;
+  min-width: 163px !important;
+  max-width: 542px !important;
+  height: 43px !important;
+}
+
+.mobile .stake-button {
+  width: 100% !important;
+  max-width: 542px;
+  align-self: center;
+  justify-self: center;
+}
+
+.staking-area {
+  margin: 13px 10px 13px 10px;
+}
+
+.stake-lp-button {
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  svg {
+    margin-left: 4px;
+    vertical-align: middle;
+    font-size: 1.1em;
+  }
+  &:hover {
+    svg {
+      color: inherit;
+    }
+  }
+}
+
+.stake-user-data {
+  justify-content: center;
+  margin: auto;
+  padding: 0 5px;
+}
+
+.tablet .stake-pool,
+.mobile .stake-pool {
+  .pool-card-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    .ohm-pairs p {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .pool-data {
+    margin-top: 15px;
+    width: 100%;
+    .pool-data-row {
+      display: flex;
+      justify-content: space-between;
+      line-height: 225%;
+    }
+  }
+  .stake-lp-button {
+    margin-top: 10px;
+    svg {
+      margin-left: 10px !important;
+    }
+  }
+}
+
+.stake-wallet-notification {
+  text-align: center;
+  .wallet-menu {
+    display: flex;
+    margin-bottom: 10px;
+
+    .form-connect-btn{
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+      border-radius: 10px;
+      padding: 14px 58px;
+      cursor: pointer;
+      margin: auto;
+    
+      p{
+        font-family: Montserrat SemiBold;
+        font-weight: 600;
+        font-size: 18px;
+        color: #FFFFFF;
+      }
+    }
+  }
+  .desc-text{
+    font-family: Montserrat Light;
+    font-weight: 300;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.single-stake-title{
+  font-family: Montserrat Bold;
+  font-weight: bold;
+  font-size: 20px;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.single-stake-subtitle{
+  font-family: Montserrat Medium;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 2px;
+}
+
+.single-stake-subtitle-value{
+  font-family: Montserrat Bold;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;
+  color: #FFFFFF;
+}
+
+.stack-table-title{
+  font-family: Montserrat SemiBold;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.stack-table-value{
+  font-family: Montserrat Bold;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+}
+
+.stack-table-btn{
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+  border-radius: 10px;
+  padding: 14px 32px;
+  cursor: pointer;
+  text-align: center;
+
+  p{
+    font-family: Montserrat SemiBold;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FFFFFF;
+  }
+}
+
+.stake-tab-buttons{
+  .MuiTabs-indicator{
+    background-color: white;
+    height: 1px;
+  }
+
+  .MuiTab-wrapper{
+    font-family: Montserrat SemiBold;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FFFFFF;
+  }
+}
+
+.stake-tab-panel{
+  .stake-tab-panel-btn{
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+    border-radius: 10px;
+    padding: 14px 46px;
+    cursor: pointer;
+    text-align: center;
+
+    p{
+      font-family: Montserrat SemiBold;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      color: #FFFFFF;
+    }
+  }
+}
+
+.help-text{
+  .text-desc{
+    font-family: Montserrat Light;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.stake-user-data{
+  .data-row{
+    .data-row-name{
+      font-family: Montserrat Medium;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      color: #FFFFFF;
+    }
+    .data-row-value{
+      font-family: Montserrat;
+      font-size: 14px;
+      line-height: 17px;
+      color: #FFFFFF;
+    }
+  }
+}
+
+.stake-input{
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  outline: none;
+
+  .MuiOutlinedInput-input{
+    font-family: Montserrat Medium;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .MuiOutlinedInput-notchedOutline{
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .stake-input-btn{
+    cursor: pointer;
+    
+    p{
+      font-family: Montserrat SemiBold;
+      font-weight: 600;
+      font-size: 18px;
+      color: #FFFFFF;
+    }
+  }
+}
+
+@media screen and (max-width: 417px) {
+  .single-stake-subtitle{
+    font-size: 18px !important;
+  }
+
+  .single-stake-subtitle-value{
+    font-size: 18px !important;
+  }
+}

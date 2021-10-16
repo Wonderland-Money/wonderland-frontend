@@ -1,0 +1,210 @@
+#choose-bond-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  .ohm-card .bond-hero h4 {
+    font-weight: 600 !important;
+
+    .MuiSkeleton-root {
+      margin: auto;
+    }
+  }
+  .ohm-logo-bg {
+    margin-left: 0;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+  }
+
+  .bond-data-card {
+    margin: auto !important;
+    .bond-pair {
+      display: flex !important;
+      align-items: center;
+      justify-content: left;
+      margin-bottom: 15px;
+      .MuiBox-root {
+        margin-right: 10px;
+      }
+      .bond-name {
+        svg {
+          margin-left: 5px;
+          vertical-align: middle;
+          font-size: 15px;
+        }
+      }
+    }
+    .data-row {
+      margin-bottom: 13px;
+
+      .bond-price {
+        display: flex;
+        align-items: center;
+
+        svg {
+          margin-right: 5px;
+        }
+      }
+    }
+    .bond-link {
+      margin-top: 10px;
+      text-align: center;
+      a {
+        width: 96%;
+      }
+    }
+  }
+
+  .currency-icon {
+    display: inline-block;
+    min-width: 15px;
+  }
+
+  .MuiTable-root {
+    margin: 10px 0px;
+  }
+
+  .MuiTableRow-head {
+    .MuiTableCell-alignLeft {
+      padding-left: 20px;
+    }
+  }
+
+  .MuiTableCell-root {
+    p {
+      margin: 0 !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: space-evenly;
+      white-space: nowrap;
+      img {
+        margin-right: 3px;
+      }
+    }
+    &.MuiTableCell-alignLeft {
+      display: flex;
+    }
+  }
+
+  .MuiTableBody-root .MuiTableRow-root .MuiTableCell-alignLeft {
+    justify-content: space-between;
+    div.ohm-pairs {
+      width: 33%;
+      vertical-align: middle !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin-bottom: 0 !important;
+      .ohm-pairs div.bond-name p,
+      .ohm-pairs svg {
+        align-self: center !important;
+        line-height: 100% !important;
+        font-weight: bold !important;
+        margin-bottom: 0em !important;
+        padding: 0 !important;
+        font-family: inherit;
+        vertical-align: text-top !important;
+      }
+      .ohm-logo-bg {
+        margin-left: 0;
+        border-radius: 20px;
+        height: 40px;
+        width: 40px;
+      }
+    }
+    div.bond-name {
+      width: 60%;
+      margin-left: 8px !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+      align-items: flex-start;
+      p {
+        margin-bottom: unset !important;
+        line-height: 140% !important;
+      }
+      svg {
+        margin-left: 3px !important;
+        font-size: 1.2em !important;
+      }
+    }
+  }
+}
+
+.bond-title{
+  font-family: Montserrat Bold;
+  font-weight: bold;
+  font-size: 20px;
+  color: #FFFFFF;
+}
+
+.bond-hero{
+  .bond-hero-title{
+    font-family: Montserrat Medium;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .bond-hero-value{
+    font-family: Montserrat Bold;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.bond-table-title{
+  font-family: Montserrat SemiBold;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
+}
+
+.bond-name-title{
+  font-family: Montserrat SemiBold;
+  font-weight: 600;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.bond-table-btn{
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid #2C276D;
+  border-radius: 10px;
+  padding: 6px 35.5px;
+  text-align: center;
+
+  p{
+    font-family: Montserrat Semibold;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    color: #FFFFFF;
+  }
+}
+
+@media screen and (max-width: 417px) {
+  .bond-hero-title{
+    font-size: 14px !important;
+  }
+
+  .bond-hero-value{
+    font-size: 16px !important;
+  }
+}
+
+.ohm-card-container{
+  width: 100%;
+}

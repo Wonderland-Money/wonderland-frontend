@@ -1,0 +1,106 @@
+#hades {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+
+  @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background-color: #55555555;
+  }
+
+  /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+  @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    background: rgba(46, 102, 187, 0.95);
+  }
+  
+  .ohm-popover {
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(100px);
+
+    h3 {
+      align-self: center;
+      justify-self: center;
+      width: 75%;
+      text-align: center;
+    }
+    label {
+      margin: 20px 10px 4px 10px;
+    }
+    .help-text {
+      margin: 10px;
+    }
+  }
+  .mobile .ohm-popover {
+    max-width: 400px;
+  }
+
+  .hades-title{
+    font-family: Montserrat SemiBold;
+    font-weight: 600;
+    font-size: 32px;
+    color: #FFFFFF;
+    text-align: center;
+  }
+
+  .cross-wrap{
+    display: flex;
+  }
+
+  .card-content{
+    margin: 0 30px;
+    width: auto;
+
+    .input-lable{
+      font-family: Montserrat Medium;
+      font-weight: 500;
+      font-size: 16px;
+      color: #FFFFFF;
+    }
+
+    .percent{
+      font-family: Montserrat SemiBold;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      color: #FFFFFF;
+    }
+
+    .help-text{
+      margin: 5px 0;
+
+      .text-bond-desc{
+        font-family: Montserrat Light;
+        font-weight: 300;
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }    
+  }
+
+  .bond-input{
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    outline: none;
+    margin-bottom: 20px;
+  
+    .MuiOutlinedInput-input{
+      font-family: Montserrat Medium;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  
+    .MuiOutlinedInput-notchedOutline{
+      border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+  }
+}

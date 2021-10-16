@@ -1,0 +1,87 @@
+.dapp-topbar {
+  width: 100%;
+  align-items: center;
+  button {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    margin: 6px !important;
+    min-width: fit-content !important;
+    &#hamburger {
+      padding: 11px !important;
+    }
+    &.toggle-button {
+      padding: 9.5px !important;
+    }
+  }
+}
+.tablet .dapp-topbar {
+  justify-content: space-between;
+}
+.pending-txn-root{
+  z-index: 100;
+  margin-top: 10px;
+
+  .pending-txn-container {
+    padding: 5px 20px;
+
+    min-width: 200px;
+
+    p{
+      font-family: Montserrat;
+      font-size: 16px;
+      color: #FFFFFF;
+
+      &:hover{
+        color: rgba($color: blue, $alpha: 0.3);
+      }
+    }
+  }
+
+  .add-tokens{
+    margin-top: 5px;
+
+    .disconect-btn{
+      cursor: pointer;
+      margin: 10px 10px 0px 10px;
+
+      padding: 5px;
+
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0px 0px 10px rgb(44 39 109 / 10%);
+      border-radius: 10px;
+
+      p{
+        font-family: Montserrat;
+        font-size: 16px;
+        color: #FFFFFF;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.caret-down {
+  position: absolute;
+  right: 0.4rem;
+}
+.hovered-button {
+  .MuiButton-label {
+    margin-right: 0.5rem;
+    transition: all 0.33s ease-out;
+  }
+}
+
+.connect-button{
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+  border-radius: 10px;
+  padding: 9px 19.5px;
+  cursor: pointer;
+
+  p{
+    font-family: Montserrat SemiBold;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FFFFFF;
+  }
+}

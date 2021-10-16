@@ -1,0 +1,271 @@
+@import "../assets/styles/fonts.scss";
+
+* {
+  outline: none;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  font-family: "Square";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.app {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-flow: column;
+  flex-direction: column;
+  z-index: 1;
+  background-size: cover;
+  font-family: "Square";
+  overflow: hidden;
+  // transform: translate3d(0, 0, 0);
+  // -webkit-transform: translate3d(0, 0, 0);
+}
+
+.MuiDrawer-paperAnchorDockedLeft {
+  border-right: 0 !important;
+}
+
+.ohm-card {
+  .card-header {
+    width: 100%;
+    min-height: 2rem;
+    h5 {
+      font-weight: 600 !important;
+    }
+  }
+  .card-content {
+    width: 100%;
+    position: relative;
+    align-items: left;
+    justify-content: center;
+    flex-flow: column;
+    height: 100%;
+  }
+
+  .help-text {
+    margin: 10px 0px;
+  }
+
+  .data-row {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin: 12px 0px;
+  }
+}
+
+.ohm-pairs {
+  display: flex;
+  align-items: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield !important;
+}
+
+a:hover svg {
+  color: inherit;
+}
+
+.root-background{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../assets/icons/background.png');
+  background-size: cover;
+  z-index: -1;
+}
+
+p{
+  margin: 0;
+}
+
+.web3modal-modal-lightbox{
+  z-index: 10 !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(100px) !important;
+
+  .web3modal-modal-card{
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(100px);
+    border-radius: 10px;
+
+    .web3modal-provider-wrapper{
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0;
+      padding: 0;
+
+      .web3modal-provider-container{
+        background-color: rgb(0,0,0,0);
+        border-radius: 0;
+
+        &:hover{
+          background-color: rgb(0,0,0,0.2);
+        }
+
+        .web3modal-provider-name{
+          font-family: Montserrat SemiBold;
+          font-weight: 600;
+          font-size: 24px;
+          text-align: center;
+          color: #FFFFFF;
+        }
+
+        .web3modal-provider-description{
+          font-family: Montserrat Light;
+          font-weight: 300;
+          font-size: 14px;
+          text-align: center;
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+    }
+  }
+}
+
+.walletconnect-qrcode__base{
+  @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    background: rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(100px) !important;
+  }
+
+  /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+  @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+    background: rgba(46, 102, 187, 0.95) !important;
+  }
+
+  .walletconnect-modal__base{
+    border-radius: 10px;
+    padding: 30px 20px 20px 20px;
+
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(100px);
+    }
+  
+    /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .walletconnect-modal__header{
+      .walletconnect-modal__headerLogo{
+        display: none;
+      }
+  
+      p{
+        margin-left: 24px;
+
+        font-family: Montserrat SemiBold;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        color: #FFFFFF;
+
+      }
+  
+      .walletconnect-modal__close__wrapper{
+        background: none;
+        right: 23px;
+  
+        .walletconnect-modal__close__icon{
+          .walletconnect-modal__close__line1{
+            border: 1px solid rgb(255, 255, 255);
+          }
+          .walletconnect-modal__close__line2{
+            border: 1px solid rgb(255, 255, 255);
+          }
+        }
+      }
+    }
+
+    .walletconnect-modal__mobile__toggle{
+      margin-bottom: 20px;
+      background: none;
+      width: 60%;
+
+      .walletconnect-modal__mobile__toggle_selector{
+        height: 1px;
+        background: #FFFFFF;
+        top: 34px;
+      }
+
+      a{
+        font-family: Montserrat SemiBold;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        color: #FFFFFF;
+        cursor: pointer;
+
+        &:last-child{
+          color: rgba(255, 255, 255, 0.6);
+        }
+      }
+    }
+
+    .walletconnect-modal__mobile__toggle.right__selected{
+      a{
+        &:nth-child(2){
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        &:last-child{
+          color: #FFFFFF;
+        }
+      }
+    }
+
+    .walletconnect-qrcode__text{
+      font-family: Montserrat Light;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 14px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .walletconnect-qrcode__image{
+      background: #FFFFFF;
+      border-radius: 10px;
+      padding: 13px;
+    }
+
+    .walletconnect-modal__footer{
+      font-family: Montserrat Light;
+      font-weight: 300;
+      font-size: 14px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .walletconnect-modal__base__row{
+      h3{
+        font-family: Montserrat SemiBold;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        color: #FFFFFF;
+      }
+    }
+  }
+}

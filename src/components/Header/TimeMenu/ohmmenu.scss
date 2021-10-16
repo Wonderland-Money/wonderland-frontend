@@ -1,0 +1,80 @@
+#ohm-menu-button {
+  padding: 12px;
+  svg {
+    margin-right: 3px;
+    color: inherit !important;
+  }
+}
+
+.buy-text{
+  color: #FFFFFF;
+  font-family: Montserrat Bold;
+}
+
+#ohm-popper,
+#ohm-popper-pending {
+  z-index: 5;
+  background-color: #00000003;
+  backdrop-filter: blur(33px);
+  -webkit-backdrop-filter: blur(33px);
+  margin-top: 10px;
+  border-radius: 10px;
+  .MuiPaper-root.ohm-menu {
+    padding: 16px 6px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    max-width: 200px;
+    button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 4px;
+      padding-left: 16px;
+      &:not(:hover) {
+        background-color: #00000003 !important;
+      }
+    }
+    a {
+      svg {
+        vertical-align: middle;
+        font-size: 20px;
+        margin-left: 3px;
+      }
+    }
+    hr {
+      margin-bottom: 18px;
+    }
+  }
+
+  .add-tokens {
+    > p {
+      margin: 15px 0px;
+      text-align: center;
+
+      font-family: Montserrat SemiBold;
+      font-size: 12px;
+      color: #FFFFFF;
+    }
+  }
+
+  .buy-tokens {
+    padding-bottom: 8px;
+  }
+}
+
+.ohm-button{
+  padding: 9px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  margin-right: 20px;
+
+  p{
+    font-family: Montserrat SemiBold;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FFFFFF;
+  }
+}

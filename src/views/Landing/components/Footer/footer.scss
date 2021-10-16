@@ -1,0 +1,35 @@
+.landing-footer{
+    margin-top: auto;
+    padding: 32px 15%;
+
+    .landing-footer-item-wrap{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .landing-footer-item-title{
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 22px;
+            color: #FFFFFF;
+            margin-bottom: 4px;
+        }
+
+        .landing-footer-item-value{
+            font-family: Montserrat Bold;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 30px;
+            color: #FFFFFF;
+        }
+    }
+}
+
+@media screen and (max-width: 812px) {
+    .landing-footer{
+        padding: 32px 10%;
+    }
+}
