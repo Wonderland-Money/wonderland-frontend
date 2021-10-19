@@ -13,7 +13,7 @@ Required:
 git clone https://github.com/Wonderland-Money/wonderland-frontend.git
 cd wonderland-frontend
 yarn install
-npm run start
+npm start
 ```
 
 The site is now running at `http://localhost:3000`!
