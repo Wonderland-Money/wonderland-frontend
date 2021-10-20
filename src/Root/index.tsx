@@ -6,25 +6,25 @@ import { loadTokenPrices } from "../helpers";
 import Loading from "../components/Loader";
 
 function Root() {
-  const isApp = (): boolean => {
-    return window.location.host.includes("app");
-  };
+    const isApp = (): boolean => {
+        return window.location.host.includes("app");
+    };
 
-  const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadTokenPrices().then(() => setLoading(false));
-  }, []);
+    useEffect(() => {
+        loadTokenPrices().then(() => setLoading(false));
+    }, []);
 
-  if (loading) return <Loading />;
+    if (loading) return <Loading />;
 
-  const app = () => (
-    <HashRouter>
-      <App />
-    </HashRouter>
-  );
+    const app = () => (
+        <HashRouter>
+            <App />
+        </HashRouter>
+    );
 
-  return isApp() ? app() : <Landing />;
+    return isApp() ? app() : <Landing />;
 }
 
 export default Root;

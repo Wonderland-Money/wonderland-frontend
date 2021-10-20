@@ -2,6 +2,7 @@
     padding: 25px 10%;
     display: flex;
     flex-direction: row;
+    z-index: 2;
 
     .landing-header-nav-wrap{
         margin-left: auto;
@@ -26,17 +27,16 @@
     backdrop-filter: blur(100px);
     border-radius: 10px;
     overflow: hidden;
+    z-index: 100;
 
     .tooltip{
         display: flex;
         flex-direction: column;
         
         .tooltip-item{
-            display: flex;
-            flex-direction: row;
-            text-decoration: none;
             padding: 13px 20px;
             align-items: center;
+            display: flex;
 
             &:hover{
                 background: rgba(255,255,255,0.1);

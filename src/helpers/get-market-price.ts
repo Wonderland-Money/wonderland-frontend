@@ -1,14 +1,12 @@
 import { ethers } from "ethers";
-import { getAddresses } from "../constants";
-import { MimTimeReserveContract } from "../abi";
+import { LpReserveContract } from "../abi";
+import { mimTime } from "../helpers/bond";
+import { Networks } from "../constants/blockchain";
 
-export async function getMarketPrice(
-  networkID: number,
-  provider: ethers.Signer | ethers.providers.Provider,
-): Promise<number> {
-  const address = getAddresses(networkID);
-  const pairContract = new ethers.Contract(address.RESERVES.MIM_TIME, MimTimeReserveContract, provider);
-  const reserves = await pairContract.getReserves();
-  const marketPrice = reserves[0] / reserves[1];
-  return marketPrice;
+export async function getMarketPrice(networkID: Networks, provider: ethers.Signer | ethers.providers.Provider): Promise<number> {
+    const mimTimeAddress = mimTime.getAddressForReserve(networkID);
+    const pairContract = new ethers.Contract(mimTimeAddress, LpReserveContract, provider);
+    const reserves = await pairContract.getReserves();
+    const marketPrice = reserves[0] / reserves[1];
+    return marketPrice;
 }

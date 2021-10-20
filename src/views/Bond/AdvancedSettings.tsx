@@ -1,93 +1,67 @@
-import {
-  Typography,
-  Box,
-  Modal,
-  Paper,
-  SvgIcon,
-  IconButton,
-  FormControl,
-  OutlinedInput,
-  InputLabel,
-  InputAdornment,
-} from "@material-ui/core";
+import { Typography, Box, Modal, Paper, SvgIcon, IconButton, FormControl, OutlinedInput, InputLabel, InputAdornment } from "@material-ui/core";
 import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 import "./bondSettings.scss";
 
 interface IAdvancedSettingsProps {
-  open: boolean;
-  handleClose: () => void;
-  slippage: number;
-  recipientAddress: string;
-  onRecipientAddressChange: (e: any) => void;
-  onSlippageChange: (e: any) => void;
+    open: boolean;
+    handleClose: () => void;
+    slippage: number;
+    recipientAddress: string;
+    onRecipientAddressChange: (e: any) => void;
+    onSlippageChange: (e: any) => void;
 }
 
-function AdvancedSettings({
-  open,
-  handleClose,
-  slippage,
-  recipientAddress,
-  onRecipientAddressChange,
-  onSlippageChange,
-}: IAdvancedSettingsProps) {
-  return (
-    <Modal id="hades" open={open} onClose={handleClose} hideBackdrop>
-      <Paper className="ohm-card ohm-popover">
-        <div className="cross-wrap">
-          <IconButton onClick={handleClose}>
-            <SvgIcon color="primary" component={XIcon} />
-          </IconButton>
-        </div>
+function AdvancedSettings({ open, handleClose, slippage, recipientAddress, onRecipientAddressChange, onSlippageChange }: IAdvancedSettingsProps) {
+    return (
+        <Modal id="hades" open={open} onClose={handleClose} hideBackdrop>
+            <Paper className="ohm-card ohm-popover">
+                <div className="cross-wrap">
+                    <IconButton onClick={handleClose}>
+                        <SvgIcon color="primary" component={XIcon} />
+                    </IconButton>
+                </div>
 
-        <p className="hades-title">Settings</p>
+                <p className="hades-title">Settings</p>
 
-        <Box className="card-content">
-          <InputLabel htmlFor="slippage">
-            <p className="input-lable">Slippage</p>
-          </InputLabel>
-          <FormControl variant="outlined" color="primary" fullWidth>
-            <OutlinedInput
-              id="slippage"
-              value={slippage}
-              onChange={onSlippageChange}
-              fullWidth
-              type="number"
-              //@ts-ignore
-              max="100"
-              min="100"
-              className="bond-input"
-              endAdornment={
-                <InputAdornment position="end">
-                  <p className="percent">%</p>
-                </InputAdornment>
-              }
-            />
-            <div className="help-text">
-              <p className="text-bond-desc">Transaction may revert if price changes by more than slippage %</p>
-            </div>
-          </FormControl>
+                <Box className="card-content">
+                    <InputLabel htmlFor="slippage">
+                        <p className="input-lable">Slippage</p>
+                    </InputLabel>
+                    <FormControl variant="outlined" color="primary" fullWidth>
+                        <OutlinedInput
+                            id="slippage"
+                            value={slippage}
+                            onChange={onSlippageChange}
+                            fullWidth
+                            type="number"
+                            //@ts-ignore
+                            max="100"
+                            min="100"
+                            className="bond-input"
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <p className="percent">%</p>
+                                </InputAdornment>
+                            }
+                        />
+                        <div className="help-text">
+                            <p className="text-bond-desc">Transaction may revert if price changes by more than slippage %</p>
+                        </div>
+                    </FormControl>
 
-          <InputLabel htmlFor="recipient">
-            <p className="input-lable">Recipient Address</p>
-          </InputLabel>
-          <FormControl variant="outlined" color="primary" fullWidth>
-            <OutlinedInput
-              className="bond-input"
-              id="recipient"
-              value={recipientAddress}
-              onChange={onRecipientAddressChange}
-              type="text"
-            />
-            <div className="help-text">
-              <p className="text-bond-desc">
-                Choose recipient address. By default, this is your currently connected address
-              </p>
-            </div>
-          </FormControl>
-        </Box>
-      </Paper>
-    </Modal>
-  );
+                    <InputLabel htmlFor="recipient">
+                        <p className="input-lable">Recipient Address</p>
+                    </InputLabel>
+                    <FormControl variant="outlined" color="primary" fullWidth>
+                        <OutlinedInput className="bond-input" id="recipient" value={recipientAddress} onChange={onRecipientAddressChange} type="text" />
+                        <div className="help-text">
+                            <p className="text-bond-desc">Choose recipient address. By default, this is your currently connected address</p>
+                        </div>
+                    </FormControl>
+                </Box>
+            </Paper>
+        </Modal>
+    );
 }
 
 export default AdvancedSettings;

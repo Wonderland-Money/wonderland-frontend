@@ -1,9 +1,9 @@
-export { abi as MimBondContract } from "./bonds/MimContract.json";
-export { abi as MimTimeBondContract } from "./bonds/MimTimeContract.json";
+export { abi as StableBondContract } from "./bonds/StableContract.json";
+export { abi as LpBondContract } from "./bonds/LpContract.json";
 export { abi as WavaxBondContract } from "./bonds/WavaxContract.json";
 
-export { abi as MimReserveContract } from "./reserves/MimContract.json";
-export { abi as MimTimeReserveContract } from "./reserves/MimTimeContract.json";
+export { abi as StableReserveContract } from "./reserves/StableContract.json";
+export { abi as LpReserveContract } from "./reserves/LpContract.json";
 
 export { abi as MemoTokenContract } from "./tokens/MemoContract.json";
 export { abi as TimeTokenContract } from "./tokens/TimeContract..json";

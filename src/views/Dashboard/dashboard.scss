@@ -5,46 +5,47 @@
   flex-direction: column;
   overflow: hidden;
 
-  .dashboard-paper{
-    background-color: rgba(0, 0, 0, 0) !important;
-    backdrop-filter: none;
-  }
+  width: 89%;
+  max-width: 833px;
+  margin: auto;
 
-  .dashboard-card{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
+  .dashboard-infos-wrap{
+    .dashboard-card{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
 
-  .ohm-card {
-    white-space: nowrap;
-    width: auto;
-    margin: auto;
+      position: relative;
+      z-index: 2;
+      
+      @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(100px);
+      }
+    
+      /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+      @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+        background: #181B1C;
+      }
 
-    .card-title {
-      font-family: Montserrat Medium;
-      font-weight: 500;
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.6);
+      border-radius: 10px;
+      padding: 13px 0;
+
+      .card-title {
+        font-family: Montserrat Medium;
+        font-weight: 500;
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+  
+      .card-value {
+        font-family: Montserrat Bold;
+        font-weight: bold;
+        font-size: 24px;
+        font-weight: bold;
+        color: #FFFFFF;
+      }
     }
-
-    .card-value {
-      font-family: Montserrat Bold;
-      font-weight: bold;
-      font-size: 20px;
-      color: #FFFFFF;
-    }
-  }
-}
-
-.top-row-data {
-  position: sticky;
-  overflow: hidden;
-  flex-wrap: wrap;
-  z-index: 5;
-
-  h5 {
-    font-weight: 600 !important;
   }
 }

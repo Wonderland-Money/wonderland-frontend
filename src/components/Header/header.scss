@@ -1,0 +1,32 @@
+.dapp-topbar {
+  width: 89%;
+  max-width: 833px;
+  align-items: center;
+  margin: auto;
+
+  .dapp-topbar-slider-btn{
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 16px;
+  }
+
+  .dapp-topbar-btns-wrap{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .dapp-topbar{
+    .dapp-topbar-slider-btn{
+      display: none;
+    }
+  }
+}

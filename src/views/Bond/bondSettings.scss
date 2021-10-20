@@ -13,7 +13,7 @@
 
   /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
   @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-    background: rgba(46, 102, 187, 0.95);
+    background: rgba(0, 0, 0, 0.8);
   }
   
   .ohm-popover {
@@ -21,8 +21,11 @@
     display: flex;
     flex-direction: column;
 
-    background: rgba(0, 0, 0, 0.2);
+    background: #181B1C;
     backdrop-filter: blur(100px);
+
+    padding: 20px;
+    border-radius: 10px;
 
     h3 {
       align-self: center;

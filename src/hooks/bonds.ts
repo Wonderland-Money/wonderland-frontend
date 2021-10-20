@@ -1,64 +1,47 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import orderBy from "lodash/orderBy";
+import allBonds from "../helpers/bond";
+import { IUserBondDetails } from "../store/slices/account-slice";
+import { Bond } from "../helpers/bond/bond";
+import { IBondDetails, IBondSlice } from "../store/slices/bond-slice";
 import { IReduxState } from "../store/slices/state.interface";
 
-export const makeBondsArray = (
-  mimBondDiscount?: string | number,
-  mimTimeBondDiscount?: string | number,
-  avaxTimeBondDiscount?: string | number,
-  wavaxBondDiscount?: string | number,
-) => {
-  return [
-    {
-      name: "MIM",
-      value: "mim",
-      discount: Number(mimBondDiscount),
-    },
-    {
-      name: "TIME-AVAX LP",
-      value: "avax_time_lp",
-      discount: Number(avaxTimeBondDiscount),
-    },
-    {
-      name: "TIME-MIM LP",
-      value: "mim_time_lp",
-      discount: Number(mimTimeBondDiscount),
-    },
-    {
-      name: "wAVAX",
-      value: "wavax",
-      discount: Number(wavaxBondDiscount),
-    },
-  ];
-};
+// Smash all the interfaces together to get the BondData Type
+export interface IAllBondData extends Bond, IBondDetails, IUserBondDetails {}
 
-const BONDS_ARRAY = makeBondsArray();
+const initialBondArray = allBonds;
+// Slaps together bond data within the account & bonding states
+function useBonds() {
+    const bondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading);
+    const bondState = useSelector<IReduxState, IBondSlice>(state => state.bonding);
+    const accountBondsState = useSelector<IReduxState, { [key: string]: IUserBondDetails }>(state => state.account.bonds);
+    //@ts-ignore
+    const [bonds, setBonds] = useState<IAllBondData[]>(initialBondArray);
 
-export const useBonds = () => {
-  const mimBondDiscount = useSelector<IReduxState, number>(state => {
-    return state.bonding["mim"] && state.bonding["mim"].bondDiscount;
-  });
+    useEffect(() => {
+        let bondDetails: IAllBondData[];
+        bondDetails = allBonds
+            .flatMap(bond => {
+                if (bondState[bond.name] && bondState[bond.name].bondDiscount) {
+                    return Object.assign(bond, bondState[bond.name]); // Keeps the object type
+                }
+                return bond;
+            })
+            .flatMap(bond => {
+                if (accountBondsState[bond.name]) {
+                    return Object.assign(bond, accountBondsState[bond.name]);
+                }
+                return bond;
+            });
 
-  const mimTimeDiscount = useSelector<IReduxState, number>(state => {
-    return state.bonding["mim_time_lp"] && state.bonding["mim_time_lp"].bondDiscount;
-  });
+        const mostProfitableBonds = bondDetails.concat().sort((a, b) => {
+            return a["bondDiscount"] > b["bondDiscount"] ? -1 : b["bondDiscount"] > a["bondDiscount"] ? 1 : 0;
+        });
 
-  const avaxTimeDiscount = useSelector<IReduxState, number>(state => {
-    return state.bonding["avax_time_lp"] && state.bonding["avax_time_lp"].bondDiscount;
-  });
+        setBonds(mostProfitableBonds);
+    }, [bondState, accountBondsState, bondLoading]);
 
-  const wAvaxDiscount = useSelector<IReduxState, number>(state => {
-    return state.bonding["wavax"] && state.bonding["wavax"].bondDiscount;
-  });
+    return { bonds, loading: bondLoading };
+}
 
-  const [bonds, setBonds] = useState(BONDS_ARRAY);
-
-  useEffect(() => {
-    const bondValues = makeBondsArray(mimBondDiscount, mimTimeDiscount, avaxTimeDiscount, wAvaxDiscount);
-    const mostProfitableBonds = orderBy(bondValues, "discount", "desc");
-    setBonds(mostProfitableBonds);
-  }, [mimBondDiscount, mimTimeDiscount, avaxTimeDiscount, wAvaxDiscount]);
-
-  return bonds;
-};
+export default useBonds;

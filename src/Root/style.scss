@@ -19,58 +19,6 @@ body {
   box-sizing: border-box;
 }
 
-.app {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-flow: column;
-  flex-direction: column;
-  z-index: 1;
-  background-size: cover;
-  font-family: "Square";
-  overflow: hidden;
-  // transform: translate3d(0, 0, 0);
-  // -webkit-transform: translate3d(0, 0, 0);
-}
-
-.MuiDrawer-paperAnchorDockedLeft {
-  border-right: 0 !important;
-}
-
-.ohm-card {
-  .card-header {
-    width: 100%;
-    min-height: 2rem;
-    h5 {
-      font-weight: 600 !important;
-    }
-  }
-  .card-content {
-    width: 100%;
-    position: relative;
-    align-items: left;
-    justify-content: center;
-    flex-flow: column;
-    height: 100%;
-  }
-
-  .help-text {
-    margin: 10px 0px;
-  }
-
-  .data-row {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    margin: 12px 0px;
-  }
-}
-
-.ohm-pairs {
-  display: flex;
-  align-items: center;
-}
-
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none !important;
@@ -78,21 +26,6 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield !important;
-}
-
-a:hover svg {
-  color: inherit;
-}
-
-.root-background{
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('../assets/icons/background.png');
-  background-size: cover;
-  z-index: -1;
 }
 
 p{
@@ -105,7 +38,7 @@ p{
   backdrop-filter: blur(100px) !important;
 
   .web3modal-modal-card{
-    background: rgba(0, 0, 0, 0.2);
+    background: #181B1C;
     backdrop-filter: blur(100px);
     border-radius: 10px;
 
@@ -150,7 +83,7 @@ p{
 
   /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
   @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-    background: rgba(46, 102, 187, 0.95) !important;
+    background: rgba(0, 0, 0, 0.8);
   }
 
   .walletconnect-modal__base{
@@ -158,13 +91,13 @@ p{
     padding: 30px 20px 20px 20px;
 
     @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-      background: rgba(0, 0, 0, 0.2);
+      background: #181B1C;
       backdrop-filter: blur(100px);
     }
   
     /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
     @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-      background: rgba(0, 0, 0, 0.4);
+      background: #181B1C;
     }
 
     .walletconnect-modal__header{

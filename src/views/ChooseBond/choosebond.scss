@@ -1,61 +1,124 @@
-#choose-bond-view {
+.choose-bond-view{
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   overflow: hidden;
-  .ohm-card .bond-hero h4 {
-    font-weight: 600 !important;
 
-    .MuiSkeleton-root {
-      margin: auto;
+  width: 89%;
+  max-width: 833px;
+  margin: auto;
+
+  .choose-bond-view-card{
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+
+    position: relative;
+    z-index: 2;
+    
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      background: rgba(36, 39, 41, 0.1);
+      backdrop-filter: blur(40px);
     }
-  }
-  .ohm-logo-bg {
-    margin-left: 0;
-    border-radius: 20px;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    height: 40px;
-    width: 40px;
-  }
+  
+    /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+      background: #181B1C;
+    }
 
-  .bond-data-card {
-    margin: auto !important;
-    .bond-pair {
-      display: flex !important;
-      align-items: center;
-      justify-content: left;
-      margin-bottom: 15px;
-      .MuiBox-root {
-        margin-right: 10px;
-      }
-      .bond-name {
-        svg {
-          margin-left: 5px;
-          vertical-align: middle;
-          font-size: 15px;
-        }
+    .choose-bond-view-card-header{
+      .choose-bond-view-card-title{
+        font-family: Montserrat Bold;
+        font-weight: bold;
+        font-size: 20px;
+        color: #FFFFFF;
       }
     }
-    .data-row {
-      margin-bottom: 13px;
 
-      .bond-price {
+    .choose-bond-view-card-metrics{
+      margin: 30px 0;
+      
+      .choose-bond-view-card-metrics-title{
+        font-family: Montserrat Medium;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        color: rgba(255, 255, 255, 0.6);
+      }
+    
+      .choose-bond-view-card-metrics-value{
+        font-family: Montserrat Bold;
+        font-weight: bold;
+        font-size: 24px;
+        line-height: 29px;
+        color: #FFFFFF;
         display: flex;
         align-items: center;
-
-        svg {
-          margin-right: 5px;
-        }
+        flex-direction: column;
       }
     }
-    .bond-link {
-      margin-top: 10px;
-      text-align: center;
-      a {
-        width: 96%;
+
+    .choose-bond-view-card-table{
+      .choose-bond-view-card-table-title{
+        font-family: Montserrat SemiBold;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: #FFFFFF;
+      }
+    }
+  }
+
+  .choose-bond-view-card-container{
+    margin-top: 16px;
+
+    .bond-data-card {
+      margin: auto !important;
+      background: rgba(36, 39, 41, 0.1);
+      backdrop-filter: blur(40px);
+      border-radius: 10px;
+      padding: 20px;
+      width: 100%;
+
+      .bond-pair {
+        display: flex !important;
+        align-items: center;
+        justify-content: left;
+        margin-bottom: 15px;
+        .MuiBox-root {
+          margin-right: 10px;
+        }
+        .bond-name {
+          svg {
+            margin-left: 5px;
+            vertical-align: middle;
+            font-size: 15px;
+          }
+        }
+      }
+      .data-row {
+        margin-bottom: 13px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+        margin: 12px 0;
+  
+        .bond-price {
+          display: flex;
+          align-items: center;
+  
+          svg {
+            margin-right: 5px;
+          }
+        }
+      }
+      .bond-link {
+        margin-top: 10px;
+        text-align: center;
+        a {
+          width: 96%;
+        }
       }
     }
   }
@@ -63,6 +126,33 @@
   .currency-icon {
     display: inline-block;
     min-width: 15px;
+  }
+
+  .bond-name-title{
+    font-family: Montserrat SemiBold;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+  }
+
+  .bond-table-btn{
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid #2C276D;
+    border-radius: 10px;
+    padding: 6px 35.5px;
+    text-align: center;
+
+    &:hover{
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+  
+    p{
+      font-family: Montserrat Semibold;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      color: #FFFFFF;
+    }
   }
 
   .MuiTable-root {
@@ -89,6 +179,8 @@
     &.MuiTableCell-alignLeft {
       display: flex;
     }
+
+    border-bottom: none;
   }
 
   .MuiTableBody-root .MuiTableRow-root .MuiTableCell-alignLeft {
@@ -136,75 +228,8 @@
   }
 }
 
-.bond-title{
-  font-family: Montserrat Bold;
-  font-weight: bold;
-  font-size: 20px;
-  color: #FFFFFF;
-}
-
-.bond-hero{
-  .bond-hero-title{
-    font-family: Montserrat Medium;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    color: rgba(255, 255, 255, 0.6);
+@media screen and (max-width: 1240px) {
+  .choose-bond-view{
+    width: 100%;
   }
-
-  .bond-hero-value{
-    font-family: Montserrat Bold;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 29px;
-    color: #FFFFFF;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-}
-
-.bond-table-title{
-  font-family: Montserrat SemiBold;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  color: #FFFFFF;
-}
-
-.bond-name-title{
-  font-family: Montserrat SemiBold;
-  font-weight: 600;
-  font-size: 14px;
-  color: #FFFFFF;
-}
-
-.bond-table-btn{
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid #2C276D;
-  border-radius: 10px;
-  padding: 6px 35.5px;
-  text-align: center;
-
-  p{
-    font-family: Montserrat Semibold;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 16px;
-    color: #FFFFFF;
-  }
-}
-
-@media screen and (max-width: 417px) {
-  .bond-hero-title{
-    font-size: 14px !important;
-  }
-
-  .bond-hero-value{
-    font-size: 16px !important;
-  }
-}
-
-.ohm-card-container{
-  width: 100%;
 }

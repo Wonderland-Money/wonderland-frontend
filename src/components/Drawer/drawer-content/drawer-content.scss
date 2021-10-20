@@ -1,0 +1,159 @@
+.dapp-sidebar {
+  height: 100vh;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+
+  .branding-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin: 20px 0 63px 0;
+
+    .wallet-link {
+      margin: 10px;
+  
+      p{
+        color: #FFFFFF;
+      }
+    }
+  }
+
+  .dapp-menu-links{
+    display: flex;
+    align-items: center;
+
+    .dapp-nav {
+      display: flex;
+      flex-flow: column;
+
+      a {
+        margin-top: 20px;
+        margin-left: 20px;
+        align-items: center;
+        margin-bottom: 20px;
+
+        img {
+          width: 20px;
+          height: 20px;
+          margin-right: 10px;
+          vertical-align: -4px;
+        }
+      }
+
+      .button-dapp-menu{
+        .dapp-menu-item{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        
+          p{
+            font-weight: 600;
+            font-size: 16px;
+            color: #FFFFFF;
+            font-family: Montserrat SemiBold;
+          }
+        }
+      }
+
+      .button-dapp-menu.active {
+        .dapp-menu-item{
+          p{
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .bond-discounts {
+        text-align: left;
+        padding-left: 54px;
+      
+        a{
+          margin-left: 0;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
+      
+        p{
+          font-family: Montserrat;
+          font-size: 14px;
+          line-height: 17px;
+          color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .bond {
+          display: block;
+          padding: unset;
+          margin-bottom: 0 0 1px 0;
+          text-decoration: none !important;
+          .bond-pair-roi {
+            float: right;
+            margin-left: 33px;
+          }
+        }
+      }
+    }
+  }
+
+  .dapp-menu-doc-link{
+    margin-top: auto;
+    
+    a {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+
+      p{
+        font-family: Montserrat SemiBold;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: #FFFFFF;
+      }
+    }
+  }
+
+  .social-row {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-evenly;
+    padding: 1.3rem;
+    a {
+      &:hover {
+        transform: scale(1.1);
+      }
+      img {
+        height: 20px;
+        width: 20px;
+      }
+    }
+  }
+}
+
+.MuiDrawer-root{
+  .MuiPaper-root{
+    
+    z-index: 7;
+
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      background: rgba(36, 39, 41, 0.1);
+      backdrop-filter: blur(40px);
+    }
+  
+    /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+      background: #181B1C;
+    }
+  }
+}

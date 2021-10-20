@@ -4,21 +4,23 @@ import { StakingHelperContract, TimeTokenContract, MemoTokenContract, StakingCon
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
-import { JsonRpcProvider } from "@ethersproject/providers";
+import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
+import { Networks } from "../../constants/blockchain";
+import { warning, success, info, error } from "../../store/slices/messages-slice";
+import { messages } from "../../constants/messages";
+import { getGasPrice } from "../../helpers/get-gas-price";
 
 interface IChangeApproval {
-  token: string;
-  provider: JsonRpcProvider;
-  address: string;
-  networkID: number;
+    token: string;
+    provider: StaticJsonRpcProvider | JsonRpcProvider;
+    address: string;
+    networkID: Networks;
 }
 
-export const changeApproval = createAsyncThunk(
-  "stake/changeApproval",
-  async ({ token, provider, address, networkID }: IChangeApproval, { dispatch }) => {
+export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ token, provider, address, networkID }: IChangeApproval, { dispatch }) => {
     if (!provider) {
-      alert("Please connect your wallet!");
-      return;
+        dispatch(warning({ text: messages.please_connect_wallet }));
+        return;
     }
     const addresses = getAddresses(networkID);
 
@@ -28,57 +30,56 @@ export const changeApproval = createAsyncThunk(
 
     let approveTx;
     try {
-      if (token === "time") {
-        approveTx = await timeContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256);
-      }
+        const gasPrice = await getGasPrice(provider);
 
-      if (token === "memo") {
-        approveTx = await memoContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256);
-      }
+        if (token === "time") {
+            approveTx = await timeContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        }
 
-      const text = "Approve " + (token === "time" ? "Staking" : "Unstaking");
-      const pendingTxnType = token === "time" ? "approve_staking" : "approve_unstaking";
+        if (token === "memo") {
+            approveTx = await memoContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        }
 
-      dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
+        const text = "Approve " + (token === "time" ? "Staking" : "Unstaking");
+        const pendingTxnType = token === "time" ? "approve_staking" : "approve_unstaking";
 
-      await approveTx.wait();
-    } catch (error: any) {
-      alert(error.message);
-      return;
+        dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
+        dispatch(success({ text: messages.tx_successfully_send }));
+        await approveTx.wait();
+    } catch (err: any) {
+        dispatch(error({ text: messages.something_wrong, error: err.message }));
+        return;
     } finally {
-      if (approveTx) {
-        dispatch(clearPendingTxn(approveTx.hash));
-      }
+        if (approveTx) {
+            dispatch(clearPendingTxn(approveTx.hash));
+        }
     }
 
     const stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
-    const unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS); //TODO
+    const unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(
-      fetchAccountSuccess({
-        staking: {
-          timeStake: +stakeAllowance,
-          memoUnstake: +unstakeAllowance,
-        },
-      }),
+        fetchAccountSuccess({
+            staking: {
+                timeStake: Number(stakeAllowance),
+                memoUnstake: Number(unstakeAllowance),
+            },
+        }),
     );
-  },
-);
+});
 
 interface IChangeStake {
-  action: string;
-  value: string;
-  provider: JsonRpcProvider;
-  address: string;
-  networkID: number;
+    action: string;
+    value: string;
+    provider: StaticJsonRpcProvider | JsonRpcProvider;
+    address: string;
+    networkID: Networks;
 }
 
-export const changeStake = createAsyncThunk(
-  "stake/changeStake",
-  async ({ action, value, provider, address, networkID }: IChangeStake, { dispatch }) => {
+export const changeStake = createAsyncThunk("stake/changeStake", async ({ action, value, provider, address, networkID }: IChangeStake, { dispatch }) => {
     if (!provider) {
-      alert("Please connect your wallet!");
-      return;
+        dispatch(warning({ text: messages.please_connect_wallet }));
+        return;
     }
     const addresses = getAddresses(networkID);
     const signer = provider.getSigner();
@@ -88,27 +89,30 @@ export const changeStake = createAsyncThunk(
     let stakeTx;
 
     try {
-      if (action === "stake") {
-        stakeTx = await stakingHelper.stake(ethers.utils.parseUnits(value, "gwei"), address);
-      } else {
-        stakeTx = await staking.unstake(ethers.utils.parseUnits(value, "gwei"), true);
-      }
-      const pendingTxnType = action === "stake" ? "staking" : "unstaking";
-      dispatch(fetchPendingTxns({ txnHash: stakeTx.hash, text: getStakingTypeText(action), type: pendingTxnType }));
-      await stakeTx.wait();
-    } catch (error: any) {
-      if (error.code === -32603 && error.message.indexOf("ds-math-sub-underflow") >= 0) {
-        alert("You may be trying to stake more than your balance! Error code: 32603. Message: ds-math-sub-underflow");
-      } else {
-        alert(error.message);
-      }
-      return;
+        const gasPrice = await getGasPrice(provider);
+
+        if (action === "stake") {
+            stakeTx = await stakingHelper.stake(ethers.utils.parseUnits(value, "gwei"), address, { gasPrice });
+        } else {
+            stakeTx = await staking.unstake(ethers.utils.parseUnits(value, "gwei"), true, { gasPrice });
+        }
+        const pendingTxnType = action === "stake" ? "staking" : "unstaking";
+        dispatch(fetchPendingTxns({ txnHash: stakeTx.hash, text: getStakingTypeText(action), type: pendingTxnType }));
+        dispatch(success({ text: messages.tx_successfully_send }));
+        await stakeTx.wait();
+    } catch (err: any) {
+        if (err.code === -32603 && err.message.indexOf("ds-math-sub-underflow") >= 0) {
+            dispatch(error({ text: "You may be trying to stake more than your balance! Error code: 32603. Message: ds-math-sub-underflow", error: err }));
+        } else {
+            dispatch(error({ text: messages.something_wrong, error: err }));
+        }
+        return;
     } finally {
-      if (stakeTx) {
-        dispatch(clearPendingTxn(stakeTx.hash));
-      }
+        if (stakeTx) {
+            dispatch(clearPendingTxn(stakeTx.hash));
+        }
     }
     dispatch(getBalances({ address, networkID, provider }));
+    dispatch(info({ text: messages.your_balance_updated }));
     return;
-  },
-);
+});

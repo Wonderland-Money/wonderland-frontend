@@ -3,12 +3,24 @@ import Root from "./Root";
 import store from "./store/store";
 import { Provider } from "react-redux";
 import { Web3ContextProvider } from "./hooks";
+import { SnackbarProvider } from "notistack";
+import SnackMessage from "./components/Messages/snackbar";
 
 ReactDOM.render(
-  <Web3ContextProvider>
-    <Provider store={store}>
-      <Root />
-    </Provider>
-  </Web3ContextProvider>,
-  document.getElementById("root"),
+    <SnackbarProvider
+        maxSnack={4}
+        anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+        }}
+        content={(key, message: string) => <SnackMessage id={key} message={JSON.parse(message)} />}
+        autoHideDuration={3 * 60000}
+    >
+        <Provider store={store}>
+            <Web3ContextProvider>
+                <Root />
+            </Web3ContextProvider>
+        </Provider>
+    </SnackbarProvider>,
+    document.getElementById("root"),
 );

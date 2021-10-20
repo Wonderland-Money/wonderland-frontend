@@ -1,24 +1,22 @@
-import { isBondLP, getTokenImage, getPairImage } from "../helpers";
 import { Box } from "@material-ui/core";
+import { Bond } from "../helpers/bond/bond";
 
-interface IBondHeaderProps {
-  bond: string;
+interface IBondLogoProps {
+    bond: Bond;
 }
 
-function BondHeader({ bond }: IBondHeaderProps) {
-  const reserveAssetImg = () => {
-    if (bond.indexOf("mim") >= 0) {
-      return getTokenImage("mim");
-    } else if (bond.indexOf("wavax") >= 0) {
-      return getTokenImage("wavax");
+function BondLogo({ bond }: IBondLogoProps) {
+    let style = { height: "32px", width: "32px" };
+
+    if (bond.isLP) {
+        style = { height: "30px", width: "62px" };
     }
-  };
 
-  return (
-    <Box display="flex" alignItems="center" justifyContent="center" width={"64px"}>
-      {isBondLP(bond) ? getPairImage(bond) : reserveAssetImg()}
-    </Box>
-  );
+    return (
+        <Box display="flex" alignItems="center" justifyContent="center" width={"64px"}>
+            <img src={bond.bondIconSvg} style={style} />
+        </Box>
+    );
 }
 
-export default BondHeader;
+export default BondLogo;

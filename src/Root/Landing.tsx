@@ -6,22 +6,22 @@ import Landing from "../views/Landing";
 import "./style.scss";
 
 function App() {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const { provider, chainID, connected } = useWeb3Context();
+    const { provider, chainID, connected } = useWeb3Context();
 
-  const loadApp = useCallback(
-    loadProvider => {
-      dispatch(loadAppDetails({ networkID: chainID, provider: loadProvider }));
-    },
-    [connected],
-  );
+    const loadApp = useCallback(
+        loadProvider => {
+            dispatch(loadAppDetails({ networkID: chainID, provider: loadProvider }));
+        },
+        [connected],
+    );
 
-  useEffect(() => {
-    loadApp(provider);
-  }, []);
+    useEffect(() => {
+        loadApp(provider);
+    }, []);
 
-  return <Landing />;
+    return <Landing />;
 }
 
 export default App;
