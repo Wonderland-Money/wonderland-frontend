@@ -1,3 +1,3 @@
 export const getMainnetURI = (): string => {
-    return "https://api.avax.network/ext/bc/C/rpc";
+    return "https://api.s0.t.hmny.io/";
 };
