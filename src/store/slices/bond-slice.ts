@@ -126,8 +126,8 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         bondPrice = await bondContract.bondPriceInUSD();
 
         if (bond.name === avaxTime.name) {
-            const avaxPrice = getTokenPrice("AVAX");
-            bondPrice = bondPrice * avaxPrice;
+            const onePrice = getTokenPrice("ONE");
+            bondPrice = bondPrice * onePrice;
         }
 
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
@@ -170,13 +170,13 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         purchased = (markdown / Math.pow(10, 18)) * (purchased / Math.pow(10, 9));
 
         if (bond.name === avaxTime.name) {
-            const avaxPrice = getTokenPrice("AVAX");
-            purchased = purchased * avaxPrice;
+            const onePrice = getTokenPrice("ONE");
+            purchased = purchased * onePrice;
         }
     } else if (bond.name === wavax.name) {
         purchased = purchased / Math.pow(10, 18);
-        const avaxPrice = getTokenPrice("AVAX");
-        purchased = purchased * avaxPrice;
+        const onePrice = getTokenPrice("ONE");
+        purchased = purchased * onePrice;
     } else {
         purchased = purchased / Math.pow(10, 18);
     }
