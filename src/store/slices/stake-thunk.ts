@@ -25,23 +25,24 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const addresses = getAddresses(networkID);
 
     const signer = provider.getSigner();
-    const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, signer);
-    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, signer);
+    // TODO: update addresses to PSI and sPSI
+    const psiContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, signer);
+    const sPsiContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, signer);
 
     let approveTx;
     try {
         const gasPrice = await getGasPrice(provider);
 
-        if (token === "time") {
-            approveTx = await timeContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        if (token === "psi") {
+            approveTx = await psiContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        if (token === "memo") {
-            approveTx = await memoContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        if (token === "spsi") {
+            approveTx = await sPsiContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        const text = "Approve " + (token === "time" ? "Staking" : "Unstaking");
-        const pendingTxnType = token === "time" ? "approve_staking" : "approve_unstaking";
+        const text = "Approve " + (token === "psi" ? "Staking" : "Unstaking");
+        const pendingTxnType = token === "psi" ? "approve_staking" : "approve_unstaking";
 
         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
         dispatch(success({ text: messages.tx_successfully_send }));
@@ -55,8 +56,8 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
         }
     }
 
-    const stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
-    const unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
+    const stakeAllowance = await psiContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
+    const unstakeAllowance = await sPsiContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(
         fetchAccountSuccess({
