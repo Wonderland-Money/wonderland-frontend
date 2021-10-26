@@ -25,8 +25,8 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const addresses = getAddresses(networkID);
 
     const signer = provider.getSigner();
-    const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, signer);
-    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, signer);
+    const timeContract = new ethers.Contract(addresses.PSI_ADDRESS, TimeTokenContract, signer);
+    const memoContract = new ethers.Contract(addresses.SPSI_ADDRESS, MemoTokenContract, signer);
 
     let approveTx;
     try {

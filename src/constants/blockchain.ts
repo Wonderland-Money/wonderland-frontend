@@ -4,4 +4,4 @@ export enum Networks {
     AVAX = 43114,
 }
 
-export const DEFAULD_NETWORK = Networks.AVAX;
+export const DEFAULT_NETWORK = Networks.AVAX;

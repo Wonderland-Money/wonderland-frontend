@@ -24,7 +24,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
     const { provider, address, chainID, checkWrongNetwork } = useWeb3Context();
 
     const [quantity, setQuantity] = useState("");
-    const [useAvax, setUseAvax] = useState(false);
+    const [useFrax, setUseFrax] = useState(false);
     const [secondsToRefresh, setSecondsToRefresh] = useState(SECONDS_TO_REFRESH);
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
@@ -58,7 +58,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                         networkID: chainID,
                         provider,
                         address: recipientAddress || address,
-                        useAvax,
+                        useFrax,
                     }),
                 );
                 clearInput();
@@ -74,7 +74,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     networkID: chainID,
                     provider,
                     address: recipientAddress || address,
-                    useAvax,
+                    useFrax,
                 }),
             );
             clearInput();
@@ -90,7 +90,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
     }, [bond.allowance]);
 
     const setMax = () => {
-        const amount = Math.min(bond.maxBondPriceToken, useAvax ? bond.avaxBalance * 0.99 : bond.balance);
+        const amount = Math.min(bond.maxBondPriceToken, useFrax ? bond.avaxBalance * 0.99 : bond.balance);
         setQuantity((amount || "").toString());
     };
 
@@ -120,16 +120,16 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
         dispatch(changeApproval({ address, bond, provider, networkID: chainID }));
     };
 
-    const displayUnits = useAvax ? "AVAX" : bond.displayUnits;
+    const displayUnits = useFrax ? "FRAX" : bond.displayUnits;
 
     return (
         <Box display="flex" flexDirection="column">
             <Box display="flex" justifyContent="space-around" flexWrap="wrap">
-                {bond.name === "wavax" && (
+                {bond.name === "frax" && (
                     <FormControl className="ohm-input" variant="outlined" color="primary" fullWidth>
-                        <div className="avax-checkbox">
-                            <input type="checkbox" checked={useAvax} onClick={() => setUseAvax(!useAvax)} />
-                            <p>Use AVAX</p>
+                        <div className="frax-checkbox">
+                            <input type="checkbox" checked={useFrax} onClick={() => setUseFrax(!useFrax)} />
+                            <p>Use FRAX</p>
                         </div>
                     </FormControl>
                 )}
@@ -150,7 +150,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                         }
                     />
                 </FormControl>
-                {hasAllowance() || useAvax ? (
+                {hasAllowance() || useFrax ? (
                     <div
                         className="transaction-button bond-approve-btn"
                         onClick={async () => {
@@ -172,7 +172,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     </div>
                 )}
 
-                {!hasAllowance() && !useAvax && (
+                {!hasAllowance() && !useFrax && (
                     <div className="help-text">
                         <p className="help-text-desc">
                             Note: The "Approve" transaction is only needed when minting for the first time; subsequent minting only requires you to perform the "Mint" transaction.
@@ -190,7 +190,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                                 <Skeleton width="100px" />
                             ) : (
                                 <>
-                                    {trim(useAvax ? bond.avaxBalance : bond.balance, 4)} {displayUnits}
+                                    {trim(useFrax ? bond.avaxBalance : bond.balance, 4)} {displayUnits}
                                 </>
                             )}
                         </p>
