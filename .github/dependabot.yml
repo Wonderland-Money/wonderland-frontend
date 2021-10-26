@@ -4,7 +4,7 @@ updates:
     directory: '/'
     open-pull-requests-limit: 5
     reviewers:
-      - 'Abracadabra-money/wonderland-frontend'
+      - '0xMaaz/trident-frontend'
     schedule:
       interval: 'daily'
       time: '04:00'
