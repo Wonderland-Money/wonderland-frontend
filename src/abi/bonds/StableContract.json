@@ -2,7 +2,7 @@
     "abi": [{
         "inputs": [{
             "internalType": "address",
-            "name": "_Time",
+            "name": "_Mim",
             "type": "address"
         }, {
             "internalType": "address",
@@ -155,7 +155,7 @@
         "type": "function"
     }, {
         "inputs": [],
-        "name": "Time",
+        "name": "Psi",
         "outputs": [{
             "internalType": "address",
             "name": "",
@@ -501,7 +501,7 @@
         "type": "function"
     }, {
         "inputs": [{
-            "internalType": "enum TimeBondDepository.PARAMETER",
+            "internalType": "enum PsiBondDepository.PARAMETER",
             "name": "_parameter",
             "type": "uint8"
         }, {

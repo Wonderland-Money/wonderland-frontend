@@ -10,7 +10,6 @@ import { Bond } from "../../helpers/bond/bond";
 import { Networks } from "../../constants/blockchain";
 import { getBondCalculator } from "../../helpers/bond-calculator";
 import { RootState } from "../store";
-import { avaxTime, wavax } from "../../helpers/bond";
 import { error, warning, success, info } from "../slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
@@ -113,10 +112,6 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     const maxBondPrice = (await bondContract.maxPayout()) / Math.pow(10, 9);
     let debtRatio = (await bondContract.standardizedDebtRatio()) / Math.pow(10, 9);
 
-    if (bond.isLP) {
-        debtRatio = debtRatio / Math.pow(10, 7);
-    }
-
     let marketPrice = await getMarketPrice(networkID, provider);
 
     const mimPrice = getTokenPrice("MIM");
@@ -124,12 +119,6 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     try {
         bondPrice = await bondContract.bondPriceInUSD();
-
-        if (bond.name === avaxTime.name) {
-            const avaxPrice = getTokenPrice("AVAX");
-            bondPrice = bondPrice * avaxPrice;
-        }
-
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
     } catch (e) {
         console.log("error getting bondPriceInUSD", e);
@@ -168,16 +157,16 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
         purchased = await bondCalcContract.valuation(assetAddress, purchased);
         purchased = (markdown / Math.pow(10, 18)) * (purchased / Math.pow(10, 9));
-
+        /*
         if (bond.name === avaxTime.name) {
             const avaxPrice = getTokenPrice("AVAX");
             purchased = purchased * avaxPrice;
-        }
-    } else if (bond.name === wavax.name) {
+        }*/
+    } /*else if (bond.name === wavax.name) {
         purchased = purchased / Math.pow(10, 18);
         const avaxPrice = getTokenPrice("AVAX");
         purchased = purchased * avaxPrice;
-    } else {
+    }*/ else {
         purchased = purchased / Math.pow(10, 18);
     }
 
