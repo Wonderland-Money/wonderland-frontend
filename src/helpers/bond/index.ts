@@ -1,13 +1,12 @@
 import { Networks } from "../../constants/blockchain";
-import { LPBond, CustomLPBond } from "./lp-bond";
-import { StableBond, CustomBond } from "./stable-bond";
+import { LPBond } from "./lp-bond";
+import { StableBond } from "./stable-bond";
 
 import MimIcon from "../../assets/tokens/MIM.svg";
-import AvaxIcon from "../../assets/tokens/AVAX.svg";
-import MimTimeIcon from "../../assets/tokens/TIME-MIM.svg";
-import AvaxTimeIcon from "../../assets/tokens/TIME-AVAX.svg";
+import FraxIcon from "../../assets/tokens/FRAX.svg";
+import MimPsiIcon from "../../assets/tokens/PSI-MIM.svg";
 
-import { StableBondContract, LpBondContract, WavaxBondContract, StableReserveContract, LpReserveContract } from "../../abi";
+import { StableBondContract, LpBondContract, StableReserveContract, LpReserveContract } from "../../abi";
 
 export const mim = new StableBond({
     name: "mim",
@@ -24,12 +23,12 @@ export const mim = new StableBond({
     },
 });
 
-export const wone = new CustomBond({
-    name: "wone",
-    displayName: "wONE",
-    bondToken: "ONE",
-    bondIconSvg: AvaxIcon,
-    bondContractABI: WavaxBondContract,
+export const frax = new StableBond({
+    name: "frax",
+    displayName: "FRAX",
+    bondToken: "FRAX",
+    bondIconSvg: FraxIcon,
+    bondContractABI: StableBondContract,
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.ONE]: {
@@ -43,7 +42,7 @@ export const mimPsi = new LPBond({
     name: "mim_psi_lp",
     displayName: "PSI-MIM LP",
     bondToken: "MIM",
-    bondIconSvg: MimTimeIcon,
+    bondIconSvg: MimPsiIcon,
     bondContractABI: LpBondContract,
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
@@ -55,20 +54,4 @@ export const mimPsi = new LPBond({
     lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
 });
 
-export const onePsi = new CustomLPBond({
-    name: "one_psi_lp",
-    displayName: "PSI-ONE LP",
-    bondToken: "ONE",
-    bondIconSvg: AvaxTimeIcon,
-    bondContractABI: LpBondContract,
-    reserveContractAbi: LpReserveContract,
-    networkAddrs: {
-        [Networks.ONE]: {
-            bondAddress: "0xc26850686ce755FFb8690EA156E5A6cf03DcBDE1",
-            reserveAddress: "0xf64e1c5B6E17031f5504481Ac8145F4c3eab4917",
-        },
-    },
-    lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
-});
-
-export default [mim, wone, mimPsi, onePsi];
+export default [mim, frax];

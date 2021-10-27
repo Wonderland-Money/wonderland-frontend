@@ -1,8 +1,8 @@
 {
-  "short_name": "Wonderland",
+  "short_name": "Trident DAO",
   "start_url": ".",
   "homepage": "./",
-  "name": "Wonderland",
+  "name": "Trident DAO",
   "launch_path": "/public/index.html",
   "icons": [
     {
