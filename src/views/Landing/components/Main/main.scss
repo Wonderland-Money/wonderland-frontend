@@ -1,4 +1,6 @@
-.landing-main{
+@use "src/theme.scss";
+
+.landing-main {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -6,87 +8,77 @@
     justify-content: center;
     z-index: 2;
 
-    .landing-main-title-wrap{
+    .landing-main-title-wrap {
         text-align: center;
         margin-top: 80px;
         margin-bottom: 20px;
 
-        p{
+        p {
             font-family: Cinzel Bold;
             font-style: normal;
             font-weight: bold;
             font-size: 55px;
-            color: #FFFFFF;
+            color: #ffffff;
             text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         }
     }
 
-    .landing-main-help-text-wrap{
+    .landing-main-help-text-wrap {
         text-align: center;
         margin-bottom: 20px;
 
-        p{
+        p {
             font-family: Cinzel Medium;
             font-style: normal;
             font-weight: 500;
             font-size: 20px;
-            color: #FFFFFF;
+            color: #ffffff;
         }
     }
 
-    .landing-main-btns-wrap{
+    .landing-main-btns-wrap {
         display: flex;
         flex-direction: row;
 
-        a{
+        a {
             text-decoration: none;
         }
 
-        .landing-main-btn{
-            margin: 0 15px;
-            padding: 14px 26px;
+        .landing-main-btn {
+            @include theme.primary-button();
+            padding: 1rem 2rem;
+            margin: 0 1rem;
             min-width: 200px;
-            background: #232323;
-            box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-            text-align: center;
 
-            p{
-                font-family: Cinzel Semibold;
-                font-style: normal;
-                font-weight: 600;
-                font-size: 18px;
-                line-height: 22px;
-                color: #FFFFFF;
+            &.secondary {
+                background: theme.$platinum;
             }
         }
     }
 }
 
 @media screen and (max-width: 560px) {
-    .landing-main{
-        .landing-main-title-wrap{
-            p{
+    .landing-main {
+        .landing-main-title-wrap {
+            p {
                 font-size: 40px;
             }
-        }   
-        
-        .landing-main-help-text-wrap{
-            p{
+        }
+
+        .landing-main-help-text-wrap {
+            p {
                 font-size: 16px;
             }
         }
     }
 }
 
-
 @media screen and (max-width: 465px) {
-    .landing-main{
-        .landing-main-btns-wrap{
+    .landing-main {
+        .landing-main-btns-wrap {
             flex-direction: column;
 
-            .landing-main-btn{
+            .landing-main-btn {
                 margin: 15px;
             }
         }

@@ -1,55 +1,62 @@
-.landing-header{
+@use "src/theme.scss";
+
+.landing-header {
     padding: 25px 10%;
     display: flex;
     flex-direction: row;
     z-index: 2;
 
-    .landing-header-nav-wrap{
+    #logo {
+        height: 50px;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .landing-header-nav-wrap {
         margin-left: auto;
         display: flex;
         flex-direction: row;
         align-items: center;
         cursor: default;
 
-        .landing-header-nav-text{
+        .landing-header-nav-text {
             font-family: Cinzel Medium;
             font-style: normal;
             font-weight: 500;
             font-size: 16px;
-            color: #FFFFFF;
+            color: #ffffff;
         }
     }
 }
 
-.landing-header-poper{
-    margin-top: 10px;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(100px);
-    border-radius: 10px;
+.landing-header-poper {
+    margin-top: 1rem;
+    @include theme.card();
+    padding: 0;
     overflow: hidden;
     z-index: 100;
 
-    .tooltip{
+    .tooltip {
         display: flex;
         flex-direction: column;
-        
-        .tooltip-item{
+
+        .tooltip-item {
             padding: 13px 20px;
             align-items: center;
             display: flex;
 
-            &:hover{
-                background: rgba(255,255,255,0.1);
+            &:hover {
+                background: theme.$primary-button-hover;
             }
 
-            p{
-                margin-left: 10px;
+            p {
                 font-family: Cinzel SemiBold;
-                font-style: normal;
                 font-weight: 600;
-                font-size: 16px;
+                font-size: 1rem;
                 line-height: 20px;
-                color: #FFFFFF;
+                color: #ffffff;
+                text-align: center;
+                margin-left: 0.7rem;
             }
         }
     }

@@ -20,7 +20,7 @@ function Main() {
                     </div>
                 </Link>
                 <Link href="https://trident.gitbook.io/trident/" target="_blank" rel="noreferrer">
-                    <div className="landing-main-btn">
+                    <div className="landing-main-btn secondary">
                         <p>Documentation</p>
                     </div>
                 </Link>
