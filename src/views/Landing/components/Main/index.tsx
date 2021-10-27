@@ -11,7 +11,7 @@ function Main() {
             </div>
             <div className="landing-main-help-text-wrap">
                 <p>Financial tools to grow your wealth - stake</p>
-                <p>and earncompounding interest</p>
+                <p>and earn compounding interest</p>
             </div>
             <div className="landing-main-btns-wrap">
                 <Link href="https://app.tridentdao.finance/" target="_blank" rel="noreferrer">

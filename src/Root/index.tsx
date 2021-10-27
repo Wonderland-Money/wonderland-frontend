@@ -7,6 +7,7 @@ import Loading from "../components/Loader";
 
 function Root() {
     const isApp = (): boolean => {
+        return false;
         const allowedURL = process.env.NODE_ENV === "development" || window.location.hostname.includes("app");
         return allowedURL;
         // return window.location.host.includes("app");
