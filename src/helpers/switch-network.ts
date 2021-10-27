@@ -3,7 +3,7 @@ import { Networks } from "../constants/blockchain";
 const switchRequest = () => {
     return window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "63564C40" }],
+        params: [{ chainId: "0x63564C40" }],
     });
 };
 
@@ -12,7 +12,7 @@ const addChainRequest = () => {
         method: "wallet_addEthereumChain",
         params: [
             {
-                chainId: "63564C40",
+                chainId: "0x63564C40",
                 chainName: "Harmony Mainnet",
                 rpcUrls: ["https://api.harmony.one"],
                 blockExplorerUrls: ["https://explorer.harmony.one"],
