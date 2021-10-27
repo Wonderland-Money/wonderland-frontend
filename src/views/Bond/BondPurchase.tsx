@@ -87,7 +87,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
     }, [bond.allowance]);
 
     const setMax = () => {
-        const amount = Math.min(bond.balance);
+        const amount = Math.min(bond.maxBondPriceToken, bond.balance);
         setQuantity((amount || "").toString());
     };
 
