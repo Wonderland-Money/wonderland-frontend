@@ -1,3 +1,5 @@
+@use 'src/theme.scss';
+
 .dashboard-view {
   display: flex;
   align-items: center;
@@ -19,23 +21,12 @@
       position: relative;
       z-index: 2;
       
-      @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-        background: rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(100px);
-      }
-    
-      /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
-      @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-        background: #181B1C;
-      }
-
-      border-radius: 10px;
-      padding: 13px 0;
+      @include theme.card(); 
 
       .card-title {
         font-family: Cinzel Medium;
         font-weight: 500;
-        font-size: 20px;
+        font-size: 18px;
         color: rgba(255, 255, 255, 0.6);
       }
   

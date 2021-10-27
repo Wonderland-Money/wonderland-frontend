@@ -1,235 +1,227 @@
-.choose-bond-view{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  overflow: hidden;
+@use "src/theme.scss";
 
-  width: 89%;
-  max-width: 833px;
-  margin: auto;
+.choose-bond-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
 
-  .choose-bond-view-card{
-    border-radius: 10px;
-    padding: 20px;
-    width: 100%;
+    width: 89%;
+    max-width: 833px;
+    margin: auto;
 
-    position: relative;
-    z-index: 2;
-    
-    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-      background: rgba(36, 39, 41, 0.1);
-      backdrop-filter: blur(40px);
+    .choose-bond-view-card {
+        @include theme.card();
+
+        width: 100%;
+
+        position: relative;
+        z-index: 2;
+
+        .choose-bond-view-card-header {
+            .choose-bond-view-card-title {
+                font-family: Cinzel Bold;
+                font-weight: bold;
+                font-size: 20px;
+                color: #ffffff;
+            }
+        }
+
+        .choose-bond-view-card-metrics {
+            margin: 30px 0;
+
+            .choose-bond-view-card-metrics-title {
+                font-family: Cinzel Medium;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 24px;
+                color: rgba(255, 255, 255, 0.6);
+            }
+
+            .choose-bond-view-card-metrics-value {
+                font-family: Cinzel Bold;
+                font-weight: bold;
+                font-size: 24px;
+                line-height: 29px;
+                color: #ffffff;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+        }
+
+        .choose-bond-view-card-table {
+            .choose-bond-view-card-table-title {
+                font-family: Cinzel SemiBold;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 17px;
+                color: #ffffff;
+            }
+        }
     }
-  
-    /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
-    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-      background: #181B1C;
+
+    .choose-bond-view-card-container {
+        margin-top: 16px;
+
+        .bond-data-card {
+            margin: auto !important;
+            background: rgba(36, 39, 41, 0.1);
+            backdrop-filter: blur(40px);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+
+            .bond-pair {
+                display: flex !important;
+                align-items: center;
+                justify-content: left;
+                margin-bottom: 15px;
+                .MuiBox-root {
+                    margin-right: 10px;
+                }
+                .bond-name {
+                    svg {
+                        margin-left: 5px;
+                        vertical-align: middle;
+                        font-size: 15px;
+                    }
+                }
+            }
+            .data-row {
+                margin-bottom: 13px;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: row;
+                margin: 12px 0;
+
+                .bond-price {
+                    display: flex;
+                    align-items: center;
+
+                    svg {
+                        margin-right: 5px;
+                    }
+                }
+            }
+            .bond-link {
+                margin-top: 10px;
+                text-align: center;
+                a {
+                    width: 96%;
+                }
+            }
+        }
     }
 
-    .choose-bond-view-card-header{
-      .choose-bond-view-card-title{
-        font-family: Cinzel Bold;
-        font-weight: bold;
-        font-size: 20px;
-        color: #FFFFFF;
-      }
+    .currency-icon {
+        display: inline-block;
+        min-width: 15px;
     }
 
-    .choose-bond-view-card-metrics{
-      margin: 30px 0;
-      
-      .choose-bond-view-card-metrics-title{
-        font-family: Cinzel Medium;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 24px;
-        color: rgba(255, 255, 255, 0.6);
-      }
-    
-      .choose-bond-view-card-metrics-value{
-        font-family: Cinzel Bold;
-        font-weight: bold;
-        font-size: 24px;
-        line-height: 29px;
-        color: #FFFFFF;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-      }
-    }
-
-    .choose-bond-view-card-table{
-      .choose-bond-view-card-table-title{
+    .bond-name-title {
         font-family: Cinzel SemiBold;
         font-weight: 600;
         font-size: 14px;
-        line-height: 17px;
-        color: #FFFFFF;
-      }
+        color: #ffffff;
     }
-  }
 
-  .choose-bond-view-card-container{
-    margin-top: 16px;
-
-    .bond-data-card {
-      margin: auto !important;
-      background: rgba(36, 39, 41, 0.1);
-      backdrop-filter: blur(40px);
-      border-radius: 10px;
-      padding: 20px;
-      width: 100%;
-
-      .bond-pair {
-        display: flex !important;
-        align-items: center;
-        justify-content: left;
-        margin-bottom: 15px;
-        .MuiBox-root {
-          margin-right: 10px;
-        }
-        .bond-name {
-          svg {
-            margin-left: 5px;
-            vertical-align: middle;
-            font-size: 15px;
-          }
-        }
-      }
-      .data-row {
-        margin-bottom: 13px;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-        margin: 12px 0;
-  
-        .bond-price {
-          display: flex;
-          align-items: center;
-  
-          svg {
-            margin-right: 5px;
-          }
-        }
-      }
-      .bond-link {
-        margin-top: 10px;
+    .bond-table-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid #2c276d;
+        border-radius: 10px;
+        padding: 6px 35.5px;
         text-align: center;
-        a {
-          width: 96%;
+
+        &:hover {
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
-      }
-    }
-  }
 
-  .currency-icon {
-    display: inline-block;
-    min-width: 15px;
-  }
-
-  .bond-name-title{
-    font-family: Cinzel SemiBold;
-    font-weight: 600;
-    font-size: 14px;
-    color: #FFFFFF;
-  }
-
-  .bond-table-btn{
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid #2C276D;
-    border-radius: 10px;
-    padding: 6px 35.5px;
-    text-align: center;
-
-    &:hover{
-      border: 1px solid rgba(255, 255, 255, 0.6);
-    }
-  
-    p{
-      font-family: Cinzel Semibold;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 16px;
-      color: #FFFFFF;
-    }
-  }
-
-  .MuiTable-root {
-    margin: 10px 0px;
-  }
-
-  .MuiTableRow-head {
-    .MuiTableCell-alignLeft {
-      padding-left: 20px;
-    }
-  }
-
-  .MuiTableCell-root {
-    p {
-      margin: 0 !important;
-      display: flex !important;
-      align-items: center;
-      justify-content: space-evenly;
-      white-space: nowrap;
-      img {
-        margin-right: 3px;
-      }
-    }
-    &.MuiTableCell-alignLeft {
-      display: flex;
+        p {
+            font-family: Cinzel Semibold;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            color: #ffffff;
+        }
     }
 
-    border-bottom: none;
-  }
+    .MuiTable-root {
+        margin: 10px 0px;
+    }
 
-  .MuiTableBody-root .MuiTableRow-root .MuiTableCell-alignLeft {
-    justify-content: space-between;
-    div.ohm-pairs {
-      width: 33%;
-      vertical-align: middle !important;
-      align-items: center !important;
-      justify-content: center !important;
-      margin-bottom: 0 !important;
-      .ohm-pairs div.bond-name p,
-      .ohm-pairs svg {
-        align-self: center !important;
-        line-height: 100% !important;
-        font-weight: bold !important;
-        margin-bottom: 0em !important;
-        padding: 0 !important;
-        font-family: inherit;
-        vertical-align: text-top !important;
-      }
-      .ohm-logo-bg {
-        margin-left: 0;
-        border-radius: 20px;
-        height: 40px;
-        width: 40px;
-      }
+    .MuiTableRow-head {
+        .MuiTableCell-alignLeft {
+            padding-left: 20px;
+        }
     }
-    div.bond-name {
-      width: 60%;
-      margin-left: 8px !important;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: left;
-      align-items: flex-start;
-      p {
-        margin-bottom: unset !important;
-        line-height: 140% !important;
-      }
-      svg {
-        margin-left: 3px !important;
-        font-size: 1.2em !important;
-      }
+
+    .MuiTableCell-root {
+        p {
+            margin: 0 !important;
+            display: flex !important;
+            align-items: center;
+            justify-content: space-evenly;
+            white-space: nowrap;
+            img {
+                margin-right: 3px;
+            }
+        }
+        &.MuiTableCell-alignLeft {
+            display: flex;
+        }
+
+        border-bottom: none;
     }
-  }
+
+    .MuiTableBody-root .MuiTableRow-root .MuiTableCell-alignLeft {
+        justify-content: space-between;
+        div.ohm-pairs {
+            width: 33%;
+            vertical-align: middle !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin-bottom: 0 !important;
+            .ohm-pairs div.bond-name p,
+            .ohm-pairs svg {
+                align-self: center !important;
+                line-height: 100% !important;
+                font-weight: bold !important;
+                margin-bottom: 0em !important;
+                padding: 0 !important;
+                font-family: inherit;
+                vertical-align: text-top !important;
+            }
+            .ohm-logo-bg {
+                margin-left: 0;
+                border-radius: 20px;
+                height: 40px;
+                width: 40px;
+            }
+        }
+        div.bond-name {
+            width: 60%;
+            margin-left: 8px !important;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            align-items: flex-start;
+            p {
+                margin-bottom: unset !important;
+                line-height: 140% !important;
+            }
+            svg {
+                margin-left: 3px !important;
+                font-size: 1.2em !important;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 1240px) {
-  .choose-bond-view{
-    width: 100%;
-  }
+    .choose-bond-view {
+        width: 100%;
+    }
 }

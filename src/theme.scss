@@ -1,0 +1,53 @@
+// COLORS
+$bermuda-gray: #6a8fa5;
+$gull-gray: #92aeb3;
+$outer-space: #2c3133;
+$akaroa: #dbcdac;
+$elephant: #081825;
+$anzac: #d9a849;
+$lynch: #5d7287;
+$granite-green: #8c8c6c;
+$columbia-blue: #cce6f4;
+$platinum: #e2e2e2;
+$smoky-black: #0d0801;
+$gunmetal: #1e2a38;
+$indigo-dye: #2a486e;
+
+// THEME
+$background-color: $elephant;
+$black: #232323;
+$white: #fffff8;
+
+// COMPONENTS
+$secondary-button-background: $indigo-dye;
+$active-nav-background: $indigo-dye;
+$active-nav-text: $white;
+$inactive-nav-text: $platinum;
+$card-background: $indigo-dye;
+
+// GLOBAL RULES
+a:hover {
+    text-decoration: none !important;
+}
+
+// MIXINS
+@mixin soft-shadow {
+    box-shadow: transparentize($smoky-black, 0.85) 0px 1px 4px;
+}
+
+@mixin card {
+    @include soft-shadow();
+
+    border-radius: 12px;
+    padding: 2rem;
+
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        background: transparentize($card-background, 0.6);
+        backdrop-filter: blur(8px);
+    }
+
+    /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+        background: $card-background;
+    }
+}

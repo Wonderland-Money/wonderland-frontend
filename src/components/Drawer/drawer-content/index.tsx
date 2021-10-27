@@ -1,17 +1,18 @@
 import { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Social from "./social";
-import StakeIcon from "../../../assets/icons/stake.svg";
-import BondIcon from "../../../assets/icons/bond.svg";
+import { ReactComponent as StakeIcon } from "../../../assets/icons/stake.svg";
+import { ReactComponent as BondIcon } from "../../../assets/icons/bond.svg";
 import TridentIcon from "../../../assets/icons/trident-nav-header.svg";
-import DashboardIcon from "../../../assets/icons/dashboard.svg";
+import { ReactComponent as DashboardIcon } from "../../../assets/icons/dashboard.svg";
 import { trim, shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
 import useBonds from "../../../hooks/bonds";
-import { Link } from "@material-ui/core";
+import { Link, SvgIcon } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import "./drawer-content.scss";
 import DocsIcon from "../../../assets/icons/stake.svg";
+
 import classnames from "classnames";
 
 function NavContent() {
@@ -37,7 +38,7 @@ function NavContent() {
         <div className="dapp-sidebar">
             <div className="branding-header">
                 <Link href="https://tridentdao.finance" target="_blank">
-                    <img alt="" src={TridentIcon} />
+                    <img alt="" height="80" src={TridentIcon} />
                 </Link>
 
                 {address && (
@@ -60,7 +61,7 @@ function NavContent() {
                         className={classnames("button-dapp-menu", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
-                            <img alt="" src={DashboardIcon} />
+                            <SvgIcon component={DashboardIcon} />
                             <p>Dashboard</p>
                         </div>
                     </Link>
@@ -74,7 +75,7 @@ function NavContent() {
                         className={classnames("button-dapp-menu", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
-                            <img alt="" src={StakeIcon} />
+                            <SvgIcon component={StakeIcon} />
                             <p>Stake</p>
                         </div>
                     </Link>
@@ -89,7 +90,7 @@ function NavContent() {
                         className={classnames("button-dapp-menu", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
-                            <img alt="" src={BondIcon} />
+                            <SvgIcon component={BondIcon} />
                             <p>Mint</p>
                         </div>
                     </Link>
@@ -113,7 +114,7 @@ function NavContent() {
             </div>
             <div className="dapp-menu-doc-link">
                 <Link href="https://trident.gitbook.io/trident/" target="_blank">
-                    <img alt="" src={DocsIcon} />
+                    <SvgIcon component={BondIcon} />
                     <p>Docs</p>
                 </Link>
             </div>
