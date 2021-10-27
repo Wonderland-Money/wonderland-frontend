@@ -11,5 +11,5 @@ export const messages = {
     your_balance_updated: "Your balance is successfully updated",
     nothing_to_claim: "Nothing to claim",
     something_wrong: "Something went wrong",
-    switch_to_avalanche: "Switch to Harmony?",
+    switch_to_harmony: "Switch to Harmony?",
 };
