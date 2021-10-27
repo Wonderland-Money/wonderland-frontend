@@ -4,7 +4,6 @@ import { StableBond } from "./stable-bond";
 
 import MimIcon from "../../assets/tokens/MIM.svg";
 import FraxIcon from "../../assets/tokens/FRAX.svg";
-import MimPsiIcon from "../../assets/tokens/PSI-MIM.svg";
 
 import { StableBondContract, LpBondContract, StableReserveContract, LpReserveContract } from "../../abi";
 
@@ -42,7 +41,7 @@ export const mimPsi = new LPBond({
     name: "mim_psi_lp",
     displayName: "PSI-MIM LP",
     bondToken: "MIM",
-    bondIconSvg: MimPsiIcon,
+    bondIconSvg: MimIcon,
     bondContractABI: LpBondContract,
     reserveContractAbi: LpReserveContract,
     networkAddrs: {

@@ -4,4 +4,4 @@ export enum Networks {
     ONE = 1666600000,
 }
 
-export const DEFAULD_NETWORK = Networks.ONE;
+export const DEFAULT_NETWORK = Networks.ONE;

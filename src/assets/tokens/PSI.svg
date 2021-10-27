@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#ECB44D" offset="0%"></stop>
+            <stop stop-color="#B7833C" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="16.7524392%" y1="50%" x2="82.8006775%" y2="50%" id="linearGradient-2">
+            <stop stop-color="#B7833C" offset="0%"></stop>
+            <stop stop-color="#DA9D43" offset="50.3536511%"></stop>
+            <stop stop-color="#E9B24D" offset="53.4508501%"></stop>
+            <stop stop-color="#F8BB49" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(15.000000, 9.000000)">
+            <polygon id="Path" fill="url(#linearGradient-1)" points="21.7656369 10.2960663 10.6942357 27.8844293 13.7781273 27.8844293 0.935130586 71.7711094 24.0348855 61.2145367 25.8786906 48.5362695 14.7370421 53.6773045"></polygon>
+            <polygon id="Path-Copy-2" fill="url(#linearGradient-1)" transform="translate(57.471780, 40.737522) scale(-1, 1) translate(-57.471780, -40.737522) " points="65.8305064 10 54.7591051 27.588363 57.8429967 27.588363 45 71.4750431 68.0997549 60.9184704 69.9435601 48.2402033 58.8019115 53.3812382"></polygon>
+            <polygon id="Path-2" fill="url(#linearGradient-2)" points="35.3775081 0.900787803 45 61.6864477 35.3775081 81.8375409 25.8786906 61.6864477"></polygon>
+        </g>
+    </g>
+</svg>

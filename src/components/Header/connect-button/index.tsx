@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useWeb3Context } from "../../../hooks";
-import { DEFAULD_NETWORK } from "../../../constants";
+import { DEFAULT_NETWORK } from "../../../constants";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { IPendingTxn } from "../../../store/slices/pending-txns-slice";
 import "./connect-menu.scss";
@@ -30,7 +30,7 @@ function ConnectMenu() {
         clickFunc = () => {};
     }
 
-    if (isConnected && providerChainID !== DEFAULD_NETWORK) {
+    if (isConnected && providerChainID !== DEFAULT_NETWORK) {
         buttonText = "Wrong network";
         buttonStyle = { backgroundColor: "rgb(255, 67, 67)" };
         clickFunc = () => {
