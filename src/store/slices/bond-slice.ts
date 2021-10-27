@@ -10,7 +10,7 @@ import { Bond } from "../../helpers/bond/bond";
 import { Networks } from "../../constants/blockchain";
 import { getBondCalculator } from "../../helpers/bond-calculator";
 import { RootState } from "../store";
-import { avaxTime, wavax } from "../../helpers/bond";
+import { onePsi, wone } from "../../helpers/bond";
 import { error, warning, success, info } from "../slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
@@ -125,7 +125,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     try {
         bondPrice = await bondContract.bondPriceInUSD();
 
-        if (bond.name === avaxTime.name) {
+        if (bond.name === onePsi.name) {
             const onePrice = getTokenPrice("ONE");
             bondPrice = bondPrice * onePrice;
         }
@@ -169,11 +169,11 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         purchased = await bondCalcContract.valuation(assetAddress, purchased);
         purchased = (markdown / Math.pow(10, 18)) * (purchased / Math.pow(10, 9));
 
-        if (bond.name === avaxTime.name) {
+        if (bond.name === onePsi.name) {
             const onePrice = getTokenPrice("ONE");
             purchased = purchased * onePrice;
         }
-    } else if (bond.name === wavax.name) {
+    } else if (bond.name === wone.name) {
         purchased = purchased / Math.pow(10, 18);
         const onePrice = getTokenPrice("ONE");
         purchased = purchased * onePrice;

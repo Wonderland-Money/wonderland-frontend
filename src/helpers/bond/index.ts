@@ -24,10 +24,10 @@ export const mim = new StableBond({
     },
 });
 
-export const wavax = new CustomBond({
-    name: "wavax",
-    displayName: "wAVAX",
-    bondToken: "AVAX",
+export const wone = new CustomBond({
+    name: "wone",
+    displayName: "wONE",
+    bondToken: "ONE",
     bondIconSvg: AvaxIcon,
     bondContractABI: WavaxBondContract,
     reserveContractAbi: StableReserveContract,
@@ -39,9 +39,9 @@ export const wavax = new CustomBond({
     },
 });
 
-export const mimTime = new LPBond({
-    name: "mim_time_lp",
-    displayName: "TIME-MIM LP",
+export const mimPsi = new LPBond({
+    name: "mim_psi_lp",
+    displayName: "PSI-MIM LP",
     bondToken: "MIM",
     bondIconSvg: MimTimeIcon,
     bondContractABI: LpBondContract,
@@ -55,10 +55,10 @@ export const mimTime = new LPBond({
     lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
 });
 
-export const avaxTime = new CustomLPBond({
-    name: "avax_time_lp",
-    displayName: "TIME-AVAX LP",
-    bondToken: "AVAX",
+export const onePsi = new CustomLPBond({
+    name: "one_psi_lp",
+    displayName: "PSI-ONE LP",
+    bondToken: "ONE",
     bondIconSvg: AvaxTimeIcon,
     bondContractABI: LpBondContract,
     reserveContractAbi: LpReserveContract,
@@ -71,4 +71,4 @@ export const avaxTime = new CustomLPBond({
     lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
 });
 
-export default [mim, wavax, mimTime, avaxTime];
+export default [mim, wone, mimPsi, onePsi];

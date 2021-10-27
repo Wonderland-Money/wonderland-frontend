@@ -20,41 +20,39 @@ export const loadAppDetails = createAsyncThunk(
         const mimPrice = getTokenPrice("MIM");
         const addresses = getAddresses(networkID);
 
-        const ohmPrice = getTokenPrice("OHM");
-        const ohmAmount = 1512.12854088 * ohmPrice;
-
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
         const currentBlock = await provider.getBlockNumber();
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
-        const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
-        const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
+        // TODO: update addresses to PSI and sPSI
+        const sPsiContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
+        const psiContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
 
         const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
 
-        const totalSupply = (await timeContract.totalSupply()) / Math.pow(10, 9);
-        const circSupply = (await memoContract.circulatingSupply()) / Math.pow(10, 9);
+        const totalSupply = (await psiContract.totalSupply()) / Math.pow(10, 9);
+        const circSupply = (await sPsiContract.circulatingSupply()) / Math.pow(10, 9);
 
         const stakingTVL = circSupply * marketPrice;
         const marketCap = totalSupply * marketPrice;
 
         const tokenBalPromises = allBonds.map(bond => bond.getTreasuryBalance(networkID, provider));
         const tokenBalances = await Promise.all(tokenBalPromises);
-        const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1, ohmAmount);
+        const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1);
 
         const tokenAmountsPromises = allBonds.map(bond => bond.getTokenAmount(networkID, provider));
         const tokenAmounts = await Promise.all(tokenAmountsPromises);
-        const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1, ohmAmount);
+        const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1);
 
-        const timeBondsAmountsPromises = allBonds.map(bond => bond.getTimeAmount(networkID, provider));
-        const timeBondsAmounts = await Promise.all(timeBondsAmountsPromises);
-        const timeAmount = timeBondsAmounts.reduce((timeAmount0, timeAmount1) => timeAmount0 + timeAmount1, 0);
-        const timeSupply = totalSupply - timeAmount;
+        const psiBondsAmountsPromises = allBonds.map(bond => bond.getTimeAmount(networkID, provider));
+        const psiBondsAmounts = await Promise.all(psiBondsAmountsPromises);
+        const psiAmount = psiBondsAmounts.reduce((psiAmount0, psiAmount1) => psiAmount0 + psiAmount1, 0);
+        const psiSupply = totalSupply - psiAmount;
 
-        const rfv = rfvTreasury / timeSupply;
+        const rfv = rfvTreasury / psiSupply;
 
         const epoch = await stakingContract.epoch();
         const stakingReward = epoch.distribute;
-        const circ = await memoContract.circulatingSupply();
+        const circ = await sPsiContract.circulatingSupply();
         const stakingRebase = stakingReward / circ;
         const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
         const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
