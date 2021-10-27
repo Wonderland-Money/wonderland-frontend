@@ -2,7 +2,7 @@ import { useState } from "react";
 import { getAddresses, TOKEN_DECIMALS, DEFAULT_NETWORK } from "../../../constants";
 import { useSelector } from "react-redux";
 import { Link, Fade, Popper } from "@material-ui/core";
-import "./time-menu.scss";
+import "./psi-menu.scss";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { getTokenUrl } from "../../../helpers";
 
@@ -29,7 +29,7 @@ const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async ()
     }
 };
 
-function TimeMenu() {
+function PsiMenu() {
     const [anchorEl, setAnchorEl] = useState(null);
     const isEthereumAPIAvailable = window.ethereum;
 
@@ -41,6 +41,7 @@ function TimeMenu() {
 
     const SPSI_ADDRESS = addresses.SPSI_ADDRESS;
     const PSI_ADDRESS = addresses.PSI_ADDRESS;
+    const SUSHI_SWAP_LINK = `https://app.sushi.com/swap?inputCurrency=&outputCurrency=${PSI_ADDRESS}`;
 
     const handleClick = (event: any) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -49,17 +50,17 @@ function TimeMenu() {
     const open = Boolean(anchorEl);
 
     return (
-        <div className="time-menu-root" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
-            <div className="time-menu-btn">
+        <div className="psi-menu-root" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
+            <div className="psi-menu-btn">
                 <p>PSI</p>
             </div>
 
-            <Popper className="time-menu-popper" open={open} anchorEl={anchorEl} transition>
+            <Popper className="psi-menu-popper" open={open} anchorEl={anchorEl} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <Link className="tooltip-item" href={`https://www.traderjoexyz.com/#/trade?inputCurrency=&outputCurrency=${PSI_ADDRESS}`} target="_blank">
-                                <p>Buy on Trader Joe</p>
+                            <Link className="tooltip-item" href={SUSHI_SWAP_LINK} target="_blank">
+                                <p>Buy on Sushi Swap</p>
                             </Link>
 
                             {isEthereumAPIAvailable && (
@@ -83,4 +84,4 @@ function TimeMenu() {
     );
 }
 
-export default TimeMenu;
+export default PsiMenu;
