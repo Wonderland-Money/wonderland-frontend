@@ -187,9 +187,8 @@ interface IBondAsset {
     networkID: Networks;
     provider: StaticJsonRpcProvider | JsonRpcProvider;
     slippage: number;
-    useFrax: boolean;
 }
-export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, address, bond, networkID, provider, slippage, useFrax }: IBondAsset, { dispatch }) => {
+export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, address, bond, networkID, provider, slippage }: IBondAsset, { dispatch }) => {
     const depositorAddress = address;
     const acceptedSlippage = slippage / 100 || 0.005;
     const valueInWei = ethers.utils.parseUnits(value.toString(), "ether");
@@ -203,12 +202,7 @@ export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, a
     let bondTx;
     try {
         const gasPrice = await getGasPrice(provider);
-
-        if (useFrax) {
-            bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { value: valueInWei, gasPrice });
-        } else {
-            bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { gasPrice });
-        }
+        bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { gasPrice });
         dispatch(
             fetchPendingTxns({
                 txnHash: bondTx.hash,
