@@ -12,13 +12,14 @@
         justify-content: center;
         align-items: center;
         text-decoration: none;
-        margin: 20px 0 63px 0;
+        margin: 4rem 0;
 
         .wallet-link {
             margin: 10px;
 
             p {
-                color: #ffffff;
+                color: theme.$platinum;
+                font-family: Courier;
             }
         }
     }

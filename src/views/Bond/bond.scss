@@ -26,7 +26,7 @@
         min-height: 605px;
 
         @include theme.card();
-        
+
         width: 100%;
     }
 
@@ -166,19 +166,8 @@
     }
 
     .bond-input {
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-        outline: none;
-        margin-bottom: 20px;
-
-        .MuiOutlinedInput-input {
-            font-family: Cinzel Medium;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.6);
-        }
+        margin-bottom: 1rem;
+        @include theme.input();
 
         .MuiOutlinedInput-notchedOutline {
             border-color: rgba(255, 255, 255, 0.2) !important;
@@ -197,23 +186,7 @@
     }
 
     .bond-approve-btn {
-        background: rgba(255, 255, 255, 0.2);
-        box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-        border-radius: 10px;
-
-        height: 58px;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        p {
-            font-family: Cinzel SemiBold;
-            font-weight: 600;
-            font-size: 18px;
-            color: #ffffff;
-            text-align: center;
-        }
+        @include theme.primary-button();
     }
 
     .help-text {

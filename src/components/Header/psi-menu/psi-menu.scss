@@ -1,4 +1,4 @@
-@use 'src/theme.scss';
+@use "src/theme.scss";
 
 .psi-menu-root {
     .psi-menu-btn {
@@ -10,7 +10,7 @@
         margin-right: 20px;
 
         p {
-            font-family: Montserrat SemiBold;
+            font-family: Cinzel SemiBold;
             font-weight: 600;
             font-size: 18px;
             color: #ffffff;
@@ -19,10 +19,9 @@
 }
 
 .psi-menu-popper {
-    margin-top: 10px;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(100px);
-    border-radius: 10px;
+    margin-top: 1rem;
+    @include theme.card();
+    padding: 0;
     overflow: hidden;
     z-index: 10;
 
@@ -35,15 +34,20 @@
             padding: 13px 20px;
             cursor: pointer;
 
+            &.buy {
+                p {
+                    font-family: Cinzel Bold;
+                }
+            }
+
             &:hover {
-                background: rgba(255, 255, 255, 0.1);
+                background: theme.$primary-button-hover;
             }
 
             p {
-                font-family: Montserrat SemiBold;
-                font-style: normal;
+                font-family: Cinzel SemiBold;
                 font-weight: 600;
-                font-size: 16px;
+                font-size: 1rem;
                 line-height: 20px;
                 color: #ffffff;
                 text-align: center;
@@ -55,20 +59,17 @@
             flex-direction: column;
 
             .add-tokens-title {
-                font-family: Montserrat SemiBold;
-                font-style: normal;
-                font-weight: 600;
+                font-family: "Cinzel Light";
                 font-size: 14px;
-                color: #ffffff;
+                color: theme.$platinum;
                 text-align: center;
-
-                margin: 5px 0px;
+                margin: 0.5rem 0;
             }
         }
 
         .divider {
             height: 1px;
-            background: #ffffff;
+            background: theme.$divider;
             border: none;
         }
     }

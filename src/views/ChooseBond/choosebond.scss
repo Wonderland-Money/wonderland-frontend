@@ -128,23 +128,8 @@
     }
 
     .bond-table-btn {
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid #2c276d;
-        border-radius: 10px;
-        padding: 6px 35.5px;
-        text-align: center;
+        @include theme.primary-button();
 
-        &:hover {
-            border: 1px solid rgba(255, 255, 255, 0.6);
-        }
-
-        p {
-            font-family: Cinzel Semibold;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 16px;
-            color: #ffffff;
-        }
     }
 
     .MuiTable-root {

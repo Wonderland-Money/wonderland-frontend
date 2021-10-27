@@ -19,11 +19,13 @@ $black: #232323;
 $white: #fffff8;
 
 // COMPONENTS
+$primary-button-hover: $bermuda-gray;
 $secondary-button-background: $indigo-dye;
 $active-nav-background: $indigo-dye;
 $active-nav-text: $white;
 $inactive-nav-text: $platinum;
 $card-background: $indigo-dye;
+$divider: $bermuda-gray;
 
 // GLOBAL RULES
 a:hover {
@@ -42,12 +44,53 @@ a:hover {
     padding: 2rem;
 
     @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-        background: transparentize($card-background, 0.6);
-        backdrop-filter: blur(8px);
+        background: transparentize($card-background, 0.7);
+        backdrop-filter: blur(15px);
     }
 
     /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
     @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
         background: $card-background;
+    }
+}
+
+@mixin primary-button {
+    cursor: pointer;
+    transition: all 0.4s ease;
+    background: $anzac;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 0 1rem;
+
+    &:hover {
+        background: $akaroa;
+        transform: translate(0, -1px);
+    }
+
+    p {
+        color: $black;
+        font-family: Cinzel Semibold;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+}
+
+@mixin input {
+    background: transparentize($anzac, 0.75);
+    border: 1px solid $anzac;
+    border-radius: 10px;
+    outline: none;
+    height: 48px;
+
+    input {
+        font-family: Cinzel Semibold;
+        font-weight: 600;
+        font-size: 1rem;
+        padding: 0 1rem;
+        color: $white;
     }
 }

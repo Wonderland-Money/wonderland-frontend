@@ -5,6 +5,7 @@ import { Link, Fade, Popper } from "@material-ui/core";
 import "./psi-menu.scss";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { getTokenUrl } from "../../../helpers";
+import { Icon } from "@material-ui/core";
 
 const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async () => {
     const tokenImage = getTokenUrl(tokenSymbol.toLowerCase());
@@ -59,15 +60,15 @@ function PsiMenu() {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <Link className="tooltip-item" href={SUSHI_SWAP_LINK} target="_blank">
+                            <Link className="tooltip-item buy" href={SUSHI_SWAP_LINK} target="_blank">
                                 <p>Buy on Sushi Swap</p>
                             </Link>
 
                             {isEthereumAPIAvailable && (
                                 <div className="add-tokens">
                                     <div className="divider" />
-                                    <p className="add-tokens-title">ADD TOKEN TO WALLET</p>
-                                    <div className="divider" />
+                                    <p className="add-tokens-title">Add token to wallet</p>
+                                    {/* <div className="divider" /> */}
                                     <div className="tooltip-item" onClick={addTokenToWallet("PSI", PSI_ADDRESS)}>
                                         <p>PSI</p>
                                     </div>

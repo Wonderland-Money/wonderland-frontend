@@ -71,21 +71,9 @@
                 text-align: center;
 
                 .stake-card-wallet-connect-btn {
-                    background: rgba(255, 255, 255, 0.2);
-                    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-                    border-radius: 10px;
-                    padding: 14px 58px;
-                    cursor: pointer;
-                    margin: auto;
-                    max-width: 280px;
-                    margin-top: 20px;
+                    @include theme.primary-button();
 
-                    p {
-                        font-family: Cinzel SemiBold;
-                        font-weight: 600;
-                        font-size: 18px;
-                        color: #ffffff;
-                    }
+                    margin-top: 20px;
                 }
 
                 .stake-card-wallet-desc-text {
@@ -139,19 +127,7 @@
                     .stake-card-action-input {
                         width: 100%;
 
-                        background: rgba(255, 255, 255, 0.2);
-                        border: 1px solid rgba(255, 255, 255, 0.2);
-                        border-radius: 10px;
-                        outline: none;
-
-                        .MuiOutlinedInput-input {
-                            font-family: Cinzel Medium;
-                            font-style: normal;
-                            font-weight: 500;
-                            font-size: 16px;
-                            color: rgba(255, 255, 255, 0.6);
-                            padding: 14px 20px;
-                        }
+                        @include theme.input();
 
                         .MuiOutlinedInput-notchedOutline {
                             border-color: rgba(255, 255, 255, 0.2) !important;
@@ -174,20 +150,7 @@
                         margin-left: 10px;
 
                         .stake-card-tab-panel-btn {
-                            background: rgba(255, 255, 255, 0.2);
-                            box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-                            border-radius: 10px;
-                            padding: 14px 0px;
-                            cursor: pointer;
-                            text-align: center;
-
-                            p {
-                                font-family: Cinzel SemiBold;
-                                font-style: normal;
-                                font-weight: 600;
-                                font-size: 18px;
-                                color: #ffffff;
-                            }
+                            @include theme.primary-button();
                         }
                     }
                 }

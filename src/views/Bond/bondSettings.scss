@@ -60,7 +60,7 @@
         .input-lable {
             font-family: Cinzel Medium;
             font-weight: 500;
-            font-size: 16px;
+            font-sze: 16px;
             color: #ffffff;
         }
 
@@ -85,19 +85,8 @@
     }
 
     .bond-input {
-        background: rgba(255, 255, 255, 0.2);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-        outline: none;
-        margin-bottom: 20px;
-
-        .MuiOutlinedInput-input {
-            font-family: Cinzel Medium;
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.6);
-        }
+        @include theme.input();
+        margin-bottom: 1rem;
 
         .MuiOutlinedInput-notchedOutline {
             border-color: rgba(255, 255, 255, 0.2) !important;
