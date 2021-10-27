@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { TimeTokenContract, MemoTokenContract } from "../../abi/";
+import { PsiTokenContract, SpsiTokenContract } from "../../abi/";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -18,23 +18,23 @@ interface IGetBalances {
 
 interface IAccountBalances {
     balances: {
-        memo: string;
-        time: string;
+        spsi: string;
+        psi: string;
     };
 }
 
 export const getBalances = createAsyncThunk("account/getBalances", async ({ address, networkID, provider }: IGetBalances): Promise<IAccountBalances> => {
     const addresses = getAddresses(networkID);
 
-    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
-    const memoBalance = await memoContract.balanceOf(address);
-    const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
-    const timeBalance = await timeContract.balanceOf(address);
+    const spsiContract = new ethers.Contract(addresses.SPSI_ADDRESS, SpsiTokenContract, provider);
+    const spsiBalance = await spsiContract.balanceOf(address);
+    const psiContract = new ethers.Contract(addresses.PSI_ADDRESS, PsiTokenContract, provider);
+    const psiBalance = await psiContract.balanceOf(address);
 
     return {
         balances: {
-            memo: ethers.utils.formatUnits(memoBalance, "gwei"),
-            time: ethers.utils.formatUnits(timeBalance, "gwei"),
+            spsi: ethers.utils.formatUnits(spsiBalance, "gwei"),
+            psi: ethers.utils.formatUnits(psiBalance, "gwei"),
         },
     };
 });
@@ -47,43 +47,43 @@ interface ILoadAccountDetails {
 
 interface IUserAccountDetails {
     balances: {
-        time: string;
-        memo: string;
+        psi: string;
+        spsi: string;
     };
     staking: {
-        time: number;
-        memo: number;
+        psi: number;
+        spsi: number;
     };
 }
 
 export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails", async ({ networkID, provider, address }: ILoadAccountDetails): Promise<IUserAccountDetails> => {
-    let timeBalance = 0;
-    let memoBalance = 0;
+    let psiBalance = 0;
+    let spsiBalance = 0;
     let stakeAllowance = 0;
     let unstakeAllowance = 0;
 
     const addresses = getAddresses(networkID);
 
-    if (addresses.TIME_ADDRESS) {
-        const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
-        timeBalance = await timeContract.balanceOf(address);
-        stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
+    if (addresses.PSI_ADDRESS) {
+        const psiContract = new ethers.Contract(addresses.PSI_ADDRESS, PsiTokenContract, provider);
+        psiBalance = await psiContract.balanceOf(address);
+        stakeAllowance = await psiContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     }
 
-    if (addresses.MEMO_ADDRESS) {
-        const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
-        memoBalance = await memoContract.balanceOf(address);
-        unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
+    if (addresses.SPSI_ADDRESS) {
+        const spsiContract = new ethers.Contract(addresses.SPSI_ADDRESS, SpsiTokenContract, provider);
+        spsiBalance = await spsiContract.balanceOf(address);
+        unstakeAllowance = await spsiContract.allowance(address, addresses.STAKING_ADDRESS);
     }
 
     return {
         balances: {
-            memo: ethers.utils.formatUnits(memoBalance, "gwei"),
-            time: ethers.utils.formatUnits(timeBalance, "gwei"),
+            spsi: ethers.utils.formatUnits(spsiBalance, "gwei"),
+            psi: ethers.utils.formatUnits(psiBalance, "gwei"),
         },
         staking: {
-            time: Number(stakeAllowance),
-            memo: Number(unstakeAllowance),
+            psi: Number(stakeAllowance),
+            spsi: Number(unstakeAllowance),
         },
     };
 });
@@ -160,21 +160,21 @@ export const calculateUserBondDetails = createAsyncThunk("bonding/calculateUserB
 export interface IAccountSlice {
     bonds: { [key: string]: IUserBondDetails };
     balances: {
-        memo: string;
-        time: string;
+        spsi: string;
+        psi: string;
     };
     loading: boolean;
     staking: {
-        time: number;
-        memo: number;
+        psi: number;
+        spsi: number;
     };
 }
 
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
-    balances: { memo: "", time: "" },
-    staking: { time: 0, memo: 0 },
+    balances: { spsi: "", psi: "" },
+    staking: { spsi: 0, psi: 0 },
 };
 
 const accountSlice = createSlice({
