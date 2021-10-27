@@ -26,7 +26,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
 
     const signer = provider.getSigner();
     const psiContract = new ethers.Contract(addresses.PSI_ADDRESS, PsiTokenContract, signer);
-    const spsiContract = new ethers.Contract(addresses.SPSI_ADDRESS, SpsiTokenContract, signer);
+    const sPsiContract = new ethers.Contract(addresses.SPSI_ADDRESS, SpsiTokenContract, signer);
 
     let approveTx;
     try {
@@ -37,7 +37,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
         }
 
         if (token === "spsi") {
-            approveTx = await spsiContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+            approveTx = await sPsiContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
         const text = "Approve " + (token === "psi" ? "Staking" : "Unstaking");
@@ -56,7 +56,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     }
 
     const stakeAllowance = await psiContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
-    const unstakeAllowance = await spsiContract.allowance(address, addresses.STAKING_ADDRESS);
+    const unstakeAllowance = await sPsiContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(
         fetchAccountSuccess({
