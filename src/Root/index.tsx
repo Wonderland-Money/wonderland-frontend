@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
 import App from "./App";
 import Landing from "./Landing";
-import { HashRouter } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import { loadTokenPrices } from "../helpers";
 import Loading from "../components/Loader";
 
 function Root() {
-    const isApp = (): boolean => {
-        return false;
-        const allowedURL = process.env.NODE_ENV === "development" || window.location.hostname.includes("app");
-        return allowedURL;
-        // return window.location.host.includes("app");
-    };
-
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -21,13 +14,14 @@ function Root() {
 
     if (loading) return <Loading />;
 
-    const app = () => (
+    return (
         <HashRouter>
-            <App />
+            <Switch>
+                <Route exact path="/" component={Landing}></Route>
+                <Route component={App} />
+            </Switch>
         </HashRouter>
     );
-
-    return isApp() ? app() : <Landing />;
 }
 
 export default Root;

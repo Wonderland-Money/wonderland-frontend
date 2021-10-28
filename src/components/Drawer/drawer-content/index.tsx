@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link as RouterLink } from "react-router-dom";
 import Social from "./social";
 import { ReactComponent as StakeIcon } from "../../../assets/icons/stake.svg";
 import { ReactComponent as BondIcon } from "../../../assets/icons/bond.svg";
@@ -37,9 +37,9 @@ function NavContent() {
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
-                <Link href="https://tridentdao.finance" target="_blank">
+                <RouterLink to="/">
                     <img alt="" height="80" src={TridentIcon} />
-                </Link>
+                </RouterLink>
 
                 {address && (
                     <div className="wallet-link">
