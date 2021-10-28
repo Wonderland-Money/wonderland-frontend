@@ -1,283 +1,255 @@
+@use "src/theme.scss";
+
 .bond-view {
-  position: absolute !important;
-  width: 100%;
-  height: 100%;
-  z-index: 69;
-
-  @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-    .MuiBackdrop-root {
-      background: rgba(100, 100, 100, 0.1) !important;
-      backdrop-filter: blur(33px) !important;
-      -webkit-backdrop-filter: blur(33px) !important;
-    }
-  }
-
-  /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
-  @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-    .MuiBackdrop-root {
-      background: rgba(0, 0, 0, 0.8);
-    }
-  }
-
-  .bond-card {
-    max-width: 803px;
-    min-height: 605px;
-    background: #181B1C;
-    backdrop-filter: blur(100px);
-    border-radius: 10px;
-    padding: 20px;
+    position: absolute !important;
     width: 100%;
-  }
+    height: 100%;
+    z-index: 69;
 
-  .bond-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        .MuiBackdrop-root {
+            background: rgba(100, 100, 100, 0.1) !important;
+            backdrop-filter: blur(33px) !important;
+            -webkit-backdrop-filter: blur(33px) !important;
+        }
+    }
 
-    .bond-header-logo {
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      display: flex;
-      flex-direction: row;
+    /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+        .MuiBackdrop-root {
+            background: rgba(0, 0, 0, 0.8);
+        }
+    }
 
-      .ohm-logo-bg {
-        height: 40px !important;
-        width: 40px !important;
-        padding: 8px !important;
-        margin-left: 0;
-      }
+    .bond-card {
+        max-width: 803px;
+        min-height: 605px;
 
-      .bond-header-name {
+        @include theme.card();
+
+        width: 100%;
+    }
+
+    .bond-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .bond-header-logo {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+
+            .ohm-logo-bg {
+                height: 40px !important;
+                width: 40px !important;
+                padding: 8px !important;
+                margin-left: 0;
+            }
+
+            .bond-header-name {
+                text-align: center;
+                margin-left: 10px;
+
+                font-family: Cinzel SemiBold;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 18px;
+                color: #ffffff;
+            }
+        }
+    }
+
+    .bond-data {
+        margin: 10px 0 0 0;
+    }
+
+    .bond-price-data {
+        .bond-price-data-title {
+            font-family: Cinzel Medium;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 24px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .bond-price-data-value {
+            font-family: Cinzel Bold;
+            font-weight: bold;
+            font-size: 24px;
+            line-height: 29px;
+            color: #ffffff;
+        }
+    }
+
+    .bond-price-data-row {
+        display: flex;
+        justify-content: space-around;
         text-align: center;
-        margin-left: 10px;
+        margin: 23px;
 
-        font-family: Cinzel SemiBold;
+        h4 {
+            margin-bottom: 0;
+        }
+
+        h3.price {
+            font-weight: 600 !important;
+        }
+    }
+
+    .ohm-input {
+        min-width: 50%;
+        max-width: 408px;
+        margin: 5px;
+
+        .frax-checkbox {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            input {
+                height: 15px;
+                width: 15px;
+            }
+
+            p {
+                font-family: Cinzel SemiBold;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                color: #ffffff;
+                margin-left: 5px;
+            }
+        }
+    }
+
+    .transaction-button {
+        min-width: 185px !important;
+        max-width: 408px;
+        width: 100%;
+        margin: 5px !important;
+    }
+
+    .bond-one-table {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .bond-one-table-btn {
+            margin: 0 20px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+
+            p {
+                font-family: Cinzel SemiBold;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 18px;
+                color: rgba(255, 255, 255, 0.6);
+            }
+        }
+
+        .bond-one-table-btn.active {
+            border-bottom: 1px solid #ffffff;
+
+            p {
+                color: #ffffff;
+            }
+        }
+    }
+
+    .bond-input-wrap {
+        min-width: 50%;
+        max-width: 408px;
+    }
+
+    .bond-input {
+        margin-bottom: 1rem;
+        @include theme.input();
+
+        .MuiOutlinedInput-notchedOutline {
+            border-color: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        .stake-input-btn {
+            cursor: pointer;
+
+            p {
+                font-family: Cinzel SemiBold;
+                font-weight: 600;
+                font-size: 18px;
+                color: #ffffff;
+            }
+        }
+    }
+
+    .bond-approve-btn {
+        @include theme.primary-button();
+    }
+
+    .help-text {
+        margin-top: 20px;
+
+        .help-text-desc {
+            font-family: Cinzel Light;
+            font-weight: 300;
+            font-size: 14px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+    }
+
+    .bond-balance-title {
+        font-family: Cinzel Medium;
         font-style: normal;
-        font-weight: 600;
-        font-size: 18px;
-        color: #FFFFFF;
-      }
-    }
-  }
-
-  .bond-data {
-    margin: 10px 0 0 0;
-  }
-
-  .bond-price-data {
-    .bond-price-data-title {
-      font-family: Cinzel Medium;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 24px;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .bond-price-data-value {
-      font-family: Cinzel Bold;
-      font-weight: bold;
-      font-size: 24px;
-      line-height: 29px;
-      color: #FFFFFF;
-    }
-  }
-
-  .bond-price-data-row {
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    margin: 23px;
-
-    h4 {
-      margin-bottom: 0;
-    }
-
-    h3.price {
-      font-weight: 600 !important;
-    }
-  }
-
-  .ohm-input {
-    min-width: 50%;
-    max-width: 408px;
-    margin: 5px;
-
-    .frax-checkbox {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
-      input {
-        height: 15px;
-        width: 15px;
-      }
-
-      p {
-        font-family: Cinzel SemiBold;
-        font-style: normal;
-        font-weight: 600;
+        font-weight: 500;
         font-size: 14px;
-        color: #FFFFFF;
-        margin-left: 5px;
-      }
+        color: #ffffff;
     }
-  }
-
-
-  .transaction-button {
-    min-width: 185px !important;
-    max-width: 408px;
-    width: 100%;
-    margin: 5px !important;
-  }
-
-
-  .bond-one-table {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .bond-one-table-btn{
-      margin: 0 20px;
-      cursor: pointer;
-      transition: all .4s ease;
-
-      p{
-        font-family: Cinzel SemiBold;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 18px;
-        color: rgba(255, 255, 255, 0.6);
-      }
-    }
-
-    .bond-one-table-btn.active{
-      border-bottom: 1px solid #FFFFFF;
-
-      p{
-        color: #FFFFFF;
-      }
-    }
-  }
-
-  .bond-input-wrap{
-    min-width: 50%;
-    max-width: 408px;
-  }
-
-  .bond-input {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    outline: none;
-    margin-bottom: 20px;
-
-    .MuiOutlinedInput-input {
-      font-family: Cinzel Medium;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 16px;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .MuiOutlinedInput-notchedOutline {
-      border-color: rgba(255, 255, 255, 0.2) !important;
-    }
-
-    .stake-input-btn {
-      cursor: pointer;
-
-      p {
-        font-family: Cinzel SemiBold;
-        font-weight: 600;
-        font-size: 18px;
-        color: #FFFFFF;
-      }
-    }
-  }
-
-  .bond-approve-btn {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-    border-radius: 10px;
-    
-    height: 58px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    p {
-      font-family: Cinzel SemiBold;
-      font-weight: 600;
-      font-size: 18px;
-      color: #FFFFFF;
-      text-align: center;
-    }
-  }
-
-  .help-text {
-    margin-top: 20px;
-
-    .help-text-desc {
-      font-family: Cinzel Light;
-      font-weight: 300;
-      font-size: 14px;
-      text-align: center;
-      color: rgba(255, 255, 255, 0.6);
-    }
-  }
-
-  .bond-balance-title {
-    font-family: Cinzel Medium;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    color: #FFFFFF;
-  }
 }
 
 .mobile #bond-view {
-  .ohm-card {
-    .card-content {
-      justify-content: space-evenly !important;
+    .ohm-card {
+        .card-content {
+            justify-content: space-evenly !important;
 
-      .bond-toggle-row {
-        justify-content: space-evenly !important;
-      }
+            .bond-toggle-row {
+                justify-content: space-evenly !important;
+            }
 
-      .input-row {
-        flex-direction: column;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
+            .input-row {
+                flex-direction: column;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                align-content: center;
 
-        .input-group.ohm-input-group {
-          margin: 10px !important;
-          width: 75%;
-          height: 50px;
+                .input-group.ohm-input-group {
+                    margin: 10px !important;
+                    width: 75%;
+                    height: 50px;
+                }
+
+                div.stake-button {
+                    width: 75%;
+                    margin-left: 0;
+                    margin-top: 15px;
+                    height: 50px;
+                    font-size: 1.3em !important;
+                }
+            }
         }
-
-        div.stake-button {
-          width: 75%;
-          margin-left: 0;
-          margin-top: 15px;
-          height: 50px;
-          font-size: 1.3em !important;
-        }
-      }
     }
-  }
 }
 
 @media screen and (max-width: 417px) {
-  .bond-price-data-title {
-    font-size: 17px !important;
-  }
+    .bond-price-data-title {
+        font-size: 17px !important;
+    }
 
-  .bond-price-data-value {
-    font-size: 19px !important;
-  }
+    .bond-price-data-value {
+        font-size: 19px !important;
+    }
 }

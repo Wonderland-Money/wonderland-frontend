@@ -1,5 +1,7 @@
+@use "src/theme.scss";
+
 .connect-button{
-    background: rgba(255, 255, 255, 0.2);
+    background: theme.$secondary-button-background;
     box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
     border-radius: 10px;
     padding: 9px 20px;

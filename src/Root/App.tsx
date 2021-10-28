@@ -11,6 +11,7 @@ import useBonds from "../hooks/bonds";
 import ViewBase from "../components/ViewBase";
 import { Stake, ChooseBond, Bond, Dashboard, NotFound } from "../views";
 import "./style.scss";
+import Landing from "src/views/Landing";
 
 function App() {
     const dispatch = useDispatch();
@@ -96,10 +97,6 @@ function App() {
             <Switch>
                 <Route exact path="/dashboard">
                     <Dashboard />
-                </Route>
-
-                <Route exact path="/">
-                    <Redirect to="/stake" />
                 </Route>
 
                 <Route path="/stake">

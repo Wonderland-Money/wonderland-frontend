@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./header.scss";
-import { ReactComponent as TridentIcon } from "../../../../assets/icons/trident-icon.svg";
+import TridentIcon from "../../../../assets/tokens/PSI.svg";
 import { SvgIcon, Link, Box, Popper, Fade } from "@material-ui/core";
 import { ReactComponent as GitHub } from "../../../../assets/icons/github.svg";
 import { ReactComponent as Twitter } from "../../../../assets/icons/twitter.svg";
@@ -18,7 +18,7 @@ function Header() {
 
     return (
         <div className="landing-header">
-            <SvgIcon color="primary" component={TridentIcon} viewBox="0 0 174 40" style={{ minWidth: 174, minHeight: 40 }} />
+            <img id="logo" src={TridentIcon} />
             <div className="landing-header-nav-wrap">
                 <Box component="div" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
                     <p className="landing-header-nav-text">Social</p>
