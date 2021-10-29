@@ -2,7 +2,7 @@
     "abi": [{
         "inputs": [{
             "internalType": "address",
-            "name": "_Psi",
+            "name": "_Time",
             "type": "address"
         }, {
             "internalType": "address",
@@ -19,7 +19,7 @@
         "anonymous": false,
         "inputs": [{
             "indexed": true,
-            "internalType": "enum PsiTreasury.MANAGING",
+            "internalType": "enum TimeTreasury.MANAGING",
             "name": "managing",
             "type": "uint8"
         }, {
@@ -39,7 +39,7 @@
         "anonymous": false,
         "inputs": [{
             "indexed": true,
-            "internalType": "enum PsiTreasury.MANAGING",
+            "internalType": "enum TimeTreasury.MANAGING",
             "name": "managing",
             "type": "uint8"
         }, {
@@ -293,7 +293,7 @@
         "type": "function"
     }, {
         "inputs": [],
-        "name": "Psi",
+        "name": "Time",
         "outputs": [{
             "internalType": "address",
             "name": "",
@@ -633,7 +633,7 @@
         "type": "function"
     }, {
         "inputs": [{
-            "internalType": "enum PsiTreasury.MANAGING",
+            "internalType": "enum TimeTreasury.MANAGING",
             "name": "_managing",
             "type": "uint8"
         }, {
@@ -827,7 +827,7 @@
         "type": "function"
     }, {
         "inputs": [{
-            "internalType": "enum PsiTreasury.MANAGING",
+            "internalType": "enum TimeTreasury.MANAGING",
             "name": "_managing",
             "type": "uint8"
         }, {
