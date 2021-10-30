@@ -6,10 +6,10 @@
     bottom: 0;
     width: 100vw;
     height: 100vh;
-    object-fit: cover;
-    object-position: center;
-    background-position: 80%;
-    background-image: url("../../../../assets/images/bg.png");
+    background-position: 100%;
+    background-image: url("../../../../assets/images/bg2.jpg");
+    background-size: cover;
+    opacity: 1;
 
     .landing-background-wrap {
         margin-left: auto;

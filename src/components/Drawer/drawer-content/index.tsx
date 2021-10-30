@@ -5,13 +5,13 @@ import { ReactComponent as StakeIcon } from "../../../assets/icons/stake.svg";
 import { ReactComponent as BondIcon } from "../../../assets/icons/bond.svg";
 import TridentIcon from "../../../assets/icons/trident-nav-header.svg";
 import { ReactComponent as DashboardIcon } from "../../../assets/icons/dashboard.svg";
+import { ReactComponent as DocsIcon } from "../../../assets/icons/docs.svg";
 import { trim, shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
 import useBonds from "../../../hooks/bonds";
 import { Link, SvgIcon } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import "./drawer-content.scss";
-import DocsIcon from "../../../assets/icons/stake.svg";
 
 import classnames from "classnames";
 
@@ -38,7 +38,7 @@ function NavContent() {
         <div className="dapp-sidebar">
             <div className="branding-header">
                 <RouterLink to="/">
-                    <img alt="" height="80" src={TridentIcon} />
+                    <img alt="" height="100" src={TridentIcon} />
                 </RouterLink>
 
                 {address && (
@@ -96,7 +96,7 @@ function NavContent() {
                     </Link>
 
                     <div className="bond-discounts">
-                        <p>Mint discounts</p>
+                        <p className="bond-discounts--title">Mint discounts</p>
                         {bonds.map((bond, i) => (
                             <Link component={NavLink} to={`/mints/${bond.name}`} key={i} className={"bond"}>
                                 {!bond.bondDiscount ? (
@@ -114,7 +114,7 @@ function NavContent() {
             </div>
             <div className="dapp-menu-doc-link">
                 <Link href="https://trident.gitbook.io/trident/" target="_blank">
-                    <SvgIcon component={BondIcon} />
+                    <SvgIcon component={DocsIcon} />
                     <p>Docs</p>
                 </Link>
             </div>

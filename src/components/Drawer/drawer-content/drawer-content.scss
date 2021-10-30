@@ -12,7 +12,7 @@
         justify-content: center;
         align-items: center;
         text-decoration: none;
-        margin: 4rem 0;
+        margin: 2rem 0;
 
         .wallet-link {
             margin: 10px;
@@ -33,26 +33,12 @@
             flex-flow: column;
             width: 100%;
 
-            a {
-                margin-top: 20px;
-                margin-left: 20px;
-                align-items: center;
-                margin-bottom: 20px;
-
-                img {
-                    width: 20px;
-                    height: 20px;
-                    margin-right: 10px;
-                    vertical-align: -4px;
-                }
-            }
-
             .button-dapp-menu {
                 width: "100%";
                 padding: 1rem 1rem;
                 display: flex;
                 border-radius: 8px;
-                margin: 1rem 1rem;
+                margin: 0 1rem;
 
                 .dapp-menu-item {
                     display: flex;
@@ -61,48 +47,47 @@
 
                     svg > path {
                         fill: theme.$inactive-nav-text;
-                        stroke: theme.$inactive-nav-text;
                     }
 
                     p {
                         font-weight: 600;
-                        font-size: 16px;
+                        font-size: 1rem;
                         color: theme.$inactive-nav-text;
-                        font-family: Cinzel SemiBold;
+                        font-family: Cinzel;
+                        margin-left: 0.5rem;
                     }
                 }
-            }
 
-            .button-dapp-menu.active {
-                background-color: theme.$active-nav-background;
+                &:hover {
+                    background-color: rgba(0, 0, 0, 0.04)
+                }
 
-                .dapp-menu-item {
-                    svg > path {
-                        fill: theme.$active-nav-text;
-                    }
-
-                    p {
-                        color: theme.$active-nav-text;
-                        text-decoration: none;
+                &.active {
+                    .dapp-menu-item {
+                        p {
+                            color: theme.$active-nav-text;
+                            text-decoration: none;
+                            font-family: Cinzel SemiBold;
+                        }
                     }
                 }
             }
 
             .bond-discounts {
-                text-align: left;
-                padding-left: 54px;
+                padding: 1rem 2rem;
+
+                .bond-discounts--title {
+                    color: #ccc;
+                }
 
                 a {
-                    margin-left: 0;
-                    margin-top: 20px;
-                    margin-bottom: 20px;
+                    margin: 1rem 0;
                 }
 
                 p {
-                    font-family: Cinzel;
-                    font-size: 14px;
-                    line-height: 17px;
-                    color: theme.$platinum;
+                    font-family: Cinzel Medium;
+                    font-size: 0.75rem;
+                    color: theme.$white;
                 }
 
                 .bond {
@@ -121,7 +106,9 @@
 
     .dapp-menu-doc-link {
         margin-top: auto;
-
+        svg > path {
+            fill: theme.$inactive-nav-text;
+        }
         a {
             display: flex;
             width: 100%;
@@ -129,20 +116,12 @@
             justify-content: center;
             margin-bottom: 20px;
 
-            img {
-                width: 20px;
-                height: 20px;
-                margin-right: 10px;
-                vertical-align: middle;
-            }
-
             p {
-                margin-left: 0.5rem;
-                font-family: Cinzel SemiBold;
                 font-weight: 600;
-                font-size: 16px;
-                line-height: 20px;
-                color: #ffffff;
+                font-size: 1rem;
+                color: theme.$inactive-nav-text;
+                font-family: Cinzel;
+                margin-left: 0.5rem;
             }
         }
     }

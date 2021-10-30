@@ -5,6 +5,7 @@ $outer-space: #2c3133;
 $akaroa: #dbcdac;
 $elephant: #081825;
 $anzac: #d9a849;
+$saffron: #f0bf28;
 $lynch: #5d7287;
 $granite-green: #8c8c6c;
 $columbia-blue: #cce6f4;
@@ -16,7 +17,7 @@ $indigo-dye: #2a486e;
 // THEME
 $background-color: $elephant;
 $black: #232323;
-$white: #fffff8;
+$white: #fcfcfc;
 
 // COMPONENTS
 $primary-button-hover: $bermuda-gray;
@@ -24,7 +25,7 @@ $secondary-button-background: $indigo-dye;
 $active-nav-background: $indigo-dye;
 $active-nav-text: $white;
 $inactive-nav-text: $platinum;
-$card-background: $indigo-dye;
+$card-background: $gunmetal;
 $divider: $bermuda-gray;
 
 // GLOBAL RULES
@@ -34,7 +35,19 @@ a:hover {
 
 // MIXINS
 @mixin soft-shadow {
-    box-shadow: transparentize($smoky-black, 0.85) 0px 1px 4px;
+    box-shadow: transparentize($smoky-black, 0.8) 0px 1px 4px;
+}
+
+@mixin medium-shadow {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 5px 18px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+}
+
+@mixin text-hard-shadow {
+    text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.4), 0px 8px 13px rgba(0, 0, 0, 0.1), 0px 18px 23px rgba(0, 0, 0, 0.1);
+}
+
+@mixin transition {
+    transition: all 0.4s ease;
 }
 
 @mixin card {
@@ -44,8 +57,8 @@ a:hover {
     padding: 2rem;
 
     @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-        background: transparentize($card-background, 0.7);
-        backdrop-filter: blur(15px);
+        background: transparentize($card-background, 0.85);
+        backdrop-filter: blur(40px);
     }
 
     /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
@@ -54,10 +67,19 @@ a:hover {
     }
 }
 
+@mixin card-hover {
+    @include transition();
+
+    &:hover {
+        @include medium-shadow();
+        transform: translate(0, -1px);
+    }
+}
+
 @mixin primary-button {
     cursor: pointer;
     transition: all 0.4s ease;
-    background: $anzac;
+    background: $saffron;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,10 +87,10 @@ a:hover {
     border-radius: 10px;
     text-align: center;
     padding: 0 1rem;
+    @include card-hover();
 
     &:hover {
-        background: $akaroa;
-        transform: translate(0, -1px);
+        background: lighten($saffron, 5%);
     }
 
     p {
@@ -80,8 +102,8 @@ a:hover {
 }
 
 @mixin input {
-    background: transparentize($anzac, 0.75);
-    border: 1px solid $anzac;
+    background: transparentize($saffron, 0.75);
+    border: 1px solid $saffron;
     border-radius: 10px;
     outline: none;
     height: 48px;
