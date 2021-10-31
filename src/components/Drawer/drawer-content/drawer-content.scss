@@ -59,7 +59,7 @@
                 }
 
                 &:hover {
-                    background-color: rgba(0, 0, 0, 0.04)
+                    background-color: rgba(0, 0, 0, 0.04);
                 }
 
                 &.active {
@@ -148,13 +148,13 @@
         z-index: 7;
 
         @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-            background: rgba(36, 39, 41, 0.1);
-            backdrop-filter: blur(40px);
+            background: transparentize(theme.$card-background, 0.5);
+            backdrop-filter: blur(20px);
         }
 
         /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
         @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-            background: #181b1c;
+            background: theme.$card-background;
         }
     }
 }

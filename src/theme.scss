@@ -25,7 +25,7 @@ $secondary-button-background: $indigo-dye;
 $active-nav-background: $indigo-dye;
 $active-nav-text: $white;
 $inactive-nav-text: $platinum;
-$card-background: $gunmetal;
+$card-background: $elephant;
 $divider: $bermuda-gray;
 
 // GLOBAL RULES
@@ -57,8 +57,8 @@ a:hover {
     padding: 2rem;
 
     @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-        background: transparentize($card-background, 0.85);
-        backdrop-filter: blur(40px);
+        background: transparentize($card-background, 0.5);
+        backdrop-filter: blur(20px);
     }
 
     /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
