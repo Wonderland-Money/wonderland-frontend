@@ -7,7 +7,8 @@ function Main() {
     return (
         <div className="landing-main">
             <div className="landing-main-title-wrap">
-                <p>Trident DAO</p>
+                <p>The Decentralized</p>
+                <p>Trident</p>
             </div>
             <div className="landing-main-help-text-wrap">
                 <p>Financial tools to grow your wealth - stake</p>
