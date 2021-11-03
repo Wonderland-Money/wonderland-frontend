@@ -119,7 +119,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     let marketPrice = await getMarketPrice(networkID, provider);
 
-    const mimPrice = getTokenPrice("MIM");
+    const mimPrice = getTokenPrice("DAI");
     marketPrice = (marketPrice / Math.pow(10, 9)) * mimPrice;
 
     try {

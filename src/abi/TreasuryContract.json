@@ -6,7 +6,7 @@
             "type": "address"
         }, {
             "internalType": "address",
-            "name": "_MIM",
+            "name": "_DAI",
             "type": "address"
         }, {
             "internalType": "uint32",

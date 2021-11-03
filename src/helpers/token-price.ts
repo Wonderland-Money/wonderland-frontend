@@ -7,7 +7,7 @@ export const loadTokenPrices = async () => {
     const { data } = await axios.get(url);
 
     cache["AVAX"] = data["avalanche-2"].usd;
-    cache["MIM"] = data["magic-internet-money"].usd;
+    cache["DAI"] = data["magic-internet-money"].usd;
     cache["OHM"] = data["olympus"].usd;
 };
 

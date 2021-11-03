@@ -11,8 +11,8 @@ import { StableBondContract, LpBondContract, WavaxBondContract, StableReserveCon
 
 export const mim = new StableBond({
     name: "mim",
-    displayName: "MIM",
-    bondToken: "MIM",
+    displayName: "DAI",
+    bondToken: "DAI",
     bondIconSvg: MimIcon,
     bondContractABI: StableBondContract,
     reserveContractAbi: StableReserveContract,
@@ -41,8 +41,8 @@ export const wavax = new CustomBond({
 
 export const mimTime = new LPBond({
     name: "mim_time_lp",
-    displayName: "AMP-MIM LP",
-    bondToken: "MIM",
+    displayName: "AMP-DAI LP",
+    bondToken: "DAI",
     bondIconSvg: MimTimeIcon,
     bondContractABI: LpBondContract,
     reserveContractAbi: LpReserveContract,

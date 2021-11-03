@@ -17,7 +17,7 @@ export const loadAppDetails = createAsyncThunk(
     "app/loadAppDetails",
     //@ts-ignore
     async ({ networkID, provider }: ILoadAppDetails) => {
-        const mimPrice = getTokenPrice("MIM");
+        const mimPrice = getTokenPrice("DAI");
         const addresses = getAddresses(networkID);
 
         const ohmPrice = getTokenPrice("OHM");
