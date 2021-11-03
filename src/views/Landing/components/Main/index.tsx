@@ -14,7 +14,7 @@ function Main() {
                 <p>and earncompounding interest</p>
             </div>
             <div className="landing-main-btns-wrap">
-                <Link href="https://app.wonderland.money" target="_blank" rel="noreferrer">
+                <Link href="http://app.localhost:3000" target="_blank" rel="noreferrer">
                     <div className="landing-main-btn">
                         <p>Enter App</p>
                     </div>
