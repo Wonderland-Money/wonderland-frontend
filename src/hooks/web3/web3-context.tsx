@@ -64,7 +64,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
                     package: WalletConnectProvider,
                     options: {
                         rpc: {
-                            [Networks.AVAX]: getMainnetURI(),
+                            [Networks.FTM]: getMainnetURI(),
                         },
                     },
                 },
@@ -118,7 +118,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
         setProviderChainID(chainId);
 
-        if (chainId === Networks.AVAX) {
+        if (chainId === Networks.FTM) {
             setProvider(connectedProvider);
         }
 

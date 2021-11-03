@@ -3,12 +3,12 @@ import axios from "axios";
 const cache: { [key: string]: number } = {};
 
 export const loadTokenPrices = async () => {
-    const url = "https://api.coingecko.com/api/v3/simple/price?ids=avalanche-2,asgard,dai&vs_currencies=usd";
+    const url = "https://api.coingecko.com/api/v3/simple/price?ids=fantom,asgard,dai&vs_currencies=usd";
     const { data } = await axios.get(url);
 
-    cache["AVAX"] = data["avalanche-2"].usd;
+    cache["FTM"] = data["fantom"].usd;
     cache["DAI"] = data["dai"].usd;
-    cache["AMP"] = data["asgard"].usd;
+    cache["AMP"] = 1.0;
 };
 
 export const getTokenPrice = (symbol: string): number => {

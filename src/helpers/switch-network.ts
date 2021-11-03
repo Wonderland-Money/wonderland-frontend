@@ -17,8 +17,8 @@ const addChainRequest = () => {
                 rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
                 blockExplorerUrls: ["https://cchain.explorer.avax.network/"],
                 nativeCurrency: {
-                    name: "AVAX",
-                    symbol: "AVAX",
+                    name: "FTM",
+                    symbol: "FTM",
                     decimals: 18,
                 },
             },

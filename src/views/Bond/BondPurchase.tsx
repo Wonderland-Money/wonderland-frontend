@@ -120,7 +120,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
         dispatch(changeApproval({ address, bond, provider, networkID: chainID }));
     };
 
-    const displayUnits = useAvax ? "AVAX" : bond.displayUnits;
+    const displayUnits = useAvax ? "FTM" : bond.displayUnits;
 
     return (
         <Box display="flex" flexDirection="column">
@@ -129,7 +129,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     <FormControl className="ohm-input" variant="outlined" color="primary" fullWidth>
                         <div className="avax-checkbox">
                             <input type="checkbox" checked={useAvax} onClick={() => setUseAvax(!useAvax)} />
-                            <p>Use AVAX</p>
+                            <p>Use FTM</p>
                         </div>
                     </FormControl>
                 )}

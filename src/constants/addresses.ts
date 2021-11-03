@@ -1,6 +1,6 @@
 import { Networks } from "./blockchain";
 
-const AVAX_MAINNET = {
+const FTM_MAINNET = {
     DAO_ADDRESS: "0xf435575C971c133Deaf73Cc82033abD803ce2327",
     sAMP_ADDRESS: "0xdbe21C1c18651157b5600399498218c4f8CC1D25",
     AMP_ADDRESS: "0x70937c400311EC7Ef26ad0Aba5413c8f4ca99803",
@@ -12,7 +12,7 @@ const AVAX_MAINNET = {
 };
 
 export const getAddresses = (networkID: number) => {
-    if (networkID === Networks.AVAX) return AVAX_MAINNET;
+    if (networkID === Networks.FTM) return FTM_MAINNET;
 
     throw Error("Network don't support");
 };
