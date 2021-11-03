@@ -269,7 +269,7 @@
         "type": "function"
     }, {
         "inputs": [],
-        "name": "MEMOries",
+        "name": "sAMP",
         "outputs": [{
             "internalType": "address",
             "name": "",
