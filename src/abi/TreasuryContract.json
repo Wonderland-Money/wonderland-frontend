@@ -661,7 +661,7 @@
             "name": "_amount",
             "type": "uint256"
         }],
-        "name": "repayDebtWithOHM",
+        "name": "repayDebtWithAMP",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
@@ -807,7 +807,7 @@
         "type": "function"
     }, {
         "inputs": [],
-        "name": "sOHMQueue",
+        "name": "sAMPQueue",
         "outputs": [{
             "internalType": "uint256",
             "name": "",

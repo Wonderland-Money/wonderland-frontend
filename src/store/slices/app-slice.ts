@@ -20,7 +20,7 @@ export const loadAppDetails = createAsyncThunk(
         const mimPrice = getTokenPrice("DAI");
         const addresses = getAddresses(networkID);
 
-        const ohmPrice = getTokenPrice("OHM");
+        const ohmPrice = getTokenPrice("AMP");
         const ohmAmount = 1512.12854088 * ohmPrice;
 
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
