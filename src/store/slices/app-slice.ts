@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingContract, MemoTokenContract, TimeTokenContract } from "../../abi";
+import { StakingContract, MemoTokenContract, AmpTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -17,7 +17,8 @@ export const loadAppDetails = createAsyncThunk(
     "app/loadAppDetails",
     //@ts-ignore
     async ({ networkID, provider }: ILoadAppDetails) => {
-        const mimPrice = getTokenPrice("DAI");
+        console.log("Start of app-slice");
+        const daiPrice = getTokenPrice("DAI");
         const addresses = getAddresses(networkID);
 
         const ohmPrice = getTokenPrice("AMP");
@@ -26,16 +27,21 @@ export const loadAppDetails = createAsyncThunk(
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
         const currentBlock = await provider.getBlockNumber();
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
-        const memoContract = new ethers.Contract(addresses.sAMP_ADDRESS, MemoTokenContract, provider);
-        const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, TimeTokenContract, provider);
+        const sAmpContract = new ethers.Contract(addresses.sAMP_ADDRESS, MemoTokenContract, provider);
+        const ampContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, provider);
 
-        const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
+        // const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * daiPrice; // Problematic part
+        const marketPrice = 0;
 
-        const totalSupply = (await timeContract.totalSupply()) / Math.pow(10, 9);
-        const circSupply = (await memoContract.circulatingSupply()) / Math.pow(10, 9);
+        const totalSupply = (await ampContract.totalSupply()) / Math.pow(10, 9);
+        const circSupply = (await sAmpContract.circulatingSupply()) / Math.pow(10, 9);
+        console.log("Total Supply: " + totalSupply);
+        console.log("Circulating Supply: " + circSupply);
 
-        const stakingTVL = circSupply * marketPrice;
-        const marketCap = totalSupply * marketPrice;
+        // const stakingTVL = circSupply * marketPrice;
+        const stakingTVL = 0;
+        // const marketCap = totalSupply * marketPrice;
+        const marketCap = 0;
 
         const tokenBalPromises = allBonds.map(bond => bond.getTreasuryBalance(networkID, provider));
         const tokenBalances = await Promise.all(tokenBalPromises);
@@ -53,8 +59,10 @@ export const loadAppDetails = createAsyncThunk(
         const rfv = rfvTreasury / timeSupply;
 
         const epoch = await stakingContract.epoch();
+        console.log("Epoch: ");
+        console.log(epoch);
         const stakingReward = epoch.distribute;
-        const circ = await memoContract.circulatingSupply();
+        const circ = await sAmpContract.circulatingSupply();
         const stakingRebase = stakingReward / circ;
         const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
         const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;

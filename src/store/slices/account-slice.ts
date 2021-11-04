@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { TimeTokenContract, MemoTokenContract } from "../../abi/";
+import { AmpTokenContract, MemoTokenContract } from "../../abi/";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -28,7 +28,7 @@ export const getBalances = createAsyncThunk("account/getBalances", async ({ addr
 
     const memoContract = new ethers.Contract(addresses.sAMP_ADDRESS, MemoTokenContract, provider);
     const memoBalance = await memoContract.balanceOf(address);
-    const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, TimeTokenContract, provider);
+    const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, provider);
     const timeBalance = await timeContract.balanceOf(address);
 
     return {
@@ -65,7 +65,7 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
     const addresses = getAddresses(networkID);
 
     if (addresses.AMP_ADDRESS) {
-        const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, TimeTokenContract, provider);
+        const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, provider);
         timeBalance = await timeContract.balanceOf(address);
         stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     }
