@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingContract, MemoTokenContract, AmpTokenContract } from "../../abi";
+import { StakingContract, sAmpTokenContract, AmpTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -27,7 +27,7 @@ export const loadAppDetails = createAsyncThunk(
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
         const currentBlock = await provider.getBlockNumber();
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
-        const sAmpContract = new ethers.Contract(addresses.sAMP_ADDRESS, MemoTokenContract, provider);
+        const sAmpContract = new ethers.Contract(addresses.sAMP_ADDRESS, sAmpTokenContract, provider);
         const ampContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, provider);
 
         // const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * daiPrice; // Problematic part

@@ -5,7 +5,7 @@ export { abi as WavaxBondContract } from "./bonds/WavaxContract.json";
 export { abi as StableReserveContract } from "./reserves/StableContract.json";
 export { abi as LpReserveContract } from "./reserves/LpContract.json";
 
-export { abi as MemoTokenContract } from "./tokens/MemoContract.json";
+export { abi as sAmpTokenContract } from "./tokens/sAmpContract.json";
 export { abi as AmpTokenContract } from "./tokens/AmpContract.json";
 export { abi as MimTokenContract } from "./tokens/MimContract.json";
 
