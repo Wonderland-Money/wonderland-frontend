@@ -44,7 +44,9 @@ export const loadAppDetails = createAsyncThunk(
         const marketCap = 0;
 
         const tokenBalPromises = allBonds.map(bond => bond.getTreasuryBalance(networkID, provider));
+        console.log("hey before");
         const tokenBalances = await Promise.all(tokenBalPromises);
+        console.log("hey");
         const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1, ohmAmount);
 
         const tokenAmountsPromises = allBonds.map(bond => bond.getTokenAmount(networkID, provider));
