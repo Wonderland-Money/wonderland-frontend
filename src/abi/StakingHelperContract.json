@@ -9,7 +9,7 @@
                 },
                 {
                     "internalType": "address",
-                    "name": "_Time",
+                    "name": "_AMP",
                     "type": "address"
                 }
             ],
@@ -18,7 +18,7 @@
         },
         {
             "inputs": [],
-            "name": "Time",
+            "name": "AMP",
             "outputs": [
                 {
                     "internalType": "address",
@@ -35,11 +35,6 @@
                     "internalType": "uint256",
                     "name": "_amount",
                     "type": "uint256"
-                },
-                {
-                    "internalType": "address",
-                    "name": "recipient",
-                    "type": "address"
                 }
             ],
             "name": "stake",
