@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { TimeTokenContract, MemoTokenContract } from "../../abi/";
+import { TimeTokenContract, MemoTokenContract, MimTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -9,6 +9,7 @@ import { Bond } from "../../helpers/bond/bond";
 import { Networks } from "../../constants/blockchain";
 import React from "react";
 import { RootState } from "../store";
+import { IToken } from "../../helpers/tokens";
 
 interface IGetBalances {
     address: string;
@@ -104,8 +105,8 @@ export interface IUserBondDetails {
     pendingPayout: number; //Payout formatted in gwei.
 }
 
-export const calculateUserBondDetails = createAsyncThunk("bonding/calculateUserBondDetails", async ({ address, bond, networkID, provider }: ICalcUserBondDetails) => {
-    if (!address)
+export const calculateUserBondDetails = createAsyncThunk("account/calculateUserBondDetails", async ({ address, bond, networkID, provider }: ICalcUserBondDetails) => {
+    if (!address) {
         return new Promise<any>(resevle => {
             resevle({
                 bond: "",
@@ -120,6 +121,7 @@ export const calculateUserBondDetails = createAsyncThunk("bonding/calculateUserB
                 avaxBalance: 0,
             });
         });
+    }
 
     const bondContract = bond.getContractForBond(networkID, provider);
     const reserveContract = bond.getContractForReserve(networkID, provider);
@@ -157,6 +159,65 @@ export const calculateUserBondDetails = createAsyncThunk("bonding/calculateUserB
     };
 });
 
+interface ICalcUserTokenDetails {
+    address: string;
+    token: IToken;
+    provider: StaticJsonRpcProvider | JsonRpcProvider;
+    networkID: Networks;
+}
+
+export interface IUserTokenDetails {
+    allowance: number;
+    balance: number;
+    isAvax?: boolean;
+}
+
+export const calculateUserTokenDetails = createAsyncThunk("account/calculateUserTokenDetails", async ({ address, token, networkID, provider }: ICalcUserTokenDetails) => {
+    if (!address) {
+        return new Promise<any>(resevle => {
+            resevle({
+                token: "",
+                address: "",
+                img: "",
+                allowance: 0,
+                balance: 0,
+            });
+        });
+    }
+
+    if (token.isAvax) {
+        const avaxBalance = await provider.getSigner().getBalance();
+        const avaxVal = ethers.utils.formatEther(avaxBalance);
+
+        return {
+            token: token.name,
+            tokenIcon: token.img,
+            balance: Number(avaxVal),
+            isAvax: true,
+        };
+    }
+
+    const addresses = getAddresses(networkID);
+
+    const tokenContract = new ethers.Contract(token.address, MimTokenContract, provider);
+
+    let allowance,
+        balance = "0";
+
+    allowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
+    balance = await tokenContract.balanceOf(address);
+
+    const balanceVal = Number(balance) / Math.pow(10, token.decimals);
+
+    return {
+        token: token.name,
+        address: token.address,
+        img: token.img,
+        allowance: Number(allowance),
+        balance: Number(balanceVal),
+    };
+});
+
 export interface IAccountSlice {
     bonds: { [key: string]: IUserBondDetails };
     balances: {
@@ -168,6 +229,7 @@ export interface IAccountSlice {
         time: number;
         memo: number;
     };
+    tokens: { [key: string]: IUserTokenDetails };
 }
 
 const initialState: IAccountSlice = {
@@ -175,6 +237,7 @@ const initialState: IAccountSlice = {
     bonds: {},
     balances: { memo: "", time: "" },
     staking: { time: 0, memo: 0 },
+    tokens: {},
 };
 
 const accountSlice = createSlice({
@@ -219,6 +282,19 @@ const accountSlice = createSlice({
                 state.loading = false;
             })
             .addCase(calculateUserBondDetails.rejected, (state, { error }) => {
+                state.loading = false;
+                console.log(error);
+            })
+            .addCase(calculateUserTokenDetails.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(calculateUserTokenDetails.fulfilled, (state, action) => {
+                if (!action.payload) return;
+                const token = action.payload.token;
+                state.tokens[token] = action.payload;
+                state.loading = false;
+            })
+            .addCase(calculateUserTokenDetails.rejected, (state, { error }) => {
                 state.loading = false;
                 console.log(error);
             });

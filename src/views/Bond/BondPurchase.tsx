@@ -11,6 +11,7 @@ import { IAllBondData } from "../../hooks/bonds";
 import useDebounce from "../../hooks/debounce";
 import { messages } from "../../constants/messages";
 import { warning } from "../../store/slices/messages-slice";
+import Zapin from "./Zapin";
 
 interface IBondPurchaseProps {
     bond: IAllBondData;
@@ -19,15 +20,14 @@ interface IBondPurchaseProps {
 }
 
 function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) {
-    const SECONDS_TO_REFRESH = 60;
     const dispatch = useDispatch();
     const { provider, address, chainID, checkWrongNetwork } = useWeb3Context();
 
     const [quantity, setQuantity] = useState("");
     const [useAvax, setUseAvax] = useState(false);
-    const [secondsToRefresh, setSecondsToRefresh] = useState(SECONDS_TO_REFRESH);
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
+    const [zapinOpen, setZapinOpen] = useState(false);
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
@@ -48,7 +48,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
         } else if (bond.interestDue > 0 || bond.pendingPayout > 0) {
             const shouldProceed = window.confirm(messages.existing_mint);
             if (shouldProceed) {
-                const trimBalance = trim(Number(trim(Number(quantity), 10)) - 1 * Math.pow(10, -10));
+                const trimBalance = trim(Number(quantity), 10);
 
                 await dispatch(
                     bondAsset({
@@ -64,7 +64,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                 clearInput();
             }
         } else {
-            const trimBalance = trim(Number(trim(Number(quantity), 10)) - 1 * Math.pow(10, -10));
+            const trimBalance = trim(Number(quantity), 10);
             await dispatch(
                 //@ts-ignore
                 bondAsset({
@@ -90,7 +90,12 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
     }, [bond.allowance]);
 
     const setMax = () => {
-        const amount = Math.min(bond.maxBondPriceToken, useAvax ? bond.avaxBalance * 0.99 : bond.balance);
+        let amount: any = Math.min(bond.maxBondPriceToken * 0.9999, useAvax ? bond.avaxBalance * 0.99 : bond.balance);
+
+        if (amount) {
+            amount = trim(amount);
+        }
+
         setQuantity((amount || "").toString());
     };
 
@@ -100,24 +105,20 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
         dispatch(calcBondDetails({ bond, value: quantity, provider, networkID: chainID }));
     }, [bondDetailsDebounce]);
 
-    useEffect(() => {
-        let interval: any = null;
-        if (secondsToRefresh > 0) {
-            interval = setInterval(() => {
-                setSecondsToRefresh(secondsToRefresh => secondsToRefresh - 1);
-            }, 1000);
-        } else {
-            clearInterval(interval);
-            dispatch(calcBondDetails({ bond, value: quantity, provider, networkID: chainID }));
-            setSecondsToRefresh(SECONDS_TO_REFRESH);
-        }
-        return () => clearInterval(interval);
-    }, [secondsToRefresh, quantity]);
-
     const onSeekApproval = async () => {
         if (await checkWrongNetwork()) return;
 
         dispatch(changeApproval({ address, bond, provider, networkID: chainID }));
+    };
+
+    const handleZapinOpen = () => {
+        dispatch(calcBondDetails({ bond, value: "0", provider, networkID: chainID }));
+        setZapinOpen(true);
+    };
+
+    const handleZapinClose = () => {
+        dispatch(calcBondDetails({ bond, value: quantity, provider, networkID: chainID }));
+        setZapinOpen(false);
     };
 
     const displayUnits = useAvax ? "AVAX" : bond.displayUnits;
@@ -172,6 +173,10 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     </div>
                 )}
 
+                <div className="transaction-button bond-approve-btn" onClick={handleZapinOpen}>
+                    <p>Zap</p>
+                </div>
+
                 {!hasAllowance() && !useAvax && (
                     <div className="help-text">
                         <p className="help-text-desc">
@@ -212,11 +217,6 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     </div>
 
                     <div className="data-row">
-                        <p className="bond-balance-title">Debt Ratio</p>
-                        <p className="bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.debtRatio, 2)}%`}</p>
-                    </div>
-
-                    <div className="data-row">
                         <p className="bond-balance-title">Vesting Term</p>
                         <p className="bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : vestingPeriod()}</p>
                     </div>
@@ -234,6 +234,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     )}
                 </Box>
             </Slide>
+            <Zapin open={zapinOpen} handleClose={handleZapinClose} bond={bond} />
         </Box>
     );
 }

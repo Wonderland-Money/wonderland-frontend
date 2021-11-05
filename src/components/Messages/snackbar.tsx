@@ -18,13 +18,14 @@ import ErrorIcon from "@material-ui/icons/Error";
 import InfoIcon from "@material-ui/icons/Info";
 import SuccessIcon from "@material-ui/icons/CheckCircle";
 import { Color } from "@material-ui/lab/Alert";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const useStyles = makeStyles(theme => ({
     root: {
         [theme.breakpoints.up("sm")]: {
             minWidth: "344px !important",
         },
-        maxWidth: 400,
+        maxWidth: 500,
     },
     card: {
         width: "100%",
@@ -121,16 +122,6 @@ const SnackMessage = forwardRef<HTMLDivElement, { id: string | number; message: 
         }
     };
 
-    const copyToClipboard = (text: any) => () => {
-        const textField = document.createElement("textarea");
-        textField.innerText = text;
-        document.body.appendChild(textField);
-        textField.select();
-        document.execCommand("copy");
-        textField.remove();
-        setIsCopy(true);
-    };
-
     return (
         <SnackbarContent ref={ref} className={classes.root}>
             <Card className={classnames(classes.card, classes[props.message.severity])}>
@@ -152,10 +143,12 @@ const SnackMessage = forwardRef<HTMLDivElement, { id: string | number; message: 
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Paper className={classes.collapse}>
-                        <Button size="small" className={classes.button} onClick={copyToClipboard(JSON.stringify(props.message.error))}>
-                            <CheckCircleIcon className={classnames(classes.checkIcon, { [classes.checkIconCopy]: isCopy })} />
-                            Copy to clipboard
-                        </Button>
+                        <CopyToClipboard text={JSON.stringify(props.message.error)} onCopy={() => setIsCopy(true)}>
+                            <Button size="small" className={classes.button}>
+                                <CheckCircleIcon className={classnames(classes.checkIcon, { [classes.checkIconCopy]: isCopy })} />
+                                Copy to clipboard
+                            </Button>
+                        </CopyToClipboard>
                         <div className={classes.errorWrap}>
                             <Typography>Error message: </Typography>
                             <Typography className={classes.errorText}>{JSON.stringify(props.message.error, null, 2)}</Typography>

@@ -18,8 +18,17 @@
 
 .time-menu-popper{
   margin-top: 10px;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(100px);
+
+  @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(100px);
+  }
+
+  /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+  @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+      background: #181B1C;
+  }
+
   border-radius: 10px;
   overflow: hidden;
   z-index: 10;

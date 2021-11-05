@@ -1,4 +1,5 @@
-import { Typography, Box, Modal, Paper, SvgIcon, IconButton, FormControl, OutlinedInput, InputLabel, InputAdornment } from "@material-ui/core";
+import { Box, Modal, Paper, SvgIcon, IconButton, FormControl, OutlinedInput, InputLabel, InputAdornment } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 import "./bondSettings.scss";
 
@@ -12,6 +13,16 @@ interface IAdvancedSettingsProps {
 }
 
 function AdvancedSettings({ open, handleClose, slippage, recipientAddress, onRecipientAddressChange, onSlippageChange }: IAdvancedSettingsProps) {
+    const [value, setValue] = useState(slippage);
+
+    useEffect(() => {
+        let timeount: any = null;
+        clearTimeout(timeount);
+
+        timeount = setTimeout(() => onSlippageChange(value), 1000);
+        return () => clearTimeout(timeount);
+    }, [value]);
+
     return (
         <Modal id="hades" open={open} onClose={handleClose} hideBackdrop>
             <Paper className="ohm-card ohm-popover">
@@ -30,13 +41,10 @@ function AdvancedSettings({ open, handleClose, slippage, recipientAddress, onRec
                     <FormControl variant="outlined" color="primary" fullWidth>
                         <OutlinedInput
                             id="slippage"
-                            value={slippage}
-                            onChange={onSlippageChange}
+                            value={value}
+                            onChange={(e: any) => setValue(e.target.value)}
                             fullWidth
                             type="number"
-                            //@ts-ignore
-                            max="100"
-                            min="100"
                             className="bond-input"
                             endAdornment={
                                 <InputAdornment position="end">

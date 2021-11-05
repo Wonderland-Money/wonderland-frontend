@@ -5,10 +5,23 @@
     align-items: center;
     justify-content: center;
     z-index: 2;
+    position: relative;
+
+    .landing-main-img-wrap{
+        max-width: 400px;
+        max-height: 400px;
+
+        img{
+            width: 100%;
+            width: 100%;
+        }
+
+        margin-bottom: 20px;
+    }
 
     .landing-main-title-wrap{
         text-align: center;
-        margin-top: 80px;
+        margin-top: 30px;
         margin-bottom: 20px;
 
         p{

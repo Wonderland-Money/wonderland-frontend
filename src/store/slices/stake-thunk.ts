@@ -9,6 +9,8 @@ import { Networks } from "../../constants/blockchain";
 import { warning, success, info, error } from "../../store/slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
+import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
+import { sleep } from "../../helpers";
 
 interface IChangeApproval {
     token: string;
@@ -44,16 +46,17 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
         const pendingTxnType = token === "time" ? "approve_staking" : "approve_unstaking";
 
         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
-        dispatch(success({ text: messages.tx_successfully_send }));
         await approveTx.wait();
+        dispatch(success({ text: messages.tx_successfully_send }));
     } catch (err: any) {
-        dispatch(error({ text: messages.something_wrong, error: err.message }));
-        return;
+        return metamaskErrorWrap(err, dispatch);
     } finally {
         if (approveTx) {
             dispatch(clearPendingTxn(approveTx.hash));
         }
     }
+
+    await sleep(2);
 
     const stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     const unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
@@ -98,21 +101,18 @@ export const changeStake = createAsyncThunk("stake/changeStake", async ({ action
         }
         const pendingTxnType = action === "stake" ? "staking" : "unstaking";
         dispatch(fetchPendingTxns({ txnHash: stakeTx.hash, text: getStakingTypeText(action), type: pendingTxnType }));
-        dispatch(success({ text: messages.tx_successfully_send }));
         await stakeTx.wait();
+        dispatch(success({ text: messages.tx_successfully_send }));
     } catch (err: any) {
-        if (err.code === -32603 && err.message.indexOf("ds-math-sub-underflow") >= 0) {
-            dispatch(error({ text: "You may be trying to stake more than your balance! Error code: 32603. Message: ds-math-sub-underflow", error: err }));
-        } else {
-            dispatch(error({ text: messages.something_wrong, error: err }));
-        }
-        return;
+        return metamaskErrorWrap(err, dispatch);
     } finally {
         if (stakeTx) {
             dispatch(clearPendingTxn(stakeTx.hash));
         }
     }
-    dispatch(getBalances({ address, networkID, provider }));
+    dispatch(info({ text: messages.your_balance_update_soon }));
+    await sleep(10);
+    await dispatch(getBalances({ address, networkID, provider }));
     dispatch(info({ text: messages.your_balance_updated }));
     return;
 });

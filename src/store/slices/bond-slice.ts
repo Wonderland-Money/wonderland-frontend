@@ -14,6 +14,8 @@ import { avaxTime, wavax } from "../../helpers/bond";
 import { error, warning, success, info } from "../slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
+import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
+import { sleep } from "../../helpers";
 
 interface IChangeApproval {
     bond: Bond;
@@ -43,29 +45,27 @@ export const changeApproval = createAsyncThunk("bonding/changeApproval", async (
                 type: "approve_" + bond.name,
             }),
         );
-        dispatch(success({ text: messages.tx_successfully_send }));
         await approveTx.wait();
+        dispatch(success({ text: messages.tx_successfully_send }));
     } catch (err: any) {
-        dispatch(error({ text: messages.something_wrong, error: err }));
+        metamaskErrorWrap(err, dispatch);
     } finally {
         if (approveTx) {
             dispatch(clearPendingTxn(approveTx.hash));
         }
     }
 
-    let allowance,
-        balance = "0";
+    await sleep(2);
+
+    let allowance = "0";
 
     allowance = await reserveContract.allowance(address, bond.getAddressForBond(networkID));
-    balance = await reserveContract.balanceOf(address);
-    const balanceVal = ethers.utils.formatEther(balance);
 
     return dispatch(
         fetchAccountSuccess({
             bonds: {
                 [bond.name]: {
                     allowance: Number(allowance),
-                    balance: Number(balanceVal),
                 },
             },
         }),
@@ -82,7 +82,6 @@ interface ICalcBondDetails {
 export interface IBondDetails {
     bond: string;
     bondDiscount: number;
-    debtRatio: number;
     bondQuote: number;
     purchased: number;
     vestingTerm: number;
@@ -111,11 +110,6 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     const terms = await bondContract.terms();
     const maxBondPrice = (await bondContract.maxPayout()) / Math.pow(10, 9);
-    let debtRatio = (await bondContract.standardizedDebtRatio()) / Math.pow(10, 9);
-
-    if (bond.isLP) {
-        debtRatio = debtRatio / Math.pow(10, 7);
-    }
 
     let marketPrice = await getMarketPrice(networkID, provider);
 
@@ -184,7 +178,6 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     return {
         bond: bond.name,
         bondDiscount,
-        debtRatio,
         bondQuote,
         purchased,
         vestingTerm: Number(terms.vestingTerm),
@@ -207,8 +200,7 @@ interface IBondAsset {
 export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, address, bond, networkID, provider, slippage, useAvax }: IBondAsset, { dispatch }) => {
     const depositorAddress = address;
     const acceptedSlippage = slippage / 100 || 0.005;
-    const valueInWei = ethers.utils.parseUnits(value.toString(), "ether");
-
+    const valueInWei = ethers.utils.parseUnits(value, "ether");
     const signer = provider.getSigner();
     const bondContract = bond.getContractForBond(networkID, signer);
 
@@ -231,19 +223,15 @@ export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, a
                 type: "bond_" + bond.name,
             }),
         );
-        dispatch(success({ text: messages.tx_successfully_send }));
         await bondTx.wait();
+        dispatch(success({ text: messages.tx_successfully_send }));
+        dispatch(info({ text: messages.your_balance_update_soon }));
+        await sleep(10);
+        await dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
         dispatch(info({ text: messages.your_balance_updated }));
-        dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
         return;
     } catch (err: any) {
-        if (err.code === -32603 && err.message.indexOf("ds-math-sub-underflow") >= 0) {
-            dispatch(error({ text: "You may be trying to bond more than your balance! Error code: 32603. Message: ds-math-sub-underflow", error: err }));
-        } else if (err.code === -32603 && err.data && err.data.message) {
-            const msg = err.data.message.includes(":") ? err.data.message.split(":")[1].trim() : err.data.data || err.data.message;
-            dispatch(error({ text: msg, error: err }));
-        } else dispatch(error({ text: messages.something_wrong, error: err }));
-        return;
+        return metamaskErrorWrap(err, dispatch);
     } finally {
         if (bondTx) {
             dispatch(clearPendingTxn(bondTx.hash));
@@ -273,7 +261,7 @@ export const redeemBond = createAsyncThunk("bonding/redeemBond", async ({ addres
         const gasPrice = await getGasPrice(provider);
 
         redeemTx = await bondContract.redeem(address, autostake === true, { gasPrice });
-        const pendingTxnType = "redeem_bond_" + bond + (autostake === true ? "_autostake" : "");
+        const pendingTxnType = "redeem_bond_" + bond.name + (autostake === true ? "_autostake" : "");
         dispatch(
             fetchPendingTxns({
                 txnHash: redeemTx.hash,
@@ -281,14 +269,17 @@ export const redeemBond = createAsyncThunk("bonding/redeemBond", async ({ addres
                 type: pendingTxnType,
             }),
         );
-        dispatch(success({ text: messages.tx_successfully_send }));
         await redeemTx.wait();
+        dispatch(success({ text: messages.tx_successfully_send }));
+        await sleep(0.01);
+        dispatch(info({ text: messages.your_balance_update_soon }));
+        await sleep(10);
         await dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
-        dispatch(getBalances({ address, networkID, provider }));
+        await dispatch(getBalances({ address, networkID, provider }));
         dispatch(info({ text: messages.your_balance_updated }));
         return;
     } catch (err: any) {
-        dispatch(error({ text: messages.something_wrong, error: err.message }));
+        metamaskErrorWrap(err, dispatch);
     } finally {
         if (redeemTx) {
             dispatch(clearPendingTxn(redeemTx.hash));

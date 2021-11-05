@@ -8,3 +8,4 @@ export * from "./get-token-image";
 export * from "./set-all";
 export * from "./token-price";
 export * from "./price-units";
+export * from "./sleep";

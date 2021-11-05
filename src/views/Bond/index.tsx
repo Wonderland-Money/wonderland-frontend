@@ -13,13 +13,6 @@ import { IReduxState } from "../../store/slices/state.interface";
 import { IAllBondData } from "../../hooks/bonds";
 import classnames from "classnames";
 
-function a11yProps(index: number) {
-    return {
-        id: `simple-tab-${index}`,
-        "aria-controls": `simple-tabpanel-${index}`,
-    };
-}
-
 interface IBondProps {
     bond: IAllBondData;
 }
@@ -34,12 +27,12 @@ function Bond({ bond }: IBondProps) {
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
 
-    const onRecipientAddressChange = (e: any) => {
-        return setRecipientAddress(e.target.value);
+    const onRecipientAddressChange = (value: any) => {
+        return setRecipientAddress(value);
     };
 
-    const onSlippageChange = (e: any) => {
-        return setSlippage(e.target.value);
+    const onSlippageChange = (value: any) => {
+        return setSlippage(value);
     };
 
     useEffect(() => {

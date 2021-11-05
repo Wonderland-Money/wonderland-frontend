@@ -12,6 +12,7 @@ import { Link } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import "./drawer-content.scss";
 import DocsIcon from "../../../assets/icons/stake.svg";
+import BrowserIcon from "../../../assets/icons/browser.png";
 import classnames from "classnames";
 
 function NavContent() {
@@ -115,6 +116,9 @@ function NavContent() {
                 <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank">
                     <img alt="" src={DocsIcon} />
                     <p>Docs</p>
+                </Link>
+                <Link href="https://legacy.wonderland.money/" target="_blank">
+                    <p>Legacy website</p>
                 </Link>
             </div>
             <Social />

@@ -14,7 +14,7 @@ ReactDOM.render(
             horizontal: "right",
         }}
         content={(key, message: string) => <SnackMessage id={key} message={JSON.parse(message)} />}
-        autoHideDuration={3 * 60000}
+        autoHideDuration={10000}
     >
         <Provider store={store}>
             <Web3ContextProvider>
