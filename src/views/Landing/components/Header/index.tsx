@@ -1,6 +1,6 @@
 import React from "react";
 import "./header.scss";
-import TridentIcon from "../../../../assets/tokens/PSI.svg";
+import TridentIcon from "../../../../assets/icons/LandingLogo.svg";
 import { Link, Box } from "@material-ui/core";
 
 function Header() {

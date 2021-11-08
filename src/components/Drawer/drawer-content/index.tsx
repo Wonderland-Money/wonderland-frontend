@@ -3,7 +3,7 @@ import { NavLink, Link as RouterLink } from "react-router-dom";
 import Social from "./social";
 import { ReactComponent as StakeIcon } from "../../../assets/icons/stake.svg";
 import { ReactComponent as BondIcon } from "../../../assets/icons/bond.svg";
-import TridentIcon from "../../../assets/icons/trident-nav-header.svg";
+import TridentIcon from "../../../assets/icons/trident-nav-header2.svg";
 import { ReactComponent as DashboardIcon } from "../../../assets/icons/dashboard.svg";
 import { ReactComponent as DocsIcon } from "../../../assets/icons/docs.svg";
 import { trim, shorten } from "../../../helpers";

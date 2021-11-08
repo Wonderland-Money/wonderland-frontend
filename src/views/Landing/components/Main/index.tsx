@@ -17,7 +17,7 @@ function Main() {
             <div className="landing-main-btns-wrap">
                 <RouterLink to="/stake">
                     <div className="landing-main-btn">
-                        <p>Enter App</p>
+                        <p>Enter Atlantis</p>
                     </div>
                 </RouterLink>
                 <Link href="https://trident.gitbook.io/trident/" target="_blank" rel="noreferrer">
