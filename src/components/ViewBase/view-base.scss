@@ -16,10 +16,11 @@
         bottom: 0;
         width: 100vw;
         height: 100vh;
-        background-position: 20%;
-        background-image: url("../../assets/images/bg3.jpg");
+        background-position: 80%;
+        background-image: url("../../assets/images/bgApp.jpg");
         background-size: cover;
-        opacity: 0.8;
+        opacity: 1;
+        filter: blur(4px);
     }
 
     .cubes-top {
