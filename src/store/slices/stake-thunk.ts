@@ -26,11 +26,15 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
 
     const signer = provider.getSigner();
     const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, signer);
+    console.log("Time contract: ");
+    console.log(timeContract);
     const memoContract = new ethers.Contract(addresses.sAMP_ADDRESS, sAmpTokenContract, signer);
 
     let approveTx;
     try {
-        const gasPrice = await getGasPrice(provider);
+        // const gasPrice = await getGasPrice(provider);
+        const gasPrice = 10;
+        console.log("Gas price: " + gasPrice);
 
         if (token === "time") {
             approveTx = await timeContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });

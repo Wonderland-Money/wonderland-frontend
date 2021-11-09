@@ -18,8 +18,8 @@ export const dai = new StableBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.FTM]: {
-            bondAddress: "0x4E90849aA14962fd7A3a54AB150A421710620fFb",
-            reserveAddress: "0x6c0796a8D70534adB6f3d45830831A885d0Ba33b",
+            bondAddress: "0xeCFaBFb56728B91292B782cF03892e8753e2ca8F",
+            reserveAddress: "0xc7ad46e0b8a400bb3c915120d284aafba8fc4735",
         },
     },
 });
@@ -39,6 +39,7 @@ export const wavax = new CustomBond({
         },
     },
 });
+
 
 export const mimTime = new LPBond({
     name: "mim_time_lp",

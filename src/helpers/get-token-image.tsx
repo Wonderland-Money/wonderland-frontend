@@ -7,11 +7,11 @@ function toUrl(tokenPath: string): string {
 }
 
 export function getTokenUrl(name: string) {
-    if (name === "time") {
+    if (name === "amp") {
         return toUrl(TimeImg);
     }
 
-    if (name === "memo") {
+    if (name === "samp") {
         return toUrl(MemoImg);
     }
 
