@@ -30,18 +30,15 @@ export const loadAppDetails = createAsyncThunk(
         const sAmpContract = new ethers.Contract(addresses.sAMP_ADDRESS, sAmpTokenContract, provider);
         const ampContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, provider);
 
-        // const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * daiPrice; // Problematic part
-        const marketPrice = 0;
+        const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * daiPrice; // Problematic part
 
         const totalSupply = (await ampContract.totalSupply()) / Math.pow(10, 9);
         const circSupply = (await sAmpContract.circulatingSupply()) / Math.pow(10, 9);
         console.log("Total Supply: " + totalSupply);
         console.log("Circulating Supply: " + circSupply);
 
-        // const stakingTVL = circSupply * marketPrice;
-        const stakingTVL = 0;
-        // const marketCap = totalSupply * marketPrice;
-        const marketCap = 0;
+        const stakingTVL = circSupply * marketPrice;
+        const marketCap = totalSupply * marketPrice;
 
         const tokenBalPromises = allBonds.map(bond => bond.getTreasuryBalance(networkID, provider));
         console.log("hey before");

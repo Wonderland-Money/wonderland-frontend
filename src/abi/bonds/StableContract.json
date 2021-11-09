@@ -155,7 +155,7 @@
         "type": "function"
     }, {
         "inputs": [],
-        "name": "Time",
+        "name": "AMP",
         "outputs": [{
             "internalType": "address",
             "name": "",
