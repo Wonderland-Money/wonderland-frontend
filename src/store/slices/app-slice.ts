@@ -61,14 +61,22 @@ export const loadAppDetails = createAsyncThunk(
         console.log("Epoch: ");
         console.log(epoch);
         const stakingReward = epoch.distribute;
+        console.log("1");
         const circ = await sAmpContract.circulatingSupply();
+        console.log("2");
         const stakingRebase = stakingReward / circ;
+        console.log("3");
         const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
+        console.log("4");
         const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
+        console.log("5");
 
         const currentIndex = await stakingContract.index();
+        console.log("6");
         const nextRebase = epoch.endTime;
 
+        console.log("rfvTreasury: " + rfvTreasury);
+        console.log("circSupply: " + circSupply);
         const treasuryRunway = rfvTreasury / circSupply;
         const runway = Math.log(treasuryRunway) / Math.log(1 + stakingRebase) / 3;
 

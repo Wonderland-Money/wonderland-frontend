@@ -40,9 +40,9 @@ export const wavax = new CustomBond({
     },
 });
 
-
-export const mimTime = new LPBond({
-    name: "mim_time_lp",
+*/
+export const daiAmp = new LPBond({
+    name: "dai_amp_lp",
     displayName: "AMP-DAI LP",
     bondToken: "DAI",
     bondIconSvg: MimTimeIcon,
@@ -51,12 +51,12 @@ export const mimTime = new LPBond({
     networkAddrs: {
         [Networks.FTM]: {
             bondAddress: "0xA184AE1A71EcAD20E822cB965b99c287590c4FFe",
-            reserveAddress: "0x113f413371fc4cc4c9d6416cf1de9dfd7bf747df",
+            reserveAddress: "0xddfcb3e750879ba95791206afabc04681422763c",
         },
     },
-    lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
+    lpUrl: "https://app.sushi.com/swap?inputCurrency=0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735&outputCurrency=0x390BcB7F3C58851DaeB7336B8Ac3d9BFB2b58c9a",
 });
-
+/*
 export const avaxTime = new CustomLPBond({
     name: "avax_time_lp",
     displayName: "AMP-FTM LP",
