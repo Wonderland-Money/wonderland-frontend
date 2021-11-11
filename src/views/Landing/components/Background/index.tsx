@@ -8,11 +8,11 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 function Background() {
     useEffect(() => {
         const debugObject = {
-            waveDepthColor: "#1e4d40",
-            waveSurfaceColor: "#4d9aaa",
+            waveDepthColor: "#175175",
+            waveSurfaceColor: "#5696cf",
             fogNear: 1,
             fogFar: 3,
-            fogColor: "#8e99a2",
+            fogColor: "#314252",
         };
 
         /**
@@ -44,11 +44,11 @@ function Background() {
                 uMouse: { value: new THREE.Vector2() },
                 uBigWavesElevation: { value: 0.2 },
                 uBigWavesFrequency: { value: new THREE.Vector2(4, 2) },
-                uBigWaveSpeed: { value: 0.75 },
+                uBigWaveSpeed: { value: 0.375 },
                 // Small Waves
                 uSmallWavesElevation: { value: 0.15 },
                 uSmallWavesFrequency: { value: 3 },
-                uSmallWavesSpeed: { value: 0.2 },
+                uSmallWavesSpeed: { value: 0.1 },
                 uSmallWavesIterations: { value: 4 },
                 // Color
                 uDepthColor: { value: new THREE.Color(debugObject.waveDepthColor) },
