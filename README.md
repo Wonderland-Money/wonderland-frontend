@@ -7,13 +7,14 @@ Required:
 - [Node v14](https://nodejs.org/download/release/latest-v14.x/)  
 - [Yarn](https://classic.yarnpkg.com/en/docs/install/) 
 - [Git](https://git-scm.com/downloads)
+- [three.js](https://threejs.org/docs/#manual/en/introduction/Installation)
 
 
 ```bash
 git clone https://github.com/0xMaaz/trident-frontend.git
 cd trident-frontend
-yarn install
-npm run start
+yarn
+yarn start
 ```
 
 The site is now running at `http://localhost:3000`! You will be greeted by the landing page.

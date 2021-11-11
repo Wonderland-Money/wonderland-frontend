@@ -13,7 +13,7 @@ import { RootState } from "../store";
 import { error, warning, success, info } from "../slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
-import { frax } from "src/helpers/bond";
+import { ust, frax } from "src/helpers/bond";
 
 interface IChangeApproval {
     bond: Bond;
@@ -162,6 +162,10 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         purchased = purchased / Math.pow(10, 18);
         const fraxPrice = getTokenPrice("FRAX");
         purchased = purchased * fraxPrice;
+    } else if (bond.name === ust.name) {
+        purchased = purchased / Math.pow(10, 18);
+        const ustPrice = getTokenPrice("UST");
+        purchased = purchased * ustPrice;
     } else {
         purchased = purchased / Math.pow(10, 18);
     }

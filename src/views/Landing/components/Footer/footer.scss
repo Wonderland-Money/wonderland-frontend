@@ -1,3 +1,5 @@
+@use 'src/theme.scss';
+
 .landing-footer{
     margin-top: auto;
     padding: 32px 15%;
@@ -17,6 +19,7 @@
             line-height: 22px;
             color: #FFFFFF;
             margin-bottom: 4px;
+            @include theme.text-hard-shadow();
         }
 
         .landing-footer-item-value{
@@ -25,6 +28,7 @@
             font-weight: bold;
             font-size: 30px;
             color: #FFFFFF;
+            @include theme.text-hard-shadow();
         }
     }
 }

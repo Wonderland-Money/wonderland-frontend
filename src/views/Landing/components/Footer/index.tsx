@@ -27,7 +27,7 @@ function Footer() {
                     <div className="landing-footer-item-wrap">
                         <p className="landing-footer-item-title">Total Staked</p>
                         <p className="landing-footer-item-value">
-                            {isAppLoading ? (
+                            {!circSupply ? (
                                 <Skeleton width="180px" />
                             ) : (
                                 new Intl.NumberFormat("en-US", {
@@ -42,7 +42,7 @@ function Footer() {
                     <div className="landing-footer-item-wrap">
                         <p className="landing-footer-item-title">Treasury Balance</p>
                         <p className="landing-footer-item-value">
-                            {isAppLoading ? (
+                            {!treasuryBalance ? (
                                 <Skeleton width="180px" />
                             ) : (
                                 new Intl.NumberFormat("en-US", {

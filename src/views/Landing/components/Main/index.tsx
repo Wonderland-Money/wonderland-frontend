@@ -7,7 +7,8 @@ function Main() {
     return (
         <div className="landing-main">
             <div className="landing-main-title-wrap">
-                <p>Trident DAO</p>
+                <p>The Decentralized</p>
+                <p>Trident</p>
             </div>
             <div className="landing-main-help-text-wrap">
                 <p>Financial tools to grow your wealth - stake</p>
@@ -16,7 +17,7 @@ function Main() {
             <div className="landing-main-btns-wrap">
                 <RouterLink to="/stake">
                     <div className="landing-main-btn">
-                        <p>Enter App</p>
+                        <p>Enter Atlantis</p>
                     </div>
                 </RouterLink>
                 <Link href="https://trident.gitbook.io/trident/" target="_blank" rel="noreferrer">
