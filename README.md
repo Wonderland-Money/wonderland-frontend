@@ -14,7 +14,7 @@ Required:
 git clone https://github.com/0xMaaz/trident-frontend.git
 cd trident-frontend
 yarn
-yarn install
+yarn start
 ```
 
 The site is now running at `http://localhost:3000`! You will be greeted by the landing page.
