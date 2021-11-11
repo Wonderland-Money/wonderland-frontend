@@ -1,42 +1,40 @@
-@use 'src/theme.scss';
+@use "src/theme.scss";
 
 .dashboard-view {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
-  width: 89%;
-  max-width: 833px;
-  margin: auto;
+    width: 89%;
+    max-width: 833px;
 
-  .dashboard-infos-wrap{
-    .dashboard-card{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+    margin: auto;
 
-      position: relative;
-      z-index: 2;
-      
-      @include theme.card(); 
+    .dashboard-infos-wrap {
+        .dashboard-card {
+            display: flex;
+            flex-direction: column;
+            // justify-content: center;
+            // align-items: center;
 
-      .card-title {
-        font-family: Cinzel Medium;
-        font-weight: 500;
-        font-size: 18px;
-        color: rgba(255, 255, 255, 0.6);
-      }
-  
-      .card-value {
-        font-family: Cinzel Bold;
-        font-weight: bold;
-        font-size: 24px;
-        font-weight: bold;
-        color: #FFFFFF;
-      }
+            z-index: 2;
+
+            @include theme.card();
+            @include theme.card-hover();
+
+            .card-title {
+                font-family: Cinzel SemiBold;
+                font-size: 1rem;
+                color: #ccc;
+            }
+
+            .card-value {
+                font-family: Cinzel SemiBold;
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: theme.$white;
+            }
+        }
     }
-  }
 }
