@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
 
 function Header({ handleDrawerToggle, drawe }: IHeader) {
     const classes = useStyles();
-    const isVerySmallScreen = useMediaQuery("(max-width: 400px)");
+    const isVerySmallScreen = useMediaQuery("(max-width: 360px)");
 
     return (
         <div className={`${classes.topBar} ${!drawe && classes.topBarShift}`}>
