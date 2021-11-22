@@ -1,0 +1,253 @@
+.calculator-view {
+    width: 89%;
+    max-width: 833px;
+    margin: auto;
+
+    .calculator-card {
+        position: relative;
+        z-index: 2;
+
+        @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+            background: rgba(36, 39, 41, 0.1);
+            backdrop-filter: blur(40px);
+        }
+
+        /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+        @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+            background: #181B1C;
+        }
+
+        border-radius: 10px;
+        padding: 20px;
+        width: 100%;
+
+        .calculator-card-grid {
+            margin: 0;
+            width: 100%;
+        }
+
+        .calculator-card-header {
+            .calculator-card-header-title {
+                font-family: Montserrat Bold;
+                font-weight: bold;
+                font-size: 20px;
+                color: #FFFFFF;
+                margin-bottom: 4px;
+            }
+
+            .calculator-card-header-subtitle {
+                font-family: Montserrat SemiBold;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 12px;
+                line-height: 15px;
+                color: #FFFFFF;
+            }
+        }
+
+        .calculator-card-metrics {
+            display: flex;
+            width: 100%;
+            padding: 0;
+            text-align: center;
+            margin-top: 10px;
+
+            .calculator-card-apy,
+            .calculator-card-tvl,
+            .calculator-card-index {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+
+                .calculator-card-metrics-title {
+                    font-family: Montserrat Medium;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: rgba(255, 255, 255, 0.6);
+                    margin-bottom: 2px;
+                }
+
+                .calculator-card-metrics-value {
+                    font-family: Montserrat Bold;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 24px;
+                    line-height: 29px;
+                    color: #FFFFFF;
+                }
+            }
+        }
+
+        .calculator-card-area {
+            .calculator-card-wallet-notification {
+                text-align: center;
+
+                .calculator-card-wallet-connect-btn {
+                    background: rgba(255, 255, 255, 0.2);
+                    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+                    border-radius: 10px;
+                    padding: 14px 58px;
+                    cursor: pointer;
+                    margin: auto;
+                    max-width: 280px;
+                    margin-top: 20px;
+
+                    p {
+                        font-family: Montserrat SemiBold;
+                        font-weight: 600;
+                        font-size: 18px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .calculator-card-wallet-desc-text {
+                    font-family: Montserrat Light;
+                    font-weight: 300;
+                    font-size: 14px;
+                    color: rgba(255, 255, 255, 0.6);
+                    margin-top: 10px;
+                    margin-bottom: 6px;
+                }
+            }
+
+            .calculator-card-action-area {
+                width: 100%;
+                margin-top: 25px;
+
+                .calculator-card-action-area-inp-wrap{
+                    .calculator-card-action-area-inp-wrap-title{
+                        font-family: Montserrat Medium;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        color: #FFFFFF;
+                        margin-bottom: 5px;
+                        margin-left: 10px;
+                    }
+
+                    .calculator-card-action-input{
+                        width: 100%;
+            
+                        background: rgba(255, 255, 255, 0.2);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        border-radius: 10px;
+                        outline: none;
+                        
+                        .MuiOutlinedInput-input{
+                          font-family: Montserrat Medium;
+                          font-style: normal;
+                          font-weight: 500;
+                          font-size: 16px;
+                          color: rgba(255, 255, 255, 0.6);
+                          padding: 14px 20px;
+                        }
+                        
+                        .MuiOutlinedInput-notchedOutline{
+                          border-color: rgba(255, 255, 255, 0.2) !important;
+                        }
+                        
+                        .stake-card-action-input-btn{
+                          cursor: pointer;
+                            
+                          p{
+                            font-family: Montserrat SemiBold;
+                            font-weight: 600;
+                            font-size: 18px;
+                            color: #FFFFFF;
+                          }
+                        }
+                      } 
+                }
+            }
+
+            .calculator-days-slider-wrap{
+                margin-top: 30px;
+
+                .calculator-days-slider-wrap-title{
+                    font-family: Montserrat Medium;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 16px;
+                    color: #FFFFFF;
+                    margin-bottom: 10px;
+                }
+
+                .calculator-days-slider{
+                    .MuiSlider-rail, .MuiSlider-track{
+                        height: 10px;
+                    }
+
+                    .MuiSlider-rail{
+                        background: #232323;
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+                        border-radius: 10px;
+                        border: 1px solid #64C9FC;
+                    }
+
+                    .MuiSlider-track{
+                        border-top-left-radius: 10px;
+                        border-bottom-left-radius: 10px;
+                        background: linear-gradient(90deg, #64C9FC 0%, #446CF6 90%);
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+                    }
+
+                    .MuiSlider-thumb{
+                        width: 20px;
+                        height: 20px;
+                        background: #232323;
+                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+                        border: 2px solid #446CF6;
+                    }
+                }
+            }
+
+            .calculator-user-data {
+                justify-content: center;
+                margin: auto;
+                padding: 0 5px;
+                margin-top: 30px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .calculator-view {
+        .calculator-card {
+            .calculator-card-metrics {
+
+                .calculator-card-apy,
+                .calculator-card-tvl,
+                .calculator-card-index {
+                    align-items: flex-start;
+                }
+
+                .calculator-card {
+                    width: 50%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+            }
+
+            .calculator-card-area {
+                .calculator-card-action-area {
+                    .calculator-card-action-row {
+                        flex-direction: column;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    .calculator-view {
+        width: 100%;
+    }
+}

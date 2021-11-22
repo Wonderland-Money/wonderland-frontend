@@ -23,6 +23,7 @@ export abstract class Bond {
     public readonly networkAddrs: NetworkAddresses;
     public readonly bondToken: string;
     public readonly lpUrl?: string;
+    public readonly tokensInStrategy?: string;
 
     // The following two fields will differ on how they are set depending on bond type
     public abstract isLP: boolean;

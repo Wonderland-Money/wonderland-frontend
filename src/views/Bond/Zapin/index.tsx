@@ -51,8 +51,7 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
     const [chooseTokenOpen, setChooseTokenOpen] = useState(false);
     const [settingsOpen, setSettingsOpen] = useState(false);
     const [slippage, setSlippage] = useState(2);
-    const [recipientAddress, setRecipientAddress] = useState(address);
-    const [swapInfo, setSwapInfo] = useState<ITokenZapinResponse>({ swapData: "", swapTarget: "", amount: "" });
+    const [swapInfo, setSwapInfo] = useState<ITokenZapinResponse>({ swapData: "", swapTarget: "", amount: "", value: "0" });
     const [priceToken, setPriceToken] = useState<number>(0);
 
     const [loading, setLoading] = useState(false);
@@ -70,7 +69,7 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
     const onMint = async () => {
         if (await checkWrongNetwork()) return;
 
-        if (!swapInfo.amount || !swapInfo.swapData || !swapInfo.swapTarget) {
+        if (!swapInfo.amount || !swapInfo.swapData || !swapInfo.swapTarget || swapInfo.value !== quantity) {
             return dispatch(warning({ text: messages.something_wrong }));
         }
 
@@ -90,10 +89,6 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
         );
     };
 
-    const onRecipientAddressChange = (value: any) => {
-        return setRecipientAddress(value);
-    };
-
     const onSlippageChange = (value: any) => {
         return setSlippage(value);
     };
@@ -110,15 +105,12 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
     };
 
     useEffect(() => {
-        if (address) setRecipientAddress(address);
-    }, [provider, address]);
-
-    useEffect(() => {
         let timeount: any = null;
 
         clearTimeout(timeount);
 
         if (Number(quantity) > 0) {
+            setSwapInfo({ swapData: "", swapTarget: "", amount: "", value: "0" });
             setLoading(true);
             timeount = setTimeout(async () => {
                 const info = await calcZapinDetails({ token, provider, networkID: chainID, bond, value: quantity, slippage, dispatch });
@@ -132,7 +124,7 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
                 setLoading(false);
             }, 1000);
         } else {
-            setSwapInfo({ swapData: "", swapTarget: "", amount: "" });
+            setSwapInfo({ swapData: "", swapTarget: "", amount: "", value: "0" });
             dispatch(calcBondDetails({ bond, value: "0", provider, networkID: chainID }));
             setLoading(false);
         }
@@ -168,6 +160,7 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
         setQuantity("");
         setToken(token);
         setChooseTokenOpen(false);
+        setSwapInfo({ swapData: "", swapTarget: "", amount: "", value: "0" });
     };
 
     const handleSettingsOpen = () => {
@@ -291,23 +284,10 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
                                 <p className="data-row-name">Minimum purchase</p>
                                 <p className="data-row-value">0.01 TIME</p>
                             </div>
-                            {recipientAddress !== address && (
-                                <div className="data-row">
-                                    <p className="data-row-name">Recipient</p>
-                                    <p className="data-row-value">{shorten(recipientAddress)}</p>
-                                </div>
-                            )}
                         </div>
                     </div>
                     <ChooseToken open={chooseTokenOpen} handleClose={handleChooseTokenClose} handleSelect={handleChooseTokenSelect} bond={bond} />
-                    <AdvancedSettings
-                        open={settingsOpen}
-                        handleClose={handleSettingsClose}
-                        slippage={slippage}
-                        recipientAddress={recipientAddress}
-                        onRecipientAddressChange={onRecipientAddressChange}
-                        onSlippageChange={onSlippageChange}
-                    />
+                    <AdvancedSettings open={settingsOpen} handleClose={handleSettingsClose} slippage={slippage} onSlippageChange={onSlippageChange} />
                 </Box>
             </Paper>
         </Modal>

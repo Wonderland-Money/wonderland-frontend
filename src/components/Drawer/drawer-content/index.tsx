@@ -12,7 +12,7 @@ import { Link } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import "./drawer-content.scss";
 import DocsIcon from "../../../assets/icons/stake.svg";
-import BrowserIcon from "../../../assets/icons/browser.png";
+import GlobeIcon from "../../../assets/icons/wonderglobe.svg";
 import classnames from "classnames";
 
 function NavContent() {
@@ -29,6 +29,9 @@ function NavContent() {
             return true;
         }
         if (currentPath.indexOf("mints") >= 0 && page === "mints") {
+            return true;
+        }
+        if (currentPath.indexOf("calculator") >= 0 && page === "calculator") {
             return true;
         }
         return false;
@@ -110,6 +113,20 @@ function NavContent() {
                             </Link>
                         ))}
                     </div>
+
+                    <Link
+                        component={NavLink}
+                        to="/calculator"
+                        isActive={(match: any, location: any) => {
+                            return checkPage(location, "calculator");
+                        }}
+                        className={classnames("button-dapp-menu", { active: isActive })}
+                    >
+                        <div className="dapp-menu-item">
+                            <img alt="" src={GlobeIcon} />
+                            <p>Calculator</p>
+                        </div>
+                    </Link>
                 </div>
             </div>
             <div className="dapp-menu-doc-link">

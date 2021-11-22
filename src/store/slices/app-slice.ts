@@ -20,9 +20,6 @@ export const loadAppDetails = createAsyncThunk(
         const mimPrice = getTokenPrice("MIM");
         const addresses = getAddresses(networkID);
 
-        const ohmPrice = getTokenPrice("OHM");
-        const ohmAmount = 1512.12854088 * ohmPrice;
-
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
         const currentBlock = await provider.getBlockNumber();
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
@@ -39,11 +36,11 @@ export const loadAppDetails = createAsyncThunk(
 
         const tokenBalPromises = allBonds.map(bond => bond.getTreasuryBalance(networkID, provider));
         const tokenBalances = await Promise.all(tokenBalPromises);
-        const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1, ohmAmount);
+        const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1, 0);
 
         const tokenAmountsPromises = allBonds.map(bond => bond.getTokenAmount(networkID, provider));
         const tokenAmounts = await Promise.all(tokenAmountsPromises);
-        const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1, ohmAmount);
+        const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1, 0);
 
         const timeBondsAmountsPromises = allBonds.map(bond => bond.getTimeAmount(networkID, provider));
         const timeBondsAmounts = await Promise.all(timeBondsAmountsPromises);

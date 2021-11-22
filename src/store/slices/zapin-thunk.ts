@@ -82,6 +82,7 @@ export interface ITokenZapinResponse {
     swapTarget: string;
     swapData: string;
     amount: string;
+    value: string;
 }
 
 export const calcZapinDetails = async ({ token, provider, networkID, bond, value, slippage, dispatch }: ITokenZapin): Promise<ITokenZapinResponse> => {
@@ -97,6 +98,7 @@ export const calcZapinDetails = async ({ token, provider, networkID, bond, value
             swapTarget,
             swapData,
             amount,
+            value,
         };
     }
 
@@ -106,6 +108,7 @@ export const calcZapinDetails = async ({ token, provider, networkID, bond, value
             swapTarget,
             swapData,
             amount,
+            value,
         };
     }
 
@@ -115,6 +118,7 @@ export const calcZapinDetails = async ({ token, provider, networkID, bond, value
             swapTarget,
             swapData,
             amount,
+            value,
         };
     }
 
@@ -134,6 +138,7 @@ export const calcZapinDetails = async ({ token, provider, networkID, bond, value
         swapTarget,
         swapData,
         amount,
+        value,
     };
 };
 
@@ -185,13 +190,13 @@ export const zapinMint = createAsyncThunk(
                         minReturnAmount,
                         swapTarget,
                         swapData,
-                        false,
+                        true,
                         maxPremium,
                         depositorAddress,
                         { value: valueInWei, gasPrice },
                     );
                 } else {
-                    zapinTx = await zapinContract.ZapInLp(token.address, bondAddress, valueInWei, minReturnAmount, swapTarget, swapData, false, maxPremium, depositorAddress, {
+                    zapinTx = await zapinContract.ZapInLp(token.address, bondAddress, valueInWei, minReturnAmount, swapTarget, swapData, true, maxPremium, depositorAddress, {
                         gasPrice,
                     });
                 }

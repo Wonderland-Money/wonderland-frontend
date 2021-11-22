@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { trim } from "../../helpers";
-import { Grid, Backdrop, Paper, Box, Tab, Tabs, Fade } from "@material-ui/core";
+import { Grid, Backdrop, Box, Fade } from "@material-ui/core";
 import TabPanel from "../../components/TabPanel";
 import BondHeader from "./BondHeader";
 import BondRedeem from "./BondRedeem";
@@ -18,26 +18,17 @@ interface IBondProps {
 }
 
 function Bond({ bond }: IBondProps) {
-    const { provider, address } = useWeb3Context();
+    const { address } = useWeb3Context();
 
     const [slippage, setSlippage] = useState(0.5);
-    const [recipientAddress, setRecipientAddress] = useState(address);
 
     const [view, setView] = useState(0);
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
 
-    const onRecipientAddressChange = (value: any) => {
-        return setRecipientAddress(value);
-    };
-
     const onSlippageChange = (value: any) => {
         return setSlippage(value);
     };
-
-    useEffect(() => {
-        if (address) setRecipientAddress(address);
-    }, [provider, address]);
 
     const changeView = (newView: number) => () => {
         setView(newView);
@@ -49,13 +40,7 @@ function Bond({ bond }: IBondProps) {
                 <Backdrop open={true}>
                     <Fade in={true}>
                         <div className="bond-card">
-                            <BondHeader
-                                bond={bond}
-                                slippage={slippage}
-                                recipientAddress={recipientAddress}
-                                onSlippageChange={onSlippageChange}
-                                onRecipientAddressChange={onRecipientAddressChange}
-                            />
+                            <BondHeader bond={bond} slippage={slippage} onSlippageChange={onSlippageChange} />
                             {/* @ts-ignore */}
                             <Box direction="row" className="bond-price-data-row">
                                 <div className="bond-price-data">
@@ -80,7 +65,7 @@ function Bond({ bond }: IBondProps) {
                             </div>
 
                             <TabPanel value={view} index={0}>
-                                <BondPurchase bond={bond} slippage={slippage} recipientAddress={recipientAddress} />
+                                <BondPurchase bond={bond} slippage={slippage} />
                             </TabPanel>
 
                             <TabPanel value={view} index={1}>

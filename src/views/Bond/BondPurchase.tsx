@@ -16,10 +16,9 @@ import Zapin from "./Zapin";
 interface IBondPurchaseProps {
     bond: IAllBondData;
     slippage: number;
-    recipientAddress: string;
 }
 
-function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) {
+function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
     const dispatch = useDispatch();
     const { provider, address, chainID, checkWrongNetwork } = useWeb3Context();
 
@@ -57,7 +56,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                         bond,
                         networkID: chainID,
                         provider,
-                        address: recipientAddress || address,
+                        address,
                         useAvax,
                     }),
                 );
@@ -73,7 +72,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     bond,
                     networkID: chainID,
                     provider,
-                    address: recipientAddress || address,
+                    address,
                     useAvax,
                 }),
             );
@@ -225,13 +224,6 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                         <p className="bond-balance-title">Minimum purchase</p>
                         <p className="bond-balance-title">0.01 TIME</p>
                     </div>
-
-                    {recipientAddress !== address && (
-                        <div className="data-row">
-                            <p className="bond-balance-title">Recipient</p>
-                            <p className="bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : shorten(recipientAddress)}</p>
-                        </div>
-                    )}
                 </Box>
             </Slide>
             <Zapin open={zapinOpen} handleClose={handleZapinClose} bond={bond} />
