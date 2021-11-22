@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "@material-ui/core";
 import "./main.scss";
-import CatImg from "../../../../assets/icons/Chershire_Cat.png";
+import CatImg from "../../../../assets/icons/Chershire_Cat.jpeg";
 
 function Main() {
     return (

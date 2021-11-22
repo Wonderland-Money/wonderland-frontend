@@ -4,15 +4,18 @@ import { BondType } from "./constants";
 import { Networks } from "../../constants/blockchain";
 import { StaticJsonRpcProvider } from "@ethersproject/providers";
 import { getAddresses } from "../../constants/addresses";
+import { BigNumber } from "ethers";
 
 export interface StableBondOpts extends BondOpts {
     readonly reserveContractAbi: ContractInterface;
+    readonly tokensInStrategy?: string;
 }
 
 export class StableBond extends Bond {
     readonly isLP = false;
     readonly reserveContractAbi: ContractInterface;
     readonly displayUnits: string;
+    readonly tokensInStrategy?: string;
 
     constructor(stableBondOpts: StableBondOpts) {
         super(BondType.StableAsset, stableBondOpts);
@@ -20,12 +23,16 @@ export class StableBond extends Bond {
         // For stable bonds the display units are the same as the actual token
         this.displayUnits = stableBondOpts.displayName;
         this.reserveContractAbi = stableBondOpts.reserveContractAbi;
+        this.tokensInStrategy = stableBondOpts.tokensInStrategy;
     }
 
     public async getTreasuryBalance(networkID: Networks, provider: StaticJsonRpcProvider) {
         const addresses = getAddresses(networkID);
         const token = this.getContractForReserve(networkID, provider);
-        const tokenAmount = await token.balanceOf(addresses.TREASURY_ADDRESS);
+        let tokenAmount = await token.balanceOf(addresses.TREASURY_ADDRESS);
+        if (this.tokensInStrategy) {
+            tokenAmount = BigNumber.from(tokenAmount).add(BigNumber.from(this.tokensInStrategy)).toString();
+        }
         return tokenAmount / Math.pow(10, 18);
     }
 

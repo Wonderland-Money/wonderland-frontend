@@ -11,12 +11,10 @@ import { IAllBondData } from "../../hooks/bonds";
 interface IBondHeaderProps {
     bond: IAllBondData;
     slippage: number;
-    recipientAddress: string;
-    onRecipientAddressChange: (e: any) => void;
     onSlippageChange: (e: any) => void;
 }
 
-function BondHeader({ bond, slippage, recipientAddress, onRecipientAddressChange, onSlippageChange }: IBondHeaderProps) {
+function BondHeader({ bond, slippage, onSlippageChange }: IBondHeaderProps) {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -51,14 +49,7 @@ function BondHeader({ bond, slippage, recipientAddress, onRecipientAddressChange
                 <IconButton onClick={handleOpen}>
                     <SvgIcon color="primary" component={SettingsIcon} />
                 </IconButton>
-                <AdvancedSettings
-                    open={open}
-                    handleClose={handleClose}
-                    slippage={slippage}
-                    recipientAddress={recipientAddress}
-                    onRecipientAddressChange={onRecipientAddressChange}
-                    onSlippageChange={onSlippageChange}
-                />
+                <AdvancedSettings open={open} handleClose={handleClose} slippage={slippage} onSlippageChange={onSlippageChange} />
             </div>
         </div>
     );

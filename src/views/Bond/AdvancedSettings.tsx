@@ -7,12 +7,10 @@ interface IAdvancedSettingsProps {
     open: boolean;
     handleClose: () => void;
     slippage: number;
-    recipientAddress: string;
-    onRecipientAddressChange: (e: any) => void;
     onSlippageChange: (e: any) => void;
 }
 
-function AdvancedSettings({ open, handleClose, slippage, recipientAddress, onRecipientAddressChange, onSlippageChange }: IAdvancedSettingsProps) {
+function AdvancedSettings({ open, handleClose, slippage, onSlippageChange }: IAdvancedSettingsProps) {
     const [value, setValue] = useState(slippage);
 
     useEffect(() => {
@@ -54,16 +52,6 @@ function AdvancedSettings({ open, handleClose, slippage, recipientAddress, onRec
                         />
                         <div className="help-text">
                             <p className="text-bond-desc">Transaction may revert if price changes by more than slippage %</p>
-                        </div>
-                    </FormControl>
-
-                    <InputLabel htmlFor="recipient">
-                        <p className="input-lable">Recipient Address</p>
-                    </InputLabel>
-                    <FormControl variant="outlined" color="primary" fullWidth>
-                        <OutlinedInput className="bond-input" id="recipient" value={recipientAddress} onChange={onRecipientAddressChange} type="text" />
-                        <div className="help-text">
-                            <p className="text-bond-desc">Choose recipient address. By default, this is your currently connected address</p>
                         </div>
                     </FormControl>
                 </Box>

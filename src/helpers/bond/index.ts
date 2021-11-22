@@ -22,6 +22,7 @@ export const mim = new StableBond({
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
     },
+    tokensInStrategy: "60500000000000000000000000",
 });
 
 export const wavax = new CustomBond({
@@ -37,6 +38,7 @@ export const wavax = new CustomBond({
             reserveAddress: "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7",
         },
     },
+    tokensInStrategy: "756916000000000000000000",
 });
 
 export const mimTime = new LPBond({

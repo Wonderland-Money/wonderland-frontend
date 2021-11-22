@@ -16,6 +16,7 @@ import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
 import { sleep } from "../../helpers";
+import { BigNumber } from "ethers";
 
 interface IChangeApproval {
     bond: Bond;
@@ -167,12 +168,16 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
             const avaxPrice = getTokenPrice("AVAX");
             purchased = purchased * avaxPrice;
         }
-    } else if (bond.name === wavax.name) {
-        purchased = purchased / Math.pow(10, 18);
-        const avaxPrice = getTokenPrice("AVAX");
-        purchased = purchased * avaxPrice;
     } else {
+        if (bond.tokensInStrategy) {
+            purchased = BigNumber.from(purchased).add(BigNumber.from(bond.tokensInStrategy)).toString();
+        }
         purchased = purchased / Math.pow(10, 18);
+
+        if (bond.name === wavax.name) {
+            const avaxPrice = getTokenPrice("AVAX");
+            purchased = purchased * avaxPrice;
+        }
     }
 
     return {
