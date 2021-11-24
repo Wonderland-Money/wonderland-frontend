@@ -8,7 +8,7 @@ import { RootState } from "../store";
 import { ethers } from "ethers";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
 import { wMemoTokenContract } from "../../abi";
-import { clearPendingTxn, fetchPendingTxns, getWrapingTypeText } from "./pending-txns-slice";
+import { clearPendingTxn, fetchPendingTxns, getWrappingTypeText } from "./pending-txns-slice";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
 
@@ -18,7 +18,7 @@ export interface IChangeApproval {
     address: string;
 }
 
-export const changeApproval = createAsyncThunk("wraping/changeApproval", async ({ provider, address, networkID }: IChangeApproval, { dispatch }) => {
+export const changeApproval = createAsyncThunk("wrapping/changeApproval", async ({ provider, address, networkID }: IChangeApproval, { dispatch }) => {
     if (!provider) {
         dispatch(warning({ text: messages.please_connect_wallet }));
         return;
@@ -34,8 +34,8 @@ export const changeApproval = createAsyncThunk("wraping/changeApproval", async (
 
         approveTx = await memoContract.approve(addresses.WMEMO_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
 
-        const text = "Approve Wraping";
-        const pendingTxnType = "approve_wraping";
+        const text = "Approve Wrapping";
+        const pendingTxnType = "approve_wrapping";
 
         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
         await approveTx.wait();
@@ -54,7 +54,7 @@ export const changeApproval = createAsyncThunk("wraping/changeApproval", async (
 
     return dispatch(
         fetchAccountSuccess({
-            wraping: {
+            wrapping: {
                 wmemo: Number(wmemoAllowance),
             },
         }),
@@ -69,7 +69,7 @@ export interface IChangeWrap {
     address: string;
 }
 
-export const changeWrap = createAsyncThunk("wraping/changeWrap", async ({ isWrap, value, provider, networkID, address }: IChangeWrap, { dispatch }) => {
+export const changeWrap = createAsyncThunk("wrapping/changeWrap", async ({ isWrap, value, provider, networkID, address }: IChangeWrap, { dispatch }) => {
     if (!provider) {
         dispatch(warning({ text: messages.please_connect_wallet }));
         return;
@@ -91,8 +91,8 @@ export const changeWrap = createAsyncThunk("wraping/changeWrap", async ({ isWrap
             wrapTx = await wmemoContract.unwrap(amountInWei, { gasPrice });
         }
 
-        const pendingTxnType = isWrap ? "wraping" : "unwraping";
-        dispatch(fetchPendingTxns({ txnHash: wrapTx.hash, text: getWrapingTypeText(isWrap), type: pendingTxnType }));
+        const pendingTxnType = isWrap ? "wrapping" : "unwrapping";
+        dispatch(fetchPendingTxns({ txnHash: wrapTx.hash, text: getWrappingTypeText(isWrap), type: pendingTxnType }));
         await wrapTx.wait();
         dispatch(success({ text: messages.tx_successfully_send }));
     } catch (err: any) {
@@ -117,7 +117,7 @@ export interface IWrapDetails {
     networkID: Networks;
 }
 
-export const calcWrapDetails = createAsyncThunk("wraping/calcWrapDetails", async ({ isWrap, value, provider, networkID }: IWrapDetails, { dispatch }) => {
+export const calcWrapDetails = createAsyncThunk("wrapping/calcWrapDetails", async ({ isWrap, value, provider, networkID }: IWrapDetails, { dispatch }) => {
     if (!provider) {
         dispatch(warning({ text: messages.please_connect_wallet }));
         return;
@@ -163,7 +163,7 @@ const initialState: IWrapSlice = {
 };
 
 const wrapSlice = createSlice({
-    name: "wraping",
+    name: "wrapping",
     initialState,
     reducers: {
         fetchWrapSuccess(state, action) {
@@ -190,6 +190,6 @@ export default wrapSlice.reducer;
 
 export const { fetchWrapSuccess } = wrapSlice.actions;
 
-const baseInfo = (state: RootState) => state.wraping;
+const baseInfo = (state: RootState) => state.wrapping;
 
-export const getWrapingState = createSelector(baseInfo, wraping => wraping);
+export const getWrappingState = createSelector(baseInfo, wrapping => wrapping);

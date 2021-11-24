@@ -60,7 +60,7 @@ interface IUserAccountDetails {
         time: number;
         memo: number;
     };
-    wraping: {
+    wrapping: {
         memo: number;
     };
 }
@@ -108,7 +108,7 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
             time: Number(stakeAllowance),
             memo: Number(unstakeAllowance),
         },
-        wraping: {
+        wrapping: {
             memo: Number(memoWmemoAllowance),
         },
     };
@@ -255,7 +255,7 @@ export interface IAccountSlice {
         time: number;
         memo: number;
     };
-    wraping: {
+    wrapping: {
         memo: number;
     };
     tokens: { [key: string]: IUserTokenDetails };
@@ -266,7 +266,7 @@ const initialState: IAccountSlice = {
     bonds: {},
     balances: { memo: "", time: "", wmemo: "" },
     staking: { time: 0, memo: 0 },
-    wraping: { memo: 0 },
+    wrapping: { memo: 0 },
     tokens: {},
 };
 
