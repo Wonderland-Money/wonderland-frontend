@@ -74,4 +74,4 @@ export const avaxTime = new CustomLPBond({
 });
  */
 
-export default [dai];
+export default [dai, daiAmp];

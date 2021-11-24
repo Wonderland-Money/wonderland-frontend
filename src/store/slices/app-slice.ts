@@ -17,7 +17,6 @@ export const loadAppDetails = createAsyncThunk(
     "app/loadAppDetails",
     //@ts-ignore
     async ({ networkID, provider }: ILoadAppDetails) => {
-        console.log("Start of app-slice");
         const daiPrice = getTokenPrice("DAI");
         const addresses = getAddresses(networkID);
 
@@ -34,16 +33,12 @@ export const loadAppDetails = createAsyncThunk(
 
         const totalSupply = (await ampContract.totalSupply()) / Math.pow(10, 9);
         const circSupply = (await sAmpContract.circulatingSupply()) / Math.pow(10, 9);
-        console.log("Total Supply: " + totalSupply);
-        console.log("Circulating Supply: " + circSupply);
 
         const stakingTVL = circSupply * marketPrice;
         const marketCap = totalSupply * marketPrice;
 
         const tokenBalPromises = allBonds.map(bond => bond.getTreasuryBalance(networkID, provider));
-        console.log("hey before");
         const tokenBalances = await Promise.all(tokenBalPromises);
-        console.log("hey");
         const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1, ohmAmount);
 
         const tokenAmountsPromises = allBonds.map(bond => bond.getTokenAmount(networkID, provider));
@@ -58,25 +53,18 @@ export const loadAppDetails = createAsyncThunk(
         const rfv = rfvTreasury / timeSupply;
 
         const epoch = await stakingContract.epoch();
-        console.log("Epoch: ");
-        console.log(epoch);
         const stakingReward = epoch.distribute;
-        console.log("1");
         const circ = await sAmpContract.circulatingSupply();
-        console.log("2");
         const stakingRebase = stakingReward / circ;
-        console.log("3");
         const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
-        console.log("4");
         const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
-        console.log("5");
 
         const currentIndex = await stakingContract.index();
-        console.log("6");
-        const nextRebase = epoch.endTime;
 
-        console.log("rfvTreasury: " + rfvTreasury);
-        console.log("circSupply: " + circSupply);
+        // TODO: fix
+        // const nextRebase = epoch.endTime;
+        const nextRebase = 9613252; // Got from contract
+
         const treasuryRunway = rfvTreasury / circSupply;
         const runway = Math.log(treasuryRunway) / Math.log(1 + stakingRebase) / 3;
 

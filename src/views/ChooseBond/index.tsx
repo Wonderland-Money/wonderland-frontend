@@ -10,6 +10,8 @@ import { IReduxState } from "../../store/slices/state.interface";
 
 function ChooseBond() {
     const { bonds } = useBonds();
+    console.log("Bonds: ");
+    console.log(bonds);
     const isSmallScreen = useMediaQuery("(max-width: 733px)"); // change to breakpoint query
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);

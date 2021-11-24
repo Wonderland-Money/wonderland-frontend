@@ -125,11 +125,11 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     try {
         bondPrice = await bondContract.bondPriceInUSD();
 
-        /*TODO:
+        /* TODO: Variable coin
         if (bond.name === avaxTime.name) {
             const avaxPrice = getTokenPrice("FTM");
             bondPrice = bondPrice * avaxPrice;
-        }*/
+        } */
 
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
     } catch (e) {
@@ -140,6 +140,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     const maxBodValue = ethers.utils.parseEther("1");
 
     if (bond.isLP) {
+        console.log("LP Bond");
         valuation = await bondCalcContract.valuation(bond.getAddressForReserve(networkID), amountInWei);
         bondQuote = await bondContract.payoutFor(valuation);
         bondQuote = bondQuote / Math.pow(10, 9);
@@ -148,6 +149,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         const maxBondQuote = await bondContract.payoutFor(maxValuation);
         maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -9));
     } else {
+        console.log("Stable Bond");
         bondQuote = await bondContract.payoutFor(amountInWei);
         bondQuote = bondQuote / Math.pow(10, 18);
 
@@ -170,18 +172,19 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         purchased = await bondCalcContract.valuation(assetAddress, purchased);
         purchased = (markdown / Math.pow(10, 18)) * (purchased / Math.pow(10, 9));
 
-        /*TODO:
+        // TODO: variable coin
+        /*
         if (bond.name === avaxTime.name) {
             const avaxPrice = getTokenPrice("FTM");
             purchased = purchased * avaxPrice;
         }*/
-    } /*TODO:
+    } else {
+        /* TODO: variable coin
     else if (bond.name === wavax.name) {
         purchased = purchased / Math.pow(10, 18);
         const avaxPrice = getTokenPrice("FTM");
         purchased = purchased * avaxPrice;
-        }
-        */ else {
+    }*/
         purchased = purchased / Math.pow(10, 18);
     }
 
@@ -193,7 +196,8 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         purchased,
         vestingTerm: Number(terms.vestingTerm),
         maxBondPrice,
-        bondPrice: bondPrice / Math.pow(10, 18),
+        // bondPrice: bondPrice / Math.pow(10, 18), // TODO: fix
+        bondPrice: 100,
         marketPrice,
         maxBondPriceToken,
     };
@@ -334,6 +338,7 @@ const bondingSlice = createSlice({
                 state.loading = false;
             })
             .addCase(calcBondDetails.rejected, (state, { error }) => {
+                console.log(error);
                 state.loading = false;
                 console.log(error);
             });
