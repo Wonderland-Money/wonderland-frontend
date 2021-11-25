@@ -18,7 +18,7 @@ export const dai = new StableBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.FTM]: {
-            bondAddress: "0xeCFaBFb56728B91292B782cF03892e8753e2ca8F",
+            bondAddress: "0x62Cac2809b30e6BBd4402CA2d2CCAc422500E5dD",
             reserveAddress: "0xc7ad46e0b8a400bb3c915120d284aafba8fc4735",
         },
     },
@@ -50,7 +50,7 @@ export const daiAmp = new LPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.FTM]: {
-            bondAddress: "0xA184AE1A71EcAD20E822cB965b99c287590c4FFe",
+            bondAddress: "0x94971f643d58D592f8e727fC0b90d002684D2C62", // TODO: set staking
             reserveAddress: "0xddfcb3e750879ba95791206afabc04681422763c",
         },
     },
