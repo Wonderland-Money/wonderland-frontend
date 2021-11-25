@@ -48,6 +48,9 @@ function Stake() {
     const stakingTVL = useSelector<IReduxState, number>(state => {
         return state.app.stakingTVL;
     });
+    const marketPrice = useSelector<IReduxState, number>(state => {
+        return state.app.marketPrice;
+    });
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
@@ -95,6 +98,8 @@ function Stake() {
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
     const stakingRebasePercentage = trim(stakingRebase * 100, 4);
     const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedMemoBalance), 6);
+    const valueMemoBalance = Math.ceil(marketPrice * Number(trimmedMemoBalance));
+    const valueMemoReward = Math.ceil(marketPrice * Number(nextRewardValue));
 
     return (
         <div className="stake-view">
@@ -257,12 +262,28 @@ function Stake() {
 
                                         <div className="data-row">
                                             <p className="data-row-name">Your Staked Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedMemoBalance} MEMO</>}</p>
+                                            <p className="data-row-value">
+                                                {isAppLoading ? (
+                                                    <Skeleton width="80px" />
+                                                ) : (
+                                                    <>
+                                                        {trimmedMemoBalance} MEMO (${valueMemoBalance})
+                                                    </>
+                                                )}
+                                            </p>
                                         </div>
 
                                         <div className="data-row">
                                             <p className="data-row-name">Next Reward Amount</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} MEMO</>}</p>
+                                            <p className="data-row-value">
+                                                {isAppLoading ? (
+                                                    <Skeleton width="80px" />
+                                                ) : (
+                                                    <>
+                                                        {nextRewardValue} MEMO (${valueMemoReward})
+                                                    </>
+                                                )}
+                                            </p>
                                         </div>
 
                                         <div className="data-row">
