@@ -56,7 +56,7 @@ function App() {
 
     const loadApp = useCallback(
         loadProvider => {
-            dispatch(loadAppDetails({ networkID: chainID, provider: loadProvider }));
+            dispatch(loadAppDetails({ networkID: chainID, provider: loadProvider, address }));
             bonds.map(bond => {
                 dispatch(calcBondDetails({ bond, value: null, provider: loadProvider, networkID: chainID }));
             });
