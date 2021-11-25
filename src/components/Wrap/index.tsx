@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IReduxState } from "../../store/slices/state.interface";
 import { trim } from "../../helpers";
 import { Skeleton } from "@material-ui/lab";
-import { calcWrapDetails, changeWrap, changeApproval } from "../../store/slices/wrap-slice";
+import { calcWrapDetails, changeWrap, changeApproval, calcWrapPrice } from "../../store/slices/wrap-slice";
 import { useWeb3Context } from "../../hooks";
 import { warning } from "../../store/slices/messages-slice";
 import { messages } from "../../constants/messages";
@@ -37,6 +37,10 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
         return state.wrapping && state.wrapping.wrapValue;
     });
 
+    const wrapPrice = useSelector<IReduxState, number>(state => {
+        return state.wrapping && state.wrapping.wrapPrice;
+    });
+
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
     });
@@ -46,6 +50,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
     });
 
     const [isWrap, setIsWrap] = useState(true);
+    const [isWrapPrice, setIsWrapPrice] = useState(true);
 
     const setMax = () => {
         if (isWrap) {
@@ -57,7 +62,9 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
 
     const handleSwap = () => {
         setValue("");
-        setIsWrap(!isWrap);
+        const value = !isWrap;
+        setIsWrap(value);
+        setIsWrapPrice(value);
     };
 
     const handleValueChange = (e: any) => {
@@ -69,9 +76,14 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
         dispatch(calcWrapDetails({ isWrap, provider, value, networkID: chainID }));
     }, [value]);
 
+    useEffect(() => {
+        dispatch(calcWrapPrice({ isWrap: isWrapPrice, provider, networkID: chainID }));
+    }, [isWrapPrice]);
+
     const onClose = () => {
         setValue("");
         setIsWrap(true);
+        setIsWrapPrice(true);
         dispatch(calcWrapDetails({ isWrap, provider, value: "", networkID: chainID }));
         handleClose();
     };
@@ -103,10 +115,15 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
     return (
         <Modal id="hades" open={open} onClose={onClose} hideBackdrop>
             <Paper className="ohm-card ohm-popover wrap-token-poper">
-                <div className="cross-wrap">
+                <div className="cross-wrap wrap-cros-wrap">
                     <IconButton onClick={onClose}>
                         <SvgIcon color="primary" component={XIcon} />
                     </IconButton>
+                    <div className="wrap-price" onClick={() => setIsWrapPrice(!isWrapPrice)}>
+                        <p>
+                            1 {isWrapPrice ? "MEMO" : "wMEMO"} = {`${trim(wrapPrice, 4)} ${isWrapPrice ? "wMEMO" : "MEMO"}`}
+                        </p>
+                    </div>
                 </div>
 
                 <div className="wrap-header-conteiner">

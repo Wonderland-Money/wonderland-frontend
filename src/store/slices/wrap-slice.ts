@@ -112,25 +112,12 @@ export const changeWrap = createAsyncThunk("wrapping/changeWrap", async ({ isWra
 
 export interface IWrapDetails {
     isWrap: boolean;
-    value: string | null;
+    value: string;
     provider: StaticJsonRpcProvider | JsonRpcProvider;
     networkID: Networks;
 }
 
-export const calcWrapDetails = createAsyncThunk("wrapping/calcWrapDetails", async ({ isWrap, value, provider, networkID }: IWrapDetails, { dispatch }) => {
-    if (!provider) {
-        dispatch(warning({ text: messages.please_connect_wallet }));
-        return;
-    }
-
-    if (!value) {
-        return new Promise<any>(resolve =>
-            resolve({
-                wrapValue: "",
-            }),
-        );
-    }
-
+const calcWrapValue = async ({ isWrap, value, provider, networkID }: IWrapDetails): Promise<number> => {
     const addresses = getAddresses(networkID);
 
     const amountInWei = isWrap ? ethers.utils.parseUnits(value, "gwei") : ethers.utils.parseEther(value);
@@ -147,19 +134,59 @@ export const calcWrapDetails = createAsyncThunk("wrapping/calcWrapDetails", asyn
         wrapValue = memoValue / Math.pow(10, 9);
     }
 
+    return wrapValue;
+};
+
+export const calcWrapDetails = createAsyncThunk("wrapping/calcWrapDetails", async ({ isWrap, value, provider, networkID }: IWrapDetails, { dispatch }) => {
+    if (!provider) {
+        dispatch(warning({ text: messages.please_connect_wallet }));
+        return;
+    }
+
+    if (!value) {
+        return new Promise<any>(resolve =>
+            resolve({
+                wrapValue: "",
+            }),
+        );
+    }
+
+    const wrapValue = await calcWrapValue({ isWrap, value, provider, networkID });
+
     return {
         wrapValue,
+    };
+});
+
+export interface IWrapPrice {
+    isWrap: boolean;
+    provider: StaticJsonRpcProvider | JsonRpcProvider;
+    networkID: Networks;
+}
+
+export const calcWrapPrice = createAsyncThunk("wrapping/calcWrapPrice", async ({ isWrap, provider, networkID }: IWrapPrice, { dispatch }) => {
+    if (!provider) {
+        dispatch(warning({ text: messages.please_connect_wallet }));
+        return;
+    }
+
+    const wrapPrice = await calcWrapValue({ isWrap, value: "1", provider, networkID });
+
+    return {
+        wrapPrice,
     };
 });
 
 export interface IWrapSlice {
     loading: boolean;
     wrapValue: "";
+    wrapPrice: number;
 }
 
 const initialState: IWrapSlice = {
     loading: true,
     wrapValue: "",
+    wrapPrice: 0,
 };
 
 const wrapSlice = createSlice({
@@ -180,6 +207,17 @@ const wrapSlice = createSlice({
                 state.loading = false;
             })
             .addCase(calcWrapDetails.rejected, (state, { error }) => {
+                state.loading = false;
+                console.log(error);
+            })
+            .addCase(calcWrapPrice.pending, state => {
+                state.loading = true;
+            })
+            .addCase(calcWrapPrice.fulfilled, (state, action) => {
+                setAll(state, action.payload);
+                state.loading = false;
+            })
+            .addCase(calcWrapPrice.rejected, (state, { error }) => {
                 state.loading = false;
                 console.log(error);
             });

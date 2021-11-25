@@ -7,7 +7,7 @@ import Loading from "../components/Loader";
 
 function Root() {
     const isApp = (): boolean => {
-        return window.location.host.includes("app");
+        return true; //window.location.host.includes("app");
     };
 
     const [loading, setLoading] = useState(true);

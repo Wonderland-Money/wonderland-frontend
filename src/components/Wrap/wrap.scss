@@ -1,6 +1,21 @@
 .wrap-token-poper{
     width: 100%;
 
+    .wrap-cros-wrap{
+        align-items: center;
+        justify-content: space-between;
+
+        .wrap-price{
+            cursor: pointer;
+            p{
+                font-family: Montserrat SemiBold;
+                font-style: normal;
+                font-size: 14px;
+                color: #FFFFFF;
+            }
+        }
+    }
+
     .wrap-header-conteiner{
         margin: 10px 30px 0 30px; 
         display: flex;
