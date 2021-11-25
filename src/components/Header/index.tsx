@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
 
 function Header({ handleDrawerToggle, drawe }: IHeader) {
     const classes = useStyles();
-    const isVerySmallScreen = useMediaQuery("(max-width: 400px)");
+    const isVerySmallScreen = useMediaQuery("(max-width: 360px)");
     const isWrapShow = useMediaQuery("(max-width: 480px)");
 
     return (
