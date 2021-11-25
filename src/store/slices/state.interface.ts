@@ -11,5 +11,5 @@ export interface IReduxState {
     app: IAppSlice;
     bonding: IBondSlice;
     messages: MessagesState;
-    wraping: IWrapSlice;
+    wrapping: IWrapSlice;
 }

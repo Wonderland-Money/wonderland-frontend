@@ -28,7 +28,7 @@ export const getStakingTypeText = (action: string) => {
     return action.toLowerCase() === "stake" ? "Staking TIME" : "Unstaking MEMO";
 };
 
-export const getWrapingTypeText = (isWrap: boolean) => {
+export const getWrappingTypeText = (isWrap: boolean) => {
     return isWrap ? "Wrap MEMO" : "Unwrap wMEMO";
 };
 
