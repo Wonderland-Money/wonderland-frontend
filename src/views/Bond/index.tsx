@@ -50,10 +50,6 @@ function Bond({ bond }: IBondProps) {
         setView(newView);
     };
 
-    console.log("Bond: ");
-    console.log(bond);
-    console.log("Bond Price: ");
-    console.log(bond.bondPrice);
     return (
         <Fade in={true} mountOnEnter unmountOnExit>
             <Grid className="bond-view">
