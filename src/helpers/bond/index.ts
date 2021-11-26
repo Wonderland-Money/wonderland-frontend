@@ -18,7 +18,7 @@ export const dai = new StableBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.FTM]: {
-            bondAddress: "0x62Cac2809b30e6BBd4402CA2d2CCAc422500E5dD",
+            bondAddress: "0x965C8785dc30489b96C16A7fEaE4a94DfEC207a6",
             reserveAddress: "0xc7ad46e0b8a400bb3c915120d284aafba8fc4735",
         },
     },
