@@ -18,8 +18,8 @@ export const dai = new StableBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.FTM]: {
-            bondAddress: "0x99aC84D5a90005b540ab425aBfA9b4eC2c4aFAd0",
-            reserveAddress: "0xc7ad46e0b8a400bb3c915120d284aafba8fc4735",
+            bondAddress: "0x66BD584cF47639d3700bDb2e4966f72AdaFd0494", // Done
+            reserveAddress: "0xc7ad46e0b8a400bb3c915120d284aafba8fc4735", // DAI on Rinkeby
         },
     },
 });
@@ -50,8 +50,8 @@ export const daiAmp = new LPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.FTM]: {
-            bondAddress: "0x94971f643d58D592f8e727fC0b90d002684D2C62", // TODO: set staking
-            reserveAddress: "0xddfcb3e750879ba95791206afabc04681422763c",
+            bondAddress: "0x3c3164760BA128F66913C5aA9E835af1590f4AA5", // Done // TODO: check staking
+            reserveAddress: "0xA02e23Fb6dECC923e75A73e39C0bF021002214bE", // Done
         },
     },
     lpUrl: "https://app.sushi.com/swap?inputCurrency=0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735&outputCurrency=0x390BcB7F3C58851DaeB7336B8Ac3d9BFB2b58c9a",
