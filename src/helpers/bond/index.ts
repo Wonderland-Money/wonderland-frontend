@@ -51,7 +51,7 @@ export const daiAmp = new LPBond({
     networkAddrs: {
         [Networks.FTM]: {
             bondAddress: "0x3c3164760BA128F66913C5aA9E835af1590f4AA5", // Done // TODO: check staking
-            reserveAddress: "0xA02e23Fb6dECC923e75A73e39C0bF021002214bE", // Done
+            reserveAddress: "0xDDFcB3e750879ba95791206afAbC04681422763c", // Done
         },
     },
     lpUrl: "https://app.sushi.com/swap?inputCurrency=0xc7AD46e0b8a400Bb3C915120d284AafbA8fc4735&outputCurrency=0x390BcB7F3C58851DaeB7336B8Ac3d9BFB2b58c9a",
