@@ -50,7 +50,7 @@ export const daiAmp = new LPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.FTM]: {
-            bondAddress: "0x3c3164760BA128F66913C5aA9E835af1590f4AA5", // Done // TODO: check staking
+            bondAddress: "0xfB8e42E6E9E6f275ebe9DFd15e8D3878aC4C03c2", // Done
             reserveAddress: "0xDDFcB3e750879ba95791206afAbC04681422763c", // Done
         },
     },
