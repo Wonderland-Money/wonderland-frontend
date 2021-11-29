@@ -3,9 +3,6 @@ export const prettifySeconds = (seconds?: number, resolution?: string) => {
         return "";
     }
 
-    // TODO: Adjust to BSC
-    seconds = 15 * seconds; // 15 seconds per block on Rinkeby
-
     const d = Math.floor(seconds / (3600 * 24));
     const h = Math.floor((seconds % (3600 * 24)) / 3600);
     const m = Math.floor((seconds % 3600) / 60);
