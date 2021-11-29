@@ -1,6 +1,6 @@
 import { Networks } from "./blockchain";
 
-const FTM_MAINNET = {
+const RINKEBY = {
     DAO_ADDRESS: "0x7136da0f074bb665c0fAE0DdFc871DC8cC2EF7A6", // Not a DAO my wallet
     AMP_ADDRESS: "0xd56083F2Bd5a3b8494502e7663879a190dcAC114",
     sAMP_ADDRESS: "0x453B82bA9a546A30116Af77e3FbfA27164178eA1",
@@ -12,7 +12,7 @@ const FTM_MAINNET = {
 };
 
 export const getAddresses = (networkID: number) => {
-    if (networkID === Networks.FTM) return FTM_MAINNET;
+    if (networkID === Networks.FTM) return RINKEBY;
 
     throw Error("Network don't support");
 };
