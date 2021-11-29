@@ -230,6 +230,7 @@ export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, a
         if (useAvax) {
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { value: valueInWei, gasPrice });
         } else {
+            console.log("Value in Wei: " + valueInWei + " | Max Premium: " + maxPremium + " | Depositor: " + depositorAddress);
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { gasPrice });
         }
         dispatch(
