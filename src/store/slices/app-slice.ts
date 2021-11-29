@@ -25,6 +25,7 @@ export const loadAppDetails = createAsyncThunk(
 
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
         const currentBlock = await provider.getBlockNumber();
+        // TODO: you changed from timestam to number backto timestamp as TIME uses .timestamp
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
         const sAmpContract = new ethers.Contract(addresses.sAMP_ADDRESS, sAmpTokenContract, provider);
         const ampContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, provider);
