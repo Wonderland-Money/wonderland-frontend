@@ -17,7 +17,7 @@ export const loadAppDetails = createAsyncThunk(
     "app/loadAppDetails",
     //@ts-ignore
     async ({ networkID, provider }: ILoadAppDetails) => {
-        const mimPrice = getTokenPrice("MIM");
+        const fraxPrice = getTokenPrice("FRAX");
         const addresses = getAddresses(networkID);
 
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
@@ -26,7 +26,7 @@ export const loadAppDetails = createAsyncThunk(
         const spsiContract = new ethers.Contract(addresses.SPSI_ADDRESS, SpsiTokenContract, provider);
         const psiContract = new ethers.Contract(addresses.PSI_ADDRESS, PsiTokenContract, provider);
 
-        const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
+        const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * fraxPrice;
 
         const totalSupply = (await psiContract.totalSupply()) / Math.pow(10, 9);
         const circSupply = (await spsiContract.circulatingSupply()) / Math.pow(10, 9);
