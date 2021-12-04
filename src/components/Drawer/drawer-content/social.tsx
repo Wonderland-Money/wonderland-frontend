@@ -16,7 +16,7 @@ export default function Social() {
             </Link>
 
             <Link href="https://t.me/TridentDAO_Official" target="_blank">
-                <SvgIcon viewBox="0 0 32 32" color="primary" component={Telegram} />
+                <SvgIcon viewBox="0 0 40 40" color="primary" component={Telegram} />
             </Link>
 
             <Link href="https://discord.gg/4ZSaZvMGtQ" target="_blank">
