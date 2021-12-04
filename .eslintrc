@@ -15,7 +15,7 @@
     ],
     "plugins": ["prettier", "@typescript-eslint"],
     "rules": {
-        "prettier/prettier": ["error"],
+        "prettier/prettier": ["warn"],
         "import/prefer-default-export": "off",
         "prefer-destructuring": "off",
         "prefer-template": "off",
