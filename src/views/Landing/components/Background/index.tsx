@@ -8,11 +8,11 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 function Background() {
     useEffect(() => {
         const debugObject = {
-            waveDepthColor: "#175175",
-            waveSurfaceColor: "#5696cf",
+            waveDepthColor: "#1e4d40",
+            waveSurfaceColor: "#4d9aaa",
             fogNear: 1,
             fogFar: 3,
-            fogColor: "#314252",
+            fogColor: "#8e949d",
         };
 
         /**
@@ -44,11 +44,11 @@ function Background() {
                 uMouse: { value: new THREE.Vector2() },
                 uBigWavesElevation: { value: 0.2 },
                 uBigWavesFrequency: { value: new THREE.Vector2(4, 2) },
-                uBigWaveSpeed: { value: 0.375 },
+                uBigWaveSpeed: { value: 0.525 },
                 // Small Waves
                 uSmallWavesElevation: { value: 0.15 },
                 uSmallWavesFrequency: { value: 3 },
-                uSmallWavesSpeed: { value: 0.1 },
+                uSmallWavesSpeed: { value: 0.15 },
                 uSmallWavesIterations: { value: 4 },
                 // Color
                 uDepthColor: { value: new THREE.Color(debugObject.waveDepthColor) },
@@ -92,7 +92,7 @@ function Background() {
          */
 
         // Base camera
-        const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100);
+        const camera = new THREE.PerspectiveCamera(70, sizes.width / sizes.height, 0.1, 100);
         camera.position.set(1, 1, 1);
         scene.add(camera);
 
