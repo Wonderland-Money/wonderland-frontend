@@ -8,7 +8,8 @@ import FraxIcon from "../../assets/tokens/FRAX.svg";
 
 import { StableBondContract, LpBondContract, StableReserveContract, LpReserveContract } from "../../abi";
 
-export const mim = new StableBond({ // TODO - not needed
+// TODO - not needed
+export const mim = new StableBond({
     name: "mim",
     displayName: "MIM",
     bondToken: "MIM",
@@ -53,7 +54,8 @@ export const frax = new StableBond({
     },
 });
 
-export const mimPsi = new LPBond({ // todo - rename
+// todo - rename
+export const mimPsi = new LPBond({
     name: "mim_psi_lp",
     displayName: "PSI-MIM LP",
     bondToken: "MIM",
