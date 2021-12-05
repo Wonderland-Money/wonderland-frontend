@@ -5,7 +5,7 @@ import { Hidden, makeStyles, useMediaQuery } from "@material-ui/core";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 import MobileDrawer from "../Drawer/mobile-drawer";
 import Drawer from "../Drawer";
-import { logoImg } from "src/constants/img";
+import { logoImg, cupcake2, cupcake3 } from "src/constants/img";
 import Messages from "../Messages";
 
 interface IViewBaseProps {
@@ -65,12 +65,12 @@ function ViewBase({ children }: IViewBaseProps) {
             <div className={`${classes.content} ${isSmallerScreen && classes.contentShift}`}>
                 {!isSmallerScreen && (
                     <div className="cubes-top">
-                        <p>{logoImg}</p>
+                        <p>{cupcake3}</p>
                     </div>
                 )}
                 {!isSmallScreen && (
                     <div className="cubes-bottom">
-                        <p>{logoImg}</p>
+                        <p>{cupcake2}</p>
                     </div>
                 )}
                 {children}
