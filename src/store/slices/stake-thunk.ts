@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingHelperContract, TimeTokenContract, MemoTokenContract, StakingContract } from "../../abi";
+import { StakingHelperContract, AmpTokenContract, sAmpTokenContract, StakingContract } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
@@ -25,23 +25,26 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const addresses = getAddresses(networkID);
 
     const signer = provider.getSigner();
-    const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, TimeTokenContract, signer);
-    const memoContract = new ethers.Contract(addresses.sAMP_ADDRESS, MemoTokenContract, signer);
+    const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, signer);
+    console.log("Time contract: ");
+    console.log(timeContract);
+    const memoContract = new ethers.Contract(addresses.sAMP_ADDRESS, sAmpTokenContract, signer);
 
     let approveTx;
     try {
         const gasPrice = await getGasPrice(provider);
+        console.log("Gas price: " + gasPrice);
 
-        if (token === "time") {
+        if (token === "amp") {
             approveTx = await timeContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        if (token === "memo") {
+        if (token === "samp") {
             approveTx = await memoContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        const text = "Approve " + (token === "time" ? "Staking" : "Unstaking");
-        const pendingTxnType = token === "time" ? "approve_staking" : "approve_unstaking";
+        const text = "Approve " + (token === "amp" ? "Staking" : "Unstaking");
+        const pendingTxnType = token === "amp" ? "approve_staking" : "approve_unstaking";
 
         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
         dispatch(success({ text: messages.tx_successfully_send }));

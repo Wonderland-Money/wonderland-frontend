@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingContract, MemoTokenContract, TimeTokenContract } from "../../abi";
+import { StakingContract, sAmpTokenContract, AmpTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -17,7 +17,7 @@ export const loadAppDetails = createAsyncThunk(
     "app/loadAppDetails",
     //@ts-ignore
     async ({ networkID, provider }: ILoadAppDetails) => {
-        const mimPrice = getTokenPrice("DAI");
+        const daiPrice = getTokenPrice("DAI");
         const addresses = getAddresses(networkID);
 
         const ohmPrice = getTokenPrice("AMP");
@@ -25,14 +25,15 @@ export const loadAppDetails = createAsyncThunk(
 
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
         const currentBlock = await provider.getBlockNumber();
+        // TODO: you changed from timestam to number backto timestamp as TIME uses .timestamp
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
-        const memoContract = new ethers.Contract(addresses.sAMP_ADDRESS, MemoTokenContract, provider);
-        const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, TimeTokenContract, provider);
+        const sAmpContract = new ethers.Contract(addresses.sAMP_ADDRESS, sAmpTokenContract, provider);
+        const ampContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, provider);
 
-        const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
+        const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * daiPrice; // Problematic part
 
-        const totalSupply = (await timeContract.totalSupply()) / Math.pow(10, 9);
-        const circSupply = (await memoContract.circulatingSupply()) / Math.pow(10, 9);
+        const totalSupply = (await ampContract.totalSupply()) / Math.pow(10, 9);
+        const circSupply = (await sAmpContract.circulatingSupply()) / Math.pow(10, 9);
 
         const stakingTVL = circSupply * marketPrice;
         const marketCap = totalSupply * marketPrice;
@@ -54,12 +55,13 @@ export const loadAppDetails = createAsyncThunk(
 
         const epoch = await stakingContract.epoch();
         const stakingReward = epoch.distribute;
-        const circ = await memoContract.circulatingSupply();
+        const circ = await sAmpContract.circulatingSupply();
         const stakingRebase = stakingReward / circ;
         const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
         const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
 
         const currentIndex = await stakingContract.index();
+
         const nextRebase = epoch.endTime;
 
         const treasuryRunway = rfvTreasury / circSupply;
