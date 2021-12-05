@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingHelperContract, AmpTokenContract, sAmpTokenContract, StakingContract } from "../../abi";
+import { StakingHelperContract, CupTokenContract, sCupTokenContract, StakingContract } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
@@ -25,10 +25,10 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const addresses = getAddresses(networkID);
 
     const signer = provider.getSigner();
-    const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, signer);
+    const timeContract = new ethers.Contract(addresses.CUP_ADDRESS, CupTokenContract, signer);
     console.log("Time contract: ");
     console.log(timeContract);
-    const memoContract = new ethers.Contract(addresses.sAMP_ADDRESS, sAmpTokenContract, signer);
+    const memoContract = new ethers.Contract(addresses.sCUP_ADDRESS, sCupTokenContract, signer);
 
     let approveTx;
     try {

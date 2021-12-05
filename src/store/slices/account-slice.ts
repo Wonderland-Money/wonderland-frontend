@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { AmpTokenContract, sAmpTokenContract } from "../../abi/";
+import { CupTokenContract, sCupTokenContract } from "../../abi/";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -26,9 +26,9 @@ interface IAccountBalances {
 export const getBalances = createAsyncThunk("account/getBalances", async ({ address, networkID, provider }: IGetBalances): Promise<IAccountBalances> => {
     const addresses = getAddresses(networkID);
 
-    const memoContract = new ethers.Contract(addresses.sAMP_ADDRESS, sAmpTokenContract, provider);
+    const memoContract = new ethers.Contract(addresses.sCUP_ADDRESS, sCupTokenContract, provider);
     const memoBalance = await memoContract.balanceOf(address);
-    const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, provider);
+    const timeContract = new ethers.Contract(addresses.CUP_ADDRESS, CupTokenContract, provider);
     const timeBalance = await timeContract.balanceOf(address);
 
     return {
@@ -64,14 +64,14 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
 
     const addresses = getAddresses(networkID);
 
-    if (addresses.AMP_ADDRESS) {
-        const timeContract = new ethers.Contract(addresses.AMP_ADDRESS, AmpTokenContract, provider);
+    if (addresses.CUP_ADDRESS) {
+        const timeContract = new ethers.Contract(addresses.CUP_ADDRESS, CupTokenContract, provider);
         timeBalance = await timeContract.balanceOf(address);
         stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     }
 
-    if (addresses.sAMP_ADDRESS) {
-        const memoContract = new ethers.Contract(addresses.sAMP_ADDRESS, sAmpTokenContract, provider);
+    if (addresses.sCUP_ADDRESS) {
+        const memoContract = new ethers.Contract(addresses.sCUP_ADDRESS, sCupTokenContract, provider);
         memoBalance = await memoContract.balanceOf(address);
         unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
     }

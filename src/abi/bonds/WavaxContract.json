@@ -2,7 +2,7 @@
     "abi": [{
             "inputs": [{
                     "internalType": "address",
-                    "name": "_AMP",
+                    "name": "_CUP",
                     "type": "address"
                 },
                 {
@@ -186,7 +186,7 @@
         },
         {
             "inputs": [],
-            "name": "AMP",
+            "name": "CUP",
             "outputs": [{
                 "internalType": "address",
                 "name": "",

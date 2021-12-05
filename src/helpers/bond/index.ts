@@ -41,9 +41,9 @@ export const wavax = new CustomBond({
 });
 
 */
-export const daiAmp = new LPBond({
+export const daiCup = new LPBond({
     name: "dai_amp_lp",
-    displayName: "AMP-DAI LP",
+    displayName: "CUP-DAI LP",
     bondToken: "DAI",
     bondIconSvg: MimTimeIcon,
     bondContractABI: LpBondContract,
@@ -59,7 +59,7 @@ export const daiAmp = new LPBond({
 /*
 export const avaxTime = new CustomLPBond({
     name: "avax_time_lp",
-    displayName: "AMP-FTM LP",
+    displayName: "CUP-FTM LP",
     bondToken: "FTM",
     bondIconSvg: AvaxTimeIcon,
     bondContractABI: LpBondContract,
@@ -74,4 +74,4 @@ export const avaxTime = new CustomLPBond({
 });
  */
 
-export default [dai, daiAmp];
+export default [dai, daiCup];

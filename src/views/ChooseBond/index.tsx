@@ -52,7 +52,7 @@ function ChooseBond() {
 
                         <Grid item xs={12} sm={6}>
                             <Box textAlign="center">
-                                <p className="choose-bond-view-card-metrics-title">AMP Price</p>
+                                <p className="choose-bond-view-card-metrics-title">CUP Price</p>
                                 <p className="choose-bond-view-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : `$${trim(marketPrice, 2)}`}</p>
                             </Box>
                         </Grid>

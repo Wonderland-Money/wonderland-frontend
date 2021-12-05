@@ -10,7 +10,7 @@ export const loadTokenPrices = async () => {
     cache["FTM"] = 3.0;
     // cache["DAI"] = data["dai"].usd;
     cache["DAI"] = 1.0;
-    cache["AMP"] = 20.0;
+    cache["CUP"] = 20.0;
 };
 
 export const getTokenPrice = (symbol: string): number => {
