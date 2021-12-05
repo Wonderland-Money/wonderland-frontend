@@ -1,5 +1,5 @@
 export const messages = {
-    please_connect: "Please connect your wallet to Avalanche network to use Wonderland!",
+    please_connect: "Please connect your wallet to Avalanche network to use Cupcake!",
     please_connect_wallet: "Please connect your wallet!",
     try_mint_more: (value: string) => `You're trying to mint more than the maximum payout available! The maximum mint payout is ${value} CUP.`,
     before_minting: "Before minting enter a value.",

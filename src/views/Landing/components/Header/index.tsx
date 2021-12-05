@@ -26,11 +26,11 @@ function Header() {
                         {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={200}>
                                 <div className="tooltip">
-                                    <Link className="tooltip-item" href="https://github.com/Wonderland-Money/wonderland-frontend" target="_blank">
+                                    <Link className="tooltip-item" href="https://github.com/Cupcake-Money/cupcake-frontend" target="_blank">
                                         <SvgIcon color="primary" component={GitHub} />
                                         <p>GitHub</p>
                                     </Link>
-                                    <Link className="tooltip-item" href="https://twitter.com/wonderland_fi?s=21" target="_blank">
+                                    <Link className="tooltip-item" href="https://twitter.com/cupcake_fi?s=21" target="_blank">
                                         <SvgIcon color="primary" component={Twitter} />
                                         <p>Twitter</p>
                                     </Link>

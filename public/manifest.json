@@ -1,8 +1,8 @@
 {
-  "short_name": "Wonderland",
+  "short_name": "Cupcake",
   "start_url": ".",
   "homepage": "./",
-  "name": "Wonderland",
+  "name": "Cupcake",
   "launch_path": "/public/index.html",
   "icons": [
     {

@@ -17,7 +17,7 @@ function Main() {
                         <p>Enter App</p>
                     </div>
                 </Link>
-                <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank" rel="noreferrer">
+                <Link href="https://cupcake.gitbook.io/cupcake/" target="_blank" rel="noreferrer">
                     <div className="landing-main-btn">
                         <p>Documentation</p>
                     </div>
