@@ -123,6 +123,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     marketPrice = (marketPrice / Math.pow(10, 9)) * daiPrice;
 
     try {
+        console.log(bond.isLP + "Bond Price in USD: " + (await bondContract.bondPriceInUSD()));
         bondPrice = await bondContract.bondPriceInUSD();
 
         /* TODO: Variable coin
@@ -196,8 +197,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         purchased,
         vestingTerm: Number(terms.vestingTerm),
         maxBondPrice,
-        // bondPrice: bondPrice / Math.pow(10, 18), // TODO: fix
-        bondPrice: 100,
+        bondPrice: bondPrice / Math.pow(10, 18),
         marketPrice,
         maxBondPriceToken,
     };
