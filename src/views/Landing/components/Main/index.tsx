@@ -6,12 +6,10 @@ function Main() {
     return (
         <div className="landing-main">
             <div className="landing-main-title-wrap">
-                <p>The Decentralized</p>
-                <p>Wonderland</p>
+                <p>Cupcake</p>
             </div>
             <div className="landing-main-help-text-wrap">
-                <p>Financial tools to grow your wealth - stake</p>
-                <p>and earncompounding interest</p>
+                <p>Reserve Currency of Binance Smart Chain</p>
             </div>
             <div className="landing-main-btns-wrap">
                 <Link href="http://app.localhost:3000" target="_blank" rel="noreferrer">
