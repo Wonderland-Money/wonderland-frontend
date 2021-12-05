@@ -18,7 +18,7 @@ function Header() {
 
     return (
         <div className="landing-header">
-            <SvgIcon color="primary" component={WonderlandIcon} viewBox="0 0 174 40" style={{ minWidth: 174, minHeight: 40 }} />
+            <img src={"cupcake.png"} style={{ height: 60 }} />
             <div className="landing-header-nav-wrap">
                 <Box component="div" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
                     <p className="landing-header-nav-text">Social</p>
