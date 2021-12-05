@@ -36,8 +36,8 @@ function NavContent() {
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
-                <Link href="https://wonderland.money" target="_blank">
-                    <img alt="" src={WonderlandIcon} />
+                <Link href="https://cupcake.money" target="_blank">
+                    <img alt="" src={"cupcake.png"} />
                 </Link>
 
                 {address && (
