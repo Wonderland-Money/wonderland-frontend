@@ -1,13 +1,20 @@
 import { useState } from "react";
-import { getAddresses, TOKEN_DECIMALS, DEFAULD_NETWORK } from "../../../constants";
+import { getAddresses, TOKEN_DECIMALS, DEFAULD_NETWORK, WMEMO_TOKEN_DECIMALS } from "../../../constants";
 import { useSelector } from "react-redux";
 import { Link, Fade, Popper } from "@material-ui/core";
 import "./time-menu.scss";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { getTokenUrl } from "../../../helpers";
 
+const WMEMO_SYMBOL = "wMEMO";
+
+const tokenSymbolToDecimals = (tokenSymbol: string) => {
+    return tokenSymbol === WMEMO_SYMBOL ? WMEMO_TOKEN_DECIMALS : TOKEN_DECIMALS;
+};
+
 const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async () => {
     const tokenImage = getTokenUrl(tokenSymbol.toLowerCase());
+    const tokenDecimals = tokenSymbolToDecimals(tokenSymbol);
 
     if (window.ethereum) {
         try {
@@ -18,7 +25,7 @@ const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async ()
                     options: {
                         address: tokenAddress,
                         symbol: tokenSymbol,
-                        decimals: TOKEN_DECIMALS,
+                        decimals: tokenDecimals,
                         image: tokenImage,
                     },
                 },
@@ -39,7 +46,11 @@ function TimeMenu() {
 
     const addresses = getAddresses(networkID);
 
+    const TIME_SYMBOL = "TIME";
+    const MEMO_SYMBOL = "MEMO";
+
     const MEMO_ADDRESS = addresses.MEMO_ADDRESS;
+    const WMEMO_ADDRESS = addresses.WMEMO_ADDRESS;
     const TIME_ADDRESS = addresses.TIME_ADDRESS;
 
     const handleClick = (event: any) => {
@@ -67,11 +78,14 @@ function TimeMenu() {
                                     <div className="divider" />
                                     <p className="add-tokens-title">ADD TOKEN TO WALLET</p>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={addTokenToWallet("TIME", TIME_ADDRESS)}>
+                                    <div className="tooltip-item" onClick={addTokenToWallet(TIME_SYMBOL, TIME_ADDRESS)}>
                                         <p>TIME</p>
                                     </div>
-                                    <div className="tooltip-item" onClick={addTokenToWallet("MEMO", MEMO_ADDRESS)}>
+                                    <div className="tooltip-item" onClick={addTokenToWallet(MEMO_SYMBOL, MEMO_ADDRESS)}>
                                         <p>MEMO</p>
+                                    </div>
+                                    <div className="tooltip-item" onClick={addTokenToWallet(WMEMO_SYMBOL, WMEMO_ADDRESS)}>
+                                        <p>wMEMO</p>
                                     </div>
                                 </div>
                             )}

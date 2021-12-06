@@ -15,5 +15,9 @@ export function getTokenUrl(name: string) {
         return toUrl(MemoImg);
     }
 
+    if (name === "wmemo") {
+        return toUrl(MemoImg);
+    }
+
     throw Error(`Token url doesn't support: ${name}`);
 }
