@@ -219,6 +219,14 @@ function Calculator() {
                                         <p className="data-row-name">Potential number of lambos</p>
                                         <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{Math.floor(Number(potentialReturn) / 220000)}</>}</p>
                                     </div>
+                                    <div className="data-row">
+                                        <p className="data-row-name">Potential number of big macs</p>
+                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{Math.floor(Number(potentialReturn) / 3.99)}</>}</p>
+                                    </div>
+                                    <div className="data-row">
+                                        <p className="data-row-name">Potential number of strippers and cocaine parties</p>
+                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{Math.floor(Number(potentialReturn) / 10500)}</>}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
