@@ -64,10 +64,10 @@ export const fraxPsi = new LPBond({
     networkAddrs: {
         [Networks.ONE]: {
             bondAddress: "0x1e1d881889832214224E0d77becFB2B12f56b18a",
-            reserveAddress: "0x113f413371fc4cc4c9d6416cf1de9dfd7bf747df", // TODO - change
+            reserveAddress: "0x43a60f70bc0c2a339626e5994a9e3cb8e3fb6c17", // TODO - change
         },
     },
-    lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
+    lpUrl: "https://app.sushi.com/add/0x43a60F70bC0c2A339626E5994A9E3CB8e3fb6c17",
 });
 
-export default [frax];
+export default [frax, fraxPsi];

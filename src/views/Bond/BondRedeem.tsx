@@ -21,6 +21,10 @@ function BondRedeem({ bond }: IBondRedeem) {
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
 
+    const currentBlock = useSelector<IReduxState, number>(state => {
+        return state.app.currentBlock;
+    });
+
     const currentBlockTime = useSelector<IReduxState, number>(state => {
         return state.app.currentBlockTime;
     });
@@ -49,11 +53,12 @@ function BondRedeem({ bond }: IBondRedeem) {
     }
 
     const vestingTime = () => {
-        return prettyVestingPeriod(currentBlockTime, bondDetails.bondMaturationBlock);
+        return prettyVestingPeriod(currentBlock, bondDetails.bondMaturationBlock);
     };
 
     const vestingPeriod = () => {
-        return prettifySeconds(bondingState.vestingTerm, "day");
+        const vestingTermSeconds = bondingState.vestingTerm * 2;
+        return prettifySeconds(vestingTermSeconds, "day");
     };
 
     return (

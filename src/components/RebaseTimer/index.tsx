@@ -7,8 +7,8 @@ import { useMemo } from "react";
 import { IReduxState } from "../../store/slices/state.interface";
 
 function RebaseTimer() {
-    const currentBlockTime = useSelector<IReduxState, number>(state => {
-        return state.app.currentBlockTime;
+    const currentBlock = useSelector<IReduxState, number>(state => {
+        return state.app.currentBlock;
     });
 
     const nextRebase = useSelector<IReduxState, number>(state => {
@@ -16,16 +16,16 @@ function RebaseTimer() {
     });
 
     const timeUntilRebase = useMemo(() => {
-        if (currentBlockTime && nextRebase) {
-            const seconds = secondsUntilBlock(currentBlockTime, nextRebase);
+        if (currentBlock && nextRebase) {
+            const seconds = secondsUntilBlock(currentBlock, nextRebase);
             return prettifySeconds(seconds);
         }
-    }, [currentBlockTime, nextRebase]);
+    }, [currentBlock, nextRebase]);
 
     return (
         <Box className="rebase-timer">
             <p>
-                {currentBlockTime ? (
+                {currentBlock ? (
                     timeUntilRebase ? (
                         <>
                             <strong>{timeUntilRebase}</strong> to Next Rebase
