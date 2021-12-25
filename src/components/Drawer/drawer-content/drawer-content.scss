@@ -14,7 +14,9 @@
 
     .wallet-link {
       margin: 10px;
-  
+      display: flex;
+      align-items: center;
+
       p{
         font-family: Montserrat SemiBold;
         font-size: 14px;

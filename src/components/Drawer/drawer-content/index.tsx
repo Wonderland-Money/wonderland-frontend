@@ -14,11 +14,14 @@ import "./drawer-content.scss";
 import DocsIcon from "../../../assets/icons/stake.svg";
 import GlobeIcon from "../../../assets/icons/wonderglobe.svg";
 import classnames from "classnames";
+import useENS from "src/hooks/useENS";
+import Davatar from "@davatar/react";
 
 function NavContent() {
     const [isActive] = useState();
     const address = useAddress();
     const { bonds } = useBonds();
+    const { ensName } = useENS(address);
 
     const checkPage = useCallback((location: any, page: string): boolean => {
         const currentPath = location.pathname.replace("/", "");
@@ -46,8 +49,9 @@ function NavContent() {
 
                 {address && (
                     <div className="wallet-link">
+                        <Davatar size={20} address={address} style={{ marginRight: 8 }} generatedAvatarType="jazzicon" />
                         <Link href={`https://cchain.explorer.avax.network/address/${address}`} target="_blank">
-                            <p>{shorten(address)}</p>
+                            <p>{ensName || shorten(address)}</p>
                         </Link>
                     </div>
                 )}
