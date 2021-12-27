@@ -25,6 +25,9 @@ function NavContent() {
         if (currentPath.indexOf("dashboard") >= 0 && page === "dashboard") {
             return true;
         }
+        if (currentPath.indexOf("growth") >= 0 && page === "growth") {
+            return true;
+        }
         if (currentPath.indexOf("stake") >= 0 && page === "stake") {
             return true;
         }
@@ -66,6 +69,20 @@ function NavContent() {
                         <div className="dapp-menu-item">
                             <img alt="" src={DashboardIcon} />
                             <p>Dashboard</p>
+                        </div>
+                    </Link>
+
+                    <Link
+                        component={NavLink}
+                        to="/growth"
+                        isActive={(match: any, location: any) => {
+                            return checkPage(location, "growth");
+                        }}
+                        className={classnames("button-dapp-menu", { active: isActive })}
+                    >
+                        <div className="dapp-menu-item">
+                            <img alt="" src={DashboardIcon} />
+                            <p>Growth</p>
                         </div>
                     </Link>
 

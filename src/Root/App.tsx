@@ -12,6 +12,7 @@ import ViewBase from "../components/ViewBase";
 import { Stake, ChooseBond, Bond, Dashboard, NotFound, Calculator } from "../views";
 import "./style.scss";
 import useTokens from "../hooks/tokens";
+import { Growth } from "src/views/Growth";
 
 function App() {
     const dispatch = useDispatch();
@@ -117,6 +118,10 @@ function App() {
 
                 <Route path="/stake">
                     <Stake />
+                </Route>
+
+                <Route path="/growth">
+                    <Growth />
                 </Route>
 
                 <Route path="/mints">
