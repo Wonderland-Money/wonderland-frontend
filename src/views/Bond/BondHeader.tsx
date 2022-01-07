@@ -29,12 +29,12 @@ function BondHeader({ bond, slippage, onSlippageChange }: IBondHeaderProps) {
 
     useEscape(() => {
         if (open) handleClose;
-        else history.push("/mints");
+        else history.push("/dash/bonds");
     });
 
     return (
         <div className="bond-header">
-            <Link component={NavLink} to="/mints" className="cancel-bond">
+            <Link component={NavLink} to="/dash/bonds" className="cancel-bond">
                 <SvgIcon color="primary" component={XIcon} />
             </Link>
 

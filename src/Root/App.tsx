@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAddress, useWeb3Context } from "../hooks";
@@ -9,7 +9,7 @@ import { IReduxState } from "../store/slices/state.interface";
 import Loading from "../components/Loader";
 import useBonds from "../hooks/bonds";
 import ViewBase from "../components/ViewBase";
-import { Stake, ChooseBond, Bond, Dashboard, NotFound, Calculator } from "../views";
+import { Stake, ChooseBond, Bond, Dashboard, NotFound, Calculator, Landing } from "../views";
 import "./style.scss";
 import useTokens from "../hooks/tokens";
 
@@ -107,22 +107,14 @@ function App() {
     return (
         <ViewBase>
             <Switch>
-                <Route exact path="/dashboard">
-                    <Dashboard />
-                </Route>
+                <Route exact path="/dash/dashboard" component={Dashboard} />
 
-                <Route exact path="/">
-                    <Redirect to="/stake" />
-                </Route>
+                <Route path="/dash/stake" component={Stake} />
 
-                <Route path="/stake">
-                    <Stake />
-                </Route>
-
-                <Route path="/mints">
+                <Route path="/dash/bonds">
                     {bonds.map(bond => {
                         return (
-                            <Route exact key={bond.name} path={`/mints/${bond.name}`}>
+                            <Route exact key={bond.name} path={`/dash/bonds/${bond.name}`}>
                                 <Bond bond={bond} />
                             </Route>
                         );
@@ -130,11 +122,9 @@ function App() {
                     <ChooseBond />
                 </Route>
 
-                <Route path="/calculator">
-                    <Calculator />
-                </Route>
-
+                <Route path="/dash/calculator" component={Calculator} />
                 <Route component={NotFound} />
+                <Redirect to="/dash/stake" />
             </Switch>
         </ViewBase>
     );

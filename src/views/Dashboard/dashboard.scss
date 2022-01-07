@@ -18,10 +18,10 @@
 
       position: relative;
       z-index: 2;
-      
+
       @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-        background: rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(100px);
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(100px);
       }
     
       /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
@@ -29,23 +29,26 @@
         background: #181B1C;
       }
 
-      border-radius: 10px;
-      padding: 13px 0;
+      border-radius: 2px;
+      padding: 16px 0;
 
       .card-title {
-        font-family: Montserrat Medium;
+        padding-bottom: 6px;
+        font-family: Roboto Bold, sans-serif;
         font-weight: 500;
-        font-size: 20px;
+        font-size: 14px;
         color: rgba(255, 255, 255, 0.6);
       }
   
       .card-value {
-        font-family: Montserrat Bold;
+        font-family: Roboto Bold, sans-serif;
         font-weight: bold;
-        font-size: 24px;
-        font-weight: bold;
+        font-size: 36px;
         color: #FFFFFF;
       }
+    }
+    .MuiGrid-spacing-xs-4 > .MuiGrid-item {
+      padding: 12px;
     }
   }
 }

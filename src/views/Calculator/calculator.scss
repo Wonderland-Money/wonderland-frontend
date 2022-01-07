@@ -8,7 +8,7 @@
         z-index: 2;
 
         @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-            background: rgba(36, 39, 41, 0.1);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(40px);
         }
 
@@ -17,30 +17,39 @@
             background: #181B1C;
         }
 
-        border-radius: 10px;
-        padding: 20px;
+        border-radius: 2px;
+        padding: 24px;
         width: 100%;
 
         .calculator-card-grid {
             margin: 0;
             width: 100%;
+            hr {
+                margin-top: 16px;
+                width: 100%;
+                color: #C4C4C4;
+                opacity: 0.6;
+            }
+        }
+        .MuiGrid-spacing-xs-2 > .MuiGrid-item.item-custom {
+            padding: 0;
         }
 
         .calculator-card-header {
             .calculator-card-header-title {
-                font-family: Montserrat Bold;
+                font-family: Roboto Bold, sans-serif;
                 font-weight: bold;
-                font-size: 20px;
+                font-size: 24px;
                 color: #FFFFFF;
                 margin-bottom: 4px;
             }
 
             .calculator-card-header-subtitle {
-                font-family: Montserrat SemiBold;
+                font-family: Roboto, sans-serif;
                 font-style: normal;
-                font-weight: 600;
-                font-size: 12px;
-                line-height: 15px;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 26px;
                 color: #FFFFFF;
             }
         }
@@ -64,20 +73,20 @@
                 overflow: hidden;
 
                 .calculator-card-metrics-title {
-                    font-family: Montserrat Medium;
+                    font-family: Roboto, sans-serif;
                     font-style: normal;
                     font-weight: 500;
-                    font-size: 20px;
+                    font-size: 14px;
                     color: rgba(255, 255, 255, 0.6);
-                    margin-bottom: 2px;
+                    margin-bottom: 6px;
                 }
 
                 .calculator-card-metrics-value {
-                    font-family: Montserrat Bold;
+                    font-family: Roboto, sans-serif;
                     font-style: normal;
-                    font-weight: bold;
-                    font-size: 24px;
-                    line-height: 29px;
+                    font-weight: 700;
+                    font-size: 36px;
+                    line-height: 40px;
                     color: #FFFFFF;
                 }
             }
@@ -89,7 +98,7 @@
 
                 .calculator-card-wallet-connect-btn {
                     background: rgba(255, 255, 255, 0.2);
-                    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+                    box-shadow: 0 0 10px rgba(44, 39, 109, 0.1);
                     border-radius: 10px;
                     padding: 14px 58px;
                     cursor: pointer;
@@ -98,7 +107,7 @@
                     margin-top: 20px;
 
                     p {
-                        font-family: Montserrat SemiBold;
+                        font-family: Roboto SemiBold, sans-serif;
                         font-weight: 600;
                         font-size: 18px;
                         color: #FFFFFF;
@@ -106,7 +115,7 @@
                 }
 
                 .calculator-card-wallet-desc-text {
-                    font-family: Montserrat Light;
+                    font-family: Roboto Light, sans-serif;
                     font-weight: 300;
                     font-size: 14px;
                     color: rgba(255, 255, 255, 0.6);
@@ -117,34 +126,34 @@
 
             .calculator-card-action-area {
                 width: 100%;
-                margin-top: 25px;
+                margin-top: 24px;
 
                 .calculator-card-action-area-inp-wrap{
                     .calculator-card-action-area-inp-wrap-title{
-                        font-family: Montserrat Medium;
+                        font-family: Roboto Medium, sans-serif;
                         font-style: normal;
-                        font-weight: 500;
-                        font-size: 16px;
+                        font-weight: 400;
+                        font-size: 14px;
                         color: #FFFFFF;
                         margin-bottom: 5px;
-                        margin-left: 10px;
                     }
 
                     .calculator-card-action-input{
                         width: 100%;
+                        height: 56px;
             
-                        background: rgba(255, 255, 255, 0.2);
-                        border: 1px solid rgba(255, 255, 255, 0.2);
-                        border-radius: 10px;
+                        background: #4F4F4F;
+                        border: 1px solid #BDBDBD;
+                        border-radius: 4px;
                         outline: none;
                         
                         .MuiOutlinedInput-input{
-                          font-family: Montserrat Medium;
+                          font-family: Roboto Medium, sans-serif;
                           font-style: normal;
                           font-weight: 500;
-                          font-size: 16px;
+                          font-size: 18px;
                           color: rgba(255, 255, 255, 0.6);
-                          padding: 14px 20px;
+                          padding: 18px 24px;
                         }
                         
                         .MuiOutlinedInput-notchedOutline{
@@ -155,8 +164,8 @@
                           cursor: pointer;
                             
                           p{
-                            font-family: Montserrat SemiBold;
-                            font-weight: 600;
+                            font-family: Roboto, sans-serif;
+                            font-weight: 500;
                             font-size: 18px;
                             color: #FFFFFF;
                           }
@@ -166,10 +175,10 @@
             }
 
             .calculator-days-slider-wrap{
-                margin-top: 30px;
+                margin-top: 24px;
 
                 .calculator-days-slider-wrap-title{
-                    font-family: Montserrat Medium;
+                    font-family: Roboto Medium, sans-serif;
                     font-style: normal;
                     font-weight: 500;
                     font-size: 16px;
@@ -183,25 +192,26 @@
                     }
 
                     .MuiSlider-rail{
-                        background: #232323;
-                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+                        background: #4F4F4F;
+                        box-shadow:  0 10px rgba(0, 0, 0, 0.2);
                         border-radius: 10px;
-                        border: 1px solid #64C9FC;
+                        border: 1px solid #FFA801;
                     }
 
                     .MuiSlider-track{
                         border-top-left-radius: 10px;
                         border-bottom-left-radius: 10px;
-                        background: linear-gradient(90deg, #64C9FC 0%, #446CF6 90%);
-                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+                        background: linear-gradient(253.58deg, #FFC000 1.55%, #FF8A00 95.8%);
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
                     }
 
                     .MuiSlider-thumb{
-                        width: 20px;
-                        height: 20px;
-                        background: #232323;
-                        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-                        border: 2px solid #446CF6;
+                        margin-top: -10px;
+                        width: 32px;
+                        height: 32px;
+                        background: #4F4F4F;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                        border: 6px solid #FFA801;
                     }
                 }
             }
@@ -210,7 +220,16 @@
                 justify-content: center;
                 margin: auto;
                 padding: 0 5px;
-                margin-top: 30px;
+                margin-top: 12px;
+                .grid2 {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-column-gap: 24px;
+                    @media screen and (max-width: 768px) {
+                        grid-template-columns: 1fr;
+                        grid-column-gap: 0px;
+                    }
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
 {
+  "endOfLine": "auto",
   "arrowParens": "avoid",
   "bracketSpacing": true,
   "printWidth": 180,

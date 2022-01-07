@@ -1,37 +1,58 @@
-import { useCallback, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import Social from "./social";
-import StakeIcon from "../../../assets/icons/stake.svg";
 import BondIcon from "../../../assets/icons/bond.svg";
-import WonderlandIcon from "../../../assets/icons/wonderland-nav-header.svg";
+import WealthHeaderLogo from "../../../assets/icons/wealth-nav-header.svg";
 import DashboardIcon from "../../../assets/icons/dashboard.svg";
+import GlobeIcon from "../../../assets/icons/wonderglobe.svg";
+import StakeIcon from "../../../assets/icons/stake.svg";
+import DashboardYellowIcon from "../../../assets/icons/dashboard_yellow.svg";
+import GlobeYellowIcon from "../../../assets/icons/wonderglobe_yellow.svg";
+import StakeYellowIcon from "../../../assets/icons/stake_yellow.svg";
+import BondYellowIcon from "../../../assets/icons/bond_yellow.svg";
 import { trim, shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
-import useBonds from "../../../hooks/bonds";
+// import useBonds from "../../../hooks/bonds";
 import { Link } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import "./drawer-content.scss";
-import DocsIcon from "../../../assets/icons/stake.svg";
-import GlobeIcon from "../../../assets/icons/wonderglobe.svg";
+import DocsIcon from "../../../assets/icons/docsIcon.svg";
+import BuyIcon from "../../../assets/icons/buyIcon.svg";
+import GovernanceIcon from "../../../assets/icons/governanceIcon.svg";
+import ClickedIcon from "../../../assets/icons/clickIcon.svg";
+import ClickedDownIcon from "../../../assets/icons/down.svg";
 import classnames from "classnames";
 
 function NavContent() {
     const [isActive] = useState();
     const address = useAddress();
-    const { bonds } = useBonds();
+    // const { bonds } = useBonds();
+    const [bonds, setBonds] = useState<any>([]);
+    const [locationPath, setLocationPath] = useState<any>("");
+    const history = useHistory();
+    useEffect(() => {
+        setBonds([
+            { displayName: "OHM-FRAX LP", bondDiscount: 5.21 },
+            { displayName: "FRAX", bondDiscount: 4.27 },
+        ]);
+    }, []);
 
     const checkPage = useCallback((location: any, page: string): boolean => {
         const currentPath = location.pathname.replace("/", "");
         if (currentPath.indexOf("dashboard") >= 0 && page === "dashboard") {
+            setLocationPath("dashboard");
             return true;
         }
         if (currentPath.indexOf("stake") >= 0 && page === "stake") {
+            setLocationPath("stake");
             return true;
         }
-        if (currentPath.indexOf("mints") >= 0 && page === "mints") {
+        if (currentPath.indexOf("bonds") >= 0 && page === "bonds") {
+            setLocationPath("bonds");
             return true;
         }
         if (currentPath.indexOf("calculator") >= 0 && page === "calculator") {
+            setLocationPath("calculator");
             return true;
         }
         return false;
@@ -40,9 +61,9 @@ function NavContent() {
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
-                <Link href="https://wonderland.money" target="_blank">
-                    <img alt="" src={WonderlandIcon} />
-                </Link>
+                <div className="mouse-cursor" onClick={() => history.push("/dash/dashboard")}>
+                    <img alt="" src={WealthHeaderLogo} />
+                </div>
 
                 {address && (
                     <div className="wallet-link">
@@ -57,87 +78,130 @@ function NavContent() {
                 <div className="dapp-nav">
                     <Link
                         component={NavLink}
-                        to="/dashboard"
+                        to="/dash/dashboard"
                         isActive={(match: any, location: any) => {
                             return checkPage(location, "dashboard");
                         }}
                         className={classnames("button-dapp-menu", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
-                            <img alt="" src={DashboardIcon} />
+                            <img alt="" src={locationPath === "dashboard" ? DashboardYellowIcon : DashboardIcon} />
                             <p>Dashboard</p>
                         </div>
+                        {locationPath === "dashboard" && (
+                            <div className="dapp-clicked">
+                                <img src={ClickedIcon} alt="" />
+                            </div>
+                        )}
                     </Link>
 
                     <Link
                         component={NavLink}
-                        to="/stake"
+                        to="/dash/stake"
                         isActive={(match: any, location: any) => {
                             return checkPage(location, "stake");
                         }}
                         className={classnames("button-dapp-menu", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
-                            <img alt="" src={StakeIcon} />
+                            <img alt="" src={locationPath === "stake" ? StakeYellowIcon : StakeIcon} />
                             <p>Stake</p>
                         </div>
+                        {locationPath === "stake" && (
+                            <div className="dapp-clicked">
+                                <img src={ClickedIcon} alt="" />
+                            </div>
+                        )}
                     </Link>
 
                     <Link
                         component={NavLink}
                         id="bond-nav"
-                        to="/mints"
+                        to="/dash/bonds"
                         isActive={(match: any, location: any) => {
-                            return checkPage(location, "mints");
+                            return checkPage(location, "bonds");
                         }}
                         className={classnames("button-dapp-menu", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
-                            <img alt="" src={BondIcon} />
-                            <p>Mint</p>
+                            <img alt="" src={locationPath === "bonds" ? BondYellowIcon : BondIcon} />
+                            <p>Bond</p>
+                            <div className="dapp-clicked-down">
+                                <img src={ClickedDownIcon} alt="" />
+                            </div>
                         </div>
                     </Link>
 
                     <div className="bond-discounts">
-                        <p>Mint discounts</p>
-                        {bonds.map((bond, i) => (
-                            <Link component={NavLink} to={`/mints/${bond.name}`} key={i} className={"bond"}>
+                        <p>Bond discounts</p>
+                        {/*{bonds.map((bond, i) => (*/}
+                        {/*    <Link component={NavLink} to={`/bonds/${bond.name}`} key={i} className={"bond"}>*/}
+                        {/*        {!bond.bondDiscount ? (*/}
+                        {/*            <Skeleton variant="text" width={"150px"} />*/}
+                        {/*        ) : (*/}
+                        {/*            <p>*/}
+                        {/*                {bond.displayName}*/}
+                        {/*                <span className="bond-pair-roi">{bond.bondDiscount && trim(bond.bondDiscount * 100, 2)}%</span>*/}
+                        {/*            </p>*/}
+                        {/*        )}*/}
+                        {/*    </Link>*/}
+                        {/*))}*/}
+                        {bonds.map((bond: any, i: number) => (
+                            <Link component={NavLink} to={`/dash/bonds`} key={i} className={"bond"}>
                                 {!bond.bondDiscount ? (
                                     <Skeleton variant="text" width={"150px"} />
                                 ) : (
                                     <p>
                                         {bond.displayName}
-                                        <span className="bond-pair-roi">{bond.bondDiscount && trim(bond.bondDiscount * 100, 2)}%</span>
+                                        <span className="bond-pair-roi">{bond.bondDiscount}%</span>
                                     </p>
                                 )}
                             </Link>
                         ))}
                     </div>
-
+                    <a href="#" target="_blank" className={classnames("button-dapp-menu", { active: isActive })}>
+                        <div className="dapp-menu-item">
+                            <img alt="" src={BuyIcon} />
+                            <p>Buy</p>
+                        </div>
+                    </a>
                     <Link
                         component={NavLink}
-                        to="/calculator"
+                        to="/dash/calculator"
                         isActive={(match: any, location: any) => {
                             return checkPage(location, "calculator");
                         }}
                         className={classnames("button-dapp-menu", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
-                            <img alt="" src={GlobeIcon} />
+                            <img alt="" src={locationPath === "calculator" ? GlobeYellowIcon : GlobeIcon} />
                             <p>Calculator</p>
                         </div>
+                        {locationPath === "calculator" && (
+                            <div className="dapp-clicked">
+                                <img src={ClickedIcon} alt="" />
+                            </div>
+                        )}
                     </Link>
+                    <a href="#" target="_blank" className={classnames("button-dapp-menu", { active: isActive })}>
+                        <div className="dapp-menu-item">
+                            <img alt="" src={GovernanceIcon} />
+                            <p>Governance</p>
+                        </div>
+                    </a>
+                    <a
+                        href="https://commonwealthdao.gitbook.io/docs/welcome-to-commonwealth/foundation"
+                        target="_blank"
+                        className={classnames("button-dapp-menu", { active: isActive })}
+                    >
+                        <div className="dapp-menu-item">
+                            <img alt="" src={DocsIcon} />
+                            <p>Docs</p>
+                        </div>
+                    </a>
                 </div>
             </div>
-            <div className="dapp-menu-doc-link">
-                <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank">
-                    <img alt="" src={DocsIcon} />
-                    <p>Docs</p>
-                </Link>
-                <Link href="https://legacy.wonderland.money/" target="_blank">
-                    <p>Legacy website</p>
-                </Link>
-            </div>
+            <div className="dapp-menu-doc-link" />
             <Social />
         </div>
     );

@@ -50,7 +50,7 @@ function Bond({ bond }: IBondProps) {
                                     </p>
                                 </div>
                                 <div className="bond-price-data">
-                                    <p className="bond-price-data-title">TIME Price</p>
+                                    <p className="bond-price-data-title">$BLOCKS Price</p>
                                     <p className="bond-price-data-value">{isBondLoading ? <Skeleton /> : `$${trim(bond.marketPrice, 2)}`}</p>
                                 </div>
                             </Box>

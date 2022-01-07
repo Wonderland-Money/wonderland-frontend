@@ -1,6 +1,6 @@
 .dapp-sidebar {
   height: 100vh;
-  min-width: 280px;
+  min-width: 275px;
   display: flex;
   flex-direction: column;
 
@@ -10,16 +10,19 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    margin: 20px 0 63px 0;
+    margin: 40px 0 63px 0;
 
     .wallet-link {
       margin: 10px;
   
       p{
-        font-family: Montserrat SemiBold;
+        font-family: "Roboto SemiBold", sans-serif;
         font-size: 14px;
         color: #FFFFFF;
       }
+    }
+    .mouse-cursor{
+      cursor: pointer;
     }
   }
 
@@ -33,19 +36,23 @@
 
       a {
         margin-top: 20px;
-        margin-left: 20px;
+        margin-left: 37px;
         align-items: center;
         margin-bottom: 20px;
 
         img {
           width: 20px;
           height: 20px;
-          margin-right: 10px;
+          margin-right: 15px;
           vertical-align: -4px;
         }
       }
 
-      .button-dapp-menu{
+      .button-dapp-menu {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        text-decoration: unset;
         .dapp-menu-item{
           display: flex;
           flex-direction: row;
@@ -54,9 +61,27 @@
           p{
             font-weight: 600;
             font-size: 16px;
+            letter-spacing: 1px;
             color: #FFFFFF;
-            font-family: Montserrat SemiBold;
+            font-family: Roboto SemiBold, sans-serif;
           }
+        }
+        .dapp-clicked > img {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 0;
+          width: 8px;
+          height: 8px;
+        }
+        .dapp-clicked-down > img {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 0;
+          margin-left: 16px;
+          width: 24px;
+          height: 24px;
         }
       }
 
@@ -70,7 +95,7 @@
 
       .bond-discounts {
         text-align: left;
-        padding-left: 54px;
+        padding-left: 70px;
       
         a{
           margin-left: 0;
@@ -79,9 +104,9 @@
         }
       
         p{
-          font-family: Montserrat;
-          font-size: 14px;
-          line-height: 17px;
+          font-family: "Roboto Light", sans-serif;
+          font-size: 12px;
+          line-height: 18px;
           color: rgba(255, 255, 255, 0.6);
         }
         
@@ -101,37 +126,15 @@
 
   .dapp-menu-doc-link{
     margin-top: auto;
-    
-    a {
-      display: flex;
-      width: 100%;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-
-      img {
-        width: 20px;
-        height: 20px;
-        margin-right: 10px;
-        vertical-align: middle;
-      }
-
-      p{
-        font-family: Montserrat SemiBold;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 20px;
-        color: #FFFFFF;
-      }
-    }
   }
 
   .social-row {
     display: flex;
     flex-flow: row;
-    justify-content: space-evenly;
-    padding: 1.3rem;
+    justify-content: left;
+    padding: 10px 10px 30px 30px;
     a {
+      padding-right: 15px;
       &:hover {
         transform: scale(1.1);
       }

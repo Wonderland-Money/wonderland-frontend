@@ -22,11 +22,56 @@
     margin-left: auto;
   }
 }
+.buy-menu-root{
+  .buy-menu-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    border-radius: 2px;
+    width: 200px;
+    height: 48px;
+    cursor: pointer;
+    background: #FFA801;
+    box-shadow: 0 0 10px rgba(44, 39, 109, 0.1);
 
+    p{
+      font-family: Roboto Medium, sans-serif;
+      font-weight: 600;
+      font-size: 18px;
+      color: #FFFFFF;
+    }
+  }
+}
 @media screen and (min-width: 960px) {
   .dapp-topbar{
     .dapp-topbar-slider-btn{
       display: none;
+    }
+  }
+}
+@media screen and (max-width: 960px) {
+  .dapp-topbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .dapp-topbar-btns-wrap{
+      margin-left: 0 !important;
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  .dapp-topbar{
+    .dapp-topbar-btns-wrap{
+      display: block;
+      width: 100%;
+      max-width: calc(100% - 60px);
+    }
+  }
+  .buy-menu-root {
+    .buy-menu-btn {
+      margin-bottom: 20px;
+      width: 100%;
     }
   }
 }

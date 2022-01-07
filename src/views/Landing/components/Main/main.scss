@@ -1,108 +1,400 @@
 .landing-main{
     flex: 1;
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
+    min-width: 280px;
     justify-content: center;
+    font-family: Roboto, sans-serif;
+    transition: 0.3s ease-out;
     z-index: 2;
-    position: relative;
 
     .landing-main-img-wrap{
-        max-width: 400px;
-        max-height: 400px;
+        margin: 39px 30px 20px;
+        max-width: 900px;
+        max-height: 326px;
         overflow: hidden;
-
         img{
             width: 100%;
-            width: 100%;
         }
-
-        margin-bottom: 20px;
+    }
+    .landing-main-mobile-img{
+        display: none;
+        margin: 40px auto;
+        text-align: center;
+    }
+    .logo-img{
+        width: 100%;
+        max-width: 220px;
+    }
+    .landing-main-mobile-img1{
+        display: none;
+        margin: 0 20px 72px;
+        text-align: center;
+    }
+    .logo-txt{
+        width: 100%;
+        max-width: 335px;
     }
 
     .landing-main-title-wrap{
         text-align: center;
-        margin-top: 30px;
-        margin-bottom: 20px;
+        margin: 80px 20px 60px;
 
         p{
-            font-family: Montserrat Bold;
             font-style: normal;
-            font-weight: bold;
-            font-size: 55px;
+            font-weight: 500;
+            font-size: 48px;
+            line-height: 56px;
             color: #FFFFFF;
-            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+        }
+        .underline-y {
+            text-decoration: underline solid #FFA801;
+            //border-bottom: 5px solid #FFA801;
         }
     }
 
-    .landing-main-help-text-wrap{
+    .interest-content {
+        padding-top: 28px;
+        padding-right: 30px;
+        padding-left: 30px;
         text-align: center;
-        margin-bottom: 20px;
 
-        p{
-            font-family: Montserrat Medium;
-            font-style: normal;
+        .interest-title {
+            padding-bottom: 24px;
+            font-size: 48px;
             font-weight: 500;
-            font-size: 20px;
-            color: #FFFFFF;
+            line-height: 56px;
+            color: #fff;
+        }
+        .interest-desc {
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 40px;
+            color: #E0E0E0;
         }
     }
 
     .landing-main-btns-wrap{
         display: flex;
         flex-direction: row;
+        margin-top: 48px;
 
         a{
             text-decoration: none;
         }
 
         .landing-main-btn{
-            margin: 0 15px;
-            padding: 14px 26px;
-            min-width: 200px;
-            background: #232323;
-            box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 12px;
+            border-radius: 2px;
+            width: 251px;
+            height: 60px;
+            box-shadow: 0 0 10px rgba(44, 39, 109, 0.1);
             cursor: pointer;
             text-align: center;
 
             p{
-                font-family: Montserrat Semibold;
-                font-style: normal;
-                font-weight: 600;
-                font-size: 18px;
-                line-height: 22px;
+                font-weight: 400;
+                font-size: 21px;
+                line-height: 33px;
                 color: #FFFFFF;
+            }
+            .discord-btn{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-image: url("../../../../assets/icons/discordSmall.png");
+                background-size: 24px auto;
+                background-repeat: no-repeat;
+                background-position: 75px;
+                width: 251px;
+                p {
+                    padding-left: 40px;
+                }
+            }
+            .discord-btn:hover{
+                background-image: url("../../../../assets/icons/discordHover.svg");
+                color: #5865F2;
+            }
+        }
+        .btn-col1{
+            background-color: #ffa801;
+        }
+        .btn-col1:hover{
+            background-color: #fff;
+            p{
+                color: #ffa801;
+            }
+        }
+        .btn-col2{
+            background-color: #333333;
+        }
+        .btn-col2:hover{
+            background-color: #fff;
+            p{
+                color: #333333;
+            }
+        }
+        .btn-col3{
+            background-color: #5865F2;
+        }
+        .btn-col3:hover{
+            background-color: #fff;
+            p{
+                color: #5865F2;
+            }
+        }
+    }
+    .landing-main-directs{
+        margin-top: 80px;
+        .right-line,
+        .left-line{
+            display: flex;
+            align-items: center;
+            width: 100vw;
+        }
+        .right-line{
+            margin-bottom: 10px;
+            justify-content: flex-end;
+        }
+        .left-line{
+            justify-content: flex-start;
+        }
+        .line-w {
+            width: 62%;
+            max-height: 54px;
+        }
+    }
+    .mobile-img{
+        display: none;
+        margin-top: 49px;
+        margin-bottom: 49px;
+        width: 100%;
+        max-width: 201px;
+    }
+    .landing-step{
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1040px;
+        text-align: center;
+        .step-num{
+            margin: 0 auto 24px;
+            width: 100%;
+            max-width: 136px;
+            text-align: center;
+        }
+        .step-txt {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 280px;
+            font-size: 24px;
+            font-weight: normal;
+            line-height: 36px;
+            color: #E0E0E0;
+            text-align: center;
+        }
+        .step-arrow-grid3 {
+            display: grid;
+            grid-template-columns: auto 201px auto;
+            grid-column-gap: 87px;
+        }
+        .person-bg{
+            margin-top: 49px;
+            margin-bottom: 49px;
+            width: 100%;
+            max-width: 201px;
+        }
+        .right-arrow-w{
+            margin-left: auto;
+        }
+        .left-arrow-w{
+            margin-right: auto;
+        }
+        .steps-arrows{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .step-imgs{
+                width: 100%;
+                max-width: 136px;
+                text-align: center;
+            }
+            .left-arrows{
+                margin-right: 23px;
+                margin-left: 54px;
+            }
+        }
+        .txt-grid3 {
+            margin-top: 24px;
+            display: flex;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-column-gap: 104px;
+        }
+    }
+
+    .landing-roadmap{
+        margin: 0 auto 104px;
+        width: 100%;
+        max-width: 1200px;
+        text-align: center;
+        .roadmap-grid4{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-column-gap: 0;
+            .step-num{
+                height: 100%;
+                max-height: 71px;
+            }
+            .line1-t{
+                margin-top: 40px;
+                height: 80px;
+            }
+            .line2-t{
+                margin-bottom: 40px;
+                height: 80px;
+            }
+            .stick1-w {
+                margin-top: 40px;
+                width: 100%;
+            }
+            .stick2-w {
+                margin-bottom: 40px;
+                width: 100%;
+            }
+            .stick1-txt {
+                margin-top: 60px;
+                font-size: 24px;
+                font-weight: normal;
+                line-height: 36px;
+                color: #E0E0E0;
+            }
+            .stick2-txt {
+                height: 213px;
+                font-size: 24px;
+                font-weight: normal;
+                line-height: 36px;
+                color: #E0E0E0;
+            }
+            .stick1-txt.product{
+                max-width: 260px;
             }
         }
     }
 }
-
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 1200px){
+    .landing-main{
+        .landing-step{
+            .step-arrow-grid3{
+                grid-column-gap: 40px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 992px){
+    .landing-main{
+        .landing-main-btns-wrap{
+            .landing-main-btn{
+                width: 220px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 768px){
+    .landing-main{
+        .landing-main-btns-wrap{
+            display: block;
+            margin-top: 48px;
+            margin-bottom: 0;
+            width: 100%;
+            .landing-main-btn{
+                margin: 0 auto 30px;
+                width: calc(100% - 120px);
+            }
+        }
+    }
+}
+@media screen and (max-width: 600px){
+    .landing-main {
+        display: block;
+        .mobile-hidden {
+            display: none;
+        }
+        .mobile-shown,
+        .landing-main-mobile-img,
+        .landing-main-mobile-img1{
+            display: block;
+        }
+        .landing-main-btns-wrap{
+            flex-direction: column;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            .landing-main-btn{
+                margin: 0 auto 16px;
+                width: calc(100% - 60px);
+            }
+        }
+        .landing-main-directs{
+            margin-top: 50px;
+        }
+        .mobile-img{
+            display: block;
+            margin: 50px auto 0;
+        }
+        .landing-main-title-wrap{
+            margin-top: 16px;
+            p{
+                font-size: 30px;
+                line-height: 40px;
+            }
+        }
+    }
+}
+@media screen and (max-width: 480px) {
+    .landing-main{
+        .landing-main-btns-wrap{
+            .landing-main-btn{
+                width: calc(100% - 32px);
+            }
+        }
+        .landing-main-img-wrap{
+             margin: 53px 16px 32px;
+         }
+        .interest-content {
+            padding-right: 16px;
+            padding-left: 16px;
+            .interest-title{
+                font-size: 30px;
+                line-height: 40px;
+                text-align: left;
+            }
+            .interest-desc{
+                text-align: left;
+                font-size: 18px;
+                line-height: 26px;
+            }
+        }
+        .mobile-img{
+            margin-top: 50px;
+            margin-left: 32px;
+            text-align: left;
+        }
+        .landing-main-title-wrap{
+            text-align: left;
+        }
+    }
+}
+@media screen and (max-width: 360px) {
     .landing-main{
         .landing-main-title-wrap{
             p{
-                font-size: 40px;
-            }
-        }   
-        
-        .landing-main-help-text-wrap{
-            p{
-                font-size: 16px;
+                font-size: 26px;
             }
         }
-    }
-}
 
-
-@media screen and (max-width: 465px) {
-    .landing-main{
-        .landing-main-btns-wrap{
-            flex-direction: column;
-
-            .landing-main-btn{
-                margin: 15px;
-            }
-        }
     }
 }

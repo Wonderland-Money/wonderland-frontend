@@ -75,18 +75,19 @@ function Calculator() {
             <Zoom in={true}>
                 <div className="calculator-card">
                     <Grid className="calculator-card-grid" container direction="column" spacing={2}>
-                        <Grid item>
+                        <Grid item className="item-custom">
                             <div className="calculator-card-header">
                                 <p className="calculator-card-header-title">Calculator</p>
                                 <p className="calculator-card-header-subtitle">Estimate your returns</p>
                             </div>
                         </Grid>
+                        <hr />
                         <Grid item>
                             <div className="calculator-card-metrics">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={4} md={4} lg={4}>
                                         <div className="calculator-card-apy">
-                                            <p className="calculator-card-metrics-title">TIME Price</p>
+                                            <p className="calculator-card-metrics-title">$BLOCKS Price</p>
                                             <p className="calculator-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : `$${trimeMarketPrice}`}</p>
                                         </div>
                                     </Grid>
@@ -107,7 +108,7 @@ function Calculator() {
                                 </Grid>
                             </div>
                         </Grid>
-
+                        <hr />
                         <div className="calculator-card-area">
                             <div>
                                 <div className="calculator-card-action-area">
@@ -154,7 +155,7 @@ function Calculator() {
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <div className="calculator-card-action-area-inp-wrap">
-                                                <p className="calculator-card-action-area-inp-wrap-title">TIME price at purchase ($)</p>
+                                                <p className="calculator-card-action-area-inp-wrap-title">BLOCKS price at purchase ($)</p>
                                                 <OutlinedInput
                                                     type="number"
                                                     placeholder="Amount"
@@ -199,25 +200,27 @@ function Calculator() {
                                     <Slider className="calculator-days-slider" min={1} max={365} value={days} onChange={(e, newValue: any) => setDays(newValue)} />
                                 </div>
                                 <div className="calculator-user-data">
-                                    <div className="data-row">
-                                        <p className="data-row-name">Your initial investment</p>
-                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>${initialInvestment}</>}</p>
-                                    </div>
-                                    <div className="data-row">
-                                        <p className="data-row-name">Current wealth</p>
-                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>${calcCurrentWealth()}</>}</p>
-                                    </div>
-                                    <div className="data-row">
-                                        <p className="data-row-name">TIME rewards estimation</p>
-                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{rewardsEstimation} TIME</>}</p>
-                                    </div>
-                                    <div className="data-row">
-                                        <p className="data-row-name">Potential return</p>
-                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>${potentialReturn}</>}</p>
-                                    </div>
-                                    <div className="data-row">
-                                        <p className="data-row-name">Potential number of lambos</p>
-                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{Math.floor(Number(potentialReturn) / 220000)}</>}</p>
+                                    <div className="grid2">
+                                        <div className="data-row">
+                                            <p className="data-row-name">Your initial investment</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>${initialInvestment}</>}</p>
+                                        </div>
+                                        <div className="data-row">
+                                            <p className="data-row-name">Potential return</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>${potentialReturn}</>}</p>
+                                        </div>
+                                        <div className="data-row">
+                                            <p className="data-row-name">Current wealth</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>${calcCurrentWealth()}</>}</p>
+                                        </div>
+                                        <div className="data-row">
+                                            <p className="data-row-name">Potential number of lambos</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{Math.floor(Number(potentialReturn) / 220000)}</>}</p>
+                                        </div>
+                                        <div className="data-row">
+                                            <p className="data-row-name">TIME rewards estimation</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{rewardsEstimation} TIME</>}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
