@@ -43,7 +43,13 @@ const AVAX_TESTNET = {
 };
 
 export const getAddresses = (networkID: number) => {
-    if (networkID === Networks.AVAX) return AVAX_MAINNET;
+    if (networkID === Networks.AVAX) {
+        if (process.env.NODE_ENV == 'production') {
+            return AVAX_MAINNET; 
+        } else if (process.env.NODE_ENV == 'development') {
+            return AVAX_TESTNET; 
+        }
+    }
 
     throw Error("Network don't support");
 };
