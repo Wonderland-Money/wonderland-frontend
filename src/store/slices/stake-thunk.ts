@@ -27,7 +27,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const addresses = getAddresses(networkID);
 
     const signer = provider.getSigner();
-    const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, signer);
+    const blockContract = new ethers.Contract(addresses.BLOCK_ADDRESS, TimeTokenContract, signer);
     const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, signer);
 
     let approveTx;
@@ -35,7 +35,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
         const gasPrice = await getGasPrice(provider);
 
         if (token === "time") {
-            approveTx = await timeContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+            approveTx = await blockContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
         if (token === "memo") {
@@ -58,7 +58,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
 
     await sleep(2);
 
-    const stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
+    const stakeAllowance = await blockContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     const unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(

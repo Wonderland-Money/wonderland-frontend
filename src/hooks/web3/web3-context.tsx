@@ -53,7 +53,8 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
     const [providerChainID, setProviderChainID] = useState(DEFAULD_NETWORK);
     const [address, setAddress] = useState("");
 
-    const [uri, setUri] = useState(getMainnetURI());
+    // const [uri, setUri] = useState(getMainnetURI());
+    const [uri, setUri] = useState(getTestnetURI());    // testnet
     const [provider, setProvider] = useState<JsonRpcProvider>(new StaticJsonRpcProvider(uri));
 
     const [web3Modal] = useState<Web3Modal>(
@@ -64,7 +65,8 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
                     package: WalletConnectProvider,
                     options: {
                         rpc: {
-                            [Networks.AVAX]: getTestnetURI(),
+                            // [Networks.AVAX]: getMainnetURI(),
+                            [Networks.AVAX]: getTestnetURI(),   // testnet
                         },
                     },
                 },

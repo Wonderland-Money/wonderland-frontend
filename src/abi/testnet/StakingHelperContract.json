@@ -9,7 +9,7 @@
         },
         {
           "internalType": "address",
-          "name": "_Time",
+          "name": "_Block",
           "type": "address"
         }
       ],
@@ -37,7 +37,7 @@
     },
     {
       "inputs": [],
-      "name": "Time",
+      "name": "Block",
       "outputs": [
         {
           "internalType": "contract IERC20",

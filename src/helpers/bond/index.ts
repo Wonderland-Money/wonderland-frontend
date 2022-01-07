@@ -21,8 +21,8 @@ export const mim = new StableBond({
     reserveContractAbi: StableReserveContract,  // AnyswapV5ERC20
     networkAddrs: {
         [Networks.AVAX]: {
-            bondAddress: avaAddresses.MIM_TIME_BOND_ADDRESS,
-            reserveAddress: avaAddresses.MIM_TIME_REVERSE_ADDRESS
+            bondAddress: avaAddresses.MIM_BLOCK_BOND_ADDRESS,
+            reserveAddress: avaAddresses.MIM_BLOCK_REVERSE_ADDRESS
         },
     },
     tokensInStrategy: "60500000000000000000000000",
@@ -77,3 +77,4 @@ export const avaxTime = new CustomLPBond({
 });
 
 export default [mim, wavax, mimTime, avaxTime];
+

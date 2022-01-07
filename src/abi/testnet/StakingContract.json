@@ -4,7 +4,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_Time",
+          "name": "_Block",
           "type": "address"
         },
         {
@@ -87,7 +87,7 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "timeAmount",
+          "name": "blockAmount",
           "type": "uint256"
         }
       ],
@@ -112,7 +112,7 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "enum TimeStaking.CONTRACTS",
+          "internalType": "enum BlockStaking.CONTRACTS",
           "name": "contractType",
           "type": "uint8"
         },
@@ -198,10 +198,10 @@
     },
     {
       "inputs": [],
-      "name": "Memories",
+      "name": "Block",
       "outputs": [
         {
-          "internalType": "contract IMemo",
+          "internalType": "contract IERC20",
           "name": "",
           "type": "address"
         }
@@ -212,10 +212,10 @@
     },
     {
       "inputs": [],
-      "name": "Time",
+      "name": "Memories",
       "outputs": [
         {
-          "internalType": "contract IERC20",
+          "internalType": "contract IMemo",
           "name": "",
           "type": "address"
         }
@@ -509,7 +509,7 @@
     {
       "inputs": [
         {
-          "internalType": "enum TimeStaking.CONTRACTS",
+          "internalType": "enum BlockStaking.CONTRACTS",
           "name": "_contract",
           "type": "uint8"
         },

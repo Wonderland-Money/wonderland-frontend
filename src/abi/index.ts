@@ -24,7 +24,7 @@ export { abi as StableReserveContract } from "./reserves/testnet/StableContract.
 export { abi as LpReserveContract } from "./reserves/testnet/LpContract.json";
 
 export { abi as MemoTokenContract } from "./tokens/testnet/MemoContract.json";
-export { abi as TimeTokenContract } from "./tokens/testnet/TimeContract.json";
+export { abi as TimeTokenContract } from "./tokens/testnet/TimeContract.json";    // To be removed
 export { abi as MimTokenContract } from "./tokens/testnet/MimContract.json";
 export { abi as wMemoTokenContract } from "./tokens/testnet/wMemoContract.json";
 
@@ -33,5 +33,7 @@ export { abi as StakingContract } from "./testnet/StakingContract.json";
 export { abi as StakingHelperContract } from "./testnet/StakingHelperContract.json";
 export { abi as TreasuryContract } from "./testnet/TreasuryContract.json";
 export { abi as ZapinContract } from "./testnet/ZapInContract.json";
+
+export { abi as BlockTokenContract } from "./tokens/testnet/BlockContract.json";
 
 export { abi as TraderZapinContract } from "./TraderZapinContract.json";
