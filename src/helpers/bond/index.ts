@@ -76,5 +76,21 @@ export const avaxTime = new CustomLPBond({
     lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
 });
 
+export const mimBlock = new LPBond({
+    name: "mim_block_lp",
+    displayName: "BLOCK-MIM LP",
+    bondToken: "MIM",
+    bondIconSvg: MimTimeIcon,
+    bondContractABI: LpBondContract,
+    reserveContractAbi: LpReserveContract,
+    networkAddrs: {
+        [Networks.AVAX]: {
+            bondAddress: avaAddresses.MIM_BLOCK_LP_BOND_ADDRESS,
+            reserveAddress: avaAddresses.MIM_TIME_LP_REVERSE_ADDRESS, // JoePair
+        },
+    },
+    lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
+});
+
 export default [mim, wavax, mimTime, avaxTime];
 

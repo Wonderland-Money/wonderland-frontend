@@ -26,7 +26,6 @@ export const loadAppDetails = createAsyncThunk(
         const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
         const blockContract = new ethers.Contract(addresses.BLOCK_ADDRESS, BlockTokenContract, provider);
 
-        alert(mimPrice);
         const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
 
         const totalSupply = (await blockContract.totalSupply()) / Math.pow(10, 9);
