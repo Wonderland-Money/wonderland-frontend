@@ -1,6 +1,7 @@
 import { Networks } from "../../constants/blockchain";
 import { LPBond, CustomLPBond } from "./lp-bond";
 import { StableBond, CustomBond } from "./stable-bond";
+import { getAddresses } from "../../constants";
 
 import MimIcon from "../../assets/tokens/MIM.svg";
 import AvaxIcon from "../../assets/tokens/AVAX.svg";
@@ -9,17 +10,19 @@ import AvaxTimeIcon from "../../assets/tokens/TIME-AVAX.svg";
 
 import { StableBondContract, LpBondContract, WavaxBondContract, StableReserveContract, LpReserveContract } from "../../abi";
 
+const avaAddresses = getAddresses(Networks.AVAX);
+
 export const mim = new StableBond({
     name: "mim",
     displayName: "MIM",
     bondToken: "MIM",
     bondIconSvg: MimIcon,
     bondContractABI: StableBondContract,
-    reserveContractAbi: StableReserveContract,
+    reserveContractAbi: StableReserveContract, // AnyswapV5ERC20
     networkAddrs: {
         [Networks.AVAX]: {
-            bondAddress: "0x694738E0A438d90487b4a549b201142c1a97B556",
-            reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+            bondAddress: avaAddresses.MIM_TIME_BOND_ADDRESS,
+            reserveAddress: avaAddresses.MIM_TIME_REVERSE_ADDRESS,
         },
     },
     tokensInStrategy: "60500000000000000000000000",
@@ -34,8 +37,8 @@ export const wavax = new CustomBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.AVAX]: {
-            bondAddress: "0xE02B1AA2c4BE73093BE79d763fdFFC0E3cf67318",
-            reserveAddress: "0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7",
+            bondAddress: avaAddresses.wAVAX_TIME_BOND_ADDRESS,
+            reserveAddress: avaAddresses.wAVAX_TIME_REVERSE_ADDRESS, // EACAggregatorProxy
         },
     },
     tokensInStrategy: "756916000000000000000000",
@@ -50,8 +53,8 @@ export const mimTime = new LPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.AVAX]: {
-            bondAddress: "0xA184AE1A71EcAD20E822cB965b99c287590c4FFe",
-            reserveAddress: "0x113f413371fc4cc4c9d6416cf1de9dfd7bf747df",
+            bondAddress: avaAddresses.MIM_TIME_LP_BOND_ADDRESS,
+            reserveAddress: avaAddresses.MIM_TIME_LP_REVERSE_ADDRESS, // JoePair
         },
     },
     lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
@@ -66,8 +69,8 @@ export const avaxTime = new CustomLPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.AVAX]: {
-            bondAddress: "0xc26850686ce755FFb8690EA156E5A6cf03DcBDE1",
-            reserveAddress: "0xf64e1c5B6E17031f5504481Ac8145F4c3eab4917",
+            bondAddress: avaAddresses.AVAX_TIME_LP_BOND_ADDRESS,
+            reserveAddress: avaAddresses.AVAX_TIME_LP_REVERSE_ADDRESS, // joepair 2
         },
     },
     lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
