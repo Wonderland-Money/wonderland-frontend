@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, useLocation } from "react-router-dom";
 import Social from "./social";
 import BondIcon from "../../../assets/icons/bond.svg";
 import WealthHeaderLogo from "../../../assets/icons/wealth-nav-header.svg";
@@ -10,6 +10,7 @@ import DashboardYellowIcon from "../../../assets/icons/dashboard_yellow.svg";
 import GlobeYellowIcon from "../../../assets/icons/wonderglobe_yellow.svg";
 import StakeYellowIcon from "../../../assets/icons/stake_yellow.svg";
 import BondYellowIcon from "../../../assets/icons/bond_yellow.svg";
+import SidebarClose from "../../../assets/icons/sidebarClose.png";
 import { trim, shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
 // import useBonds from "../../../hooks/bonds";
@@ -23,13 +24,18 @@ import ClickedIcon from "../../../assets/icons/clickIcon.svg";
 import ClickedDownIcon from "../../../assets/icons/down.svg";
 import classnames from "classnames";
 
-function NavContent() {
+interface INavDrawer {
+    handleDrawerToggle?: () => void;
+}
+
+function NavContent({ handleDrawerToggle }: INavDrawer) {
     const [isActive] = useState();
     const address = useAddress();
     // const { bonds } = useBonds();
     const [bonds, setBonds] = useState<any>([]);
     const [locationPath, setLocationPath] = useState<any>("");
     const history = useHistory();
+    const location = useLocation();
     useEffect(() => {
         setBonds([
             { displayName: "OHM-FRAX LP", bondDiscount: 5.21 },
@@ -61,8 +67,13 @@ function NavContent() {
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
-                <div className="mouse-cursor" onClick={() => history.push("/dash/dashboard")}>
-                    <img alt="" src={WealthHeaderLogo} />
+                <div className="mobile-shown">
+                    <div className="mouse-cursor" onClick={() => history.push("/dash/dashboard")}>
+                        <img alt="" src={WealthHeaderLogo} />
+                    </div>
+                    <div className="icon-close" onClick={() => (handleDrawerToggle ? handleDrawerToggle() : null)}>
+                        <img src={SidebarClose} alt="sidebar close" />
+                    </div>
                 </div>
 
                 {address && (
@@ -82,7 +93,7 @@ function NavContent() {
                         isActive={(match: any, location: any) => {
                             return checkPage(location, "dashboard");
                         }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
+                        className={classnames("button-dapp-menu ", location?.pathname && location?.pathname.includes("dashboard") ? "active-btn" : "", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
                             <img alt="" src={locationPath === "dashboard" ? DashboardYellowIcon : DashboardIcon} />
@@ -101,7 +112,7 @@ function NavContent() {
                         isActive={(match: any, location: any) => {
                             return checkPage(location, "stake");
                         }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
+                        className={classnames("button-dapp-menu ", location?.pathname && location?.pathname.includes("stake") ? "active-btn" : "", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
                             <img alt="" src={locationPath === "stake" ? StakeYellowIcon : StakeIcon} />
@@ -121,7 +132,7 @@ function NavContent() {
                         isActive={(match: any, location: any) => {
                             return checkPage(location, "bonds");
                         }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
+                        className={classnames("button-dapp-menu", location?.pathname && location?.pathname.includes("bond") ? "active-btn" : "", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
                             <img alt="" src={locationPath === "bonds" ? BondYellowIcon : BondIcon} />
@@ -171,7 +182,7 @@ function NavContent() {
                         isActive={(match: any, location: any) => {
                             return checkPage(location, "calculator");
                         }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
+                        className={classnames("button-dapp-menu", location?.pathname && location?.pathname.includes("calculator") ? "active-btn" : "", { active: isActive })}
                     >
                         <div className="dapp-menu-item">
                             <img alt="" src={locationPath === "calculator" ? GlobeYellowIcon : GlobeIcon} />

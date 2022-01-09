@@ -139,8 +139,8 @@
         transform: scale(1.1);
       }
       img {
-        height: 20px;
-        width: 20px;
+        margin-left: 0;
+        padding-left: 0;
       }
     }
   }
@@ -148,9 +148,7 @@
 
 .MuiDrawer-root{
   .MuiPaper-root{
-    
     z-index: 7;
-
     @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
       background: rgba(36, 39, 41, 0.1);
       backdrop-filter: blur(40px);
@@ -159,6 +157,47 @@
     /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
     @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
       background: #181B1C;
+    }
+    @media screen and (max-width: 600px) {
+      width: 100%;
+      background: #020202;
+    }
+  }
+}
+@media screen and (max-width: 600px){
+  .dapp-sidebar{
+    .branding-header{
+      margin: 30px 20px 62px;
+      .mobile-shown{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+    }
+    .dapp-menu-links{
+      width: 100%;
+      .dapp-nav{
+        width: 100%;
+        a{
+          margin: 0 8px;
+          padding: 10px;
+        }
+        .bond-discounts{
+          a {
+            margin-left: 0 !important;
+            width: 180px !important;
+          }
+        }
+        .button-dapp-menu{
+          margin: 8px 20px;
+          width: calc(100% - 40px);
+        }
+        .button-dapp-menu:hover,
+        .active-btn{
+          background-color: #1b1b1b !important;
+        }
+      }
     }
   }
 }

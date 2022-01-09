@@ -234,7 +234,22 @@
         }
     }
 }
-
+@media screen and (max-width: 1240px) {
+    .calculator-view {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .calculator-view .calculator-card{
+        .calculator-card-metrics {
+            .calculator-card-apy .calculator-card-metrics-value,
+            .calculator-card-tvl .calculator-card-metrics-value,
+            .calculator-card-index .calculator-card-metrics-value{
+                font-size: 28px;
+            }
+        }
+    }
+}
 @media screen and (max-width: 600px) {
     .calculator-view {
         .calculator-card {
@@ -263,10 +278,46 @@
             }
         }
     }
-}
+    .makeStyles-content-2{
+        padding: 0 20px !important;
+    }
+    .calculator-view .calculator-card{
+        padding: 16px !important;
+        .calculator-card-header{
+            .calculator-card-header-title{
+                font-size: 18px;
+                line-height: 24px;
+            }
+            .calculator-card-header-subtitle{
+                font-size: 14px;
+                line-height: 20px;
+            }
+        }
+        .calculator-card-metrics {
+            .calculator-card-apy .calculator-card-metrics-value,
+            .calculator-card-tvl .calculator-card-metrics-value,
+            .calculator-card-index .calculator-card-metrics-value{
+                font-size: 24px;
+                line-height: 32px;
+            }
+        }
+        .calculator-card-area {
+            .calculator-card-action-area {
+                .calculator-card-action-area-inp-wrap .calculator-card-action-input .MuiOutlinedInput-input {
+                    padding: 18px 16px;
+                }
 
-@media screen and (max-width: 1240px) {
-    .calculator-view {
-        width: 100%;
+                .MuiGrid-spacing-xs-3 > .MuiGrid-item {
+                    padding: 8px 12px !important;
+                }
+            }
+            .calculator-days-slider-wrap .calculator-days-slider-wrap-title{
+                margin-bottom: 8px;
+                font-size: 14px;
+            }
+        }
+    }
+    .calculator-card-metrics > div > .MuiGrid-grid-sm-4{
+        flex-basis: 50% !important;
     }
 }

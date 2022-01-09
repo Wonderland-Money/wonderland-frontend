@@ -52,3 +52,27 @@
     }
   }
 }
+@media screen and (max-width: 600px) {
+  .dashboard-view{
+    width: 100%;
+    .dashboard-infos-wrap{
+      .dashboard-card{
+        padding: 8px 0;
+        .card-value{
+          font-size: 24px;
+        }
+        .card-title{
+          padding-bottom: 4px;
+        }
+      }
+    }
+  }
+  .dashboard-view .dashboard-infos-wrap .MuiGrid-spacing-xs-4 > .MuiGrid-item{
+    padding: 8px 38px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .dashboard-view .dashboard-infos-wrap .MuiGrid-spacing-xs-4 > .MuiGrid-item{
+    padding: 8px 28px;
+  }
+}

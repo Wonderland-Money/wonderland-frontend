@@ -19,11 +19,7 @@ import RightUp from "../../../../assets/icons/rightUp.png";
 import RightDown from "../../../../assets/icons/rightDown.png";
 import Left from "../../../../assets/icons/left.png";
 import Line from "../../../../assets/icons/line.png";
-
-import Stick1 from "../../../../assets/icons/stick1.png";
-import Stick2 from "../../../../assets/icons/stick2.png";
-import Stick3 from "../../../../assets/icons/stick3.png";
-import Stick4 from "../../../../assets/icons/stick4.png";
+import Stick from "../../../../assets/icons/stick.png";
 
 import PersonImg from "../../../../assets/icons/person.png";
 
@@ -96,6 +92,17 @@ function Main() {
                     <div className="step-txt">The DAO utilizes bonded assets to generate yield</div>
                 </div>
             </div>
+            {/* Mobile Version*/}
+            <div className="mobile-step shown600">
+                <img className="step-num-img" src={StepOne} alt="step one" />
+                <div className="step-txt-desc">Bonding increases the amount of bonded tokens in the treasury</div>
+                <img className="step-num-img" src={StepTwo} alt="step two" />
+                <div className="step-txt-desc">The DAO utilizes bonded assets to generate yield</div>
+                <img className="step-num-img" src={StepThree} alt="step three" />
+                <div className="step-txt-desc">Underlying value of $BLOCKS increases</div>
+                <img className="step-num-img" src={StepFour} alt="step four" />
+                <div className="step-txt-desc">The value of the treasury increases</div>
+            </div>
             {/* Arrows */}
             <div className="landing-main-directs">
                 <div className="right-line">
@@ -107,12 +114,11 @@ function Main() {
             </div>
             <div className="landing-main-title-wrap">
                 <p>
-                    Roadmap <span className="underline-y">2022</span>
+                    Roadmap <span className="underline-y">{new Date().getFullYear()}</span>
                 </p>
             </div>
             <div className="landing-roadmap">
                 <div className="roadmap-grid4">
-                    {/* step 1*/}
                     <div>
                         <div>
                             <img className="step-num" src={RoadMap1} alt="step one" />
@@ -120,33 +126,11 @@ function Main() {
                         <div>
                             <img className="line1-t" src={Line} alt="line" />
                         </div>
-                        <div>
-                            <img className="stick1-w" src={Stick1} alt="stick one" />
-                        </div>
-                        <div className="stick1-txt">
-                            <p>• Launch</p>
-                            <p>• Multi-Chain</p>
-                            <p>• Audited</p>
-                            (Other DAOs are NOT)
-                        </div>
                     </div>
-                    {/* step 2*/}
-                    <div>
-                        <div className="stick2-txt">
-                            <p>• Announce Partnerships</p>
-                            <p>• Governance Snapshot</p>
-                        </div>
-                        <div>
-                            <img className="stick2-w" src={Stick2} alt="stick two" />
-                        </div>
-                        <div>
-                            <img className="line2-t" src={Line} alt="line" />
-                        </div>
-                        <div>
-                            <img className="step-num" src={RoadMap2} alt="step two" />
-                        </div>
+                    <div className="stick2-txt">
+                        <p>• Announce Partnerships</p>
+                        <p>• Governance Snapshot</p>
                     </div>
-                    {/* step 3*/}
                     <div>
                         <div>
                             <img className="step-num" src={RoadMap3} alt="step three" />
@@ -154,22 +138,34 @@ function Main() {
                         <div>
                             <img className="line1-t" src={Line} alt="line" />
                         </div>
+                    </div>
+                    <div className="stick2-txt">
+                        <p>• Rebase Removal</p>
+                        <p>• CEX Listing</p>
+                    </div>
+                </div>
+                <div>
+                    <img className="stick-w" src={Stick} alt="stick" />
+                </div>
+                <div className="roadmap-grid4">
+                    <div className="stick1-txt">
+                        <p>• Launch</p>
+                        <p>• Multi-Chain</p>
+                        <p>• Audited</p>
+                        (Other DAOs are NOT)
+                    </div>
+                    <div>
                         <div>
-                            <img className="stick1-w" src={Stick3} alt="stick three" />
+                            <img className="line2-t" src={Line} alt="line" />
                         </div>
-                        <div className="stick1-txt product">
-                            <p>• Product/Company Acquisitions (AAA Game Studio, Web3, Gambling)</p>
+                        <div>
+                            <img className="step-num" src={RoadMap2} alt="step two" />
                         </div>
                     </div>
-                    {/* step 4*/}
+                    <div className="stick1-txt product">
+                        <p>• Product/Company Acquisitions (AAA Game Studio, Web3, Gambling)</p>
+                    </div>
                     <div>
-                        <div className="stick2-txt">
-                            <p>• Rebase Removal</p>
-                            <p>• CEX Listing</p>
-                        </div>
-                        <div>
-                            <img className="stick2-w" src={Stick4} alt="stick four" />
-                        </div>
                         <div>
                             <img className="line2-t" src={Line} alt="line" />
                         </div>
@@ -177,6 +173,29 @@ function Main() {
                             <img className="step-num" src={RoadMap4} alt="step four" />
                         </div>
                     </div>
+                </div>
+            </div>
+            {/* Mobile Version*/}
+            <div className="mobile-step shown768">
+                <img className="step-num-img" src={RoadMap1} alt="step one" />
+                <div className="step-txt-desc">
+                    <p>• Launch</p>
+                    <p>• Multi-Chain</p>
+                    <p>• Audited (Other DAOs are NOT)</p>
+                </div>
+                <img className="step-num-img" src={RoadMap2} alt="step two" />
+                <div className="step-txt-desc">
+                    <p>• Announce Partnerships</p>
+                    <p>• Governance Snapshot</p>
+                </div>
+                <img className="step-num-img" src={RoadMap3} alt="step three" />
+                <div className="step-txt-desc">
+                    <p>• Product/Company Acquisitions (AAA Game Studio, Web3, Gambling)</p>
+                </div>
+                <img className="step-num-img" src={RoadMap4} alt="step four" />
+                <div className="step-txt-desc">
+                    <p>• Rebase Removal</p>
+                    <p>• CEX Listing</p>
                 </div>
             </div>
         </div>

@@ -14,7 +14,6 @@
         flex-direction: row;
         align-items: center;
         cursor: default;
-
         .header-block{
             display: flex;
         }
@@ -58,7 +57,13 @@
         display: none;
     }
 }
-
+.icon-close{
+    display: none !important;
+    cursor: pointer;
+}
+.gitbook-img{
+    margin-left: 16px;
+}
 .landing-header-poper{
     margin-top: 10px;
 
@@ -152,13 +157,16 @@
     .mobile-hidden {
         display: none !important;
     }
+    .icon-close{
+        display: block !important;
+        cursor: pointer;
+    }
 }
 @media screen and (max-width: 480px){
     .landing-header {
         padding: 25px 20px 22px !important;
     }
 }
-
 @media screen and (max-width: 360px){
     .landing-header{
         .landing-header-nav-wrap{

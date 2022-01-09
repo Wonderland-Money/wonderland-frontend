@@ -2,6 +2,7 @@ import { SvgIcon, Link } from "@material-ui/core";
 import { ReactComponent as Twitter } from "../../../assets/icons/twitter.svg";
 import { ReactComponent as Discord } from "../../../assets/icons/discord.svg";
 import { ReactComponent as GitBook } from "../../../assets/icons/gitBook.svg";
+import itBook from "../../../assets/icons/gitBook.svg";
 import { ReactComponent as MIcon } from "../../../assets/icons/mIcon.svg";
 
 export default function Social() {
@@ -17,7 +18,8 @@ export default function Social() {
                 <SvgIcon color="primary" component={MIcon} />
             </Link>
             <Link href="https://commonwealthdao.gitbook.io/docs/welcome-to-commonwealth/foundation" target="_blank">
-                <SvgIcon color="primary" component={GitBook} />
+                {/*<SvgIcon color="primary" component={GitBook} />*/}
+                <img className="gitbook-img" src={itBook} alt="" />
             </Link>
         </div>
     );

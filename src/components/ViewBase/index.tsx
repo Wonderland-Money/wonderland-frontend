@@ -61,6 +61,7 @@ function ViewBase({ children }: IViewBaseProps) {
             <div className="hidden960">
                 <Header drawe={!isSmallerScreen} handleDrawerToggle={handleDrawerToggle} />
             </div>
+            {/* Sidebar */}
             <div className={classes.drawer}>
                 <Hidden mdUp>
                     <MobileDrawer mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
