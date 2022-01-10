@@ -82,7 +82,7 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
                                 {/*{!isVerySmallScreen && <TimeMenu />}*/}
                                 {/*{!isWrapShow && <WrapButton />}*/}
                                 <TimeMenu />
-                                <WrapButton />
+                                {/*<WrapButton />*/}
                             </>
                         )}
                         <ConnectButton />

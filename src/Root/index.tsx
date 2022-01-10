@@ -19,7 +19,7 @@ function Root() {
     if (loading) return <Loading />;
 
     const app = () => (
-        <Router>
+        <Router basename="/">
             <Switch>
                 <Route path="/home" component={Landing} />
                 <Route path="/dash" component={App} />

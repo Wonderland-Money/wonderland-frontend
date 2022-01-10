@@ -33,7 +33,7 @@ function Main() {
             <div className="interest-content">
                 <div className="interest-title">Ever-Lasting Compounding Interest</div>
                 <div className="interest-desc">Algorithmic tools built by the DeFi community, for the community.</div>
-                <div className="interest-desc">Stake, bond, and continuously compound.</div>
+                <div className="interest-desc">Stake, lock, bond, and continuously compound.</div>
             </div>
             <div className="landing-main-btns-wrap">
                 <div onClick={() => history.push("/dash/dashboard")}>

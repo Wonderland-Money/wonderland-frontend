@@ -14,7 +14,7 @@ export default function Social() {
             <Link href="https://discord.com/invite/mEWNuz55a7" target="_blank">
                 <SvgIcon color="primary" component={Discord} />
             </Link>
-            <Link href="https://t.me/joinchat/6UybL5rJMEhjN2Y5" target="_blank">
+            <Link href="https://medium.com/@CommonWealthDAO" target="_blank">
                 <SvgIcon color="primary" component={MIcon} />
             </Link>
             <Link href="https://commonwealthdao.gitbook.io/docs/welcome-to-commonwealth/foundation" target="_blank">

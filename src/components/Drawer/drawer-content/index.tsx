@@ -13,7 +13,7 @@ import BondYellowIcon from "../../../assets/icons/bond_yellow.svg";
 import SidebarClose from "../../../assets/icons/sidebarClose.png";
 import { trim, shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
-// import useBonds from "../../../hooks/bonds";
+import useBonds from "../../../hooks/bonds";
 import { Link } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
 import "./drawer-content.scss";
@@ -31,18 +31,10 @@ interface INavDrawer {
 function NavContent({ handleDrawerToggle }: INavDrawer) {
     const [isActive] = useState();
     const address = useAddress();
-    // const { bonds } = useBonds();
-    const [bonds, setBonds] = useState<any>([]);
+    const { bonds } = useBonds();
     const [locationPath, setLocationPath] = useState<any>("");
     const history = useHistory();
     const location = useLocation();
-    useEffect(() => {
-        setBonds([
-            { displayName: "OHM-FRAX LP", bondDiscount: 5.21 },
-            { displayName: "FRAX", bondDiscount: 4.27 },
-        ]);
-    }, []);
-
     const checkPage = useCallback((location: any, page: string): boolean => {
         const currentPath = location.pathname.replace("/", "");
         if (currentPath.indexOf("dashboard") >= 0 && page === "dashboard") {
@@ -63,7 +55,7 @@ function NavContent({ handleDrawerToggle }: INavDrawer) {
         }
         return false;
     }, []);
-
+    console.log(bonds, " ==================");
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
@@ -145,30 +137,30 @@ function NavContent({ handleDrawerToggle }: INavDrawer) {
 
                     <div className="bond-discounts">
                         <p>Bond discounts</p>
-                        {/*{bonds.map((bond, i) => (*/}
-                        {/*    <Link component={NavLink} to={`/bonds/${bond.name}`} key={i} className={"bond"}>*/}
-                        {/*        {!bond.bondDiscount ? (*/}
-                        {/*            <Skeleton variant="text" width={"150px"} />*/}
-                        {/*        ) : (*/}
-                        {/*            <p>*/}
-                        {/*                {bond.displayName}*/}
-                        {/*                <span className="bond-pair-roi">{bond.bondDiscount && trim(bond.bondDiscount * 100, 2)}%</span>*/}
-                        {/*            </p>*/}
-                        {/*        )}*/}
-                        {/*    </Link>*/}
-                        {/*))}*/}
-                        {bonds.map((bond: any, i: number) => (
-                            <Link component={NavLink} to={`/dash/bonds`} key={i} className={"bond"}>
+                        {bonds.map((bond: any, i) => (
+                            <Link component={NavLink} to={`/bonds/${bond.name}`} key={i} className={"bond"}>
                                 {!bond.bondDiscount ? (
                                     <Skeleton variant="text" width={"150px"} />
                                 ) : (
                                     <p>
                                         {bond.displayName}
-                                        <span className="bond-pair-roi">{bond.bondDiscount}%</span>
+                                        <span className="bond-pair-roi">{bond.bondDiscount && trim(bond.bondDiscount * 100, 2)}%</span>
                                     </p>
                                 )}
                             </Link>
                         ))}
+                        {/*{bonds.map((bond: any, i: number) => (*/}
+                        {/*    <Link component={NavLink} to={`/dash/bonds`} key={i} className={"bond"}>*/}
+                        {/*        {!bond.bondDiscount ? (*/}
+                        {/*            <Skeleton variant="text" width={"150px"} />*/}
+                        {/*        ) : (*/}
+                        {/*            <p>*/}
+                        {/*                {bond.displayName}*/}
+                        {/*                <span className="bond-pair-roi">{bond.bondDiscount}%</span>*/}
+                        {/*            </p>*/}
+                        {/*        )}*/}
+                        {/*    </Link>*/}
+                        {/*))}*/}
                     </div>
                     <a href="#" target="_blank" className={classnames("button-dapp-menu", { active: isActive })}>
                         <div className="dapp-menu-item">
@@ -176,24 +168,24 @@ function NavContent({ handleDrawerToggle }: INavDrawer) {
                             <p>Buy</p>
                         </div>
                     </a>
-                    <Link
-                        component={NavLink}
-                        to="/dash/calculator"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "calculator");
-                        }}
-                        className={classnames("button-dapp-menu", location?.pathname && location?.pathname.includes("calculator") ? "active-btn" : "", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <img alt="" src={locationPath === "calculator" ? GlobeYellowIcon : GlobeIcon} />
-                            <p>Calculator</p>
-                        </div>
-                        {locationPath === "calculator" && (
-                            <div className="dapp-clicked">
-                                <img src={ClickedIcon} alt="" />
-                            </div>
-                        )}
-                    </Link>
+                    {/*<Link*/}
+                    {/*    component={NavLink}*/}
+                    {/*    to="/dash/calculator"*/}
+                    {/*    isActive={(match: any, location: any) => {*/}
+                    {/*        return checkPage(location, "calculator");*/}
+                    {/*    }}*/}
+                    {/*    className={classnames("button-dapp-menu", location?.pathname && location?.pathname.includes("calculator") ? "active-btn" : "", { active: isActive })}*/}
+                    {/*>*/}
+                    {/*    <div className="dapp-menu-item">*/}
+                    {/*        <img alt="" src={locationPath === "calculator" ? GlobeYellowIcon : GlobeIcon} />*/}
+                    {/*        <p>Calculator</p>*/}
+                    {/*    </div>*/}
+                    {/*    {locationPath === "calculator" && (*/}
+                    {/*        <div className="dapp-clicked">*/}
+                    {/*            <img src={ClickedIcon} alt="" />*/}
+                    {/*        </div>*/}
+                    {/*    )}*/}
+                    {/*</Link>*/}
                     <a href="#" target="_blank" className={classnames("button-dapp-menu", { active: isActive })}>
                         <div className="dapp-menu-item">
                             <img alt="" src={GovernanceIcon} />

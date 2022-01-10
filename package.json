@@ -1,7 +1,7 @@
 {
   "name": "@scaffold-eth/react-app",
   "version": "1.1.0",
-  "homepage": "http://178.128.124.108",
+  "homepage": "https://cwealth.bond",
   "browserslist": {
     "production": [
       ">0.2% or last 2 versions",
@@ -67,7 +67,7 @@
     "extends": "react-app"
   },
   "scripts": {
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build": "react-scripts build",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test",
