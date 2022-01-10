@@ -212,7 +212,8 @@ const mai: IToken = {
 
 export const mim: IToken = {
     name: "MIM",
-    address: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+    // address: "0x130966628846BFd36ff31a822705796e8cb8C18D",
+    address: "0xb701fCdF657CDa7256bF1ecFf340cae590Fc1286", //   testnet
     img: MimIcon,
     decimals: 18,
 };
@@ -322,6 +323,14 @@ const time: IToken = {
     decimals: 9,
 };
 
+const block: IToken = {
+    name: "BLOCK",
+    // address: "0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
+    address: "0x6fF83eb56d9Df4007eb3593757351F2FB0011F19",  // testnet
+    img: TimeIcon,
+    decimals: 9,
+};
+
 const tsd: IToken = {
     name: "TSD",
     address: "0x4fbf0429599460D327BD5F55625E30E4fC066095",
@@ -399,6 +408,7 @@ export default [
     apein,
     bifi,
     blizz,
+    block,
     bnb,
     boofi,
     chart,

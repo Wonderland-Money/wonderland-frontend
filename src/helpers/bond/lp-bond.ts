@@ -44,7 +44,7 @@ export class LPBond extends Bond {
         return this.getReserves(networkID, provider, true);
     }
 
-    public getTimeAmount(networkID: Networks, provider: StaticJsonRpcProvider) {
+    public getBlockAmount(networkID: Networks, provider: StaticJsonRpcProvider) {
         return this.getReserves(networkID, provider, false);
     }
 
@@ -55,9 +55,9 @@ export class LPBond extends Bond {
 
         let [reserve0, reserve1] = await token.getReserves();
         const token1: string = await token.token1();
-        const isTime = token1.toLowerCase() === addresses.TIME_ADDRESS.toLowerCase();
+        const isBlock = token1.toLowerCase() === addresses.BLOCK_ADDRESS.toLowerCase();
 
-        return isToken ? this.toTokenDecimal(false, isTime ? reserve0 : reserve1) : this.toTokenDecimal(true, isTime ? reserve1 : reserve0);
+        return isToken ? this.toTokenDecimal(false, isBlock ? reserve0 : reserve1) : this.toTokenDecimal(true, isBlock ? reserve1 : reserve0);
     }
 
     private toTokenDecimal(isTime: boolean, reserve: number) {

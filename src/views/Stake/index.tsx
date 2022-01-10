@@ -27,14 +27,14 @@ function Stake() {
     const fiveDayRate = useSelector<IReduxState, number>(state => {
         return state.app.fiveDayRate;
     });
-    const timeBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.time;
+    const blockBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.block;
     });
     const memoBalance = useSelector<IReduxState, string>(state => {
         return state.account.balances && state.account.balances.memo;
     });
     const stakeAllowance = useSelector<IReduxState, number>(state => {
-        return state.account.staking && state.account.staking.time;
+        return state.account.staking && state.account.staking.block;
     });
     const unstakeAllowance = useSelector<IReduxState, number>(state => {
         return state.account.staking && state.account.staking.memo;
@@ -55,7 +55,7 @@ function Stake() {
 
     const setMax = () => {
         if (view === 0) {
-            setQuantity(timeBalance);
+            setQuantity(blockBalance);
         } else {
             setQuantity(memoBalance);
         }
@@ -252,7 +252,7 @@ function Stake() {
                                     <div className="stake-user-data">
                                         <div className="data-row">
                                             <p className="data-row-name">Your Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(timeBalance), 4)} TIME</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(blockBalance), 4)} TIME</>}</p>
                                         </div>
 
                                         <div className="data-row">

@@ -4,7 +4,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_Time",
+          "name": "_Block",
           "type": "address"
         },
         {
@@ -180,7 +180,7 @@
             }
           ],
           "indexed": false,
-          "internalType": "struct TimeBondDepository.Terms",
+          "internalType": "struct BlockBondDepository.Terms",
           "name": "terms",
           "type": "tuple"
         }
@@ -239,7 +239,7 @@
             }
           ],
           "indexed": false,
-          "internalType": "struct TimeBondDepository.Adjust",
+          "internalType": "struct BlockBondDepository.Adjust",
           "name": "adjust",
           "type": "tuple"
         }
@@ -271,7 +271,7 @@
       "inputs": [
         {
           "indexed": false,
-          "internalType": "enum TimeBondDepository.PARAMETER",
+          "internalType": "enum BlockBondDepository.PARAMETER",
           "name": "param",
           "type": "uint8"
         },
@@ -306,10 +306,10 @@
     },
     {
       "inputs": [],
-      "name": "DAO",
+      "name": "Block",
       "outputs": [
         {
-          "internalType": "address",
+          "internalType": "contract IERC20",
           "name": "",
           "type": "address"
         }
@@ -320,10 +320,10 @@
     },
     {
       "inputs": [],
-      "name": "Time",
+      "name": "DAO",
       "outputs": [
         {
-          "internalType": "contract IERC20",
+          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -685,7 +685,7 @@
     {
       "inputs": [
         {
-          "internalType": "enum TimeBondDepository.PARAMETER",
+          "internalType": "enum BlockBondDepository.PARAMETER",
           "name": "_parameter",
           "type": "uint8"
         },
@@ -1002,5 +1002,5 @@
       "stateMutability": "nonpayable",
       "type": "function"
     }
-  ]  
+  ]
 }
