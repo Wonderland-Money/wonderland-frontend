@@ -42,12 +42,12 @@ export const loadAppDetails = createAsyncThunk(
         const tokenAmounts = await Promise.all(tokenAmountsPromises);
         const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1, 0);
 
-        const timeBondsAmountsPromises = allBonds.map(bond => bond.getBlockAmount(networkID, provider));
-        const timeBondsAmounts = await Promise.all(timeBondsAmountsPromises);
-        const timeAmount = timeBondsAmounts.reduce((timeAmount0, timeAmount1) => timeAmount0 + timeAmount1, 0);
-        const timeSupply = totalSupply - timeAmount;
+        const blockBondsAmountsPromises = allBonds.map(bond => bond.getBlockAmount(networkID, provider));
+        const blockBondsAmounts = await Promise.all(blockBondsAmountsPromises);
+        const blockAmount = blockBondsAmounts.reduce((blockAmount0, blockAmount1) => blockAmount0 + blockAmount1, 0);
+        const blockSupply = totalSupply - blockAmount;
 
-        const rfv = rfvTreasury / timeSupply;
+        const rfv = rfvTreasury / blockSupply;
 
         const epoch = await stakingContract.epoch();
         const stakingReward = epoch.distribute;
@@ -125,6 +125,7 @@ const appSlice = createSlice({
             })
             .addCase(loadAppDetails.rejected, (state, { error }) => {
                 state.loading = false;
+                console.log("rejected");
                 console.log(error);
             });
     },
