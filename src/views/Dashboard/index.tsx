@@ -20,14 +20,14 @@ function Dashboard() {
                     <Grid container spacing={4}>
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
-                                <p className="card-title">Risk Free Value(RFV)</p>
+                                <p className="card-title">$Blocks</p>
                                 <p className="card-value">{isAppLoading ? <Skeleton width="100px" /> : `$${trim(app.marketPrice, 9)}`}</p>
                             </div>
                         </Grid>
 
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
-                                <p className="card-title">$Blocks</p>
+                                <p className="card-title">Risk Free Value(RFV)</p>
                                 <p className="card-value">
                                     {isAppLoading ? (
                                         <Skeleton width="250px" />
