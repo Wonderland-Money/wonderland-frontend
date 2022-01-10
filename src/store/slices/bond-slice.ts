@@ -110,6 +110,8 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     const bondCalcContract = getBondCalculator(networkID, provider);
 
     const terms = await bondContract.terms();
+    console.log("terms:");
+    console.log(terms);
     const maxBondPrice = (await bondContract.maxPayout()) / Math.pow(10, 9);
 
     let marketPrice = await getMarketPrice(networkID, provider);
@@ -119,7 +121,6 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     try {
         bondPrice = await bondContract.bondPriceInUSD();
-
         if (bond.name === avaxBlock.name) {
             const avaxPrice = getTokenPrice("AVAX");
             bondPrice = bondPrice * avaxPrice;
@@ -127,7 +128,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
     } catch (e) {
-        console.log("error getting bondPriceInUSD", e);
+        console.log("error getting bondPriceInUSD " + bond.name, e);
     }
 
     let maxBondPriceToken = 0;
@@ -215,7 +216,7 @@ export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, a
     let bondTx;
     try {
         const gasPrice = await getGasPrice(provider);
-
+        const valueInWei = ethers.utils.parseUnits(value, "ether");
         if (useAvax) {
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { value: valueInWei, gasPrice });
         } else {
