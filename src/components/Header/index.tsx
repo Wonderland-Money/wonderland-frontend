@@ -96,9 +96,8 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
                             <img src={CloseIcon} alt="close" />
                         </div>
                         <div className="item-txt">Buy on Sushiwap</div>
-                        <div className="item-txt">Add SB to Metamask</div>
-                        <div className="item-txt">Add xSB to Metamask</div>
-                        <div className="item-txt">Add wxSB to Metamask</div>
+                        <div className="item-txt">Add BLOCKS to Metamask</div>
+                        <div className="item-txt">Add zBLOCKS to Metamask</div>
                     </div>
                 </div>
             )}
