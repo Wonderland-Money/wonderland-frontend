@@ -1,15 +1,33 @@
 .wrap-button{
-    padding: 9px 20px;
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-    border-radius: 10px;
-    cursor: pointer;
-    margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 20px;
+  border-radius: 2px;
+  width: 200px;
+  height: 48px;
+  cursor: pointer;
+  background: #323232;
+  box-shadow: 0 0 10px rgba(44, 39, 109, 0.1);
 
-    p{
-      font-family: Montserrat SemiBold;
-      font-weight: 600;
-      font-size: 18px;
-      color: #FFFFFF;
-    }
+  p{
+    font-family: Roboto Medium, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #FFFFFF;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .wrap-button{
+    width: 170px;
+  }
+}
+@media screen and (max-width: 600px){
+  .wrap-button{
+    margin-right: 0;
+    margin-bottom: 16px;
+    width: 100%;
+    //max-width: calc(100% - 60px);
+  }
 }

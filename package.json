@@ -1,7 +1,7 @@
 {
   "name": "@scaffold-eth/react-app",
   "version": "1.1.0",
-  "homepage": ".",
+  "homepage": "http://178.128.124.108",
   "browserslist": {
     "production": [
       ">0.2% or last 2 versions",

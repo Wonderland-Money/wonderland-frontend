@@ -121,7 +121,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
                     </IconButton>
                     <div className="wrap-price" onClick={() => setIsWrapPrice(!isWrapPrice)}>
                         <p>
-                            1 {isWrapPrice ? "MEMO" : "wMEMO"} = {`${trim(wrapPrice, 4)} ${isWrapPrice ? "wMEMO" : "MEMO"}`}
+                            1 {isWrapPrice ? "zBLOCKS" : "wBLOCKS"} = {`${trim(wrapPrice, 4)} ${isWrapPrice ? "wBLOCKS" : "zBLOCKS"}`}
                         </p>
                     </div>
                 </div>
@@ -142,7 +142,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
                         startAdornment={
                             <InputAdornment position="start">
                                 <div className="wrap-action-input-text">
-                                    <p>{isWrap ? "MEMO" : "wMEMO"}</p>
+                                    <p>{isWrap ? "zBLOCKS" : "wBLOCKS"}</p>
                                 </div>
                             </InputAdornment>
                         }

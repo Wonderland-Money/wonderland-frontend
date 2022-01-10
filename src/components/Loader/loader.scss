@@ -4,6 +4,31 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #121415;
+    background-color: #000;
     color: #FFFFFF;
+}
+/** the others **/
+.loading-svg {
+    margin:0;
+    padding:0;
+    width:100vw;
+    height:100vh;
+    background:#222;
+    svg {
+        position: absolute;
+    }
+
+    circle:nth-of-type(1) { fill: #ffffff; }
+    circle:nth-of-type(2) { fill: #fcd837; }
+    circle:nth-of-type(3) { fill: #f9a11f; }
+    circle:nth-of-type(4) { fill: #f27c21; }
+
+    #clackers {
+        /*   border: 1px solid white; */
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }

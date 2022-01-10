@@ -1,3 +1,4 @@
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Drawer } from "@material-ui/core";
 import DrawerContent from "./drawer-content";
@@ -23,7 +24,6 @@ interface INavDrawer {
 
 function NavDrawer({ mobileOpen, handleDrawerToggle }: INavDrawer) {
     const classes = useStyles();
-
     return (
         <Drawer
             variant="temporary"
@@ -38,7 +38,7 @@ function NavDrawer({ mobileOpen, handleDrawerToggle }: INavDrawer) {
                 keepMounted: true,
             }}
         >
-            <DrawerContent />
+            <DrawerContent handleDrawerToggle={handleDrawerToggle} />
         </Drawer>
     );
 }

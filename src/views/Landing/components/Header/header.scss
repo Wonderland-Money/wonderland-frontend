@@ -1,8 +1,12 @@
 .landing-header{
-    padding: 25px 10%;
     display: flex;
+    position: sticky;
+    top: 0;
+    padding: 17px 103px 17px 50px;
     flex-direction: row;
-    z-index: 2;
+    min-width: 280px;
+    background-color: #000;
+    z-index: 2000;
 
     .landing-header-nav-wrap{
         margin-left: auto;
@@ -10,17 +14,56 @@
         flex-direction: row;
         align-items: center;
         cursor: default;
+        .header-block{
+            display: flex;
+        }
+        .header-flex{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
 
         .landing-header-nav-text{
-            font-family: Montserrat Medium;
+            font-family: Roboto, sans-serif;
             font-style: normal;
             font-weight: 500;
             font-size: 16px;
             color: #FFFFFF;
         }
+        .social-row{
+            padding-left: 40px;
+            svg {
+                margin-left: 16px;
+            }
+        }
+        .time-price-txt {
+            padding-right: 16px;
+            font-family: Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 24px;
+            color: #E0E0E0;
+        }
+        .amount-percentage-txt {
+            padding-right: 20px;
+            font-family: Roboto, sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 24px;
+            color: #fff;
+        }
+    }
+    .mobile-shown {
+        display: none;
     }
 }
-
+.icon-close{
+    display: none !important;
+    cursor: pointer;
+}
+.gitbook-img{
+    margin-left: 16px;
+}
 .landing-header-poper{
     margin-top: 10px;
 
@@ -36,7 +79,7 @@
 
     border-radius: 10px;
     overflow: hidden;
-    z-index: 100;
+    z-index: 4000;
 
     .tooltip{
         display: flex;
@@ -53,12 +96,82 @@
 
             p{
                 margin-left: 10px;
-                font-family: Montserrat SemiBold;
+                font-family: Roboto, sans-serif;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 16px;
                 line-height: 20px;
                 color: #FFFFFF;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .landing-header{
+        padding: 17px 50px;
+        .landing-header-nav-wrap > .social-row{
+            padding-left: 0 !important;
+        }
+    }
+}
+@media screen and (max-width: 992px) {
+    .landing-header{
+        padding: 17px 50px!important;
+
+        .landing-header-nav-wrap{
+            .header-block{
+                display: block;
+            }
+        }
+    }
+}
+@media screen and (max-width: 992px) {
+    .landing-header{
+        .landing-header-nav-wrap{
+            .social-row{
+                display: none;
+            }
+        }
+    }
+}
+@media screen and (max-width: 600px){
+    .landing-header{
+        padding: 17px 20px !important;
+        .landing-header-nav-wrap{
+            .time-price-txt{
+                padding-right: 8px;
+                font-size: 12px !important;
+                line-height: 24px;
+            }
+            .amount-percentage-txt{
+                padding-right: 0;
+                font-size: 18px;
+                line-height: 24px;
+            }
+        }
+    }
+    .mobile-shown {
+        display: flex !important;
+    }
+    .mobile-hidden {
+        display: none !important;
+    }
+    .icon-close{
+        display: block !important;
+        cursor: pointer;
+    }
+}
+@media screen and (max-width: 480px){
+    .landing-header {
+        padding: 25px 20px 22px !important;
+    }
+}
+@media screen and (max-width: 360px){
+    .landing-header{
+        .landing-header-nav-wrap{
+            .header-block {
+                display: none!important;
             }
         }
     }
