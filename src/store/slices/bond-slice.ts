@@ -216,7 +216,7 @@ export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, a
     let bondTx;
     try {
         const gasPrice = await getGasPrice(provider);
-
+        const valueInWei = ethers.utils.parseUnits(value, "ether");
         if (useAvax) {
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { value: valueInWei, gasPrice });
         } else {
