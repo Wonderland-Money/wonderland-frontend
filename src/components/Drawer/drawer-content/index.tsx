@@ -176,24 +176,24 @@ function NavContent({ handleDrawerToggle }: INavDrawer) {
                             <p>Buy</p>
                         </div>
                     </a>
-                    <Link
-                        component={NavLink}
-                        to="/dash/calculator"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "calculator");
-                        }}
-                        className={classnames("button-dapp-menu", location?.pathname && location?.pathname.includes("calculator") ? "active-btn" : "", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <img alt="" src={locationPath === "calculator" ? GlobeYellowIcon : GlobeIcon} />
-                            <p>Calculator</p>
-                        </div>
-                        {locationPath === "calculator" && (
-                            <div className="dapp-clicked">
-                                <img src={ClickedIcon} alt="" />
-                            </div>
-                        )}
-                    </Link>
+                    {/*<Link*/}
+                    {/*    component={NavLink}*/}
+                    {/*    to="/dash/calculator"*/}
+                    {/*    isActive={(match: any, location: any) => {*/}
+                    {/*        return checkPage(location, "calculator");*/}
+                    {/*    }}*/}
+                    {/*    className={classnames("button-dapp-menu", location?.pathname && location?.pathname.includes("calculator") ? "active-btn" : "", { active: isActive })}*/}
+                    {/*>*/}
+                    {/*    <div className="dapp-menu-item">*/}
+                    {/*        <img alt="" src={locationPath === "calculator" ? GlobeYellowIcon : GlobeIcon} />*/}
+                    {/*        <p>Calculator</p>*/}
+                    {/*    </div>*/}
+                    {/*    {locationPath === "calculator" && (*/}
+                    {/*        <div className="dapp-clicked">*/}
+                    {/*            <img src={ClickedIcon} alt="" />*/}
+                    {/*        </div>*/}
+                    {/*    )}*/}
+                    {/*</Link>*/}
                     <a href="#" target="_blank" className={classnames("button-dapp-menu", { active: isActive })}>
                         <div className="dapp-menu-item">
                             <img alt="" src={GovernanceIcon} />
