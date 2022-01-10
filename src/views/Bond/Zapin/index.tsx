@@ -187,7 +187,7 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
                 <Box className="card-content">
                     <div className="zapin-header">
                         <div className="zapin-header-token-select-wrap">
-                            <p className="zapin-header-token-select-title">Zapin & Mint</p>
+                            <p className="zapin-header-token-select-title">Zapin & Bond</p>
                             <OutlinedInput
                                 type="number"
                                 placeholder="Amount"
