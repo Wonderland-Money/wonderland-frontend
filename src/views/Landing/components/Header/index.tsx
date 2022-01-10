@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import "./header.scss";
-import { SvgIcon, Link, Box, Popper, Fade } from "@material-ui/core";
+import { SvgIcon } from "@material-ui/core";
 import Social from "../../../../components/Drawer/drawer-content/social";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as WealthLogoIcon } from "../../../../assets/icons/wealthLogo.svg";
 import { ReactComponent as MobileLandingLogo } from "../../../../assets/icons/mobileLandingLogo.svg";
-import { ReactComponent as Twitter } from "../../../../assets/icons/twitter.svg";
-import { ReactComponent as Discord } from "../../../../assets/icons/discord.svg";
-import { ReactComponent as GitBook } from "../../../../assets/icons/gitBook.svg";
-import { ReactComponent as MIcon } from "../../../../assets/icons/mIcon.svg";
+
 import { useSelector } from "react-redux";
 import { IReduxState } from "../../../../store/slices/state.interface";
 import { trim } from "../../../../helpers";
-import { Skeleton } from "@material-ui/lab";
 
 function Header() {
     const history = useHistory();
@@ -20,6 +16,9 @@ function Header() {
         return state.app.stakingAPY;
     });
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
+    const marketPrice = useSelector<IReduxState, number>(state => {
+        return state.app.marketPrice;
+    });
     return (
         <div className="landing-header">
             <SvgIcon
@@ -42,7 +41,7 @@ function Header() {
                 <div className="header-block">
                     <div className="header-flex">
                         <div className="time-price-txt">BLOCKS Price</div>
-                        <div className="amount-percentage-txt">$4259.14</div>
+                        <div className="amount-percentage-txt">{marketPrice ? <>${new Intl.NumberFormat("en-US").format(Number(marketPrice))}</> : <span />}</div>
                     </div>
                     <div className="header-flex">
                         <div className="time-price-txt">Current APY</div>

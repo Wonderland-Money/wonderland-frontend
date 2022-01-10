@@ -1,4 +1,4 @@
-import AvaxIcon from "../assets/tokens/AVAX.svg";
+import AvaxIcon from "../assets/tokens/avax.svg";
 import AaveIcon from "../assets/tokens/AAVE.e.png";
 import ApeXIcon from "../assets/tokens/Ape-X.png";
 import ApeinIcon from "../assets/tokens/APEIN.png";
@@ -20,7 +20,7 @@ import JoeIcon from "../assets/tokens/JOE.png";
 import KloIcon from "../assets/tokens/KLO.png";
 import LinkEIcon from "../assets/tokens/LINK.e.png";
 import MainIcon from "../assets/tokens/MAI.png";
-import MimIcon from "../assets/tokens/MIM.svg";
+import MimIcon from "../assets/tokens/mim.svg";
 import MYakIcon from "../assets/tokens/mYAK.png";
 import OliveIcon from "../assets/tokens/OLIVE.png";
 import PefiIcon from "../assets/tokens/PEFI.png";

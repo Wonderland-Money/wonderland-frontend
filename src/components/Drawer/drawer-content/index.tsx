@@ -55,7 +55,6 @@ function NavContent({ handleDrawerToggle }: INavDrawer) {
         }
         return false;
     }, []);
-    console.log(bonds, " ==================");
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">

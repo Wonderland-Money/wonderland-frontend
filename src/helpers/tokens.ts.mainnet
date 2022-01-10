@@ -1,4 +1,4 @@
-import AvaxIcon from "../assets/tokens/AVAX.svg";
+import AvaxIcon from "../assets/tokens/avax.svg";
 import AaveIcon from "../assets/tokens/AAVE.e.png";
 import ApeXIcon from "../assets/tokens/Ape-X.png";
 import ApeinIcon from "../assets/tokens/APEIN.png";

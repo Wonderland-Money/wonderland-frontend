@@ -3,10 +3,10 @@ import { LPBond, CustomLPBond } from "./lp-bond";
 import { StableBond, CustomBond } from "./stable-bond";
 import { getAddresses } from "../../constants";
 
-import MimIcon from "../../assets/tokens/MIM.svg";
-import AvaxIcon from "../../assets/tokens/AVAX.svg";
-import MimTimeIcon from "../../assets/tokens/TIME-MIM.svg";
-import AvaxTimeIcon from "../../assets/tokens/TIME-AVAX.svg";
+import MimIcon from "../../assets/tokens/mim.svg";
+import AvaxIcon from "../../assets/tokens/avax.svg";
+import MimTimeIcon from "../../assets/tokens/time-mim.svg";
+import AvaxTimeIcon from "../../assets/tokens/time-avax.svg";
 
 import { StableBondContract, LpBondContract, WavaxBondContract, StableReserveContract, LpReserveContract } from "../../abi";
 
