@@ -196,7 +196,7 @@ function Stake() {
                                                                 onChangeStake("stake");
                                                             }}
                                                         >
-                                                            <p>{txnButtonText(pendingTransactions, "staking", "Stake TIME")}</p>
+                                                            <p>{txnButtonText(pendingTransactions, "staking", "Stake BLOCKS")}</p>
                                                         </div>
                                                     ) : (
                                                         <div
@@ -222,7 +222,7 @@ function Stake() {
                                                                 onChangeStake("unstake");
                                                             }}
                                                         >
-                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake TIME")}</p>
+                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake BLOCKS")}</p>
                                                         </div>
                                                     ) : (
                                                         <div

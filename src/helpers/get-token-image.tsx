@@ -1,5 +1,5 @@
-import TimeImg from "../assets/tokens/TIME.svg";
-import MemoImg from "../assets/tokens/MEMO.png";
+import BlockImg from "../assets/tokens/blocks.png";
+import zBlockImg from "../assets/tokens/zblocks.png";
 
 function toUrl(tokenPath: string): string {
     const host = window.location.origin;
@@ -7,12 +7,12 @@ function toUrl(tokenPath: string): string {
 }
 
 export function getTokenUrl(name: string) {
-    if (name === "time") {
-        return toUrl(TimeImg);
+    if (name === "block") {
+        return toUrl(BlockImg);
     }
 
-    if (name === "memo") {
-        return toUrl(MemoImg);
+    if (name === "zblock") {
+        return toUrl(zBlockImg);
     }
 
     throw Error(`Token url doesn't support: ${name}`);
