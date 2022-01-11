@@ -137,7 +137,7 @@ function NavContent({ handleDrawerToggle }: INavDrawer) {
                     <div className="bond-discounts">
                         <p>Bond discounts</p>
                         {bonds.map((bond: any, i) => (
-                            <Link component={NavLink} to={`/bonds/${bond.name}`} key={i} className={"bond"}>
+                            <Link component={NavLink} to={`/dash/bonds/${bond.name}`} key={i} className={"bond"}>
                                 {!bond.bondDiscount ? (
                                     <Skeleton variant="text" width={"150px"} />
                                 ) : (
