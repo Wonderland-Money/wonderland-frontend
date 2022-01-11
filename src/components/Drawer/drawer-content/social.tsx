@@ -11,7 +11,7 @@ export default function Social() {
             <Link href="https://twitter.com/cwdao?s=21" target="_blank">
                 <SvgIcon color="primary" component={Twitter} />
             </Link>
-            <Link href="https://discord.com/invite/mEWNuz55a7" target="_blank">
+            <Link href="https://discord.gg/mEWNuz55a7" target="_blank">
                 <SvgIcon color="primary" component={Discord} />
             </Link>
             <Link href="https://medium.com/@CommonWealthDAO" target="_blank">
