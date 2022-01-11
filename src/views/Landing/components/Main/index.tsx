@@ -46,7 +46,7 @@ function Main() {
                         <p>Documentation</p>
                     </div>
                 </Link>
-                <Link href="https://discord.com/invite/mEWNuz55a7" target="_blank" rel="noreferrer">
+                <Link href="https://discord.gg/mEWNuz55a7" target="_blank" rel="noreferrer">
                     <div className="landing-main-btn btn-col3">
                         <div className="discord-btn">
                             <p>Discord</p>
