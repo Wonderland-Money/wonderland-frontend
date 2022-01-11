@@ -35,7 +35,7 @@ function Dashboard() {
                                         new Intl.NumberFormat("en-US", {
                                             style: "currency",
                                             currency: "USD",
-                                            maximumFractionDigits: 0,
+                                            maximumFractionDigits: 5,
                                             minimumFractionDigits: 0,
                                         }).format(app.rfv)
                                     )}

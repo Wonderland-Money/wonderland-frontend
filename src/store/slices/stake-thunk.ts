@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingHelperContract, TimeTokenContract, MemoTokenContract, StakingContract } from "../../abi";
+import { StakingHelperContract, TimeTokenContract, MemoTokenContract, StakingContract, BlockTokenContract, zBlockTokenContract } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
@@ -27,8 +27,8 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const addresses = getAddresses(networkID);
 
     const signer = provider.getSigner();
-    const blockContract = new ethers.Contract(addresses.BLOCK_ADDRESS, TimeTokenContract, signer);
-    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, signer);
+    const blockContract = new ethers.Contract(addresses.BLOCK_ADDRESS, BlockTokenContract, signer);
+    const zBlockContract = new ethers.Contract(addresses.ZBLOCK_ADDRESS, zBlockTokenContract, signer);
 
     let approveTx;
     try {
@@ -39,7 +39,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
         }
 
         if (token === "memo") {
-            approveTx = await memoContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+            approveTx = await zBlockContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
         const text = "Approve " + (token === "time" ? "Staking" : "Unstaking");
@@ -59,13 +59,13 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     await sleep(2);
 
     const stakeAllowance = await blockContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
-    const unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
+    const unstakeAllowance = await zBlockContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(
         fetchAccountSuccess({
             staking: {
-                timeStake: Number(stakeAllowance),
-                memoUnstake: Number(unstakeAllowance),
+                blockStake: Number(stakeAllowance),
+                zBlockUnstake: Number(unstakeAllowance),
             },
         }),
     );
