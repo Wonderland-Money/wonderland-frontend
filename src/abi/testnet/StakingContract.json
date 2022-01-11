@@ -9,7 +9,7 @@
         },
         {
           "internalType": "address",
-          "name": "_Memories",
+          "name": "_zBlock",
           "type": "address"
         },
         {
@@ -212,20 +212,6 @@
     },
     {
       "inputs": [],
-      "name": "Memories",
-      "outputs": [
-        {
-          "internalType": "contract IMemo",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true
-    },
-    {
-      "inputs": [],
       "name": "claimOwnership",
       "outputs": [],
       "stateMutability": "nonpayable",
@@ -396,6 +382,20 @@
           "internalType": "uint256",
           "name": "",
           "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "zBlock",
+      "outputs": [
+        {
+          "internalType": "contract IZBlock",
+          "name": "",
+          "type": "address"
         }
       ],
       "stateMutability": "view",

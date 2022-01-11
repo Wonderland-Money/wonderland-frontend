@@ -9,6 +9,7 @@
 // export { abi as TimeTokenContract } from "./tokens/TimeContract..json";
 // export { abi as MimTokenContract } from "./tokens/MimContract.json";
 // export { abi as wMemoTokenContract } from "./tokens/wMemoContract.json";
+// export { abi as zBlockTokenContract } from "./tokens/zBlockContract.json";
 
 // export { abi as BondingCalcContract } from "./BondingCalcContract.json";
 // export { abi as StakingContract } from "./StakingContract.json";
@@ -27,6 +28,7 @@ export { abi as MemoTokenContract } from "./tokens/testnet/MemoContract.json";
 export { abi as TimeTokenContract } from "./tokens/testnet/TimeContract.json";    // To be removed
 export { abi as MimTokenContract } from "./tokens/testnet/MimContract.json";
 export { abi as wMemoTokenContract } from "./tokens/testnet/wMemoContract.json";
+export { abi as zBlockTokenContract } from "./tokens/testnet/zBlockContract.json";
 
 export { abi as BondingCalcContract } from "./testnet/BondingCalcContract.json";
 export { abi as StakingContract } from "./testnet/StakingContract.json";
