@@ -238,7 +238,7 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
                         </div>
                         {!hasAllowance() && !token.isAvax && (
                             <div className="zapin-header-help-text">
-                                <p>Note: The "Approve" transaction is only needed when bonding for the first time</p>
+                                <p>Note: The "Approve" transaction is only needed when bonding for the first BLOCKS</p>
                                 <p>for each token; subsequent bonding only requires you to perform the</p>
                                 <p>"zapin&mint" transaction.</p>
                             </div>

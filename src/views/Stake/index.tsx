@@ -141,7 +141,7 @@ function Stake() {
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="stake-card-index">
                                             <p className="stake-card-metrics-title">Current Index</p>
-                                            <p className="stake-card-metrics-value">{currentIndex ? <>{trim(Number(currentIndex), 2)} TIME</> : <Skeleton width="150px" />}</p>
+                                            <p className="stake-card-metrics-value">{currentIndex ? <>{trim(Number(currentIndex), 2)} BLOCKS</> : <Skeleton width="150px" />}</p>
                                         </div>
                                     </Grid>
                                 </Grid>
@@ -242,7 +242,7 @@ function Stake() {
                                         <div className="stake-card-action-help-text">
                                             {address && ((!hasAllowance("time") && view === 0) || (!hasAllowance("memo") && view === 1)) && (
                                                 <p>
-                                                    Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only
+                                                    Note: The "Approve" transaction is only needed when staking/unstaking for the first BLOCKS; subsequent staking/unstaking only
                                                     requires you to perform the "Stake" or "Unstake" transaction.
                                                 </p>
                                             )}

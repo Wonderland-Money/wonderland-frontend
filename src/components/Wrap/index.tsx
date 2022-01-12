@@ -93,7 +93,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
     const trimmedMemoBalance = trim(Number(memoBalance), 6);
     const trimmedWmemoBalance = trim(Number(wmemoBalance), 6);
 
-    const getBalance = () => (isWrap ? `${trimmedMemoBalance} MEMO` : `${trimmedWmemoBalance} wMEMO`);
+    const getBalance = () => (isWrap ? `${trimmedMemoBalance} zBLOCKS` : `${trimmedWmemoBalance} wzBLOCKS`);
 
     const handleOnWrap = async () => {
         if (await checkWrongNetwork()) return;
@@ -169,7 +169,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
                         startAdornment={
                             <InputAdornment position="start">
                                 <div className="wrap-action-input-text">
-                                    <p>{isWrap ? "wMEMO" : "MEMO"}</p>
+                                    <p>{isWrap ? "wzBLOCKS" : "zBLOCKS"}</p>
                                 </div>
                             </InputAdornment>
                         }
@@ -199,7 +199,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
                     {!hasAllowance() && (
                         <div className="wrap-help-text">
                             <p>Note: The "Approve" transaction is only needed when</p>
-                            <p>wrapping for the first time; subsequent wrapping only</p>
+                            <p>wrapping for the first BLOCKS; subsequent wrapping only</p>
                             <p>requires you to perform the "Wrap" transaction.</p>
                         </div>
                     )}
