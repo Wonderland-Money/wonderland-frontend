@@ -1,12 +1,12 @@
-import { Networks } from "../../constants/blockchain";
+import { Networks } from "../../constants";
 import { LPBond, CustomLPBond } from "./lp-bond";
 import { StableBond, CustomBond } from "./stable-bond";
 import { getAddresses } from "../../constants";
 
 import MimIcon from "../../assets/tokens/mim.svg";
 import AvaxIcon from "../../assets/tokens/avax.svg";
-import MimTimeIcon from "../../assets/tokens/time-mim.svg";
-import AvaxTimeIcon from "../../assets/tokens/time-avax.svg";
+import MimTimeIcon from "../../assets/tokens/blocks-mim.png";
+import AvaxTimeIcon from "../../assets/tokens/blocks-avax.png";
 
 import { StableBondContract, LpBondContract, WavaxBondContract, StableReserveContract, LpReserveContract } from "../../abi";
 
