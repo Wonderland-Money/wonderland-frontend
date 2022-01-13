@@ -61,7 +61,7 @@ export const changeApproval = createAsyncThunk("bonding/changeApproval", async (
     let allowance = "0";
 
     allowance = await reserveContract.allowance(address, bond.getAddressForBond(networkID));
-
+    
     return dispatch(
         fetchAccountSuccess({
             bonds: {
@@ -141,11 +141,13 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         const maxBondQuote = await bondContract.payoutFor(maxValuation);
         maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -9));
     } else {
-        bondQuote = await bondContract.payoutFor(amountInWei);
-        bondQuote = bondQuote / Math.pow(10, 18);
-
-        const maxBondQuote = await bondContract.payoutFor(maxBodValue);
-        maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -18));
+        if (bondPrice > 0) {
+            bondQuote = await bondContract.payoutFor(amountInWei);
+            bondQuote = bondQuote / Math.pow(10, 18);
+    
+            const maxBondQuote = await bondContract.payoutFor(maxBodValue);
+            maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -18));
+        }
     }
 
     if (!!value && bondQuote > maxBondPrice) {
