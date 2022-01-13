@@ -142,7 +142,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
                         startAdornment={
                             <InputAdornment position="start">
                                 <div className="wrap-action-input-text">
-                                    <p>{isWrap ? "zBLOCKS" : "wBLOCKS"}</p>
+                                    <p>{isWrap ? "MEMO" : "wMEMO"}</p>
                                 </div>
                             </InputAdornment>
                         }
@@ -169,7 +169,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
                         startAdornment={
                             <InputAdornment position="start">
                                 <div className="wrap-action-input-text">
-                                    <p>{isWrap ? "wzBLOCKS" : "zBLOCKS"}</p>
+                                    <p>{isWrap ? "wMEMO" : "MEMO"}</p>
                                 </div>
                             </InputAdornment>
                         }

@@ -179,7 +179,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                 {!hasAllowance() && !useAvax && (
                     <div className="help-text">
                         <p className="help-text-desc">
-                            Note: The "Approve" transaction is only needed when minting for the first BLOCKS; subsequent minting only requires you to perform the "Mint" transaction.
+                            Note: The "Approve" transaction is only needed when minting for the first time; subsequent minting only requires you to perform the "Mint" transaction.
                         </p>
                     </div>
                 )}

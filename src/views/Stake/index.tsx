@@ -242,7 +242,7 @@ function Stake() {
                                         <div className="stake-card-action-help-text">
                                             {address && ((!hasAllowance("time") && view === 0) || (!hasAllowance("memo") && view === 1)) && (
                                                 <p>
-                                                    Note: The "Approve" transaction is only needed when staking/unstaking for the first BLOCKS; subsequent staking/unstaking only
+                                                    Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only
                                                     requires you to perform the "Stake" or "Unstake" transaction.
                                                 </p>
                                             )}
