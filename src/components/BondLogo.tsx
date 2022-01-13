@@ -11,7 +11,6 @@ function BondLogo({ bond }: IBondLogoProps) {
     if (bond.isLP) {
         style = { height: "30px", width: "62px" };
     }
-
     return (
         <Box display="flex" alignItems="center" justifyContent="center" width={"64px"}>
             <img src={bond.bondIconSvg} style={style} />
