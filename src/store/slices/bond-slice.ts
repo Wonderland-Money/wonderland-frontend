@@ -61,7 +61,7 @@ export const changeApproval = createAsyncThunk("bonding/changeApproval", async (
     let allowance = "0";
 
     allowance = await reserveContract.allowance(address, bond.getAddressForBond(networkID));
-
+    
     return dispatch(
         fetchAccountSuccess({
             bonds: {
