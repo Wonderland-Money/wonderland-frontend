@@ -1,11 +1,10 @@
 {
-  "contractName": "BlockBondDepository",
   "abi": [
     {
       "inputs": [
         {
           "internalType": "address",
-          "name": "_Block",
+          "name": "_OHM",
           "type": "address"
         },
         {
@@ -184,10 +183,10 @@
     },
     {
       "inputs": [],
-      "name": "Block",
+      "name": "DAO",
       "outputs": [
         {
-          "internalType": "contract IERC20",
+          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -198,7 +197,7 @@
     },
     {
       "inputs": [],
-      "name": "DAO",
+      "name": "OHM",
       "outputs": [
         {
           "internalType": "address",
@@ -238,26 +237,6 @@
           "internalType": "uint32",
           "name": "lastTime",
           "type": "uint32"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "allowedZappers",
-      "outputs": [
-        {
-          "internalType": "bool",
-          "name": "",
-          "type": "bool"
         }
       ],
       "stateMutability": "view",
@@ -329,24 +308,10 @@
     },
     {
       "inputs": [],
-      "name": "priceFeed",
-      "outputs": [
-        {
-          "internalType": "contract AggregatorV3Interface",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function",
-      "constant": true
-    },
-    {
-      "inputs": [],
       "name": "principle",
       "outputs": [
         {
-          "internalType": "contract IWAVAX9",
+          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -387,7 +352,7 @@
       "name": "staking",
       "outputs": [
         {
-          "internalType": "contract IStaking",
+          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -401,7 +366,7 @@
       "name": "stakingHelper",
       "outputs": [
         {
-          "internalType": "contract IStakingHelper",
+          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -463,7 +428,7 @@
       "name": "treasury",
       "outputs": [
         {
-          "internalType": "contract ITreasury",
+          "internalType": "address",
           "name": "",
           "type": "address"
         }
@@ -506,6 +471,11 @@
         {
           "internalType": "uint256",
           "name": "_maxDebt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_initialDebt",
           "type": "uint256"
         },
         {
@@ -579,32 +549,6 @@
         }
       ],
       "name": "setStaking",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "zapper",
-          "type": "address"
-        }
-      ],
-      "name": "allowZapper",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "zapper",
-          "type": "address"
-        }
-      ],
-      "name": "removeZapper",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -838,7 +782,7 @@
     {
       "inputs": [
         {
-          "internalType": "contract IERC20",
+          "internalType": "address",
           "name": "_token",
           "type": "address"
         }
