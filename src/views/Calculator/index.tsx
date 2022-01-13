@@ -15,15 +15,15 @@ function Calculator() {
     const stakingAPY = useSelector<IReduxState, number>(state => {
         return state.app.stakingAPY;
     });
-    const memoBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.memo;
+    const zBlockBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.zBlock;
     });
 
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
-    const trimmedMemoBalance = trim(Number(memoBalance), 6);
+    const trimmedZBlockBalance = trim(Number(zBlockBalance), 6);
     const trimeMarketPrice = trim(marketPrice, 2);
 
-    const [memoAmount, setMemoAmount] = useState(trimmedMemoBalance);
+    const [zBlockAmount, setZBlockAmount] = useState(trimmedZBlockBalance);
     const [rewardYield, setRewardYield] = useState(trimmedStakingAPY);
     const [priceAtPurchase, setPriceAtPurchase] = useState(trimeMarketPrice);
     const [futureMarketPrice, setFutureMarketPrice] = useState(trimeMarketPrice);
@@ -102,7 +102,7 @@ function Calculator() {
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="calculator-card-index">
                                             <p className="calculator-card-metrics-title">Your zBLOCKS Balance</p>
-                                            <p className="calculator-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : <>{trimmedMemoBalance} MEMO</>}</p>
+                                            <p className="calculator-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : <>{trimmedZBlockBalance} MEMO</>}</p>
                                         </div>
                                     </Grid>
                                 </Grid>
@@ -120,12 +120,12 @@ function Calculator() {
                                                     type="number"
                                                     placeholder="Amount"
                                                     className="calculator-card-action-input"
-                                                    value={memoAmount}
-                                                    onChange={e => setMemoAmount(e.target.value)}
+                                                    value={zBlockAmount}
+                                                    onChange={e => setZBlockAmount(e.target.value)}
                                                     labelWidth={0}
                                                     endAdornment={
                                                         <InputAdornment position="end">
-                                                            <div onClick={() => setMemoAmount(trimmedMemoBalance)} className="stake-card-action-input-btn">
+                                                            <div onClick={() => setZBlockAmount(trimmedZBlockBalance)} className="stake-card-action-input-btn">
                                                                 <p>Max</p>
                                                             </div>
                                                         </InputAdornment>

@@ -12,7 +12,7 @@ export const zapinLpData = async (bond: IAllBondData, token: IToken, tokenAmmoun
     const sellToken = token.isAvax ? ethers.constants.AddressZero : token.address;
     const buyToken = bond.getAddressForReserve(network);
 
-    const url = `https://api.zapper.fi/v1/zap-in/pool/traderjoe/transaction?gasPrice=1000000000000&ownerAddress=${addresses.ZAPIN_ADDRESS}&sellAmount=${tokenAmmount}&sellTokenAddress=${sellToken}&poolAddress=${buyToken}&slippagePercentage=${slippage}&network=avalanche&api_key=96e0cc51-a62e-42ca-acee-910ea7d2a241&skipGasEstimate=true`;
+    const url = `https://api.zapper.fi/v1/zap-in/pool/traderjoe/transaction?gasPrice=1000000000000&ownerAddress=${addresses.ZAPIN_ADDRESS}&sellAmount=${tokenAmmount}&sellTokenAddress=${sellToken}&poolAddress=${buyToken}&slippagePercentage=${slippage}&network=fuji&api_key=96e0cc51-a62e-42ca-acee-910ea7d2a241&skipGasEstimate=true`;
 
     const { data } = await axios.get(url);
 
