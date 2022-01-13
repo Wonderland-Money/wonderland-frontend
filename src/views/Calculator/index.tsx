@@ -33,16 +33,16 @@ function Calculator() {
     const [potentialReturn, setPotentialReturn] = useState("0");
 
     const calcInitialInvestment = () => {
-        const memo = Number(memoAmount) || 0;
+        const zBlock = Number(zBlockAmount) || 0;
         const price = parseFloat(priceAtPurchase) || 0;
-        const amount = memo * price;
+        const amount = zBlock * price;
         return trim(amount, 2);
     };
 
     const calcCurrentWealth = () => {
-        const memo = Number(memoAmount) || 0;
+        const zBlock = Number(zBlockAmount) || 0;
         const price = parseFloat(trimeMarketPrice);
-        const amount = memo * price;
+        const amount = zBlock * price;
         return trim(amount, 2);
     };
 
@@ -51,12 +51,12 @@ function Calculator() {
     useEffect(() => {
         const newInitialInvestment = calcInitialInvestment();
         setInitialInvestment(newInitialInvestment);
-    }, [memoAmount, priceAtPurchase]);
+    }, [zBlockAmount, priceAtPurchase]);
 
     const calcNewBalance = () => {
         let value = parseFloat(rewardYield) / 100;
         value = Math.pow(value - 1, 1 / (365 * 3)) - 1 || 0;
-        let balance = Number(memoAmount);
+        let balance = Number(zBlockAmount);
         for (let i = 0; i < days * 3; i++) {
             balance += balance * value;
         }
@@ -68,7 +68,7 @@ function Calculator() {
         setRewardsEstimation(trim(newBalance, 6));
         const newPotentialReturn = newBalance * (parseFloat(futureMarketPrice) || 0);
         setPotentialReturn(trim(newPotentialReturn, 2));
-    }, [days, rewardYield, futureMarketPrice, memoAmount]);
+    }, [days, rewardYield, futureMarketPrice, zBlockAmount]);
 
     return (
         <div className="calculator-view">
@@ -102,7 +102,7 @@ function Calculator() {
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="calculator-card-index">
                                             <p className="calculator-card-metrics-title">Your zBLOCKS Balance</p>
-                                            <p className="calculator-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : <>{trimmedZBlockBalance} MEMO</>}</p>
+                                            <p className="calculator-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : <>{trimmedZBlockBalance} zBLOCKS</>}</p>
                                         </div>
                                     </Grid>
                                 </Grid>
