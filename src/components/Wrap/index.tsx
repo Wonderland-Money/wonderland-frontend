@@ -93,7 +93,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
     const trimmedMemoBalance = trim(Number(memoBalance), 6);
     const trimmedWmemoBalance = trim(Number(wmemoBalance), 6);
 
-    const getBalance = () => (isWrap ? `${trimmedMemoBalance} zBLOCKS` : `${trimmedWmemoBalance} wzBLOCKS`);
+    const getBalance = () => (isWrap ? `${trimmedMemoBalance} MEMO` : `${trimmedWmemoBalance} wMEMO`);
 
     const handleOnWrap = async () => {
         if (await checkWrongNetwork()) return;

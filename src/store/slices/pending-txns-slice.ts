@@ -29,7 +29,7 @@ export const getStakingTypeText = (action: string) => {
 };
 
 export const getWrappingTypeText = (isWrap: boolean) => {
-    return isWrap ? "Wrap zBLOCKS" : "Unwrap wzBLOCKS";
+    return isWrap ? "Wrap MEMO" : "Unwrap wMEMO";
 };
 
 export const isPendingTxn = (pendingTransactions: IPendingTxn[], type: string) => {

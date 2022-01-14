@@ -45,7 +45,7 @@ function Header() {
                     </div>
                     <div className="header-flex">
                         <div className="time-price-txt">Current APY</div>
-                        <div className="amount-percentage-txt">{stakingAPY ? <>{new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</> : <span />}</div>
+                        <div className="amount-percentage-txt">{stakingAPY ? <>{Number(trimmedStakingAPY)}%</> : <span />}</div>
                     </div>
                 </div>
                 <Social />

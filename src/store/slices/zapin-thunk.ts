@@ -11,8 +11,9 @@ import { ethers } from "ethers";
 import { MimTokenContract, ZapinContract } from "../../abi";
 import { calculateUserBondDetails, fetchAccountSuccess } from "./account-slice";
 import { IAllBondData } from "../../hooks/bonds";
-import { zapinData, zapinLpData } from "../../helpers/zapin-fetch-data";
-import { trim } from "../../helpers/trim";
+// import { zapinData, zapinLpData } from "../../helpers/zapin-fetch-data";
+import { zapinData } from "../../helpers/zapin-fetch-data";
+import { trim } from "../../helpers";
 import { sleep } from "../../helpers";
 
 interface IChangeApproval {
@@ -126,7 +127,7 @@ export const calcZapinDetails = async ({ token, provider, networkID, bond, value
 
     try {
         if (bond.isLP) {
-            [swapTarget, swapData, amount] = await zapinLpData(bond, token, valueInWei, networkID, acceptedSlippage);
+            // [swapTarget, swapData, amount] = await zapinLpData(bond, token, valueInWei, networkID, acceptedSlippage);
         } else {
             [swapTarget, swapData, amount] = await zapinData(bond, token, valueInWei, networkID, acceptedSlippage);
         }

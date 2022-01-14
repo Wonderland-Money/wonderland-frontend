@@ -85,7 +85,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
     };
 
     const hasAllowance = useCallback(() => {
-        return bond.allowance > 0 && bond.allowance < 2 ** 256;
+        return bond.allowance > 0 && bond.allowance < 2 * 256;
     }, [bond.allowance]);
 
     const setMax = () => {
@@ -128,7 +128,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                 {bond.name === "wavax" && (
                     <FormControl className="ohm-input" variant="outlined" color="primary" fullWidth>
                         <div className="avax-checkbox">
-                            <input type="checkbox" checked={useAvax} onClick={() => setUseAvax(!useAvax)} />
+                            <input type="checkbox" checked={useAvax} onChange={() => setUseAvax(!useAvax)} />
                             <p>Use AVAX</p>
                         </div>
                     </FormControl>
@@ -172,9 +172,9 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                     </div>
                 )}
 
-                <div className="transaction-button bond-approve-btn" onClick={handleZapinOpen}>
-                    <p>Zap</p>
-                </div>
+                {/*<div className="transaction-button bond-approve-btn" onClick={handleZapinOpen}>*/}
+                {/*    <p>Zap</p>*/}
+                {/*</div>*/}
 
                 {!hasAllowance() && !useAvax && (
                     <div className="help-text">

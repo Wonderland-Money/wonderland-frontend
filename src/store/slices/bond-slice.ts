@@ -7,11 +7,11 @@ import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit"
 import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { fetchAccountSuccess } from "./account-slice";
 import { Bond } from "../../helpers/bond/bond";
-import { Networks } from "../../constants/blockchain";
+import { Networks } from "../../constants";
 import { getBondCalculator } from "../../helpers/bond-calculator";
 import { RootState } from "../store";
 import { avaxBlock, wavax } from "../../helpers/bond";
-import { error, warning, success, info } from "../slices/messages-slice";
+import { error, warning, success, info } from "./messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
