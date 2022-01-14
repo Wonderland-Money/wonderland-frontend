@@ -112,7 +112,7 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
                         {currentPath === "/dash/dashboard" && 
                             <div className="buy-menu-root" onClick={() => setIsShowBuy(true)}>
                                 <div className="buy-menu-btn">
-                                    <p>Buy $Blocks</p>
+                                    <p>Buy $BLOCKS</p>
                                 </div>
                             </div>
                         }
@@ -126,7 +126,7 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
                         <div id="closeBuy" className="close-icon" onClick={() => setIsShowBuy(false)}>
                             <img src={CloseIcon} alt="close" />
                         </div>
-                        <div className="item-txt">Buy on Sushiwap</div>
+                        <div className="item-txt">Buy on Trader Joes</div>
                         {isEthereumAPIAvailable && 
                         <>
                             <div className="item-txt" onClick={addTokenToWallet("BLOCK", BLOCK_ADDRESS)}>Add BLOCK to Metamask</div>
