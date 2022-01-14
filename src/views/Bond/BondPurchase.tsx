@@ -85,7 +85,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
     };
 
     const hasAllowance = useCallback(() => {
-        return bond.allowance > 0 && bond.allowance < 2 * 256;
+        return bond.allowance > 0 && bond.allowance < 2 ** 256;
     }, [bond.allowance]);
 
     const setMax = () => {
