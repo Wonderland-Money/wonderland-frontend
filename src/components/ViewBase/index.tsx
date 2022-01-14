@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "./view-base.scss";
 import Header from "../Header";
-import { Hidden, makeStyles, useMediaQuery } from "@material-ui/core";
+import { Hidden, makeStyles, SvgIcon, useMediaQuery } from "@material-ui/core";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 import MobileDrawer from "../Drawer/mobile-drawer";
 import Drawer from "../Drawer";
 import { cubesImage } from "src/constants/img";
 import Messages from "../Messages";
-
+import MenuIcon from "../../assets/icons/mobileMenu.png";
+import { ReactComponent as MobileLandingLogo } from "../../assets/icons/mobileLandingLogo.svg";
 interface IViewBaseProps {
     children: React.ReactNode;
 }
@@ -53,7 +54,14 @@ function ViewBase({ children }: IViewBaseProps) {
     return (
         <div className="view-base-root">
             <Messages />
-            <Header drawe={!isSmallerScreen} handleDrawerToggle={handleDrawerToggle} />
+            <div onClick={handleDrawerToggle} className="menu-position">
+                <SvgIcon color="primary" component={MobileLandingLogo} viewBox="0 0 140 46" style={{ minWidth: 140, minHeight: 46 }} />
+                <img className="mobile-menu" src={MenuIcon} alt="" />
+            </div>
+            <div className="hidden960">
+                <Header drawe={!isSmallerScreen} handleDrawerToggle={handleDrawerToggle} />
+            </div>
+            {/* Sidebar */}
             <div className={classes.drawer}>
                 <Hidden mdUp>
                     <MobileDrawer mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
@@ -63,17 +71,12 @@ function ViewBase({ children }: IViewBaseProps) {
                 </Hidden>
             </div>
             <div className={`${classes.content} ${isSmallerScreen && classes.contentShift}`}>
-                {!isSmallerScreen && (
-                    <div className="cubes-top">
-                        <p>{cubesImage}</p>
-                    </div>
-                )}
-                {!isSmallScreen && (
-                    <div className="cubes-bottom">
-                        <p>{cubesImage}</p>
-                    </div>
-                )}
+                {!isSmallerScreen && <div className="cubes-top" />}
+                {!isSmallScreen && <div className="cubes-bottom" />}
                 {children}
+            </div>
+            <div className="shown960">
+                <Header drawe={!isSmallerScreen} handleDrawerToggle={handleDrawerToggle} />
             </div>
         </div>
     );

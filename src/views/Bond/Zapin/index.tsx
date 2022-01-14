@@ -187,7 +187,7 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
                 <Box className="card-content">
                     <div className="zapin-header">
                         <div className="zapin-header-token-select-wrap">
-                            <p className="zapin-header-token-select-title">Zapin & Mint</p>
+                            <p className="zapin-header-token-select-title">Zapin & Bond</p>
                             <OutlinedInput
                                 type="number"
                                 placeholder="Amount"
@@ -270,11 +270,11 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
                             </div>
                             <div className="data-row">
                                 <p className="data-row-name">Approximately you will get</p>
-                                <p className="data-row-value">{isLoading ? <Skeleton width="100px" /> : `~ ${trim(bond.bondQuote, 4)} TIME`}</p>
+                                <p className="data-row-value">{isLoading ? <Skeleton width="100px" /> : `~ ${trim(bond.bondQuote, 4)} BLOCKS`}</p>
                             </div>
                             <div className="data-row">
                                 <p className="data-row-name">Max You Can Buy</p>
-                                <p className="data-row-value">{isLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4)} TIME`}</p>
+                                <p className="data-row-value">{isLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4)} BLOCKS`}</p>
                             </div>
                             <div className="data-row">
                                 <p className="data-row-name">ROI</p>
@@ -282,7 +282,7 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
                             </div>
                             <div className="data-row">
                                 <p className="data-row-name">Minimum purchase</p>
-                                <p className="data-row-value">0.01 TIME</p>
+                                <p className="data-row-value">0.01 BLOCKS</p>
                             </div>
                         </div>
                     </div>

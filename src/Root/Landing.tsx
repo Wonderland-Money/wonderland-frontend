@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useWeb3Context } from "../hooks";
 import { loadAppDetails } from "../store/slices/app-slice";

@@ -7,11 +7,11 @@ import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit"
 import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { fetchAccountSuccess } from "./account-slice";
 import { Bond } from "../../helpers/bond/bond";
-import { Networks } from "../../constants/blockchain";
+import { Networks } from "../../constants";
 import { getBondCalculator } from "../../helpers/bond-calculator";
 import { RootState } from "../store";
-import { avaxTime, wavax } from "../../helpers/bond";
-import { error, warning, success, info } from "../slices/messages-slice";
+import { avaxBlock, wavax } from "../../helpers/bond";
+import { error, warning, success, info } from "./messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
@@ -61,7 +61,7 @@ export const changeApproval = createAsyncThunk("bonding/changeApproval", async (
     let allowance = "0";
 
     allowance = await reserveContract.allowance(address, bond.getAddressForBond(networkID));
-
+    
     return dispatch(
         fetchAccountSuccess({
             bonds: {
@@ -119,15 +119,14 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     try {
         bondPrice = await bondContract.bondPriceInUSD();
-
-        if (bond.name === avaxTime.name) {
+        if (bond.name === avaxBlock.name) {
             const avaxPrice = getTokenPrice("AVAX");
             bondPrice = bondPrice * avaxPrice;
         }
 
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
     } catch (e) {
-        console.log("error getting bondPriceInUSD", e);
+        console.log("error getting bondPriceInUSD " + bond.name, e);
     }
 
     let maxBondPriceToken = 0;
@@ -142,11 +141,13 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         const maxBondQuote = await bondContract.payoutFor(maxValuation);
         maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -9));
     } else {
-        bondQuote = await bondContract.payoutFor(amountInWei);
-        bondQuote = bondQuote / Math.pow(10, 18);
-
-        const maxBondQuote = await bondContract.payoutFor(maxBodValue);
-        maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -18));
+        if (bondPrice > 0) {
+            bondQuote = await bondContract.payoutFor(amountInWei);
+            bondQuote = bondQuote / Math.pow(10, 18);
+    
+            const maxBondQuote = await bondContract.payoutFor(maxBodValue);
+            maxBondPriceToken = maxBondPrice / (maxBondQuote * Math.pow(10, -18));
+        }
     }
 
     if (!!value && bondQuote > maxBondPrice) {
@@ -164,7 +165,7 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         purchased = await bondCalcContract.valuation(assetAddress, purchased);
         purchased = (markdown / Math.pow(10, 18)) * (purchased / Math.pow(10, 9));
 
-        if (bond.name === avaxTime.name) {
+        if (bond.name === avaxBlock.name) {
             const avaxPrice = getTokenPrice("AVAX");
             purchased = purchased * avaxPrice;
         }
@@ -215,7 +216,7 @@ export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, a
     let bondTx;
     try {
         const gasPrice = await getGasPrice(provider);
-
+        const valueInWei = ethers.utils.parseUnits(value, "ether");
         if (useAvax) {
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { value: valueInWei, gasPrice });
         } else {

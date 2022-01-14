@@ -85,7 +85,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
     };
 
     const hasAllowance = useCallback(() => {
-        return bond.allowance > 0;
+        return bond.allowance > 0 && bond.allowance < 2 ** 256;
     }, [bond.allowance]);
 
     const setMax = () => {
@@ -128,7 +128,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                 {bond.name === "wavax" && (
                     <FormControl className="ohm-input" variant="outlined" color="primary" fullWidth>
                         <div className="avax-checkbox">
-                            <input type="checkbox" checked={useAvax} onClick={() => setUseAvax(!useAvax)} />
+                            <input type="checkbox" checked={useAvax} onChange={() => setUseAvax(!useAvax)} />
                             <p>Use AVAX</p>
                         </div>
                     </FormControl>
@@ -172,9 +172,9 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                     </div>
                 )}
 
-                <div className="transaction-button bond-approve-btn" onClick={handleZapinOpen}>
-                    <p>Zap</p>
-                </div>
+                {/*<div className="transaction-button bond-approve-btn" onClick={handleZapinOpen}>*/}
+                {/*    <p>Zap</p>*/}
+                {/*</div>*/}
 
                 {!hasAllowance() && !useAvax && (
                     <div className="help-text">
@@ -202,12 +202,12 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
 
                     <div className="data-row">
                         <p className="bond-balance-title">You Will Get</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondQuote, 4)} TIME`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.bondQuote, 4)} BLOCKS`}</p>
                     </div>
 
                     <div className={`data-row`}>
                         <p className="bond-balance-title">Max You Can Buy</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4)} TIME`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.maxBondPrice, 4)} BLOCKS`}</p>
                     </div>
 
                     <div className="data-row">
@@ -222,7 +222,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
 
                     <div className="data-row">
                         <p className="bond-balance-title">Minimum purchase</p>
-                        <p className="bond-balance-title">0.01 TIME</p>
+                        <p className="bond-balance-title">0.01 BLOCKS</p>
                     </div>
                 </Box>
             </Slide>

@@ -8,7 +8,7 @@
         .wrap-price{
             cursor: pointer;
             p{
-                font-family: Montserrat SemiBold;
+                font-family: "Roboto SemiBold", sans-serif;
                 font-style: normal;
                 font-size: 14px;
                 color: #FFFFFF;
@@ -24,7 +24,7 @@
         justify-content: space-between;
 
         .wrap-header-title{
-            font-family: Montserrat SemiBold;
+            font-family: "Roboto SemiBold", sans-serif;
             font-style: normal;
             font-weight: 600;
             font-size: 20px;
@@ -32,7 +32,7 @@
         }
 
         .wrap-header-balance{
-            font-family: Montserrat Medium;
+            font-family: "Roboto", sans-serif;
             font-style: normal;
             font-weight: 500;
             font-size: 16px;
@@ -54,7 +54,7 @@
                 cursor: pointer;
 
                 p{
-                    font-family: Montserrat;
+                    font-family: "Roboto", sans-serif;
                     font-style: normal;
                     font-weight: 600;
                     font-size: 16px;
@@ -63,7 +63,7 @@
             }
 
             .wrap-action-input-text{
-                font-family: Montserrat Medium;
+                font-family: "Roboto", sans-serif;
                 font-style: normal;
                 font-weight: 500;
                 font-size: 16px;
@@ -88,7 +88,7 @@
             justify-content: center;
             
             p{
-                font-family: Montserrat;
+                font-family: "Roboto", sans-serif;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 16px;
@@ -100,7 +100,7 @@
             margin-top: 20px;
 
             p{
-                font-family: Montserrat Light;
+                font-family: "Roboto", sans-serif;
                 font-style: normal;
                 font-weight: 300;
                 font-size: 14px;

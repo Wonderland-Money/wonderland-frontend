@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingContract, MemoTokenContract, TimeTokenContract } from "../../abi";
+import { StakingContract, MemoTokenContract, BlockTokenContract, zBlockTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -23,13 +23,13 @@ export const loadAppDetails = createAsyncThunk(
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
         const currentBlock = await provider.getBlockNumber();
         const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
-        const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
-        const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
+        const zblockContract = new ethers.Contract(addresses.ZBLOCK_ADDRESS, zBlockTokenContract, provider);
+        const blockContract = new ethers.Contract(addresses.BLOCK_ADDRESS, BlockTokenContract, provider);
 
         const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
 
-        const totalSupply = (await timeContract.totalSupply()) / Math.pow(10, 9);
-        const circSupply = (await memoContract.circulatingSupply()) / Math.pow(10, 9);
+        const totalSupply = (await blockContract.totalSupply()) / Math.pow(10, 9);
+        const circSupply = (await zblockContract.circulatingSupply()) / Math.pow(10, 9);
 
         const stakingTVL = circSupply * marketPrice;
         const marketCap = totalSupply * marketPrice;
@@ -42,16 +42,15 @@ export const loadAppDetails = createAsyncThunk(
         const tokenAmounts = await Promise.all(tokenAmountsPromises);
         const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1, 0);
 
-        const timeBondsAmountsPromises = allBonds.map(bond => bond.getTimeAmount(networkID, provider));
-        const timeBondsAmounts = await Promise.all(timeBondsAmountsPromises);
-        const timeAmount = timeBondsAmounts.reduce((timeAmount0, timeAmount1) => timeAmount0 + timeAmount1, 0);
-        const timeSupply = totalSupply - timeAmount;
-
-        const rfv = rfvTreasury / timeSupply;
+        const blockBondsAmountsPromises = allBonds.map(bond => bond.getBlockAmount(networkID, provider));
+        const blockBondsAmounts = await Promise.all(blockBondsAmountsPromises);
+        const blockAmount = blockBondsAmounts.reduce((blockAmount0, blockAmount1) => blockAmount0 + blockAmount1, 0);
+        const blockSupply = totalSupply - blockAmount;
+        const rfv = rfvTreasury / blockSupply;
 
         const epoch = await stakingContract.epoch();
         const stakingReward = epoch.distribute;
-        const circ = await memoContract.circulatingSupply();
+        const circ = await zblockContract.circulatingSupply();
         const stakingRebase = stakingReward / circ;
         const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
         const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
@@ -125,6 +124,7 @@ const appSlice = createSlice({
             })
             .addCase(loadAppDetails.rejected, (state, { error }) => {
                 state.loading = false;
+                console.log("rejected");
                 console.log(error);
             });
     },

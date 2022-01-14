@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { TimeTokenContract, MemoTokenContract, MimTokenContract, wMemoTokenContract } from "../../abi";
+import { BlockTokenContract, MemoTokenContract, zBlockTokenContract, MimTokenContract, wMemoTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -20,8 +20,9 @@ interface IGetBalances {
 interface IAccountBalances {
     balances: {
         memo: string;
-        time: string;
+        block: string;
         wmemo: string;
+        zBlock: string;
     };
 }
 
@@ -30,15 +31,18 @@ export const getBalances = createAsyncThunk("account/getBalances", async ({ addr
 
     const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
     const memoBalance = await memoContract.balanceOf(address);
-    const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
-    const timeBalance = await timeContract.balanceOf(address);
+    const zBlockContract = new ethers.Contract(addresses.ZBLOCK_ADDRESS, zBlockTokenContract, provider);
+    const zBlockBalance = await zBlockContract.balanceOf(address);
+    const blockContract = new ethers.Contract(addresses.BLOCK_ADDRESS, BlockTokenContract, provider);
+    const blockBalance = await blockContract.balanceOf(address);
     const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, provider);
     const wmemoBalance = await wmemoContract.balanceOf(address);
 
     return {
         balances: {
             memo: ethers.utils.formatUnits(memoBalance, "gwei"),
-            time: ethers.utils.formatUnits(timeBalance, "gwei"),
+            block: ethers.utils.formatUnits(blockBalance, "gwei"),
+            zBlock: ethers.utils.formatUnits(zBlockBalance, "gwei"),
             wmemo: ethers.utils.formatEther(wmemoBalance),
         },
     };
@@ -52,13 +56,14 @@ interface ILoadAccountDetails {
 
 interface IUserAccountDetails {
     balances: {
-        time: string;
+        block: string;
         memo: string;
         wmemo: string;
+        zBlock: string;
     };
     staking: {
-        time: number;
-        memo: number;
+        block: number;
+        zBlock: number;
     };
     wrapping: {
         memo: number;
@@ -66,7 +71,8 @@ interface IUserAccountDetails {
 }
 
 export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails", async ({ networkID, provider, address }: ILoadAccountDetails): Promise<IUserAccountDetails> => {
-    let timeBalance = 0;
+    let blockBalance = 0;
+    let zBlockBalance = 0;
     let memoBalance = 0;
 
     let wmemoBalance = 0;
@@ -77,20 +83,25 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
 
     const addresses = getAddresses(networkID);
 
-    if (addresses.TIME_ADDRESS) {
-        const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
-        timeBalance = await timeContract.balanceOf(address);
-        stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
+    if (addresses.BLOCK_ADDRESS) {
+        const blockContract = new ethers.Contract(addresses.BLOCK_ADDRESS, BlockTokenContract, provider);
+        blockBalance = await blockContract.balanceOf(address);
+        stakeAllowance = await blockContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     }
-
+    
     if (addresses.MEMO_ADDRESS) {
         const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
         memoBalance = await memoContract.balanceOf(address);
-        unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
 
         if (addresses.WMEMO_ADDRESS) {
             memoWmemoAllowance = await memoContract.allowance(address, addresses.WMEMO_ADDRESS);
         }
+    }
+    
+    if (addresses.ZBLOCK_ADDRESS) {
+        const zblockContract = new ethers.Contract(addresses.ZBLOCK_ADDRESS, zBlockTokenContract, provider);
+        zBlockBalance = await zblockContract.balanceOf(address);
+        unstakeAllowance = await zblockContract.allowance(address, addresses.STAKING_ADDRESS);
     }
 
     if (addresses.WMEMO_ADDRESS) {
@@ -101,12 +112,13 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
     return {
         balances: {
             memo: ethers.utils.formatUnits(memoBalance, "gwei"),
-            time: ethers.utils.formatUnits(timeBalance, "gwei"),
+            block: ethers.utils.formatUnits(blockBalance, "gwei"),
+            zBlock: ethers.utils.formatUnits(zBlockBalance, "gwei"),
             wmemo: ethers.utils.formatEther(wmemoBalance),
         },
         staking: {
-            time: Number(stakeAllowance),
-            memo: Number(unstakeAllowance),
+            block: Number(stakeAllowance),
+            zBlock: Number(unstakeAllowance),
         },
         wrapping: {
             memo: Number(memoWmemoAllowance),
@@ -247,13 +259,14 @@ export interface IAccountSlice {
     bonds: { [key: string]: IUserBondDetails };
     balances: {
         memo: string;
-        time: string;
+        block: string;
         wmemo: string;
+        zBlock: string;
     };
     loading: boolean;
     staking: {
-        time: number;
-        memo: number;
+        block: number;
+        zBlock: number;
     };
     wrapping: {
         memo: number;
@@ -264,8 +277,8 @@ export interface IAccountSlice {
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
-    balances: { memo: "", time: "", wmemo: "" },
-    staking: { time: 0, memo: 0 },
+    balances: { memo: "", block: "", wmemo: "", zBlock: "" },
+    staking: { block: 0, zBlock: 0 },
     wrapping: { memo: 0 },
     tokens: {},
 };

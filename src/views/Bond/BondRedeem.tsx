@@ -86,14 +86,14 @@ function BondRedeem({ bond }: IBondRedeem) {
                 <Box className="bond-data">
                     <div className="data-row">
                         <p className="bond-balance-title">Pending Rewards</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.interestDue, 4)} TIME`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.interestDue, 4)} BLOCKS`}</p>
                     </div>
                     <div className="data-row">
                         <p className="bond-balance-title">Claimable Rewards</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.pendingPayout, 4)} TIME`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.pendingPayout, 4)} BLOCKS`}</p>
                     </div>
                     <div className="data-row">
-                        <p className="bond-balance-title">Time until fully vested</p>
+                        <p className="bond-balance-title">BLOCKS until fully vested</p>
                         <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : vestingTime()}</p>
                     </div>
 
