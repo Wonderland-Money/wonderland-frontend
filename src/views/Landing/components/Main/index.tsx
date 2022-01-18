@@ -23,7 +23,7 @@ function Main() {
             </div>
             <div className="landing-main-title-wrap">
                 <p>The Defi</p>
-                <p>WonderLand</p>
+                <p>CaicaiLand</p>
             </div>
             <div className="landing-main-help-text-wrap">
                 <p>Financial tools to grow your wealth - stake</p>
