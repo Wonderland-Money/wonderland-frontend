@@ -94,14 +94,14 @@ function App() {
 
     return (
         <ViewBase>
-                <div className="psi-dashboard disabled">
+                <div className="psi-interface psi-dashboard disabled">
                     <Dashboard />
                 </div>
-                <div className="psi-staking disabled">
+                <div className="psi-interface psi-staking disabled">
                     <Stake />
                 </div>
                 <Switch>
-                <div className="psi-bonding disabled">
+                <div className="psi-interface psi-bonding">
                     {bonds.map(bond => {
                         return (
                             <Route exact key={bond.name} path={`/mints/${bond.name}`}>

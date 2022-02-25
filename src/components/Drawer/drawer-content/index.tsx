@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import { NavLink, Link as RouterLink } from "react-router-dom";
-import Social from "./social";
 import { ReactComponent as StakeIcon } from "../../../assets/icons/stake.svg";
 import { ReactComponent as BondIcon } from "../../../assets/icons/bond.svg";
 import TridentIcon from "../../../assets/icons/trident-nav-header2.svg";
@@ -37,10 +36,6 @@ function NavContent() {
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
-                <RouterLink to="/">
-                    <img alt="" height="100" src={TridentIcon} />
-                </RouterLink>
-
                 {address && (
                     <div className="wallet-link">
                         <Link href={`https://explorer.harmony.one/address/${address}`} target="_blank">
@@ -49,76 +44,12 @@ function NavContent() {
                     </div>
                 )}
             </div>
-
-            <div className="dapp-menu-links">
-                <div className="dapp-nav">
-                    <Link
-                        component={NavLink}
-                        to="/dashboard"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "dashboard");
-                        }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <SvgIcon component={DashboardIcon} />
-                            <p>Dashboard</p>
-                        </div>
-                    </Link>
-
-                    <Link
-                        component={NavLink}
-                        to="/stake"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "stake");
-                        }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <SvgIcon component={StakeIcon} />
-                            <p>Stake</p>
-                        </div>
-                    </Link>
-
-                    <Link
-                        component={NavLink}
-                        id="bond-nav"
-                        to="/mints"
-                        isActive={(match: any, location: any) => {
-                            return checkPage(location, "mints");
-                        }}
-                        className={classnames("button-dapp-menu", { active: isActive })}
-                    >
-                        <div className="dapp-menu-item">
-                            <SvgIcon component={BondIcon} />
-                            <p>Mint</p>
-                        </div>
-                    </Link>
-
-                    <div className="bond-discounts">
-                        <p className="bond-discounts--title">Mint discounts</p>
-                        {bonds.map((bond, i) => (
-                            <Link component={NavLink} to={`/mints/${bond.name}`} key={i} className={"bond"}>
-                                {!bond.bondDiscount ? (
-                                    <Skeleton variant="text" width={"150px"} />
-                                ) : (
-                                    <p>
-                                        {bond.displayName}
-                                        <span className="bond-pair-roi">{bond.bondDiscount && trim(bond.bondDiscount * 100, 2)}%</span>
-                                    </p>
-                                )}
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            </div>
             <div className="dapp-menu-doc-link">
-                <Link href="https://trident.gitbook.io/trident/" target="_blank">
+                <Link href="https://tridentdao.gitbook.io/trident-dao/" target="_blank">
                     <SvgIcon component={DocsIcon} />
                     <p>Docs</p>
                 </Link>
             </div>
-            <Social />
         </div>
     );
 }
