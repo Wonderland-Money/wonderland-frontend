@@ -94,6 +94,29 @@ function App() {
 
     return (
         <ViewBase>
+                <div className="psi-dashboard disabled">
+                    <Dashboard />
+                </div>
+                <div className="psi-staking disabled">
+                    <Stake />
+                </div>
+                <Switch>
+                <div className="psi-bonding disabled">
+                    {bonds.map(bond => {
+                        return (
+                            <Route exact key={bond.name} path={`/mints/${bond.name}`}>
+                                <Bond bond={bond} />
+                            </Route>
+                        );
+                    })}
+                    <ChooseBond />
+                </div>
+                </Switch>
+        </ViewBase>
+    );
+}
+
+/*<ViewBase>
             <Switch>
                 <Route exact path="/dashboard">
                     <Dashboard />
@@ -116,8 +139,6 @@ function App() {
 
                 <Route component={NotFound} />
             </Switch>
-        </ViewBase>
-    );
-}
+        </ViewBase>*/
 
 export default App;

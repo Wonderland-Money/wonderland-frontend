@@ -1,6 +1,9 @@
 // COLORS
 $bermuda-gray: #6a8fa5;
 $gull-gray: #92aeb3;
+
+$dark-gray: #111111;
+$dark-gray-2: #222222;
 $outer-space: #2c3133;
 $akaroa: #dbcdac;
 $elephant: #081825;
@@ -15,7 +18,7 @@ $gunmetal: #1e2a38;
 $indigo-dye: #2a486e;
 
 // THEME
-$background-color: $elephant;
+$background-color: $smoky-black;
 $black: #232323;
 $white: #fcfcfc;
 
@@ -25,7 +28,7 @@ $secondary-button-background: $indigo-dye;
 $active-nav-background: $indigo-dye;
 $active-nav-text: $white;
 $inactive-nav-text: $platinum;
-$card-background: $elephant;
+$card-background: $smoky-black;
 $divider: $bermuda-gray;
 
 // GLOBAL RULES
@@ -53,17 +56,16 @@ a:hover {
 @mixin card {
     @include soft-shadow();
 
-    border-radius: 12px;
+    border-radius: 6px;
     padding: 2rem;
 
     @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-        background: transparentize($card-background, 0.5);
-        backdrop-filter: blur(20px);
+        background-color: $card-background;
     }
 
     /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
     @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-        background: $card-background;
+        background-color: $card-background;
     }
 }
 
@@ -72,44 +74,44 @@ a:hover {
 
     &:hover {
         @include medium-shadow();
-        transform: translate(0, -1px);
     }
 }
 
 @mixin primary-button {
     cursor: pointer;
     transition: all 0.4s ease;
-    background: $saffron;
+    background: $dark-gray;
+    border: 1px solid $dark-gray-2;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 48px;
-    border-radius: 10px;
+    border-radius: 3px;
     text-align: center;
     padding: 0 1rem;
     @include card-hover();
 
     &:hover {
-        background: lighten($saffron, 5%);
+        background: lighten($dark-gray, 15%);
     }
 
     p {
-        color: $black;
-        font-family: Cinzel Semibold;
+        color: $white;
+        font-family: 'Syne Mono', monospace;
         font-weight: 600;
         font-size: 1rem;
     }
 }
 
 @mixin input {
-    background: transparentize($saffron, 0.75);
-    border: 1px solid $saffron;
-    border-radius: 10px;
+    background-color: $dark-gray;
+    border: 1px solid $dark-gray-2;
+    border-radius: 3px;
     outline: none;
     height: 48px;
 
     input {
-        font-family: Cinzel Semibold;
+        font-family: 'Syne Mono', monospace;
         font-weight: 600;
         font-size: 1rem;
         padding: 0 1rem;

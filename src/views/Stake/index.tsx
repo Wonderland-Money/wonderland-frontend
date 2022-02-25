@@ -103,7 +103,7 @@ function Stake() {
                     <Grid className="stake-card-grid" container direction="column" spacing={2}>
                         <Grid item>
                             <div className="stake-card-header">
-                                <p className="stake-card-header-title">Stake (🔱,🔱)</p>
+                                <p className="stake-card-header-title">Stake</p>
                                 <RebaseTimer />
                             </div>
                         </Grid>

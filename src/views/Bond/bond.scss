@@ -8,16 +8,14 @@
 
     @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
         .MuiBackdrop-root {
-            background: rgba(100, 100, 100, 0.1) !important;
-            backdrop-filter: blur(33px) !important;
-            -webkit-backdrop-filter: blur(33px) !important;
+            
         }
     }
 
     /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
     @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
         .MuiBackdrop-root {
-            background: rgba(0, 0, 0, 0.8);
+            
         }
     }
 
@@ -53,7 +51,7 @@
                 text-align: center;
                 margin-left: 10px;
 
-                font-family: Cinzel SemiBold;
+                font-family: 'Cormorant Garamond', serif;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 18px;
@@ -68,7 +66,7 @@
 
     .bond-price-data {
         .bond-price-data-title {
-            font-family: Cinzel Medium;
+            font-family: 'Cormorant Garamond', serif;
             font-weight: 500;
             font-size: 20px;
             line-height: 24px;
@@ -76,7 +74,7 @@
         }
 
         .bond-price-data-value {
-            font-family: Cinzel Bold;
+            font-family: 'Syne Mono', monospace;
             font-weight: bold;
             font-size: 24px;
             line-height: 29px;
@@ -115,7 +113,7 @@
             }
 
             p {
-                font-family: Cinzel SemiBold;
+                font-family: 'Cormorant Garamond', serif;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 14px;
@@ -143,7 +141,7 @@
             transition: all 0.4s ease;
 
             p {
-                font-family: Cinzel SemiBold;
+                font-family: 'Cormorant Garamond', serif;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 18px;
@@ -177,7 +175,7 @@
             cursor: pointer;
 
             p {
-                font-family: Cinzel SemiBold;
+                font-family: 'Cormorant Garamond', serif;
                 font-weight: 600;
                 font-size: 18px;
                 color: #ffffff;
@@ -193,7 +191,7 @@
         margin-top: 20px;
 
         .help-text-desc {
-            font-family: Cinzel Light;
+            font-family: 'Cormorant Garamond', serif;
             font-weight: 300;
             font-size: 14px;
             text-align: center;
@@ -202,7 +200,7 @@
     }
 
     .bond-balance-title {
-        font-family: Cinzel Medium;
+        font-family: 'Cormorant Garamond', serif;
         font-style: normal;
         font-weight: 500;
         font-size: 14px;

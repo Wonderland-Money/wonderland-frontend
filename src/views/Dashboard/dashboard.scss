@@ -24,13 +24,13 @@
             @include theme.card-hover();
 
             .card-title {
-                font-family: Cinzel SemiBold;
+                font-family: 'Cormorant Garamond', serif;
                 font-size: 1rem;
                 color: #ccc;
             }
 
             .card-value {
-                font-family: Cinzel SemiBold;
+                font-family: 'Syne Mono', monospace;
                 font-size: 1.5rem;
                 font-weight: bold;
                 color: theme.$white;
