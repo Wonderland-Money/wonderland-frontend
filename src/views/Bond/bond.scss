@@ -62,6 +62,9 @@
 
     .bond-data {
         margin: 10px 0 0 0;
+        .bond-balance-title {
+            font-family: 'Syne Mono', monospace !important;
+        }
     }
 
     .bond-price-data {
@@ -141,7 +144,7 @@
             transition: all 0.4s ease;
 
             p {
-                font-family: 'Cormorant Garamond', serif;
+                font-family: 'Syne Mono', monospace;
                 font-style: normal;
                 font-weight: 600;
                 font-size: 18px;
@@ -195,7 +198,7 @@
             font-weight: 300;
             font-size: 14px;
             text-align: center;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.8);
         }
     }
 

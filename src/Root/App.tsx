@@ -12,6 +12,7 @@ import ViewBase from "../components/ViewBase";
 import { Stake, ChooseBond, Bond, Dashboard, NotFound } from "../views";
 import "./style.scss";
 import Landing from "src/views/Landing";
+import classNames from "classnames"
 
 function App() {
     const dispatch = useDispatch();
@@ -20,6 +21,10 @@ function App() {
     const address = useAddress();
 
     const [walletChecked, setWalletChecked] = useState(false);
+
+    const [dashboardActive, setDashboardActive] = useState(false)
+    const [stakingActive, setStakingActive] = useState(false)
+    const [bondingActive, setBondingActive] = useState(false)
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const isAppLoaded = useSelector<IReduxState, boolean>(state => !Boolean(state.app.marketPrice));
@@ -94,14 +99,14 @@ function App() {
 
     return (
         <ViewBase>
-                <div className="psi-interface psi-dashboard disabled">
+                <div className={classNames("psi-interface", "psi-dashboard", {"disabled": !dashboardActive})}>
                     <Dashboard />
                 </div>
-                <div className="psi-interface psi-staking disabled">
+                <div className={classNames("psi-interface", "psi-staking", {"disabled": !stakingActive})}>
                     <Stake />
                 </div>
                 <Switch>
-                <div className="psi-interface psi-bonding">
+                <div className={classNames("psi-interface", "psi-bonding", {"disabled": !bondingActive})}>
                     {bonds.map(bond => {
                         return (
                             <Route exact key={bond.name} path={`/mints/${bond.name}`}>

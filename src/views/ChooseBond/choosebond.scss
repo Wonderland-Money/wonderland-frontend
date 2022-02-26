@@ -20,6 +20,12 @@
         z-index: 2;
 
         .choose-bond-view-card-header {
+            display: flex;
+            direction: row;
+            align-content:center;
+            .close-app-btn {
+                margin-right: 20px;
+            }
             .choose-bond-view-card-title {
                 font-family: 'Cormorant Garamond', serif;
                 font-weight: bold;

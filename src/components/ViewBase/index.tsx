@@ -57,7 +57,7 @@ function ViewBase({ children }: IViewBaseProps) {
             <Header drawe={!isSmallerScreen} handleDrawerToggle={handleDrawerToggle} />
             <div className={classes.drawer}>
                 <Hidden mdUp>
-                    <MobileDrawer mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+                    <MobileDrawer />
                 </Hidden>
                 <Hidden smDown>
                     <Drawer />

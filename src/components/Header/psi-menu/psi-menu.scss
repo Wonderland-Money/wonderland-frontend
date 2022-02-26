@@ -3,16 +3,21 @@
 .psi-menu-root {
     .psi-menu-btn {
         padding: 9px 20px;
-        background: theme.$secondary-button-background;
+        background: theme.$dark-gray;
         box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-        border-radius: 10px;
+        border: 1px solid theme.$dark-gray-2;
+        border-radius: 4px;
         cursor: pointer;
         margin-right: 20px;
 
+        &:hover {
+            background-color: theme.$dark-gray-2;
+        }
+
         p {
-            font-family: Cinzel SemiBold;
+            font-family: "Cormorant Garamond", serif;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 22px;
             color: #ffffff;
         }
     }
@@ -24,6 +29,7 @@
     padding: 0;
     overflow: hidden;
     z-index: 10;
+    border: 1px solid theme.$dark-gray-2;
 
     .tooltip {
         display: flex;
@@ -36,16 +42,16 @@
 
             &.buy {
                 p {
-                    font-family: Cinzel Bold;
+                    font-family: "Cormorant Garamond", serif;
                 }
             }
 
             &:hover {
-                background: theme.$primary-button-hover;
+                background: theme.$dark-gray-2;
             }
 
             p {
-                font-family: Cinzel SemiBold;
+                font-family: "Cormorant Garamond", serif;
                 font-weight: 600;
                 font-size: 1rem;
                 line-height: 20px;
@@ -59,7 +65,7 @@
             flex-direction: column;
 
             .add-tokens-title {
-                font-family: "Cinzel Light";
+                font-family: "Cormorant Garamond", serif;
                 font-size: 14px;
                 color: theme.$platinum;
                 text-align: center;
@@ -69,7 +75,7 @@
 
         .divider {
             height: 1px;
-            background: theme.$divider;
+            background: theme.$dark-gray-2;
             border: none;
         }
     }
