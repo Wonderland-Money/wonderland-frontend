@@ -6,6 +6,7 @@ import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 import MobileDrawer from "../Drawer/mobile-drawer";
 import Drawer from "../Drawer";
 import Messages from "../Messages";
+import Social from "./social";
 
 interface IViewBaseProps {
     children: React.ReactNode;
@@ -26,7 +27,7 @@ const useStyles = makeStyles(theme => ({
         }),
         height: "100%",
         overflow: "auto",
-        marginLeft: DRAWER_WIDTH,
+        marginLeft: 0,
     },
     contentShift: {
         transition: theme.transitions.create("margin", {
@@ -56,7 +57,7 @@ function ViewBase({ children }: IViewBaseProps) {
             <Header drawe={!isSmallerScreen} handleDrawerToggle={handleDrawerToggle} />
             <div className={classes.drawer}>
                 <Hidden mdUp>
-                    <MobileDrawer mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+                    <MobileDrawer />
                 </Hidden>
                 <Hidden smDown>
                     <Drawer />

@@ -15,9 +15,6 @@ function Header() {
                     <Link href="https://twitter.com/TridentDAO?s=20" target="_blank">
                         <span className="landing-header-nav-text">Twitter</span>
                     </Link>
-                    <Link href="https://t.me/TridentDAO_Official" target="_blank">
-                        <span className="landing-header-nav-text">Telegram</span>
-                    </Link>
                     <Link href="https://discord.gg/4ZSaZvMGtQ" target="_blank">
                         <span className="landing-header-nav-text">Discord</span>
                     </Link>

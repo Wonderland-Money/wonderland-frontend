@@ -20,10 +20,10 @@
 
         .stake-card-header {
             .stake-card-header-title {
-                font-family: Cinzel Bold;
+                font-family: 'Cormorant Garamond', serif;
                 font-weight: bold;
-                font-size: 20px;
-                color: #ffffff;
+                font-size: 28px;
+                color: #FFe987;
                 margin-bottom: 4px;
             }
         }
@@ -45,18 +45,25 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 overflow: hidden;
+                background-color: theme.$dark-gray;
+                border-radius: 4px;
+                border: 1px solid theme.$dark-gray-2;
+                padding: 20px 0;
 
                 .stake-card-metrics-title {
-                    font-family: Cinzel Medium;
+                    font-family: 'Cormorant Garamond', serif;
                     font-style: normal;
                     font-weight: 500;
                     font-size: 20px;
-                    color: rgba(255, 255, 255, 0.6);
+                    color: rgba(255, 255, 255, 1);
+                    border-bottom: 1px dashed lighten(theme.$dark-gray-2, 10%);
+                    width:70%;
+                    padding-bottom: 4px;
                     margin-bottom: 2px;
                 }
 
                 .stake-card-metrics-value {
-                    font-family: Cinzel Bold;
+                    font-family: 'Syne Mono', monospace;
                     font-style: normal;
                     font-weight: bold;
                     font-size: 24px;
@@ -77,7 +84,7 @@
                 }
 
                 .stake-card-wallet-desc-text {
-                    font-family: Cinzel Light;
+                    font-family: 'Cormorant Garamond', serif;
                     font-weight: 300;
                     font-size: 14px;
                     color: rgba(255, 255, 255, 0.6);
@@ -97,15 +104,16 @@
 
                     .stake-card-action-stage-btn {
                         margin: 0px 30px;
-                        padding: 6px;
+                        padding: 6px 0;
                         cursor: pointer;
                         transition: all 0.4s ease;
+                        border-bottom: 2px solid rgba(0,0,0,0);
 
                         p {
-                            font-family: Cinzel SemiBold;
+                            font-family: 'Cormorant Garamond', serif;
                             font-style: normal;
                             font-weight: 600;
-                            font-size: 18px;
+                            font-size: 22px;
                             color: rgba(255, 255, 255, 0.6);
                         }
                     }
@@ -115,7 +123,7 @@
                             color: #ffffff;
                         }
 
-                        border-bottom: 1px solid #ffffff;
+                        border-bottom: 2px solid #ffffff;
                     }
                 }
 
@@ -137,7 +145,7 @@
                             cursor: pointer;
 
                             p {
-                                font-family: Cinzel SemiBold;
+                                font-family: 'Cormorant Garamond', serif;
                                 font-weight: 600;
                                 font-size: 18px;
                                 color: #ffffff;
@@ -159,7 +167,7 @@
                     margin-top: 10px;
 
                     p {
-                        font-family: Cinzel Light;
+                        font-family: 'Cormorant Garamond', serif;
                         font-style: normal;
                         font-weight: 300;
                         font-size: 14px;
@@ -186,14 +194,14 @@
     margin: 12px 0px;
 
     .data-row-name {
-        font-family: Cinzel Medium;
+        font-family: 'Cormorant Garamond', serif;
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
         color: #ffffff;
     }
     .data-row-value {
-        font-family: Cinzel;
+        font-family: 'Syne Mono', monospace;
         font-size: 14px;
         line-height: 17px;
         color: #ffffff;

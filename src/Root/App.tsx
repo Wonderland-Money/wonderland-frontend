@@ -12,6 +12,7 @@ import ViewBase from "../components/ViewBase";
 import { Stake, ChooseBond, Bond, Dashboard, NotFound } from "../views";
 import "./style.scss";
 import Landing from "src/views/Landing";
+import classNames from "classnames"
 
 function App() {
     const dispatch = useDispatch();
@@ -20,6 +21,10 @@ function App() {
     const address = useAddress();
 
     const [walletChecked, setWalletChecked] = useState(false);
+
+    const [dashboardActive, setDashboardActive] = useState(false)
+    const [stakingActive, setStakingActive] = useState(false)
+    const [bondingActive, setBondingActive] = useState(false)
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const isAppLoaded = useSelector<IReduxState, boolean>(state => !Boolean(state.app.marketPrice));
@@ -94,6 +99,29 @@ function App() {
 
     return (
         <ViewBase>
+                <div className={classNames("psi-interface", "psi-dashboard", {"disabled": !dashboardActive})}>
+                    <Dashboard />
+                </div>
+                <div className={classNames("psi-interface", "psi-staking", {"disabled": !stakingActive})}>
+                    <Stake />
+                </div>
+                <Switch>
+                <div className={classNames("psi-interface", "psi-bonding", {"disabled": !bondingActive})}>
+                    {bonds.map(bond => {
+                        return (
+                            <Route exact key={bond.name} path={`/mints/${bond.name}`}>
+                                <Bond bond={bond} />
+                            </Route>
+                        );
+                    })}
+                    <ChooseBond />
+                </div>
+                </Switch>
+        </ViewBase>
+    );
+}
+
+/*<ViewBase>
             <Switch>
                 <Route exact path="/dashboard">
                     <Dashboard />
@@ -116,8 +144,6 @@ function App() {
 
                 <Route component={NotFound} />
             </Switch>
-        </ViewBase>
-    );
-}
+        </ViewBase>*/
 
 export default App;

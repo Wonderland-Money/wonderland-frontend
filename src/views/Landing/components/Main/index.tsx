@@ -7,12 +7,12 @@ function Main() {
     return (
         <div className="landing-main">
             <div className="landing-main-title-wrap">
-                <p>The Decentralized</p>
-                <p>Trident</p>
+                <p>Welcome to Atlantis // REPLACE</p>
             </div>
             <div className="landing-main-help-text-wrap">
-                <p>Financial tools to grow your wealth - stake</p>
-                <p>and earn compounding interest</p>
+                <p>Diving deeper than others are willing, in search of a stronghold,</p>
+                <p>safeguarding our treasures & vision, for a fruitful and sustainable</p>
+                <p>financial opportunity.</p>
             </div>
             <div className="landing-main-btns-wrap">
                 <RouterLink to="/stake">
@@ -20,7 +20,7 @@ function Main() {
                         <p>Enter Atlantis</p>
                     </div>
                 </RouterLink>
-                <Link href="https://trident.gitbook.io/trident/" target="_blank" rel="noreferrer">
+                <Link href="https://tridentdao.gitbook.io/trident-dao/" target="_blank" rel="noreferrer">
                     <div className="landing-main-btn secondary">
                         <p>Documentation</p>
                     </div>

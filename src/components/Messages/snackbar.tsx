@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     },
     typography: {
         color: "#FFFFFF",
-        fontFamily: "Cinzel SemiBold",
+        fontFamily: "Cormorant Garamond",
     },
     actionRoot: {
         padding: "8px 8px 8px 16px",

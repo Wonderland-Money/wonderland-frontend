@@ -7,6 +7,8 @@ import useBonds from "../../hooks/bonds";
 import "./choosebond.scss";
 import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
+import { IconButton, SvgIcon, Link } from "@material-ui/core";
+import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 
 function ChooseBond() {
     const { bonds } = useBonds();
@@ -26,7 +28,10 @@ function ChooseBond() {
             <Zoom in={true}>
                 <div className="choose-bond-view-card">
                     <div className="choose-bond-view-card-header">
-                        <p className="choose-bond-view-card-title"> Mint 🐬 🐋</p>
+                        <a onClick={() => console.log("Sneed")} className="close-app-btn">{/* @TODO */} 
+                            <SvgIcon color="primary" component={XIcon} />
+                        </a>
+                        <p className="choose-bond-view-card-title">Mint</p>
                     </div>
 
                     <Grid container item xs={12} spacing={2} className="choose-bond-view-card-metrics">

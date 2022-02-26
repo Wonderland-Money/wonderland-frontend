@@ -1,8 +1,8 @@
 import { SvgIcon, Link } from "@material-ui/core";
-import { ReactComponent as GitHub } from "../../../assets/icons/github.svg";
-import { ReactComponent as Twitter } from "../../../assets/icons/twitter.svg";
-import { ReactComponent as Telegram } from "../../../assets/icons/telegram.svg";
-import { ReactComponent as Discord } from "../../../assets/icons/discord.svg";
+import { ReactComponent as GitHub } from "../../assets/icons/github.svg";
+import { ReactComponent as Twitter } from "../../assets/icons/twitter.svg";
+import { ReactComponent as Telegram } from "../../assets/icons/telegram.svg";
+import { ReactComponent as Discord } from "../../assets/icons/discord.svg";
 
 export default function Social() {
     return (
@@ -15,11 +15,7 @@ export default function Social() {
                 <SvgIcon color="primary" component={Twitter} />
             </Link>
 
-            <Link href="https://t.me/TridentDAO_Official" target="_blank">
-                <SvgIcon viewBox="0 0 40 40" color="primary" component={Telegram} />
-            </Link>
-
-            <Link href="https://discord.gg/4ZSaZvMGtQ" target="_blank">
+            <Link href="https://discord.gg/tridentdao" target="_blank">
                 <SvgIcon color="primary" component={Discord} />
             </Link>
         </div>

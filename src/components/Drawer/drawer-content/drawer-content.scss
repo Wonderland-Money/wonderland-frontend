@@ -2,7 +2,7 @@
 
 .dapp-sidebar {
     height: 100vh;
-    min-width: 280px;
+    width:100vw;
     display: flex;
     flex-direction: column;
 
@@ -18,7 +18,7 @@
             margin: 10px;
 
             p {
-                color: theme.$platinum;
+                color: theme.$dark-gray;
                 font-family: Courier;
             }
         }
@@ -53,7 +53,7 @@
                         font-weight: 600;
                         font-size: 1rem;
                         color: theme.$inactive-nav-text;
-                        font-family: Cinzel;
+                        font-family: 'Cormorant Garamond', serif;
                         margin-left: 0.5rem;
                     }
                 }
@@ -67,7 +67,7 @@
                         p {
                             color: theme.$active-nav-text;
                             text-decoration: none;
-                            font-family: Cinzel SemiBold;
+                            font-family: 'Cormorant Garamond', serif;
                         }
                     }
                 }
@@ -85,7 +85,7 @@
                 }
 
                 p {
-                    font-family: Cinzel Medium;
+                    font-family: 'Cormorant Garamond', serif;
                     font-size: 0.75rem;
                     color: theme.$white;
                 }
@@ -120,7 +120,7 @@
                 font-weight: 600;
                 font-size: 1rem;
                 color: theme.$inactive-nav-text;
-                font-family: Cinzel;
+                font-family: 'Cormorant Garamond', serif;
                 margin-left: 0.5rem;
             }
         }
@@ -143,18 +143,30 @@
     }
 }
 
+.mobile-drawer {
+    background-color: #000;
+    display:flex;
+    justify-content:center;
+    align-content:center;
+    min-width: 100vw;
+    min-height: 100vh;
+    z-index: 12;
+    h1 {
+        color: #fff;
+    }
+}
+
 .MuiDrawer-root {
     .MuiPaper-root {
-        z-index: 7;
+        z-index: 3;
 
         @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-            background: transparentize(theme.$card-background, 0.5);
-            backdrop-filter: blur(20px);
+            background-color: rgba(0,0,0,0);
         }
 
         /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
         @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-            background: theme.$card-background;
+            background-color: rgba(0,0,0,0);
         }
     }
 }
