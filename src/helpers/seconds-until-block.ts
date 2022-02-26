@@ -1,3 +1,3 @@
 export const secondsUntilBlock = (startBlock: number, endBlock: number) => {
-    return endBlock - startBlock;
+    return (endBlock - startBlock) * 2;
 };
