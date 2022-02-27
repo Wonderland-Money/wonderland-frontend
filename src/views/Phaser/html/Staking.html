@@ -1,0 +1,171 @@
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Cormorant Garamond', serif;
+  background-color:#202027;
+  color: #fff;
+}
+
+h2 {
+  margin:0;
+  color:#FFe987;
+}
+
+.label {
+  color:#fefefe;
+  width:50%;
+  font-weight: medium;
+  display: inline-block;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed #333;
+  margin-bottom:6px;
+}
+
+.data {
+  font-family: 'Syne Mono', monospaced;
+}
+
+.container {
+  display:flex;
+  justify-content:center;
+  align-content:center;
+  width:100%;
+  height:100%;
+  transition: all 200ms;
+}
+
+.box {
+  background-color:#000;
+  border-radius:8px;
+  padding:40px;
+  width:680px;
+  
+}
+
+.columns {
+  width:100%;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:no-wrap;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  padding:12px;
+  background-color:#111;
+  border: 1px solid #222;
+  border-radius:2px;
+  text-align:center;
+}
+
+.select {
+  display: flex;
+  justify-content:center;
+}
+
+.select a {
+  display: inline-block;
+  margin: 0 6px;
+  color: #aaa;
+  text-decoration:none;
+  font-size: 22px;
+}
+
+a.selected {
+  color: #fff;
+  border-bottom: 2px solid #eee;
+}
+
+.input-container {
+  width: 100%;
+  display:flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+input {
+  height:30px;
+  border-radius:2px;
+  border: 1px solid #333;
+  background-color: #222;
+  width: 85%;
+}
+
+button {
+  height:30px;
+  border-radius:2px;
+  border: 1px solid #333;
+  background-color: #222;
+  margin:0;
+  color: #fff;
+  transition: all 150ms;
+  font-family: 'Syne Mono', monospaced;
+  width:13%;
+}
+
+.note {
+  color: #aaa;
+}
+
+button:hover {
+  border-color: #444;
+  background-color:#333;
+}
+
+</style>
+<script type="text/javascript">
+const send = (e) => {
+  console.log("Attempted send")
+  e.preventDefault()
+  if(window && window.parent) {
+    console.log("POSTED MESSAGE")
+    window.parent.postMessage('message', 'http://localhost:8080', false)
+  }
+}
+</script>
+<div class="container" id="box">
+    <div class="box">
+      <h2>Stake your PSI</h2>
+      <div class="columns">
+        <div class="column">
+          <span class="label">APY</span>
+          <span class="data">69,420%</span>
+        </div>
+        <div class="column">
+          <span class="label">TVL</span>
+          <span class="data">2,732,912 ONE</span>
+        </div>
+        <div class="column">
+          <span class="label">Index</span>
+          <span class="data">21</span>
+        </div>
+      </div>
+      <div class="select">
+        <a href="#" class="selected">Stake</a>
+        <a href="#">Bond</a>
+      </div>
+      <div class="input-container">
+        <input type="number" />
+        <button onClick="
+          document.getElementById('box').style.display='none';
+            console.log('Attempted send')
+            //e.preventDefault()
+            if(window && window.parent) {
+              console.log('POSTED MESSAGE')
+              window.parent.postMessage('message', 'http://localhost:8080')
+            }
+        ">Stake</button>
+      </div>
+      <span class="note">Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only requires you to perform the "Stake" or "Unstake" transaction.</span>
+    </div>
+  </div>

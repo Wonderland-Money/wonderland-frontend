@@ -4,17 +4,18 @@ import { ReactComponent as StakeIcon } from "../../../assets/icons/stake.svg";
 import { ReactComponent as BondIcon } from "../../../assets/icons/bond.svg";
 import TridentIcon from "../../../assets/icons/trident-nav-header2.svg";
 import { ReactComponent as DashboardIcon } from "../../../assets/icons/dashboard.svg";
-import { ReactComponent as DocsIcon } from "../../../assets/icons/docs.svg";
 import { trim, shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
 import useBonds from "../../../hooks/bonds";
 import { Link, SvgIcon } from "@material-ui/core";
 import { Skeleton } from "@material-ui/lab";
+import Social from "./social";
 import "./drawer-content.scss";
 
 import classnames from "classnames";
+import classNames from "classnames";
 
-function NavContent() {
+function NavContent(props: any) {
     const [isActive] = useState();
     const address = useAddress();
     const { bonds } = useBonds();
@@ -44,11 +45,8 @@ function NavContent() {
                     </div>
                 )}
             </div>
-            <div className="dapp-menu-doc-link">
-                <Link href="https://tridentdao.gitbook.io/trident-dao/" target="_blank">
-                    <SvgIcon component={DocsIcon} />
-                    <p>Docs</p>
-                </Link>
+            <div className={classNames("dapp-menu-doc-link", {"disabled": !props.socialIsOpen})}>
+                <Social />
             </div>
         </div>
     );

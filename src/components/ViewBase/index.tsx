@@ -6,7 +6,6 @@ import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 import MobileDrawer from "../Drawer/mobile-drawer";
 import Drawer from "../Drawer";
 import Messages from "../Messages";
-import Social from "./social";
 
 interface IViewBaseProps {
     children: React.ReactNode;
@@ -38,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function ViewBase({ children }: IViewBaseProps) {
+function ViewBase(props: any, { children }: IViewBaseProps) {
     const classes = useStyles();
 
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -56,12 +55,7 @@ function ViewBase({ children }: IViewBaseProps) {
             <Messages />
             <Header drawe={!isSmallerScreen} handleDrawerToggle={handleDrawerToggle} />
             <div className={classes.drawer}>
-                <Hidden mdUp>
-                    <MobileDrawer />
-                </Hidden>
-                <Hidden smDown>
-                    <Drawer />
-                </Hidden>
+                <Drawer socialIsOpen={props.socialIsOpen} />
             </div>
             <div className={`${classes.content} ${isSmallerScreen && classes.contentShift}`}>{children}</div>
         </div>

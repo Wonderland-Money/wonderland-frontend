@@ -1,0 +1,20 @@
+@use "src/theme.scss";
+
+#initialize-button {
+    height: 32px;
+    width: 140px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    background-color: theme.$saffron;
+    border: 1px solid theme.$dark-gray;
+    color: #000;
+    border-radius:4px;
+    z-index: 7;
+    transition: all 150ms;
+    font-weight: bold;
+    @include theme.medium-shadow();
+    &:hover {
+        background-color: lighten(theme.$saffron, 15%);
+    }
+}

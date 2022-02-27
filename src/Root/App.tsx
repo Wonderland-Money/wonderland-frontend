@@ -9,7 +9,7 @@ import { IReduxState } from "../store/slices/state.interface";
 import Loading from "../components/Loader";
 import useBonds from "../hooks/bonds";
 import ViewBase from "../components/ViewBase";
-import { Stake, ChooseBond, Bond, Dashboard, NotFound } from "../views";
+import { Stake, ChooseBond, Bond, Dashboard, NotFound, PhaserGame } from "../views";
 import "./style.scss";
 import Landing from "src/views/Landing";
 import classNames from "classnames"
@@ -22,9 +22,11 @@ function App() {
 
     const [walletChecked, setWalletChecked] = useState(false);
 
-    const [dashboardActive, setDashboardActive] = useState(false)
-    const [stakingActive, setStakingActive] = useState(false)
-    const [bondingActive, setBondingActive] = useState(false)
+    const [dashboardActive, setDashboardActive] = useState(false) // Closed by default, opened ingame as needed.
+    const [stakingActive, setStakingActive] = useState(false) // Closed by default, opened ingame as needed.
+    const [bondingActive, setBondingActive] = useState(false) // Closed by default, opened ingame as needed.
+    const [socialActive, setSocialActive] = useState(true) // Social open by default, open during menu. Closed during games.
+    const [connectButtonActive, setConnectButtonActive] = useState(true) // Connect button open by default, open during menu. Closed during games.
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const isAppLoaded = useSelector<IReduxState, boolean>(state => !Boolean(state.app.marketPrice));
@@ -69,6 +71,54 @@ function App() {
         [connected],
     );
 
+    /**
+     * @TODO Fix URL for prod.
+     * 
+     * phaserMessageHandler interprets input from the Phaser game canvas to control the UI.
+     **/
+    const phaserMessageHandler = (e: any) => {
+        if (e.origin.startsWith('http://app.trident.localhost:3000')) {
+            let msg = e.data.toString()
+            if(msg.startsWith('closeDashboard')) {
+                setDashboardActive(false)
+            } else if (msg.startsWith('closeStaking')) {
+                setStakingActive(false)
+            } else if (msg.startsWith('closeBonding')) {
+                setBondingActive(false)
+            } else if (msg.startsWith('closeSocial')) {
+                setSocialActive(false)
+            } else if (msg.startsWith('closeConnectButton')) {
+                setConnectButtonActive(false)  
+            } else if(msg.startsWith('openDashboard')) {
+                setDashboardActive(true)
+            } else if (msg.startsWith('openStaking')) {
+                setStakingActive(true)
+            } else if (msg.startsWith('openBonding')) {
+                setBondingActive(true)
+            } else if (msg.startsWith('openSocial')) {
+                setSocialActive(true)
+            } else if (msg.startsWith('openConnectButton')) {
+                setConnectButtonActive(true) 
+            } else if (msg.startsWith('gameActive')) {
+                gameActive(true)
+            }
+        } else {
+            return;
+        }
+    }
+
+    const gameActive = (bool: boolean) => {
+        setDashboardActive(!bool)
+        setStakingActive(!bool)
+        setBondingActive(!bool)
+        setSocialActive(!bool)
+        setConnectButtonActive(bool)
+    }
+
+    useEffect(() => {
+        window.addEventListener("message", phaserMessageHandler, false)
+      }, [])
+
     useEffect(() => {
         if (hasCachedProvider()) {
             connect().then(() => {
@@ -98,52 +148,32 @@ function App() {
     if (isAppLoading) return <Loading />;
 
     return (
-        <ViewBase>
-                <div className={classNames("psi-interface", "psi-dashboard", {"disabled": !dashboardActive})}>
-                    <Dashboard />
-                </div>
-                <div className={classNames("psi-interface", "psi-staking", {"disabled": !stakingActive})}>
-                    <Stake />
-                </div>
-                <Switch>
-                <div className={classNames("psi-interface", "psi-bonding", {"disabled": !bondingActive})}>
-                    {bonds.map(bond => {
-                        return (
-                            <Route exact key={bond.name} path={`/mints/${bond.name}`}>
-                                <Bond bond={bond} />
-                            </Route>
-                        );
-                    })}
-                    <ChooseBond />
-                </div>
-                </Switch>
-        </ViewBase>
+        <>
+            <ViewBase socialIsOpen={socialActive} connectButtonIsOpen={connectButtonActive}>
+                    <div className={classNames("psi-interface", "psi-dashboard", {"disabled": !dashboardActive})}>
+                        <Dashboard />
+                    </div>
+                    <div className={classNames("psi-interface", "psi-staking", {"disabled": !stakingActive})}>
+                        <Stake />
+                    </div>
+                    <Switch>
+                    <div className={classNames("psi-interface", "psi-bonding", {"disabled": !bondingActive})}>
+                        {bonds.map(bond => {
+                            return (
+                                <Route exact key={bond.name} path={`/mints/${bond.name}`}>
+                                    <Bond bond={bond} />
+                                </Route>
+                            );
+                        })}
+                        <ChooseBond />
+                    </div>
+                    </Switch>
+            </ViewBase>
+            <div id="phaser-wrapper">
+                <PhaserGame />
+            </div>
+        </>
     );
 }
-
-/*<ViewBase>
-            <Switch>
-                <Route exact path="/dashboard">
-                    <Dashboard />
-                </Route>
-
-                <Route path="/stake">
-                    <Stake />
-                </Route>
-
-                <Route path="/mints">
-                    {bonds.map(bond => {
-                        return (
-                            <Route exact key={bond.name} path={`/mints/${bond.name}`}>
-                                <Bond bond={bond} />
-                            </Route>
-                        );
-                    })}
-                    <ChooseBond />
-                </Route>
-
-                <Route component={NotFound} />
-            </Switch>
-        </ViewBase>*/
 
 export default App;

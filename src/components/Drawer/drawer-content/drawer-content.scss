@@ -109,12 +109,28 @@
         svg > path {
             fill: theme.$inactive-nav-text;
         }
+
+        .social-row {
+            display: flex;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;
+            background-color: theme.$dark-gray;
+            border-top: 1px solid theme.$dark-gray-2;
+            a {
+                &:hover {
+                    transform: scale(1.1);
+                }
+                margin: 8px;
+                width:32px;
+                height:32px;
+            }
+        }
+
         a {
             display: flex;
-            width: 100%;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
 
             p {
                 font-weight: 600;
@@ -122,22 +138,6 @@
                 color: theme.$inactive-nav-text;
                 font-family: 'Cormorant Garamond', serif;
                 margin-left: 0.5rem;
-            }
-        }
-    }
-
-    .social-row {
-        display: flex;
-        flex-flow: row;
-        justify-content: space-evenly;
-        padding: 1.3rem;
-        a {
-            &:hover {
-                transform: scale(1.1);
-            }
-            img {
-                height: 20px;
-                width: 20px;
             }
         }
     }
@@ -158,7 +158,7 @@
 
 .MuiDrawer-root {
     .MuiPaper-root {
-        z-index: 3;
+        z-index: 5;
 
         @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
             background-color: rgba(0,0,0,0);

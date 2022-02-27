@@ -1,0 +1,121 @@
+* {
+  font-family: 'Cormorant Garamond', serif;
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color:#202027;
+  color: #fff;
+}
+
+h2 {
+  margin:0;
+  color:#FFe987;
+}
+
+.label {
+  color:#fefefe;
+  width:50%;
+  font-weight: medium;
+  display: inline-block;
+  padding-bottom: 4px;
+  border-bottom: 1px dashed #333;
+  margin-bottom:6px;
+}
+
+.data {
+  font-family: 'Syne Mono', monospaced;
+}
+
+.container {
+  display:flex;
+  justify-content:center;
+  align-content:center;
+  width:100%;
+  height:100%;
+}
+
+.box {
+  background-color:#000;
+  border-radius:8px;
+  padding:40px;
+  width:680px;
+  
+}
+
+.columns {
+  width:100%;
+  display:flex;
+  flex-direction:row;
+  flex-wrap:no-wrap;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  padding:12px;
+  background-color:#111;
+  border: 1px solid #222;
+  border-radius:2px;
+  text-align:center;
+}
+
+.select {
+  display: flex;
+  justify-content:center;
+}
+
+.select a {
+  display: inline-block;
+  margin: 0 6px;
+  color: #aaa;
+  text-decoration:none;
+  font-size: 22px;
+}
+
+a.selected {
+  color: #fff;
+  border-bottom: 2px solid #eee;
+}
+
+.input-container {
+  width: 100%;
+  display:flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+input {
+  height:30px;
+  border-radius:2px;
+  border: 1px solid #333;
+  background-color: #222;
+  width: 85%;
+}
+
+button {
+  height:30px;
+  border-radius:2px;
+  border: 1px solid #333;
+  background-color: #222;
+  margin:0;
+  color: #fff;
+  transition: all 150ms;
+  font-family: 'Syne Mono', monospaced;
+  width:13%;
+}
+
+.note {
+  color: #aaa;
+}
+
+button:hover {
+  border-color: #444;
+  background-color:#333;
+}

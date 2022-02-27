@@ -1,0 +1,33 @@
+import Phaser from 'phaser'
+import Button from '../components/Button'
+
+class PlayerWinScene extends Phaser.Scene {
+    constructor() {
+        super({ key: "PlayerWinScene" })
+    }
+
+    preload() {
+        this.load.audio('holy', 'assets/audio/holy.mp3')
+    }
+
+    create(data) {
+
+        this.cameras.main.fadeIn(5000, 255, 255, 255)
+
+        this.input.mouse.disableContextMenu();
+        let { width, height } = this.sys.game.canvas
+
+        this.time.delayedCall(5000, () => {
+            this.cameras.main.fadeOut(2000)
+        })
+        this.time.delayedCall(7000, () => {
+            this.scene.start('PlayerWinMenu')
+        })
+    }
+
+    update(time, delta) {
+
+    }
+}
+
+export default PlayerWinScene

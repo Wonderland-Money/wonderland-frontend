@@ -144,16 +144,18 @@
             transition: all 0.4s ease;
 
             p {
-                font-family: 'Syne Mono', monospace;
+                font-family: 'Cormorant Garamond', serif;
                 font-style: normal;
                 font-weight: 600;
-                font-size: 18px;
+                font-size: 22px;
                 color: rgba(255, 255, 255, 0.6);
+                padding: 4px 0;
+                border-bottom: 2px solid rgba(0,0,0,0);
             }
         }
 
         .bond-one-table-btn.active {
-            border-bottom: 1px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
 
             p {
                 color: #ffffff;
