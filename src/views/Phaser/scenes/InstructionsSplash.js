@@ -1,5 +1,8 @@
 import Phaser from 'phaser'
 
+import baseSceneMixin from './mixins/baseSceneMixin'
+import frontendControlsMixin from './mixins/frontendControlsMixin'
+
 class InstructionsSplash extends Phaser.Scene {
     constructor() {
         super({ key: "InstructionsSplash" })
@@ -175,5 +178,8 @@ class InstructionsSplash extends Phaser.Scene {
 
     }
 }
+
+Object.assign(InstructionsSplash.prototype, baseSceneMixin)
+Object.assign(InstructionsSplash.prototype, frontendControlsMixin)
 
 export default InstructionsSplash

@@ -1,0 +1,17 @@
+@use "src/theme.scss";
+
+.chart-view {
+    width: 89%;
+    margin: auto;
+    height: 89%;
+
+    .chart-card {
+        position: relative;
+        z-index: 2;
+        height: 100%;
+
+        @include theme.card();
+
+        width: 100%;
+    }
+}

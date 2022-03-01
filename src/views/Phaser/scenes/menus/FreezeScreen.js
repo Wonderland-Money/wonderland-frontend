@@ -1,5 +1,8 @@
 import Phaser from 'phaser'
-import Button from '../../components/Button'
+import variables from '../../managers/Variables'
+
+import baseSceneMixin from '../mixins/baseSceneMixin'
+import frontendControlsMixin from '../mixins/frontendControlsMixin'
 
 class FreezeScreen extends Phaser.Scene {
     constructor() {
@@ -8,23 +11,28 @@ class FreezeScreen extends Phaser.Scene {
 
     preload() {
         window.addEventListener("message", this.handler, false)
-        // If I put this in preload does it only start once?
     }
 
     create(data) {
-        //window.addEventListener("message", this.handler, false)
-
         this.toScene = data
-        this.scene.pause(data)
+        this.time.delayedCall(1000, () => this.scene.pause(data))
         this.input.mouse.disableContextMenu();
         let { width, height } = this.sys.game.canvas
 
         let pauseBg = this.add.rectangle(0, 0, width, height, 0x203055, 0.5)
+        pauseBg.alpha = 0
         pauseBg.setOrigin(0,0)
+
+        this.tweens.add({
+            targets: pauseBg,
+            alpha: 1,
+            duration: 750,
+            ease: 'Power2'
+        })
     }
 
     handler = (e) => {
-        if (e.origin.startsWith('http://localhost:8080') && e.data.toString().startsWith('closeMenu')) {
+        if (e.origin.startsWith(variables.gameUrl) && e.data.toString().startsWith('closeMenu')) {
             this.unpauseGame()
         } else {
             return
@@ -53,5 +61,8 @@ class FreezeScreen extends Phaser.Scene {
     update(time, delta) {
     }
 }
+
+Object.assign(FreezeScreen.prototype, baseSceneMixin)
+Object.assign(FreezeScreen.prototype, frontendControlsMixin)
 
 export default FreezeScreen

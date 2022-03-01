@@ -4,6 +4,10 @@ $gull-gray: #92aeb3;
 
 $dark-gray: #111111;
 $dark-gray-2: #222222;
+
+$psi-primary: #FFe987;
+$psi-secondary: #2d8e7c;
+
 $outer-space: #2c3133;
 $akaroa: #dbcdac;
 $elephant: #081825;
@@ -19,7 +23,7 @@ $indigo-dye: #2a486e;
 
 // THEME
 $background-color: $smoky-black;
-$black: #232323;
+$black: #0e0e0e;
 $white: #fcfcfc;
 
 // COMPONENTS
@@ -56,6 +60,7 @@ a:hover {
 @mixin card {
     @include soft-shadow();
 
+    border: 1px solid $dark-gray;
     border-radius: 6px;
     padding: 2rem;
 

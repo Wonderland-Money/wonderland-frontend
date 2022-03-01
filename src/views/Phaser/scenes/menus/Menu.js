@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import Button from '../../components/Button'
-import Test from '../../components/Test.jsx'
+
+import frontendControlsMixin from '../mixins/frontendControlsMixin'
 
 class Menu extends Phaser.Scene {
     constructor(config) {
@@ -41,6 +42,8 @@ class Menu extends Phaser.Scene {
     }
 
     create(data) {
+        window.parent.postMessage('gameActive', 'http://app.trident.localhost:3000')
+
         this.input.setDefaultCursor('url(assets/catfish-cursor.png), pointer')
         let { width, height } = this.sys.game.canvas
 
@@ -99,5 +102,7 @@ class Menu extends Phaser.Scene {
 
     }
 }
+
+Object.assign(Menu.prototype, frontendControlsMixin)
 
 export default Menu

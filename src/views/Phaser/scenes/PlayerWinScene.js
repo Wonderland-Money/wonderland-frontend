@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
 import Button from '../components/Button'
 
+import frontendControlsMixin from './mixins/frontendControlsMixin'
+
 class PlayerWinScene extends Phaser.Scene {
     constructor() {
         super({ key: "PlayerWinScene" })
@@ -29,5 +31,7 @@ class PlayerWinScene extends Phaser.Scene {
 
     }
 }
+
+Object.assign(PlayerWinScene.prototype, frontendControlsMixin)
 
 export default PlayerWinScene

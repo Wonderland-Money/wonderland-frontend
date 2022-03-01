@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import variables from '../../managers/Variables'
 import { sharedInstance as events } from '../../managers/EventCenter'
 
-let baseSceneMixin = {
+const baseSceneMixin = {
   toggleMusic() {
     if (variables.musicEnabled) {
       this.backgroundmusic.stop()

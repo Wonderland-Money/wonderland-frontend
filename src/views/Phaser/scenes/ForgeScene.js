@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import Hero from '../entities/Hero'
 
 import baseSceneMixin from './mixins/baseSceneMixin'
+import frontendControlsMixin from './mixins/frontendControlsMixin'
 import { sharedInstance as events } from '../managers/EventCenter'
 
 class ForgeScene extends Phaser.Scene 
@@ -523,5 +524,6 @@ class ForgeScene extends Phaser.Scene
 }
 
 Object.assign(ForgeScene.prototype, baseSceneMixin)
+Object.assign(ForgeScene.prototype, frontendControlsMixin)
 
 export default ForgeScene

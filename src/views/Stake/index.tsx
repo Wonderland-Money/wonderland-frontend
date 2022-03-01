@@ -10,10 +10,10 @@ import { IPendingTxn, isPendingTxn, txnButtonText } from "../../store/slices/pen
 import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
 import { messages } from "../../constants/messages";
-import classnames from "classnames";
+import classNames from "classnames";
 import { warning } from "../../store/slices/messages-slice";
 
-function Stake() {
+function Stake(props: any) {
     const dispatch = useDispatch();
     const { provider, address, connect, chainID, checkWrongNetwork } = useWeb3Context();
 
@@ -97,7 +97,7 @@ function Stake() {
     const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedMemoBalance), 6);
 
     return (
-        <div className="stake-view">
+        <div className={classNames("stake-view", {"disabled": !props.active})}>
             <Zoom in={true}>
                 <div className="stake-card">
                     <Grid className="stake-card-grid" container direction="column" spacing={2}>
@@ -161,10 +161,10 @@ function Stake() {
                                 <div>
                                     <div className="stake-card-action-area">
                                         <div className="stake-card-action-stage-btns-wrap">
-                                            <div onClick={changeView(0)} className={classnames("stake-card-action-stage-btn", { active: !view })}>
+                                            <div onClick={changeView(0)} className={classNames("stake-card-action-stage-btn", { active: !view })}>
                                                 <p>Stake</p>
                                             </div>
-                                            <div onClick={changeView(1)} className={classnames("stake-card-action-stage-btn", { active: view })}>
+                                            <div onClick={changeView(1)} className={classNames("stake-card-action-stage-btn", { active: view })}>
                                                 <p>Unstake</p>
                                             </div>
                                         </div>

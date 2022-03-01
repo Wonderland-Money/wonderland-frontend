@@ -21,14 +21,10 @@ body {
 }
 
 .psi-interface {
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
+    position: absolute;
     display:flex;
-    justify-content:center;
-    align-content:center;
+    justify-content: center;
+    align-content: center;
     z-index: 7;
 }
 
@@ -38,9 +34,11 @@ body {
     left:0;
     right:0;
     bottom:0;
+    height: 100vh;
     display:flex;
     justify-content: left;
-    align-content: center;
+    align-items: center;
+    padding-left: 30px;
     z-index: 5;
 }
 

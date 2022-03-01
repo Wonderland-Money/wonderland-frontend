@@ -1,0 +1,68 @@
+@use "src/theme.scss";
+
+.dapp-sidebar {
+    height: 0vh;
+    width:100vw;
+    display: flex;
+    flex-direction: column;
+    z-index: 7;
+}
+
+.social-row {
+    position: absolute;
+    bottom: 0;
+    left:0; 
+    right:0;
+
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    background-color: theme.$dark-gray;
+    border-top: 1px solid theme.$dark-gray-2;
+
+    svg > path {
+        fill: theme.$inactive-nav-text;
+        &:hover {
+            fill: theme.$psi-primary;
+        }
+    }
+
+    a {
+        &:hover {
+            transform: scale(1.1);
+        }
+        margin: 8px;
+        width:32px;
+        height:32px;
+    }
+}
+
+a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        font-weight: 600;
+        font-size: 1rem;
+        color: theme.$inactive-nav-text;
+        font-family: 'Cormorant Garamond', serif;
+        margin-left: 0.5rem;
+    }
+}
+
+.MuiDrawer-root {
+    .MuiPaper-root {
+        z-index: 7;
+
+        @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+            background-color: rgba(0,0,0,0);
+        }
+
+        /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+        @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+            background-color: rgba(0,0,0,0);
+        }
+    }
+}

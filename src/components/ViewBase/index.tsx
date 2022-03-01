@@ -3,11 +3,12 @@ import "./view-base.scss";
 import Header from "../Header";
 import { Hidden, makeStyles, useMediaQuery } from "@material-ui/core";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
-import MobileDrawer from "../Drawer/mobile-drawer";
-import Drawer from "../Drawer";
+import Social from "../Social";
 import Messages from "../Messages";
 
 interface IViewBaseProps {
+    socialIsOpen: boolean;
+    connectButtonIsOpen: boolean;
     children: React.ReactNode;
 }
 
@@ -27,6 +28,11 @@ const useStyles = makeStyles(theme => ({
         height: "100%",
         overflow: "auto",
         marginLeft: 0,
+        display: "flex",
+        flexWrap: "nowrap",
+        justifyContent: "center",
+        alignContent: "center",
+        alignItems: "center"
     },
     contentShift: {
         transition: theme.transitions.create("margin", {
@@ -37,25 +43,19 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function ViewBase(props: any, { children }: IViewBaseProps) {
+function ViewBase({ socialIsOpen, connectButtonIsOpen, children }: IViewBaseProps) {
     const classes = useStyles();
-
-    const [mobileOpen, setMobileOpen] = useState(false);
 
     const isSmallerScreen = useMediaQuery("(max-width: 960px)");
     const isSmallScreen = useMediaQuery("(max-width: 600px)");
-
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
 
     return (
         <div className="view-base-root">
             <div className="bg-mascot" />
             <Messages />
-            <Header drawe={!isSmallerScreen} handleDrawerToggle={handleDrawerToggle} />
+            {(connectButtonIsOpen && <Header />)}
             <div className={classes.drawer}>
-                <Drawer socialIsOpen={props.socialIsOpen} />
+                <Social socialIsOpen={socialIsOpen} />
             </div>
             <div className={`${classes.content} ${isSmallerScreen && classes.contentShift}`}>{children}</div>
         </div>

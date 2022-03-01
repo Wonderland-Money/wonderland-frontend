@@ -6,14 +6,16 @@ import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
 import { IAppSlice } from "../../store/slices/app-slice";
 
-function Dashboard() {
+import classNames from 'classnames'
+
+function Dashboard(props: any) {
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const app = useSelector<IReduxState, IAppSlice>(state => state.app);
 
     const trimmedStakingAPY = trim(app.stakingAPY * 100, 1);
 
     return (
-        <div className="dashboard-view">
+        <div className={classNames("dashboard-view", {"disabled": !props.active})}>
             <div className="dashboard-infos-wrap">
                 <Zoom in={true}>
                     <Grid container spacing={4}>

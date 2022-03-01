@@ -22,37 +22,30 @@ import PlayerWinMenu from './scenes/menus/PlayerWinMenu'
 import DeathScreen from './scenes/menus/DeathScreen'
 
 import classNames from "classnames"
-
+import { useWeb3Context } from '../../hooks'
+import variables from './managers/Variables'
 
 export default function App (props) {
-  // const testRef = useRef(null)
-  const [active, setActive] = useState(false)
-
-  const test = () => {
-    setActive(true)
-  }
-
-  // Add event listener
-  const handler = (e) => {
-    if (e.origin.startsWith('http://app.trident.localhost:3000') && e.data.toString().startsWith('message')) {
-      test()
-    } else {
-        return;
-    }
-  }
-
-  useEffect(() => {
-    window.addEventListener("message", handler, false)
-  }, [])
+  const { connect } = useWeb3Context();
 
   const gameRef = useRef(null)
   // Call `setInitialize` when you want to initialize your game! :)
   const [initialize, setInitialize] = useState(false)
+
+  const startGame = () => {
+    window.parent.postMessage('gameActive', variables.gameUrl)
+    setInitialize(true)
+  }
+
+  const handleClick = () => { 
+    window.parent.postMessage('openBonding', variables.gameUrl)
+  }
   
   const destroy = () => {
     if (gameRef.current) {
       gameRef.current.destroy()
     }
+    window.parent.postMessage('showUI', variables.gameUrl)
     setInitialize(false)
   }
 
@@ -62,21 +55,19 @@ export default function App (props) {
           scene: [MainMenu, InstructionsSplash, GameScene, HarborScene, ForgeScene, PauseMenu, FreezeScreen, GameUI, DeathScreen, PlayerWinMenu, PlayerWinScene],
         })} initialize={initialize} />
       <a id="initialize-button" 
-        className={classNames({"disabled": initialize})} 
+        className={classNames("button", {"disabled": initialize})} 
         onClick={
           () => {
-            if(!initialize)
-              setInitialize(true)
+            if(!props.connected) {
+              connect()
             }
-        }>Initialize</a>
-      {/*<button onClick={destroy}>Destroy</button>()*/}
-      <div style={active ? {"display": "block", "zIndex": "100", "position": "absolute", "left": "40%", "top": "50%"} : {"display": "none"}}>
-        <h1>I've triggered a state change from within Phaser</h1>
-        <a onClick={() => {
-          setActive(false)
-          window.parent.postMessage('closeMenu', 'http://app.trident.localhost:3000')
-        }}>EXIT</a>
-      </div>
+            if(!initialize && props.connected) {
+              console.log("Trident 2D Starting up...")
+              startGame()
+            }
+          }
+        }>{props.connected ? "Enter Atlantis" : "Connect"}</a>
+      <a className={classNames("button", "exit-button", {"disabled": !initialize || !props.exitButtonOpen})} onClick={destroy}>Exit</a>
     </>
   )
 }

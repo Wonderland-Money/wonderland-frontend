@@ -1,11 +1,11 @@
 import { SvgIcon, Link } from "@material-ui/core";
-import { ReactComponent as GitHub } from "../../../assets/icons/github.svg";
-import { ReactComponent as Twitter } from "../../../assets/icons/twitter.svg";
-import { ReactComponent as Telegram } from "../../../assets/icons/telegram.svg";
-import { ReactComponent as Discord } from "../../../assets/icons/discord.svg";
-import { ReactComponent as DocsIcon } from "../../../assets/icons/docs.svg";
+import { ReactComponent as GitHub } from "../../assets/icons/github.svg";
+import { ReactComponent as Twitter } from "../../assets/icons/twitter.svg";
+import { ReactComponent as Telegram } from "../../assets/icons/telegram.svg";
+import { ReactComponent as Discord } from "../../assets/icons/discord.svg";
+import { ReactComponent as DocsIcon } from "../../assets/icons/docs.svg";
 
-export default function Social() {
+export default function SocialBar() {
     return (
         <div className="social-row">
             <Link href="https://github.com/0xMaaz/trident-frontend" target="_blank">

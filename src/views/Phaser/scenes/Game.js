@@ -9,8 +9,10 @@ import TentacleGroup from '../entities/TentacleGroup'
 import EnergySphereGroup from '../entities/EnergySphereGroup'
 
 import baseSceneMixin from './mixins/baseSceneMixin'
+import frontendControlsMixin from './mixins/frontendControlsMixin'
 
 import { sharedInstance as events } from '../managers/EventCenter'
+import variables from '../managers/Variables'
 
 class Game extends Phaser.Scene {
   constructor() {
@@ -343,6 +345,8 @@ class Game extends Phaser.Scene {
   }
 
   create(data) {
+    this.hideUI()
+
     this.cursorKeys = this.input.keyboard.createCursorKeys();
     this.input.mouse.disableContextMenu();
     if(!this.scene.isActive('DeathScreen'))
@@ -394,8 +398,7 @@ class Game extends Phaser.Scene {
      * @TODO Remove after finished
      */
     this.input.keyboard.on('keydown-Q', () => {
-        console.log('POSTED MESSAGE')
-        window.parent.postMessage('message', 'http://app.trident.localhost:3000')
+        window.parent.postMessage('openBonding', variables.gameUrl)
         this.scene.launch('FreezeScreen', 'GameScene')
         //this.boss.kill()
         //events.emit('player-attack', this.hero.currentAttackSelection)
@@ -1240,5 +1243,6 @@ class Game extends Phaser.Scene {
 }
 
 Object.assign(Game.prototype, baseSceneMixin)
+Object.assign(Game.prototype, frontendControlsMixin)
 
 export default Game;

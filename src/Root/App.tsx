@@ -24,9 +24,11 @@ function App() {
 
     const [dashboardActive, setDashboardActive] = useState(false) // Closed by default, opened ingame as needed.
     const [stakingActive, setStakingActive] = useState(false) // Closed by default, opened ingame as needed.
-    const [bondingActive, setBondingActive] = useState(false) // Closed by default, opened ingame as needed.
+    const [bondingActive, setBondingActive] = useState(true) // Closed by default, opened ingame as needed.
     const [socialActive, setSocialActive] = useState(true) // Social open by default, open during menu. Closed during games.
     const [connectButtonActive, setConnectButtonActive] = useState(true) // Connect button open by default, open during menu. Closed during games.
+
+    const [exitButtonOpen, setExitButtonOpen] = useState(true)
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const isAppLoaded = useSelector<IReduxState, boolean>(state => !Boolean(state.app.marketPrice));
@@ -101,6 +103,16 @@ function App() {
                 setConnectButtonActive(true) 
             } else if (msg.startsWith('gameActive')) {
                 gameActive(true)
+            } else if (msg.startsWith('closeExitButton')) {
+                setExitButtonOpen(false)
+            } else if (msg.startsWith('openExitButton')) {
+                setExitButtonOpen(true)
+            } else if (msg.startsWith('hideUI')) {
+                gameActive(true)
+                setExitButtonOpen(false)
+            } else if (msg.startsWith('showUI')) {
+                gameActive(false)
+                setExitButtonOpen(true)
             }
         } else {
             return;
@@ -112,12 +124,12 @@ function App() {
         setStakingActive(!bool)
         setBondingActive(!bool)
         setSocialActive(!bool)
-        setConnectButtonActive(bool)
+        setConnectButtonActive(!bool)
     }
 
     useEffect(() => {
         window.addEventListener("message", phaserMessageHandler, false)
-      }, [])
+    }, [])
 
     useEffect(() => {
         if (hasCachedProvider()) {
@@ -145,19 +157,21 @@ function App() {
         }
     }, [connected]);
 
-    if (isAppLoading) return <Loading />;
-
     return (
         <>
+            {isAppLoading && <Loading />}
+            <div id="phaser-wrapper">
+                <PhaserGame connected={connected || false} exitButtonOpen={exitButtonOpen} />
+            </div>
             <ViewBase socialIsOpen={socialActive} connectButtonIsOpen={connectButtonActive}>
-                    <div className={classNames("psi-interface", "psi-dashboard", {"disabled": !dashboardActive})}>
-                        <Dashboard />
+                    <div className={classNames("psi-interface", "psi-dashboard")}>
+                        <Dashboard active={dashboardActive} />
                     </div>
-                    <div className={classNames("psi-interface", "psi-staking", {"disabled": !stakingActive})}>
-                        <Stake />
+                    <div className={classNames("psi-interface", "psi-staking")}>
+                        <Stake active={stakingActive} />
                     </div>
                     <Switch>
-                    <div className={classNames("psi-interface", "psi-bonding", {"disabled": !bondingActive})}>
+                    <div className={classNames("psi-interface", "psi-bonding")}>
                         {bonds.map(bond => {
                             return (
                                 <Route exact key={bond.name} path={`/mints/${bond.name}`}>
@@ -165,13 +179,10 @@ function App() {
                                 </Route>
                             );
                         })}
-                        <ChooseBond />
+                        <ChooseBond active={bondingActive} />
                     </div>
                     </Switch>
             </ViewBase>
-            <div id="phaser-wrapper">
-                <PhaserGame />
-            </div>
         </>
     );
 }

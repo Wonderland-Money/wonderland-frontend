@@ -1,20 +1,45 @@
 @use "src/theme.scss";
 
-#initialize-button {
-    height: 32px;
-    width: 140px;
+.button {
+    height: 46px;
     display: flex;
     justify-content: center;
     align-content: center;
-    background-color: theme.$saffron;
-    border: 1px solid theme.$dark-gray;
-    color: #000;
-    border-radius:4px;
+    color: #fff;
+    font-size: 22px;
     z-index: 7;
     transition: all 150ms;
-    font-weight: bold;
+    border-radius:4px;
+    padding: 9px 20px;
+    background-color: theme.$dark-gray;
+    border: 1px solid theme.$dark-gray-2;
     @include theme.medium-shadow();
+}
+
+#initialize-button {
+    background-color: transparentize(theme.$saffron, .5);
+    border: 1px solid lighten(theme.$saffron, 25%);
+    
     &:hover {
-        background-color: lighten(theme.$saffron, 15%);
+        background-color: transparentize(theme.$saffron, .25);
+        border-color: theme.$saffron;
+        color: theme.$saffron;
     }
+}
+
+.exit-button {
+    background-color: theme.$black;
+    border-color: theme.$dark-gray;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 8;
+
+    &:hover {
+        background-color: lighten(theme.$elephant, 10%);
+    }
+}
+
+.disabled {
+    display: none !important;
 }

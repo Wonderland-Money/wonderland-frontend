@@ -7,7 +7,7 @@
     flex-direction: column;
     overflow: hidden;
 
-    width: 89%;
+    width: 100%;
     max-width: 833px;
     margin: auto;
 
@@ -72,8 +72,9 @@
         margin-top: 16px;
 
         .bond-data-card {
+            background-color: theme.$black; 
             margin: auto !important;
-            border-radius: 10px;
+            border-radius: 4px;
             padding: 20px;
             width: 100%;
 
@@ -162,6 +163,11 @@
         }
 
         border-bottom: none;
+    }
+
+    .MuiTableRow-root {
+        background-color: theme.$dark-gray;
+        border-radius: 4px;
     }
 
     .MuiTableBody-root .MuiTableRow-root .MuiTableCell-alignLeft {
