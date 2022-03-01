@@ -517,6 +517,13 @@ class ForgeScene extends Phaser.Scene {
         });
     }
 
+    openStakingMenu() {
+        if(!this.scene.isActive("FreezeScreen")) {
+            this.showStaking()
+            this.scene.launch("FreezeScreen", "ForgeScene");
+        } else return
+    }
+
     update(t, d) {
         super.update(t, d);
     }
