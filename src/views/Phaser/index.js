@@ -34,6 +34,9 @@ export default function App(props) {
 
     const startGame = () => {
         window.parent.postMessage("gameActive", variables.gameUrl);
+        console.log("Var: " + variables.gameUrl)
+        console.log("Win.Href: " + window.location.href)
+        console.log("Win.Origin: " + window.location.origin)
         setInitialize(true);
     };
 
