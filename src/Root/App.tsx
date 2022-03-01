@@ -80,7 +80,7 @@ function App() {
      **/
     const phaserMessageHandler = (e: any) => {
         // if (e.origin.startsWith("http://app.trident.localhost:3000")) {
-        if (e.origin.startsWith(window.location.href)) {
+        if (e.origin.startsWith(window.location.origin)) {
             let msg = e.data.toString();
             if (msg.startsWith("closeDashboard")) {
                 setDashboardActive(false);

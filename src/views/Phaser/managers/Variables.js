@@ -13,6 +13,7 @@ export default {
         "keydown-UP": "keydown-UP",
         "keydown-DOWN": "keydown-DOWN",
     },
-    gameUrl: window.location.href
+    gameUrl: window.location.origin
     // gameUrl: "http://app.trident.localhost:3000",
 };
+

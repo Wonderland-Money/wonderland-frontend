@@ -1,10 +1,6 @@
 import React, { useRef, useState, useEffect, Component } from "react";
-import { ethers } from "ethers";
-import Web3Modal from "web3modal";
 
 import { IonPhaser } from "@ion-phaser/react";
-import ReactDOM from "react-dom";
-import Phaser from "phaser";
 import config from "./config";
 import "./style.scss";
 // Scenes
@@ -38,10 +34,6 @@ export default function App(props) {
         console.log("Win.Href: " + window.location.href)
         console.log("Win.Origin: " + window.location.origin)
         setInitialize(true);
-    };
-
-    const handleClick = () => {
-        window.parent.postMessage("openBonding", variables.gameUrl);
     };
 
     const destroy = () => {
