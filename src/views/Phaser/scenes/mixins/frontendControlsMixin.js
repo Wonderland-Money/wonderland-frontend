@@ -1,14 +1,14 @@
-import variables from '../../managers/Variables'
+import variables from "../../managers/Variables";
 
 const frontendControlsMixin = {
     /**
      * Hide or show all of the UI
      */
     hideUI() {
-        window.parent.postMessage('hideUI', variables.gameUrl)
+        window.parent.postMessage("hideUI", variables.gameUrl);
     },
     showUI() {
-        window.parent.postMessage('showUI', variables.gameUrl)
+        window.parent.postMessage("showUI", variables.gameUrl);
     },
 
     /**
@@ -16,51 +16,51 @@ const frontendControlsMixin = {
      */
     // Dashboard
     hideDashboard() {
-        window.parent.postMessage('closeDashboard', variables.gameUrl)
+        window.parent.postMessage("closeDashboard", variables.gameUrl);
     },
     showDashboard() {
-        window.parent.postMessage('openDashboard', variables.gameUrl)
+        window.parent.postMessage("openDashboard", variables.gameUrl);
     },
 
     // Staking
     hideStaking() {
-        window.parent.postMessage('closeStaking', variables.gameUrl)
+        window.parent.postMessage("closeStaking", variables.gameUrl);
     },
     showStaking() {
-        window.parent.postMessage('openStaking', variables.gameUrl)
+        window.parent.postMessage("openStaking", variables.gameUrl);
     },
 
     // Bonding
     hideBonding() {
-        window.parent.postMessage('closeBonding', variables.gameUrl)
+        window.parent.postMessage("closeBonding", variables.gameUrl);
     },
     showBonding() {
-        window.parent.postMessage('openBonding', variables.gameUrl)
+        window.parent.postMessage("openBonding", variables.gameUrl);
     },
 
     // Connect Button
     hideConnectButton() {
-        window.parent.postMessage('closeConnectButton', variables.gameUrl)
+        window.parent.postMessage("closeConnectButton", variables.gameUrl);
     },
     showConnectButton() {
-        window.parent.postMessage('openConnectButton', variables.gameUrl)
+        window.parent.postMessage("openConnectButton", variables.gameUrl);
     },
 
     // Social
     hideSocial() {
-        window.parent.postMessage('closeSocial', variables.gameUrl)
+        window.parent.postMessage("closeSocial", variables.gameUrl);
     },
     showSocial() {
-        window.parent.postMessage('openSocial', variables.gameUrl)
+        window.parent.postMessage("openSocial", variables.gameUrl);
     },
 
     // Exit Button
     hideExitButton() {
-        window.parent.postMessage('closeExitButton', variables.gameUrl)
+        window.parent.postMessage("closeExitButton", variables.gameUrl);
     },
     showExitButton() {
-        window.parent.postMessage('openExitButton', variables.gameUrl)
+        window.parent.postMessage("openExitButton", variables.gameUrl);
     },
-}
+};
 
-export default frontendControlsMixin
+export default frontendControlsMixin;

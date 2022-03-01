@@ -7,7 +7,6 @@ import ConnectButton from "./connect-button";
 import "./header.scss";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 
-
 const useStyles = makeStyles(theme => ({
     appBar: {
         [theme.breakpoints.up("sm")]: {

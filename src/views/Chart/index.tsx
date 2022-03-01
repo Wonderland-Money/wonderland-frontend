@@ -8,11 +8,7 @@ function Chart() {
         <div className="chart-view">
             <Zoom in={true}>
                 <div className="chart-card">
-                <iframe 
-                    src={src}
-                    height="100%"
-                    width="100%"
-                ></iframe>
+                    <iframe src={src} height="100%" width="100%"></iframe>
                 </div>
             </Zoom>
         </div>

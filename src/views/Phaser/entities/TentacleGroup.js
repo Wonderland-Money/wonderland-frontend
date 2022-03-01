@@ -1,15 +1,15 @@
-import Phaser from 'phaser'
-import Tentacle from './Tentacle'
+import Phaser from "phaser";
+import Tentacle from "./Tentacle";
 
 class TentacleGroup extends Phaser.Physics.Arcade.Group {
     constructor(scene) {
         super(scene.physics.world, scene, {
             allowGravity: false,
-            immovable: true
-        })
-    
+            immovable: true,
+        });
+
         this.createMultiple({
-            key: 'tentacle-earth',
+            key: "tentacle-earth",
             active: false,
             visible: false,
             classType: Tentacle,
@@ -18,12 +18,12 @@ class TentacleGroup extends Phaser.Physics.Arcade.Group {
     }
 
     placeTentacle(x, y, type) {
-        const tentacle = this.getFirstDead(false)
-        if(tentacle) {
-            tentacle.placeTentacle(x, y, type)
-            tentacle.attack()
+        const tentacle = this.getFirstDead(false);
+        if (tentacle) {
+            tentacle.placeTentacle(x, y, type);
+            tentacle.attack();
         }
     }
 }
 
-export default TentacleGroup
+export default TentacleGroup;
