@@ -468,11 +468,9 @@ class HarborScene extends Phaser.Scene {
             transitOut: 1,
         });
 
-        /**
-         * MAGIC BUTTON!
-         * @TODO Remove after finished
-         */
-        this.input.keyboard.on("keydown-Q", () => {});
+        this.input.keyboard.on("keydown-Q", () => {
+            this.openBondingMenu()
+        });
     }
 
     loadEventHandlers() {
@@ -537,6 +535,13 @@ class HarborScene extends Phaser.Scene {
                 this.harborKeeperSpawn = { x: object.x, y: object.y };
             }
         });
+    }
+
+    openBondingMenu() {
+        if(!this.scene.isActive("FreezeScreen")) {
+            this.showBonding()
+            this.scene.launch("FreezeScreen", "HarborScene");
+        } else return
     }
 
     update(t, d) {

@@ -392,18 +392,6 @@ class Game extends Phaser.Scene {
             //this.scene.pause()
             this.sound.pauseAll();
         });
-
-        /**
-         * MAGIC BUTTON!
-         * @TODO Remove after finished
-         */
-        this.input.keyboard.on("keydown-Q", () => {
-            window.parent.postMessage("openBonding", variables.gameUrl);
-            this.scene.launch("FreezeScreen", "GameScene");
-            //this.boss.kill()
-            //events.emit('player-attack', this.hero.currentAttackSelection)
-            //this.hero.attack()
-        });
     }
 
     loadAnims() {
