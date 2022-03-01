@@ -27,6 +27,7 @@
         "@types/react-dom": "^17.0.11",
         "@walletconnect/web3-provider": "^1.6.5",
         "axios": "^0.21.1",
+        "babel-loader": "8.1.0",
         "babel-preset-react": "^6.24.1",
         "classnames": "^2.3.1",
         "eslint-plugin-prettier": "^4.0.0",
