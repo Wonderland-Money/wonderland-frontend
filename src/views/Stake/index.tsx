@@ -97,7 +97,7 @@ function Stake(props: any) {
     const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedMemoBalance), 6);
 
     return (
-        <div className={classNames("stake-view", {"disabled": !props.active})}>
+        <div className={classNames("stake-view", { disabled: !props.active })}>
             <Zoom in={true}>
                 <div className="stake-card">
                     <Grid className="stake-card-grid" container direction="column" spacing={2}>

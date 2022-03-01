@@ -34,7 +34,7 @@ function Social(props: any) {
 
     return (
         <div className="dapp-sidebar">
-            <div className={classNames("dapp-menu-doc-link", {"disabled": !props.socialIsOpen})}>
+            <div className={classNames("dapp-menu-doc-link", { disabled: !props.socialIsOpen })}>
                 <SocialBar />
             </div>
         </div>

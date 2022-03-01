@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
         flexWrap: "nowrap",
         justifyContent: "center",
         alignContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     contentShift: {
         transition: theme.transitions.create("margin", {
@@ -53,7 +53,7 @@ function ViewBase({ socialIsOpen, connectButtonIsOpen, children }: IViewBaseProp
         <div className="view-base-root">
             <div className="bg-mascot" />
             <Messages />
-            {(connectButtonIsOpen && <Header />)}
+            {connectButtonIsOpen && <Header />}
             <div className={classes.drawer}>
                 <Social socialIsOpen={socialIsOpen} />
             </div>

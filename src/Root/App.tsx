@@ -12,8 +12,7 @@ import ViewBase from "../components/ViewBase";
 import { Stake, ChooseBond, Bond, Dashboard, NotFound, PhaserGame } from "../views";
 import "./style.scss";
 import Landing from "src/views/Landing";
-import classNames from "classnames"
-
+import classNames from "classnames";
 
 function App() {
     const dispatch = useDispatch();
@@ -23,13 +22,13 @@ function App() {
 
     const [walletChecked, setWalletChecked] = useState(false);
 
-    const [dashboardActive, setDashboardActive] = useState(false) // Closed by default, opened ingame as needed.
-    const [stakingActive, setStakingActive] = useState(false) // Closed by default, opened ingame as needed.
-    const [bondingActive, setBondingActive] = useState(true) // Closed by default, opened ingame as needed.
-    const [socialActive, setSocialActive] = useState(true) // Social open by default, open during menu. Closed during games.
-    const [connectButtonActive, setConnectButtonActive] = useState(true) // Connect button open by default, open during menu. Closed during games.
+    const [dashboardActive, setDashboardActive] = useState(false); // Closed by default, opened ingame as needed.
+    const [stakingActive, setStakingActive] = useState(false); // Closed by default, opened ingame as needed.
+    const [bondingActive, setBondingActive] = useState(true); // Closed by default, opened ingame as needed.
+    const [socialActive, setSocialActive] = useState(true); // Social open by default, open during menu. Closed during games.
+    const [connectButtonActive, setConnectButtonActive] = useState(true); // Connect button open by default, open during menu. Closed during games.
 
-    const [exitButtonOpen, setExitButtonOpen] = useState(true)
+    const [exitButtonOpen, setExitButtonOpen] = useState(true);
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const isAppLoaded = useSelector<IReduxState, boolean>(state => !Boolean(state.app.marketPrice));
@@ -76,61 +75,61 @@ function App() {
 
     /**
      * @TODO Fix URL for prod.
-     * 
+     *
      * phaserMessageHandler interprets input from the Phaser game canvas to control the UI.
      **/
     const phaserMessageHandler = (e: any) => {
-        if (e.origin.startsWith('http://app.trident.localhost:3000')) {
-            let msg = e.data.toString()
-            if(msg.startsWith('closeDashboard')) {
-                setDashboardActive(false)
-            } else if (msg.startsWith('closeStaking')) {
-                setStakingActive(false)
-            } else if (msg.startsWith('closeBonding')) {
-                setBondingActive(false)
-            } else if (msg.startsWith('closeSocial')) {
-                setSocialActive(false)
-            } else if (msg.startsWith('closeConnectButton')) {
-                setConnectButtonActive(false)  
-            } else if(msg.startsWith('openDashboard')) {
-                setDashboardActive(true)
-            } else if (msg.startsWith('openStaking')) {
-                setStakingActive(true)
-            } else if (msg.startsWith('openBonding')) {
-                setBondingActive(true)
-            } else if (msg.startsWith('openSocial')) {
-                setSocialActive(true)
-            } else if (msg.startsWith('openConnectButton')) {
-                setConnectButtonActive(true) 
-            } else if (msg.startsWith('gameActive')) {
-                gameActive(true)
-            } else if (msg.startsWith('closeExitButton')) {
-                setExitButtonOpen(false)
-            } else if (msg.startsWith('openExitButton')) {
-                setExitButtonOpen(true)
-            } else if (msg.startsWith('hideUI')) {
-                gameActive(true)
-                setExitButtonOpen(false)
-            } else if (msg.startsWith('showUI')) {
-                gameActive(false)
-                setExitButtonOpen(true)
+        if (e.origin.startsWith("http://app.trident.localhost:3000")) {
+            let msg = e.data.toString();
+            if (msg.startsWith("closeDashboard")) {
+                setDashboardActive(false);
+            } else if (msg.startsWith("closeStaking")) {
+                setStakingActive(false);
+            } else if (msg.startsWith("closeBonding")) {
+                setBondingActive(false);
+            } else if (msg.startsWith("closeSocial")) {
+                setSocialActive(false);
+            } else if (msg.startsWith("closeConnectButton")) {
+                setConnectButtonActive(false);
+            } else if (msg.startsWith("openDashboard")) {
+                setDashboardActive(true);
+            } else if (msg.startsWith("openStaking")) {
+                setStakingActive(true);
+            } else if (msg.startsWith("openBonding")) {
+                setBondingActive(true);
+            } else if (msg.startsWith("openSocial")) {
+                setSocialActive(true);
+            } else if (msg.startsWith("openConnectButton")) {
+                setConnectButtonActive(true);
+            } else if (msg.startsWith("gameActive")) {
+                gameActive(true);
+            } else if (msg.startsWith("closeExitButton")) {
+                setExitButtonOpen(false);
+            } else if (msg.startsWith("openExitButton")) {
+                setExitButtonOpen(true);
+            } else if (msg.startsWith("hideUI")) {
+                gameActive(true);
+                setExitButtonOpen(false);
+            } else if (msg.startsWith("showUI")) {
+                gameActive(false);
+                setExitButtonOpen(true);
             }
         } else {
             return;
         }
-    }
+    };
 
     const gameActive = (bool: boolean) => {
-        setDashboardActive(!bool)
-        setStakingActive(!bool)
-        setBondingActive(!bool)
-        setSocialActive(!bool)
-        setConnectButtonActive(!bool)
-    }
+        setDashboardActive(!bool);
+        setStakingActive(!bool);
+        setBondingActive(!bool);
+        setSocialActive(!bool);
+        setConnectButtonActive(!bool);
+    };
 
     useEffect(() => {
-        window.addEventListener("message", phaserMessageHandler, false)
-    }, [])
+        window.addEventListener("message", phaserMessageHandler, false);
+    }, []);
 
     useEffect(() => {
         if (hasCachedProvider()) {
@@ -165,13 +164,13 @@ function App() {
                 <PhaserGame connected={connected || false} exitButtonOpen={exitButtonOpen} />
             </div>
             <ViewBase socialIsOpen={socialActive} connectButtonIsOpen={connectButtonActive}>
-                    <div className={classNames("psi-interface", "psi-dashboard")}>
-                        <Dashboard active={dashboardActive} />
-                    </div>
-                    <div className={classNames("psi-interface", "psi-staking")}>
-                        <Stake active={stakingActive} />
-                    </div>
-                    <Switch>
+                <div className={classNames("psi-interface", "psi-dashboard")}>
+                    <Dashboard active={dashboardActive} />
+                </div>
+                <div className={classNames("psi-interface", "psi-staking")}>
+                    <Stake active={stakingActive} />
+                </div>
+                <Switch>
                     <div className={classNames("psi-interface", "psi-bonding")}>
                         {bonds.map(bond => {
                             return (
@@ -182,7 +181,7 @@ function App() {
                         })}
                         <ChooseBond active={bondingActive} />
                     </div>
-                    </Switch>
+                </Switch>
             </ViewBase>
         </>
     );

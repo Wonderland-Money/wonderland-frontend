@@ -14,7 +14,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 function ConnectMenu() {
     const { connect, disconnect, connected, web3, providerChainID, checkWrongNetwork } = useWeb3Context();
     const dispatch = useDispatch();
-    const address = useAddress()
+    const address = useAddress();
     const [isConnected, setConnected] = useState(connected);
 
     let pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
@@ -28,7 +28,7 @@ function ConnectMenu() {
     if (isConnected) {
         buttonText = "";
         clickFunc = disconnect;
-        buttonStyle = { borderRadiusTopLeft: 0, borderRadiusBottomLeft: 0 }
+        buttonStyle = { borderRadiusTopLeft: 0, borderRadiusBottomLeft: 0 };
     }
 
     if (pendingTransactions && pendingTransactions.length > 0) {
@@ -49,22 +49,23 @@ function ConnectMenu() {
     }, [web3, connected]);
 
     return (
-        <div className="connect-section">{address && (
-            <div className="wallet-link">
-                <Link href={`https://explorer.harmony.one/address/${address}`} target="_blank">
-                    <p>{shorten(address)}</p>
-                </Link>
-            </div>
-        )}
-        <div className="connect-button" style={buttonStyle} onClick={clickFunc}>
-            {isConnected && (<SvgIcon color="primary" component={XIcon} />)}
-            <p>{buttonText}</p>
-            {pendingTransactions.length > 0 && (
-                <div className="connect-button-progress">
-                    <CircularProgress size={15} color="inherit" />
+        <div className="connect-section">
+            {address && (
+                <div className="wallet-link">
+                    <Link href={`https://explorer.harmony.one/address/${address}`} target="_blank">
+                        <p>{shorten(address)}</p>
+                    </Link>
                 </div>
             )}
-        </div>
+            <div className="connect-button" style={buttonStyle} onClick={clickFunc}>
+                {isConnected && <SvgIcon color="primary" component={XIcon} />}
+                <p>{buttonText}</p>
+                {pendingTransactions.length > 0 && (
+                    <div className="connect-button-progress">
+                        <CircularProgress size={15} color="inherit" />
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
