@@ -24,7 +24,7 @@ function App() {
 
     const [dashboardActive, setDashboardActive] = useState(false); // Closed by default, opened ingame as needed.
     const [stakingActive, setStakingActive] = useState(false); // Closed by default, opened ingame as needed.
-    const [bondingActive, setBondingActive] = useState(true); // Closed by default, opened ingame as needed.
+    const [bondingActive, setBondingActive] = useState(false); // Closed by default, opened ingame as needed.
     const [socialActive, setSocialActive] = useState(true); // Social open by default, open during menu. Closed during games.
     const [connectButtonActive, setConnectButtonActive] = useState(true); // Connect button open by default, open during menu. Closed during games.
 
