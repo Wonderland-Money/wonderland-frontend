@@ -1,7 +1,8 @@
 @use "src/theme.scss";
 
 .stake-view {
-    width: 89%;
+    width: 100%;
+    min-width: 680px;
     max-width: 833px;
     margin: auto;
 
@@ -19,6 +20,14 @@
         }
 
         .stake-card-header {
+            display: flex;
+            flex-wrap: nowrap;
+            .staking-title {
+                display: block;
+            }
+            .close-app-btn {
+                margin-right: 20px;
+            }
             .stake-card-header-title {
                 font-family: 'Cormorant Garamond', serif;
                 font-weight: bold;

@@ -18,7 +18,7 @@ function Dashboard(props: any) {
         <div className={classNames("dashboard-view", { disabled: !props.active })}>
             <div className="dashboard-infos-wrap">
                 <Zoom in={true}>
-                    <Grid container spacing={4}>
+                    <Grid container spacing={2}>
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
                                 <p className="card-title">PSI Price</p>

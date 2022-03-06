@@ -3,6 +3,9 @@ import Hero from "../entities/Hero";
 import { sharedInstance as events } from "../managers/EventCenter";
 import baseSceneMixin from "./mixins/baseSceneMixin";
 import frontendControlsMixin from "./mixins/frontendControlsMixin";
+import dialogue from "./dialogue/Harbor.json";
+
+import variables from "../managers/Variables";
 
 class HarborScene extends Phaser.Scene {
     constructor() {
@@ -434,6 +437,12 @@ class HarborScene extends Phaser.Scene {
         this.addFire();
         this.addHero();
 
+        this.lights.enable();
+        this.lights.setAmbientColor(0x808080);
+
+        this.heroSpotlight = this.lights.addLight(this.hero.body.x, this.hero.body.y, 400, 0xffcf51).setIntensity(1);
+        this.fireLight = this.lights.addLight(this.fire.body.center.x, this.fire.body.center.y, 300, 0xffcf51, 2);
+
         this.backgroundmusic = this.sound.add("atlantis-song");
         this.playBackgroundMusic();
 
@@ -450,13 +459,15 @@ class HarborScene extends Phaser.Scene {
 
         this.hoverTimer = 0;
 
+        console.log(this.plugins.scenePlugins);
+
         this.toast = this.rexUI.add.toast({
             x: this.harborKeeperSpawn.x,
             y: this.harborKeeperSpawn.y - 80,
             background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 12, "#222222"),
             text: this.add.text(0, 0, "", {
                 fontSize: "16px",
-                fontFamily: "compass",
+                fontFamily: "Cormorant Garamond",
             }),
             space: {
                 left: 12,
@@ -469,7 +480,7 @@ class HarborScene extends Phaser.Scene {
         });
 
         this.input.keyboard.on("keydown-Q", () => {
-            this.openBondingMenu()
+            this.openBondingMenu();
         });
     }
 
@@ -485,14 +496,14 @@ class HarborScene extends Phaser.Scene {
 
         this.physics.add.overlap(this.hero, this.harborKeeper, () => {
             if (this.hoverTimer == 0) {
-                this.toast.showMessage("Press Q");
+                this.toast.showMessage("Press Q to access Bonding");
                 this.hoverTimer++;
             }
         });
     }
 
     addHarborKeeper() {
-        this.harborKeeper = this.physics.add.sprite(this.harborKeeperSpawn.x, this.harborKeeperSpawn.y, "harbor-keeper").setOrigin(0.5, 1);
+        this.harborKeeper = this.physics.add.sprite(this.harborKeeperSpawn.x, this.harborKeeperSpawn.y, "harbor-keeper").setOrigin(0.5, 1).setPipeline("Light2D");
         this.harborKeeper.body.setSize(40, 64);
         this.harborKeeper.body.setOffset(0, 0);
         this.harborKeeper.play("harbor-keeper-loop");
@@ -500,7 +511,10 @@ class HarborScene extends Phaser.Scene {
     }
 
     addFire() {
-        this.fire = this.physics.add.sprite(this.harborKeeperSpawn.x - 50, this.harborKeeperSpawn.y, "fire").setOrigin(0.5, 1);
+        this.fire = this.physics.add
+            .sprite(this.harborKeeperSpawn.x - 50, this.harborKeeperSpawn.y, "fire")
+            .setOrigin(0.5, 1)
+            .setPipeline("Light2D");
         this.fire.play("fire-loop");
         this.physics.add.collider(this.fire, this.map.getLayer("Collide").tilemapLayer);
     }
@@ -511,14 +525,15 @@ class HarborScene extends Phaser.Scene {
         const backgroundSprite = this.add
             .sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "harbor-bg-anim")
             .setOrigin(0.5, 0.5)
-            .setScrollFactor(0.9);
+            .setScrollFactor(0.9)
+            .setPipeline("Light2D");
         backgroundSprite.scale = 3.8;
         backgroundSprite.play("harbor-bg-anim");
         //backgroundSprite.setFrame(0)
 
         const groundTiles = this.map.addTilesetImage("castlestone", "tileset");
 
-        const collisionLayer = this.map.createLayer("Collide", groundTiles);
+        const collisionLayer = this.map.createLayer("Collide", groundTiles).setPipeline("Light2D");
         const backgroundLayer = this.map.createLayer("Background", groundTiles);
         //const decorationLayer = this.map.createStaticLayer('Decoration' , groundTiles)
 
@@ -538,10 +553,11 @@ class HarborScene extends Phaser.Scene {
     }
 
     openBondingMenu() {
-        if(!this.scene.isActive("FreezeScreen")) {
-            this.showBonding()
+        if (!this.scene.isActive("FreezeScreen")) {
+            this.showBonding();
+            this.hero.setPauseInput(true);
             this.scene.launch("FreezeScreen", "HarborScene");
-        } else return
+        } else return;
     }
 
     update(t, d) {
@@ -550,6 +566,8 @@ class HarborScene extends Phaser.Scene {
             this.hoverTimer += d;
             if (this.hoverTimer >= 3000) this.hoverTimer = 0;
         }
+
+        this.heroSpotlight.setPosition(this.hero.body.center.x, this.hero.body.center.y);
     }
 }
 

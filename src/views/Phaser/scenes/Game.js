@@ -339,7 +339,7 @@ class Game extends Phaser.Scene {
             frameHeight: 32,
         });
         // ------ Background ------
-        this.load.spritesheet("bg-sprite", "assets/krakenstagesmall.png", {
+        this.load.spritesheet("bg-sprite", "assets/kraken_assets/krakenstagesmall.png", {
             frameWidth: 480,
             frameHeight: 270,
         });
@@ -347,6 +347,7 @@ class Game extends Phaser.Scene {
 
     create(data) {
         this.hideUI();
+        this.hideExitButton();
 
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         this.input.mouse.disableContextMenu();

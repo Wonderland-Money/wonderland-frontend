@@ -15,16 +15,16 @@ class FreezeScreen extends Phaser.Scene {
 
     create(data) {
         this.toScene = data;
-        this.time.delayedCall(1000, () => this.scene.pause(data));
+        this.scene.pause(data);
         this.input.mouse.disableContextMenu();
         let { width, height } = this.sys.game.canvas;
 
-        let pauseBg = this.add.rectangle(0, 0, width, height, 0x203055, 0.5);
-        pauseBg.alpha = 0;
-        pauseBg.setOrigin(0, 0);
+        this.pauseBg = this.add.rectangle(0, 0, width, height, 0x203055, 0.5);
+        this.pauseBg.alpha = 0;
+        this.pauseBg.setOrigin(0, 0);
 
         this.tweens.add({
-            targets: pauseBg,
+            targets: this.pauseBg,
             alpha: 1,
             duration: 750,
             ease: "Power2",
@@ -54,8 +54,15 @@ class FreezeScreen extends Phaser.Scene {
 
     unpauseGame() {
         window.removeEventListener("message", this.handler, false);
-        this.scene.stop();
+        this.tweens.add({
+            targets: this.pauseBg,
+            alpha: 0,
+            duration: 750,
+            ease: "Power2",
+        });
         this.scene.resume(this.toScene);
+        this.scene.get(this.toScene).hero.setPauseInput(false);
+        this.time.delayedCall(750, () => this.scene.stop());
     }
 
     update(time, delta) {}

@@ -98,7 +98,7 @@ class ForgeScene extends Phaser.Scene {
         this.load.image("tileset", "assets/tilesets/castlestone.png");
 
         // ------ Background ------
-        this.load.image("forge", "assets/forge/alchemistforge.png", {
+        this.load.spritesheet("forge", "assets/forge/alchemistforge.png", {
             frameWidth: 480,
             frameHeight: 270,
         });
@@ -225,32 +225,15 @@ class ForgeScene extends Phaser.Scene {
          * ======== LOAD ANIMATIONS ========
          */
         // Background Animation
+        // this.anims.create({
+        //     key: "harbor-bg-anim",
+        //     frames: this.anims.generateFrameNumbers("harbor"),
+        //     frameRate: 5,
+        //     repeat: -1,
+        // });
         this.anims.create({
-            key: "harbor-bg-anim",
-            frames: this.anims.generateFrameNumbers("harbor"),
-            frameRate: 5,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: "trident-glow",
-            frames: this.anims.generateFrameNumbers("trident"),
-            frameRate: 6,
-            repeat: -1,
-        });
-        /**
-         * ====== HARBOR ======
-         */
-        // Harbor Keeper Loop
-        this.anims.create({
-            key: "harbor-keeper-loop",
-            frames: this.anims.generateFrameNumbers("harbor-keeper-loop"),
-            frameRate: 12,
-            repeat: -1,
-        });
-        // Fire
-        this.anims.create({
-            key: "fire-loop",
-            frames: this.anims.generateFrameNumbers("fire-loop"),
+            key: "forge-loop",
+            frames: this.anims.generateFrameNames("forge"),
             frameRate: 12,
             repeat: -1,
         });
@@ -446,6 +429,10 @@ class ForgeScene extends Phaser.Scene {
             this.scene.pause();
         });
 
+        this.input.keyboard.on("keydown-Q", () => {
+            this.openStakingMenu();
+        });
+
         // this.toast = this.rexUI.add.toast({
         //   x: this.harborKeeperSpawn.x,
         //   y: this.harborKeeperSpawn.y - 80,
@@ -477,9 +464,8 @@ class ForgeScene extends Phaser.Scene {
 
         this.physics.add.overlap(this.hero, this.harborKeeper, () => {
             if (this.hoverTimer == 0) {
-                this.toast.showMessage("Press Q");
+                this.toast.showMessage("Press Q to access Staking");
                 this.hoverTimer++;
-                console.log("Sneed");
             } else {
                 this.hoverTimer++;
                 if (this.hoverTimer == 2000) this.hoverTimer = 0;
@@ -490,9 +476,10 @@ class ForgeScene extends Phaser.Scene {
     addMap() {
         this.map = this.make.tilemap({ key: "forge" });
 
-        const backgroundImage = this.add.image(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "forge").setOrigin(0.5, 0.5);
+        const backgroundLoop = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "forge").setOrigin(0.5, 0.5);
         // const backgroundSprite = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, 'harbor-bg-anim').setOrigin(0.5, 0.5).setScrollFactor(0.7)
-        backgroundImage.scale = 0.8;
+        backgroundLoop.play("forge-loop");
+        backgroundLoop.scale = 3.2;
         // backgroundSprite.play('harbor-bg-anim')
         //backgroundSprite.setFrame(0)
 
@@ -518,10 +505,10 @@ class ForgeScene extends Phaser.Scene {
     }
 
     openStakingMenu() {
-        if(!this.scene.isActive("FreezeScreen")) {
-            this.showStaking()
+        if (!this.scene.isActive("FreezeScreen")) {
+            this.showStaking();
             this.scene.launch("FreezeScreen", "ForgeScene");
-        } else return
+        } else return;
     }
 
     update(t, d) {

@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import StateMachine from "javascript-state-machine";
 import { sharedInstance as events } from "../managers/EventCenter";
+import variables from "../managers/Variables";
 
 class Hero extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, attackEnabled) {
@@ -20,6 +21,7 @@ class Hero extends Phaser.GameObjects.Sprite {
         this.keys = scene.cursorKeys;
         this.attackEnabled = attackEnabled;
         this.input = {};
+        this.keyboard = this.scene.input.keyboard;
         this.setupMovement();
         this.setupAnimations();
         this.hitPoints = 4;
@@ -190,6 +192,11 @@ class Hero extends Phaser.GameObjects.Sprite {
         }
     }
 
+    setPauseInput(bool) {
+        variables.inputPaused = bool;
+        this.keyboard.clearCaptures();
+    }
+
     /**
      * 0 - Earth
      * 1 - Air
@@ -224,44 +231,47 @@ class Hero extends Phaser.GameObjects.Sprite {
         }
         super.preUpdate(time, delta);
 
-        this.input.didPressJump = Phaser.Input.Keyboard.JustDown(this.keys.up);
-        let key1 = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
-        let key2 = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
-        let key3 = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
-        let key4 = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
-        let key5 = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
+        if (!variables.inputPaused) {
+            this.keyboard = this.scene.input.keyboard;
+            this.input.didPressJump = Phaser.Input.Keyboard.JustDown(this.keys.up);
+            let key1 = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
+            let key2 = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
+            let key3 = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
+            let key4 = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FOUR);
+            let key5 = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.FIVE);
 
-        // Switching Attack
-        if (Phaser.Input.Keyboard.JustDown(key1) && this.currentAttackSelection != 0) {
-            this.switchAttack(0);
-        } else if (Phaser.Input.Keyboard.JustDown(key2) && this.currentAttackSelection != 1) {
-            this.switchAttack(1);
-        } else if (Phaser.Input.Keyboard.JustDown(key3) && this.currentAttackSelection != 2) {
-            this.switchAttack(2);
-        } else if (Phaser.Input.Keyboard.JustDown(key4) && this.currentAttackSelection != 3) {
-            this.switchAttack(3);
-        } else if (Phaser.Input.Keyboard.JustDown(key5) && this.currentAttackSelection != 4) {
-            this.switchAttack(4);
-        }
+            // Switching Attack
+            if (Phaser.Input.Keyboard.JustDown(key1) && this.currentAttackSelection != 0) {
+                this.switchAttack(0);
+            } else if (Phaser.Input.Keyboard.JustDown(key2) && this.currentAttackSelection != 1) {
+                this.switchAttack(1);
+            } else if (Phaser.Input.Keyboard.JustDown(key3) && this.currentAttackSelection != 2) {
+                this.switchAttack(2);
+            } else if (Phaser.Input.Keyboard.JustDown(key4) && this.currentAttackSelection != 3) {
+                this.switchAttack(3);
+            } else if (Phaser.Input.Keyboard.JustDown(key5) && this.currentAttackSelection != 4) {
+                this.switchAttack(4);
+            }
 
-        let spaceBar = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        if (this.attackEnabled && Phaser.Input.Keyboard.JustDown(spaceBar)) {
-            this.attack();
-        }
+            let spaceBar = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+            if (this.attackEnabled && Phaser.Input.Keyboard.JustDown(spaceBar)) {
+                this.attack();
+            }
 
-        if (this.isAlive && this.keys.left.isDown && !this.isTeleporting && !this.isAttacking) {
-            this.body.setAccelerationX(-700);
-            this.setFlipX(true);
-            this.flip = -1;
-            //this.body.offset.x = 13;
-        } else if (this.isAlive && this.keys.right.isDown && !this.isTeleporting && !this.isAttacking) {
-            this.body.setAccelerationX(700);
-            this.setFlipX(false);
-            this.flip = 1;
-            //this.body.offset.x = 22;
-        } else {
-            this.body.setAccelerationX(0);
-            //this.body.offset.x = 18;
+            if (this.isAlive && this.keys.left.isDown && !this.isTeleporting && !this.isAttacking) {
+                this.body.setAccelerationX(-700);
+                this.setFlipX(true);
+                this.flip = -1;
+                //this.body.offset.x = 13;
+            } else if (this.isAlive && this.keys.right.isDown && !this.isTeleporting && !this.isAttacking) {
+                this.body.setAccelerationX(700);
+                this.setFlipX(false);
+                this.flip = 1;
+                //this.body.offset.x = 22;
+            } else {
+                this.body.setAccelerationX(0);
+                //this.body.offset.x = 18;
+            }
         }
 
         for (const t of this.moveState.transitions()) {

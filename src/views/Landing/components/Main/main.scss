@@ -54,6 +54,10 @@
 
             &.secondary {
                 background: theme.$dark-gray-2;
+
+                &:hover {
+                    background: lighten(theme.$dark-gray-2, 10%);
+                }
             }
         }
     }

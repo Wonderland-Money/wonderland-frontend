@@ -8,7 +8,7 @@ function Header() {
         <div className="landing-header">
             <img id="logo" src={TridentIcon} />
             <div className="landing-header-nav-wrap">
-                <Box component="div">
+                <Box component="div" className="landing-header-nav-box">
                     <Link href="https://github.com/0xMaaz/trident-frontend" target="_blank">
                         <span className="landing-header-nav-text">GitHub</span>
                     </Link>

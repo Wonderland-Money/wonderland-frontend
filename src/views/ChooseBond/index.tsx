@@ -32,9 +32,9 @@ function ChooseBond(props: any) {
                     <div className="choose-bond-view-card-header">
                         <a
                             onClick={() => {
-                                window.parent.postMessage("closeMenu", window.location.href);
-                                window.parent.postMessage("closeBonding", window.location.href);
-                                console.log(window.location.href)
+                                window.parent.postMessage("closeMenu", window.location.origin);
+                                window.parent.postMessage("closeBonding", window.location.origin);
+                                console.log(window.location.href);
                                 // window.parent.postMessage("closeMenu", "http://app.trident.localhost:3000");
                                 // window.parent.postMessage("closeBonding", "http://app.trident.localhost:3000");
                             }}

@@ -9,19 +9,31 @@ export default function SocialBar() {
     return (
         <div className="social-row">
             <Link href="https://github.com/0xMaaz/trident-frontend" target="_blank">
-                <SvgIcon color="primary" component={GitHub} />
+                <div className="social-link">
+                    <SvgIcon component={GitHub} />
+                    Github
+                </div>
             </Link>
 
             <Link href="https://twitter.com/TridentDAO?s=20" target="_blank">
-                <SvgIcon color="primary" component={Twitter} />
+                <div className="social-link">
+                    <SvgIcon component={Twitter} />
+                    Twitter
+                </div>
             </Link>
 
             <Link href="https://discord.gg/tridentdao" target="_blank">
-                <SvgIcon color="primary" component={Discord} />
+                <div className="social-link">
+                    <SvgIcon component={Discord} />
+                    Discord
+                </div>
             </Link>
 
             <Link href="https://tridentdao.gitbook.io/trident-dao/" target="_blank">
-                <SvgIcon color="primary" component={DocsIcon} />
+                <div className="social-link">
+                    <SvgIcon color="primary" component={DocsIcon} />
+                    Docs
+                </div>
             </Link>
         </div>
     );

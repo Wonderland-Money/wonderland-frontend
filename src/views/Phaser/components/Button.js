@@ -23,6 +23,7 @@ class Button extends Phaser.GameObjects.Sprite {
                 fontSize: 34,
                 color: "#0f0f0f",
                 fontFamily: "compass",
+                fontWeight: "Bold",
             })
             .setOrigin(0.5);
         if (!this.enabled) {

@@ -102,30 +102,20 @@ function App() {
                 setSocialActive(true);
             } else if (msg.startsWith("openConnectButton")) {
                 setConnectButtonActive(true);
-            } else if (msg.startsWith("gameActive")) {
-                gameActive(true);
             } else if (msg.startsWith("closeExitButton")) {
                 setExitButtonOpen(false);
             } else if (msg.startsWith("openExitButton")) {
                 setExitButtonOpen(true);
             } else if (msg.startsWith("hideUI")) {
-                gameActive(true);
-                setExitButtonOpen(false);
+                setSocialActive(false);
+                setConnectButtonActive(false);
             } else if (msg.startsWith("showUI")) {
-                gameActive(false);
-                setExitButtonOpen(true);
+                setSocialActive(true);
+                setConnectButtonActive(true);
             }
         } else {
             return;
         }
-    };
-
-    const gameActive = (bool: boolean) => {
-        setDashboardActive(!bool);
-        setStakingActive(!bool);
-        setBondingActive(!bool);
-        setSocialActive(!bool);
-        setConnectButtonActive(!bool);
     };
 
     useEffect(() => {

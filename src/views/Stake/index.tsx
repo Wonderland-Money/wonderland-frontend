@@ -13,6 +13,9 @@ import { messages } from "../../constants/messages";
 import classNames from "classnames";
 import { warning } from "../../store/slices/messages-slice";
 
+import { IconButton, SvgIcon, Link } from "@material-ui/core";
+import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
+
 function Stake(props: any) {
     const dispatch = useDispatch();
     const { provider, address, connect, chainID, checkWrongNetwork } = useWeb3Context();
@@ -103,12 +106,26 @@ function Stake(props: any) {
                     <Grid className="stake-card-grid" container direction="column" spacing={2}>
                         <Grid item>
                             <div className="stake-card-header">
-                                <p className="stake-card-header-title">Stake</p>
-                                <RebaseTimer />
+                                <a
+                                    onClick={() => {
+                                        window.parent.postMessage("closeMenu", window.location.origin);
+                                        window.parent.postMessage("closeStaking", window.location.origin);
+                                        // window.parent.postMessage("closeMenu", "http://app.trident.localhost:3000");
+                                        // window.parent.postMessage("closeBonding", "http://app.trident.localhost:3000");
+                                    }}
+                                    className="close-app-btn"
+                                >
+                                    <SvgIcon color="primary" component={XIcon} />
+                                </a>
+                                <div className="staking-title">
+                                    <p className="stake-card-header-title">Stake</p>
+                                    <RebaseTimer />
+                                </div>
                             </div>
                         </Grid>
 
                         <Grid item>
+                            <div className="divider"></div>
                             <div className="stake-card-metrics">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={4} md={4} lg={4}>

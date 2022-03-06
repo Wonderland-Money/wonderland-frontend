@@ -42,7 +42,7 @@ class InstructionsSplash extends Phaser.Scene {
                     " ",
                     "Your mission is to defeat the Kraken, and",
                     "retrieve the trident. This won't be easy; the",
-                    "Kraken is a fearsome foe and won't give up without.",
+                    "Kraken is a fearsome foe and won't give up without",
                     "a fight.",
                     " ",
                     "You must dodge the Kraken's crystal & tentacle",

@@ -20,6 +20,13 @@
         align-items: center;
         cursor: default;
 
+        .landing-header-nav-box {
+            margin-left: auto;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
         .landing-header-nav-text {
             font-family: 'Cormorant Garamond', serif;
             font-style: normal;

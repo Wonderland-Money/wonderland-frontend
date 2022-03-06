@@ -33,6 +33,7 @@ function ConnectMenu() {
 
     if (pendingTransactions && pendingTransactions.length > 0) {
         buttonText = `${pendingTransactions.length} Pending `;
+        buttonStyle = { backgroundColor: "#000000" };
         clickFunc = () => {};
     }
 
@@ -58,7 +59,7 @@ function ConnectMenu() {
                 </div>
             )}
             <div className="connect-button" style={buttonStyle} onClick={clickFunc}>
-                {isConnected && <SvgIcon color="primary" component={XIcon} />}
+                {isConnected && pendingTransactions.length == 0 && providerChainID == DEFAULT_NETWORK && <SvgIcon color="primary" component={XIcon} />}
                 <p>{buttonText}</p>
                 {pendingTransactions.length > 0 && (
                     <div className="connect-button-progress">

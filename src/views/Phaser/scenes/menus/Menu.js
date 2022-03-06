@@ -1,17 +1,32 @@
 import Phaser from "phaser";
 import Button from "../../components/Button";
+import MenuButton from "../../components/MenuButton";
 
 import frontendControlsMixin from "../mixins/frontendControlsMixin";
 
 class Menu extends Phaser.Scene {
     constructor(config) {
         super({ key: "MainMenu" });
-        console.log(this.sys.config);
     }
 
     preload() {
         console.log(this.load.baseURL);
         this.load.audio("button-click", "assets/audio/button-click.mp3");
+
+        // Menu Specific Buttons
+        this.load.spritesheet("trial-button", "assets/buttons/menu/trial-hover.png", {
+            frameWidth: 128,
+            frameHeight: 32,
+        });
+        this.load.spritesheet("harbor-button", "assets/buttons/menu/harbor-hover.png", {
+            frameWidth: 128,
+            frameHeight: 32,
+        });
+        this.load.spritesheet("forge-button", "assets/buttons/menu/forge-hover.png", {
+            frameWidth: 128,
+            frameHeight: 32,
+        });
+
         this.load.spritesheet("button-img", "assets/buttons/normal/button2.png", {
             frameWidth: 128,
             frameHeight: 52,
@@ -38,16 +53,46 @@ class Menu extends Phaser.Scene {
             frameHeight: 52,
         });
 
-        this.load.image("title", "assets/MainMenu.png");
+        this.load.spritesheet("main-menu", "assets/MainMenu.png", {
+            frameWidth: 480,
+            frameHeight: 240,
+        });
     }
 
     create(data) {
-        window.parent.postMessage("gameActive", "http://app.trident.localhost:3000");
+        window.parent.postMessage("gameActive", window.location.origin);
 
         this.input.setDefaultCursor("url(assets/catfish-cursor.png), pointer");
         let { width, height } = this.sys.game.canvas;
+        const SPACING = 16;
 
         this.add.rectangle(0, 0, width, height, 0x000000, 1).setOrigin(0);
+
+        this.anims.create({
+            key: "trial-button-hover",
+            frames: this.anims.generateFrameNumbers("trial-button"),
+            frameRate: 16,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "harbor-button-hover",
+            frames: this.anims.generateFrameNumbers("harbor-button"),
+            frameRate: 16,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "forge-button-hover",
+            frames: this.anims.generateFrameNumbers("forge-button"),
+            frameRate: 16,
+            repeat: -1,
+        });
+
+        this.anims.create({
+            key: "menu-loop",
+            frames: this.anims.generateFrameNumbers("main-menu"),
+            frameRate: 12,
+            repeat: -1,
+        });
 
         this.anims.create({
             key: "button-hover",
@@ -75,48 +120,77 @@ class Menu extends Phaser.Scene {
         // title.setOrigin(0.5, 0.5)
         // title.scale = 3
 
-        let title = this.add.image(width / 2, height / 2, "title");
+        let title = this.add.sprite(width / 2, height / 2, "main-menu");
+        title.play("menu-loop");
         title.setOrigin(0.5, 0.5);
         let scale = this.sys.canvas.width / title.width;
         title.scale = scale;
 
-        let playButton = new Button(
+        // let playButton = new Button(
+        //     this,
+        //     width - 300,
+        //     height / 2 - 52 - 120,
+        //     "Play",
+        //     () => {
+        //         this.scene.start("InstructionsSplash");
+        //     },
+        //     true,
+        // ).setHighlighted(true);
+
+        let playButton = new MenuButton(
             this,
             width - 300,
-            height / 2 - 52 - 120,
-            "Play",
+            height / 2 - 64 - SPACING,
+            "Kraken",
             () => {
-                this.scene.start("InstructionsSplash");
+                this.scene.start("GameScene");
             },
-            true,
-        ).setHighlighted(true);
+            0,
+        );
 
-        /**
-         * @TODO this shit needs to check if the player has won already
-         */
-        this.playerWonGame = true;
-
-        let harborButton = new Button(
+        let harborButton = new MenuButton(
             this,
             width - 300,
-            height / 2 - 52,
+            height / 2,
             "Harbor",
             () => {
                 this.scene.start("HarborScene");
             },
-            this.playerWonGame,
+            1,
         );
 
-        let forgeButton = new Button(
+        let forgeButton = new MenuButton(
             this,
             width - 300,
-            height / 2 - 52 + 120,
+            height / 2 + 64 + SPACING,
             "Forge",
             () => {
                 this.scene.start("ForgeScene");
             },
-            this.playerWonGame,
+            2,
         );
+
+        // let harborButton = new Button(
+        //     this,
+        //     width - 300,
+        //     height / 2 - 52,
+        //     "Harbor",
+        //     () => {
+        //         this.scene.start("HarborScene");
+        //     },
+        //     this.playerWonGame,
+        // );
+
+        // let forgeButton = new Button(
+        //     this,
+        //     width - 300,
+        //     height / 2 - 52 + 120,
+        //     "Forge",
+        //     () => {
+        //         this.scene.start("ForgeScene");
+        //     },
+        //     this.playerWonGame,
+        // );
     }
 
     update(time, delta) {}

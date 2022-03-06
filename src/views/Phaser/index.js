@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, Component } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import { IonPhaser } from "@ion-phaser/react";
 import config from "./config";
@@ -29,10 +29,10 @@ export default function App(props) {
     const [initialize, setInitialize] = useState(false);
 
     const startGame = () => {
-        window.parent.postMessage("gameActive", variables.gameUrl);
-        console.log("Var: " + variables.gameUrl)
-        console.log("Win.Href: " + window.location.href)
-        console.log("Win.Origin: " + window.location.origin)
+        window.parent.postMessage("hideUI", variables.gameUrl);
+        console.log("Var: " + variables.gameUrl);
+        console.log("Win.Href: " + window.location.href);
+        console.log("Win.Origin: " + window.location.origin);
         setInitialize(true);
     };
 
