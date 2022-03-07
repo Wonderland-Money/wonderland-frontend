@@ -15,7 +15,7 @@
     padding-right: 30px;
     margin-right: -10px;
     p {
-        color: theme.$psi-primary;
+        color: theme.$psi-yellow;
         font-size: 18px;
         line-height: 24px;
         font-family: 'Syne Mono', monospace;
@@ -23,9 +23,9 @@
   }
   
   .connect-button{
-      background: theme.$dark-gray;
+      background: theme.$deep-sea;
       box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-      border: 1px solid theme.$dark-gray-2;
+      border: 1px solid theme.$psi-aqua;
       border-radius: 2px;
       padding: 9px 20px;
       cursor: pointer;
