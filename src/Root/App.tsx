@@ -5,11 +5,12 @@ import { useAddress, useWeb3Context } from "../hooks";
 import { calcBondDetails } from "../store/slices/bond-slice";
 import { loadAppDetails } from "../store/slices/app-slice";
 import { loadAccountDetails, calculateUserBondDetails } from "../store/slices/account-slice";
+import { DEFAULT_NETWORK } from "../constants";
 import { IReduxState } from "../store/slices/state.interface";
 import Loading from "../components/Loader";
 import useBonds from "../hooks/bonds";
 import ViewBase from "../components/ViewBase";
-import { Stake, ChooseBond, Bond, Dashboard, NotFound, PhaserGame } from "../views";
+import { Stake, ChooseBond, Bond, Dashboard, PhaserGame } from "../views";
 import "./style.scss";
 import Landing from "src/views/Landing";
 import classNames from "classnames";
@@ -152,7 +153,7 @@ function App() {
         <>
             {isAppLoading && <Loading />}
             <div id="phaser-wrapper">
-                <PhaserGame connected={connected || false} exitButtonOpen={exitButtonOpen} />
+                <PhaserGame connected={(connected && chainID === DEFAULT_NETWORK) || false} exitButtonOpen={exitButtonOpen} />
             </div>
             <ViewBase socialIsOpen={socialActive} connectButtonIsOpen={connectButtonActive}>
                 <div className={classNames("psi-interface", "psi-dashboard")}>
