@@ -5,11 +5,14 @@ $gull-gray: #92aeb3;
 $dark-gray: #111111;
 $dark-gray-2: #222222;
 
+$deep-sea: #132217;
 $psi-aqua: #335b54;
-$psi-grass: #657c60;
+$psi-kelp: #657c60;
+$psi-grass: #b0ae70;
+$psi-foam: #ffe7bc;
 
-$psi-primary: #FFe987;
-$psi-secondary: #2d8e7c;
+$psi-yellow: #FFe987;
+$psi-mint: #2d8e7c;
 
 $outer-space: #2c3133;
 $akaroa: #dbcdac;
@@ -57,7 +60,7 @@ a:hover {
 }
 
 @mixin transition {
-    transition: all 0.4s ease;
+    transition: all 0.2s ease;
 }
 
 @mixin card {
@@ -88,8 +91,8 @@ a:hover {
 @mixin primary-button {
     cursor: pointer;
     transition: all 0.4s ease;
-    background: $dark-gray;
-    border: 1px solid $dark-gray-2;
+    background: $deep-sea;
+    border: 1px solid $psi-aqua;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -100,7 +103,7 @@ a:hover {
     @include card-hover();
 
     &:hover {
-        background: lighten($dark-gray, 15%);
+        background: lighten($deep-sea, 2%);
     }
 
     p {

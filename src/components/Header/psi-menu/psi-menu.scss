@@ -4,9 +4,9 @@
     .psi-menu-btn {
         padding: 9px 20px;
         height: 46px;
-        background: theme.$dark-gray;
+        background: theme.$deep-sea;
         box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-        border: 1px solid theme.$dark-gray-2;
+        border: 1px solid theme.$psi-aqua;
         border-radius: 4px;
         cursor: pointer;
         margin-right: 20px;
@@ -30,7 +30,7 @@
     padding: 0;
     overflow: hidden;
     z-index: 10;
-    border: 1px solid theme.$dark-gray-2;
+    border: 1px solid theme.$psi-aqua;
 
     .tooltip {
         display: flex;
@@ -48,7 +48,7 @@
             }
 
             &:hover {
-                background: theme.$dark-gray-2;
+                background: lighten(theme.$deep-sea, 2%);
             }
 
             p {
@@ -76,7 +76,7 @@
 
         .divider {
             height: 1px;
-            background: theme.$dark-gray-2;
+            background: theme.$psi-aqua;
             border: none;
         }
     }
