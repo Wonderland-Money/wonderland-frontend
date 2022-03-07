@@ -7,8 +7,12 @@ import useBonds from "../../hooks/bonds";
 import "./choosebond.scss";
 import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
+import { IconButton, SvgIcon, Link } from "@material-ui/core";
+import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 
-function ChooseBond() {
+import classNames from "classnames";
+
+function ChooseBond(props: any) {
     const { bonds } = useBonds();
     const isSmallScreen = useMediaQuery("(max-width: 733px)"); // change to breakpoint query
 
@@ -22,11 +26,24 @@ function ChooseBond() {
     });
 
     return (
-        <div className="choose-bond-view">
+        <div className={classNames("choose-bond-view", { disabled: !props.active })}>
             <Zoom in={true}>
                 <div className="choose-bond-view-card">
                     <div className="choose-bond-view-card-header">
-                        <p className="choose-bond-view-card-title"> Mint 🐬 🐋</p>
+                        <a
+                            onClick={() => {
+                                window.parent.postMessage("closeMenu", window.location.origin);
+                                window.parent.postMessage("closeBonding", window.location.origin);
+                                console.log(window.location.href);
+                                // window.parent.postMessage("closeMenu", "http://app.trident.localhost:3000");
+                                // window.parent.postMessage("closeBonding", "http://app.trident.localhost:3000");
+                            }}
+                            className="close-app-btn"
+                        >
+                            {/* @TODO */}
+                            <SvgIcon color="primary" component={XIcon} />
+                        </a>
+                        <p className="choose-bond-view-card-title">Mint</p>
                     </div>
 
                     <Grid container item xs={12} spacing={2} className="choose-bond-view-card-metrics">

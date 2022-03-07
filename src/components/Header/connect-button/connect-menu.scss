@@ -1,24 +1,52 @@
 @use "src/theme.scss";
 
-.connect-button{
-    background: theme.$secondary-button-background;
-    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-    border-radius: 10px;
+.connect-section {
+  display: flex;
+  flex-wrap: nowrap;
+
+  height: 46px;
+
+  .wallet-link {
+    background-color: theme.$black;
+    box-shadow: 0 0 10px rgba(44, 39, 109, 0.15);
+    border: 1px solid theme.$dark-gray-2;
+    border-radius: 2px;
     padding: 9px 20px;
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-
-    .connect-button-progress{
-      margin-left: 10px;
-      margin-top: 4px;
-    }
-  
-    p{
-      font-family: Cinzel SemiBold;
-      font-weight: 600;
-      font-size: 18px;
-      color: #FFFFFF;
+    padding-right: 30px;
+    margin-right: -10px;
+    p {
+        color: theme.$psi-primary;
+        font-size: 18px;
+        line-height: 24px;
+        font-family: 'Syne Mono', monospace;
     }
   }
+  
+  .connect-button{
+      background: theme.$dark-gray;
+      box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+      border: 1px solid theme.$dark-gray-2;
+      border-radius: 2px;
+      padding: 9px 20px;
+      cursor: pointer;
+  
+      display: flex;
+      align-items: center;
+  
+      &:hover {
+        background-color: theme.$dark-gray-2;
+      }
+  
+      .connect-button-progress{
+        margin-left: 10px;
+        margin-top: 4px;
+      }
+    
+      p{
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 600;
+        font-size: 22px;
+        color: #FFFFFF;
+      }
+    }
+}

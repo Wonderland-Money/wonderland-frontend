@@ -1,13 +1,17 @@
 .dapp-topbar {
-  width: 89%;
-  max-width: 833px;
+  width: 100%;
   align-items: center;
   margin: auto;
+  padding-right:30px;
+
+  &.disabled {
+    display: none;
+  }
 
   .dapp-topbar-slider-btn{
     background: rgba(255, 255, 255, 0.2);
     box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
-    border-radius: 10px;
+    border-radius: 4px;
     padding: 10px;
     display: flex;
     align-items: center;

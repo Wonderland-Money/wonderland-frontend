@@ -7,15 +7,12 @@ import ConnectButton from "./connect-button";
 import "./header.scss";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 
-interface IHeader {
-    handleDrawerToggle: () => void;
-    drawe: boolean;
-}
-
 const useStyles = makeStyles(theme => ({
     appBar: {
         [theme.breakpoints.up("sm")]: {
-            width: "100%",
+            position: "absolute",
+            right: "0",
+            width: "80%",
             padding: "20px 0 30px 0",
         },
         justifyContent: "flex-end",
@@ -40,17 +37,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function Header({ handleDrawerToggle, drawe }: IHeader) {
+function Header() {
     const classes = useStyles();
     const isVerySmallScreen = useMediaQuery("(max-width: 400px)");
 
     return (
-        <div className={`${classes.topBar} ${!drawe && classes.topBarShift}`}>
+        <div className={`${classes.topBar} ${classes.topBarShift}`}>
             <AppBar position="sticky" className={classes.appBar} elevation={0}>
                 <Toolbar disableGutters className="dapp-topbar">
-                    <div onClick={handleDrawerToggle} className="dapp-topbar-slider-btn">
-                        <img src={MenuIcon} alt="" />
-                    </div>
                     <div className="dapp-topbar-btns-wrap">
                         {!isVerySmallScreen && <PsiMenu />}
                         <ConnectButton />

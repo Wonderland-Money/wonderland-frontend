@@ -1,0 +1,246 @@
+@use "src/theme.scss";
+
+.presale-view {
+    width: 89%;
+    max-width: 833px;
+    margin: auto;
+
+    .presale-card {
+        position: relative;
+        z-index: 2;
+
+        @include theme.card();
+
+        width: 100%;
+
+        .presale-card-grid {
+            margin: 0;
+            width: 100%;
+        }
+
+        .presale-card-header {
+            .presale-card-header-title {
+                font-family: Cinzel Bold;
+                font-weight: bold;
+                font-size: 20px;
+                color: #ffffff;
+                margin-bottom: 4px;
+            }
+        }
+
+        .presale-card-metrics {
+            display: flex;
+            width: 100%;
+            padding: 0;
+            text-align: center;
+            margin-top: 10px;
+
+            .presale-card-apy,
+            .presale-card-tvl,
+            .presale-card-index {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+
+                .presale-card-metrics-title {
+                    font-family: Cinzel Medium;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 20px;
+                    color: rgba(255, 255, 255, 0.6);
+                    margin-bottom: 2px;
+                }
+
+                .presale-card-metrics-value {
+                    font-family: Cinzel Bold;
+                    font-style: normal;
+                    font-weight: bold;
+                    font-size: 24px;
+                    line-height: 29px;
+                    color: #ffffff;
+                }
+            }
+        }
+
+        .presale-card-area {
+            .presale-card-wallet-notification {
+                text-align: center;
+
+                .presale-card-wallet-connect-btn {
+                    @include theme.primary-button();
+
+                    margin-top: 20px;
+                }
+
+                .presale-card-wallet-desc-text {
+                    font-family: Cinzel Light;
+                    font-weight: 300;
+                    font-size: 14px;
+                    color: rgba(255, 255, 255, 0.6);
+                    margin-top: 10px;
+                    margin-bottom: 6px;
+                }
+            }
+
+            .presale-card-action-area {
+                width: 100%;
+                margin-top: 25px;
+
+                .presale-card-action-stage-btns-wrap {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    .presale-card-action-stage-btn {
+                        margin: 0px 30px;
+                        padding: 6px;
+                        cursor: pointer;
+                        transition: all 0.4s ease;
+
+                        p {
+                            font-family: Cinzel SemiBold;
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 18px;
+                            color: rgba(255, 255, 255, 0.6);
+                        }
+                    }
+
+                    .presale-card-action-stage-btn.active {
+                        p {
+                            color: #ffffff;
+                        }
+
+                        border-bottom: 1px solid #ffffff;
+                    }
+                }
+
+                .presale-card-action-row {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 20px;
+
+                    .presale-card-action-input {
+                        width: 100%;
+
+                        @include theme.input();
+
+                        .MuiOutlinedInput-notchedOutline {
+                            border-color: rgba(255, 255, 255, 0.2) !important;
+                        }
+
+                        .presale-card-action-input-btn {
+                            cursor: pointer;
+
+                            p {
+                                font-family: Cinzel SemiBold;
+                                font-weight: 600;
+                                font-size: 18px;
+                                color: #ffffff;
+                            }
+                        }
+                    }
+
+                    .presale-card-tab-panel {
+                        min-width: 215px;
+                        margin-left: 10px;
+
+                        .presale-card-tab-panel-btn {
+                            @include theme.primary-button();
+                        }
+                        .presale-card-tab-panel-non {
+                            @include theme.primary-button();
+                            cursor: default;
+                        }
+                    }
+                }
+
+                .presale-card-action-help-text {
+                    margin-top: 10px;
+
+                    p {
+                        font-family: Cinzel Light;
+                        font-style: normal;
+                        font-weight: 300;
+                        font-size: 14px;
+                        line-height: 17px;
+                        text-align: center;
+                        color: rgba(255, 255, 255, 0.6);
+                    }
+                }
+            }
+
+            .presale-user-data {
+                justify-content: center;
+                margin: auto;
+                padding: 0 5px;
+                margin-top: 30px;
+            }
+        }
+    }
+}
+
+.data-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0px;
+
+    .data-row-name {
+        font-family: Cinzel Medium;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        color: #ffffff;
+    }
+    .data-row-value {
+        font-family: Cinzel;
+        font-size: 14px;
+        line-height: 17px;
+        color: #ffffff;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .presale-view {
+        .presale-card {
+            .presale-card-metrics {
+                .presale-card-apy,
+                .presale-card-tvl,
+                .presale-card-index {
+                    align-items: flex-start;
+                }
+
+                .presale-card {
+                    width: 50%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+            }
+
+            .presale-card-area {
+                .presale-card-action-area {
+                    .presale-card-action-row {
+                        flex-direction: column;
+                        .presale-card-tab-panel {
+                            margin-left: 0;
+                            margin-top: 20px;
+                            min-width: none;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    .presale-view {
+        width: 100%;
+    }
+}

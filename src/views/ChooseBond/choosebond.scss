@@ -7,7 +7,7 @@
     flex-direction: column;
     overflow: hidden;
 
-    width: 89%;
+    width: 100%;
     max-width: 833px;
     margin: auto;
 
@@ -20,11 +20,17 @@
         z-index: 2;
 
         .choose-bond-view-card-header {
+            display: flex;
+            direction: row;
+            align-content:center;
+            .close-app-btn {
+                margin-right: 20px;
+            }
             .choose-bond-view-card-title {
-                font-family: Cinzel Bold;
+                font-family: 'Cormorant Garamond', serif;
                 font-weight: bold;
-                font-size: 20px;
-                color: #ffffff;
+                font-size: 28px;
+                color: #FFe987;
             }
         }
 
@@ -32,7 +38,7 @@
             margin: 30px 0;
 
             .choose-bond-view-card-metrics-title {
-                font-family: Cinzel Medium;
+                font-family: 'Cormorant Garamond', serif;
                 font-weight: 500;
                 font-size: 20px;
                 line-height: 24px;
@@ -40,7 +46,7 @@
             }
 
             .choose-bond-view-card-metrics-value {
-                font-family: Cinzel Bold;
+                font-family: 'Syne Mono', monospace;
                 font-weight: bold;
                 font-size: 24px;
                 line-height: 29px;
@@ -53,7 +59,7 @@
 
         .choose-bond-view-card-table {
             .choose-bond-view-card-table-title {
-                font-family: Cinzel SemiBold;
+                font-family: 'Cormorant Garamond', serif;
                 font-weight: 600;
                 font-size: 14px;
                 line-height: 17px;
@@ -66,10 +72,9 @@
         margin-top: 16px;
 
         .bond-data-card {
+            background-color: theme.$black; 
             margin: auto !important;
-            background: rgba(36, 39, 41, 0.1);
-            backdrop-filter: blur(40px);
-            border-radius: 10px;
+            border-radius: 4px;
             padding: 20px;
             width: 100%;
 
@@ -121,7 +126,7 @@
     }
 
     .bond-name-title {
-        font-family: Cinzel SemiBold;
+        font-family: 'Syne Mono', monospace;
         font-weight: 600;
         font-size: 14px;
         color: #ffffff;
@@ -158,6 +163,11 @@
         }
 
         border-bottom: none;
+    }
+
+    .MuiTableRow-root {
+        background-color: theme.$dark-gray;
+        border-radius: 4px;
     }
 
     .MuiTableBody-root .MuiTableRow-root .MuiTableCell-alignLeft {

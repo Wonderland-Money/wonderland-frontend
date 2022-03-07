@@ -6,8 +6,12 @@
     justify-content: center;
     flex-direction: column;
 
-    width: 89%;
+    width: 100%;
     max-width: 833px;
+    border-radius: 6px;
+    background-color: theme.$black;
+    border: 1px solid theme.$dark-gray;
+    padding:10px;
 
     margin: auto;
 
@@ -23,14 +27,17 @@
             @include theme.card();
             @include theme.card-hover();
 
+            background-color: theme.$dark-gray;
+            border: 1px solid theme.$dark-gray-2;
+
             .card-title {
-                font-family: Cinzel SemiBold;
+                font-family: 'Cormorant Garamond', serif;
                 font-size: 1rem;
                 color: #ccc;
             }
 
             .card-value {
-                font-family: Cinzel SemiBold;
+                font-family: 'Syne Mono', monospace;
                 font-size: 1.5rem;
                 font-weight: bold;
                 color: theme.$white;

@@ -14,7 +14,7 @@
         margin-bottom: 20px;
 
         p {
-            font-family: Cinzel Bold;
+            font-family: 'Cormorant Garamond', serif;
             font-style: normal;
             font-weight: bold;
             font-size: 55px;
@@ -29,7 +29,7 @@
         margin-bottom: 20px;
 
         p {
-            font-family: Cinzel Medium;
+            font-family: 'Cormorant Garamond', serif;
             font-style: normal;
             font-weight: 500;
             font-size: 20px;
@@ -53,7 +53,11 @@
             min-width: 200px;
 
             &.secondary {
-                background: theme.$platinum;
+                background: theme.$dark-gray-2;
+
+                &:hover {
+                    background: lighten(theme.$dark-gray-2, 10%);
+                }
             }
         }
     }

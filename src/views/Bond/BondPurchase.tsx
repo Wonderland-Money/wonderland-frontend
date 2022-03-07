@@ -33,7 +33,8 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
     });
 
     const vestingPeriod = () => {
-        return prettifySeconds(bond.vestingTerm, "day");
+        const vestingTermSeconds = bond.vestingTerm * 2;
+        return prettifySeconds(vestingTermSeconds, "day");
     };
 
     async function onBond() {

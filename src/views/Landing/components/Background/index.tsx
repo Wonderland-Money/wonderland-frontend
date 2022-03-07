@@ -12,7 +12,7 @@ function Background() {
             waveSurfaceColor: "#4d9aaa",
             fogNear: 1,
             fogFar: 3,
-            fogColor: "#8e949d",
+            fogColor: "#0e2420",
         };
 
         /**

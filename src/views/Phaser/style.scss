@@ -1,0 +1,52 @@
+@use "src/theme.scss";
+
+.button {
+    height: 46px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    color: #fff;
+    font-size: 22px;
+    z-index: 7;
+    transition: all 150ms;
+    border-radius:4px;
+    padding: 9px 20px;
+    @include theme.medium-shadow();
+}
+
+#initialize-button {
+    //background-color: transparentize(theme.$saffron, .5);
+    //border: 1px solid lighten(theme.$saffron, 25%);
+    font-weight: bold;
+    color: theme.$black;
+    width: 300px;
+    height: 100px;
+    background-image: url('../../assets/images/game_button.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    font-family: 'Cormorant Unicase', serif;
+    
+    &:hover {
+        background-image: url('../../assets/images/game_button_hover.gif');
+        opacity: 0.9;
+        cursor: pointer;
+    }
+}
+
+.exit-button {
+    background-color: theme.$black;
+    border-color: theme.$dark-gray;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 8;
+
+    &:hover {
+        background-color: lighten(theme.$elephant, 10%);
+    }
+}
+
+.disabled {
+    display: none !important;
+}
