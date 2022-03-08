@@ -42,6 +42,18 @@
                  "width":0,
                  "x":884.489647657101,
                  "y":508.64
+                }, 
+                {
+                 "height":0,
+                 "id":3,
+                 "name":"Catfish",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":246.346241689083,
+                 "y":510
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -62,7 +74,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":3,
+ "nextobjectid":4,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

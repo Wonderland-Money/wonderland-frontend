@@ -47,17 +47,27 @@
         }
 
         .landing-main-btn {
-            @include theme.primary-button();
-            padding: 1rem 2rem;
+            background-color: theme.$deep-sea;
+            border: 2px solid theme.$psi-aqua;
+            color: theme.$psi-foam;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
             margin: 0 1rem;
-            min-width: 200px;
+            height: 60px;
+            min-width: 300px;
+            font-weight: bold;
+            font-size: 32px;
+            transition: all 150ms;
 
-            &.secondary {
-                background: theme.$dark-gray-2;
-
-                &:hover {
-                    background: lighten(theme.$dark-gray-2, 10%);
-                }
+            &:hover {
+                color: #fff;
+                border-color: theme.$psi-kelp;
+                background-color: lighten(theme.$deep-sea, 10%);
             }
         }
     }
