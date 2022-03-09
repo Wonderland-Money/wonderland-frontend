@@ -8,8 +8,7 @@ function Main() {
     return (
         <div className="landing-main">
             <div className="landing-main-title-wrap">
-                <img src={TridentWordmark} />
-                
+                <img className="main-wordmark" src={TridentWordmark} />
             </div>
             <div className="landing-main-help-text-wrap">
                 <p>Trident dives deeper than others are willing. Safeguarding your treasures & our vision,</p>

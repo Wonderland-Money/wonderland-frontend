@@ -51,7 +51,7 @@ export default {
         default: "arcade",
         arcade: {
             gravity: { y: 850 },
-            debug: true, // ENABLE DEBUG
+            debug: false, // ENABLE DEBUG
             debugShowVelocity: true,
             debugShowBody: true,
             debugShowStaticBody: true,

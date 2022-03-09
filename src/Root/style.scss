@@ -42,6 +42,11 @@ body {
     z-index: 5;
 }
 
+.active {
+    background-color: #000000;
+    padding:0;
+}
+
 .divider {
     width: 100%;
     height: 1px;
