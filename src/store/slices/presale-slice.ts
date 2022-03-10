@@ -48,7 +48,7 @@ export const getPresaleDetails = createAsyncThunk("presale/getPresaleDetails", a
     let isApproved = false;
 
     let phase1Contract = new Contract(addresses.presalePhase1, PresaleContract, provider);
-    let term = await phase1Contract.term;
+    let term = await phase1Contract.terms(address);
     if(term.whitelistedAmount > 0) {
         approvedContractAddress = addresses.presalePhase1;
         isApproved = true;
