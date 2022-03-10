@@ -8,6 +8,10 @@
     justify-content: center;
     z-index: 2;
 
+    .main-wordmark {
+        max-width: 80vw;
+    }
+
     .landing-main-title-wrap {
         text-align: center;
         margin-top: 80px;
@@ -41,23 +45,34 @@
     .landing-main-btns-wrap {
         display: flex;
         flex-direction: row;
+        background-image: url("../../../../assets/images/gritty_green.PNG");
+        border-radius: 4px;
 
         a {
             text-decoration: none;
         }
 
         .landing-main-btn {
-            @include theme.primary-button();
-            padding: 1rem 2rem;
-            margin: 0 1rem;
-            min-width: 200px;
+            background-color: transparentize(theme.$deep-sea, 0.3);
+            border: 2px solid theme.$psi-aqua;
+            color: theme.$psi-foam;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+            height: 60px;
+            min-width: 300px;
+            font-weight: bold;
+            font-size: 32px;
+            transition: all 150ms;
 
-            &.secondary {
-                background: theme.$dark-gray-2;
-
-                &:hover {
-                    background: lighten(theme.$dark-gray-2, 10%);
-                }
+            &:hover {
+                color: #fff;
+                border-color: theme.$psi-kelp;
+                background-color: transparentize(lighten(theme.$deep-sea, 20%), 0.3);
             }
         }
     }

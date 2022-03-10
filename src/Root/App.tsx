@@ -164,7 +164,7 @@ function App() {
                 <div className={classNames("psi-interface", "psi-staking")}>
                     <Stake active={stakingActive} />
                 </div>
-                <div className={classNames("psi-interface", "psi-presale")}>
+                <div className={classNames("psi-interface", "psi-presale")} style={{"display": "none"}}>
                     <Presale />
                 </div>
                 <Switch>

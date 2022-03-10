@@ -115,6 +115,11 @@ class HarborScene extends Phaser.Scene {
             frameWidth: 60,
             frameHeight: 33,
         });
+        // ------ Catfish ------
+        this.load.spritesheet("catfish-loop", "assets/harbor/presale_catfish.png", {
+            frameWidth: 128,
+            frameHeight: 128,
+        })
         // ------ Hero Character ------
         // Idle
         this.load.spritesheet("hero-idle", "assets/player_assets/player_body/atlantianidle.png", {
@@ -257,6 +262,13 @@ class HarborScene extends Phaser.Scene {
             frameRate: 12,
             repeat: -1,
         });
+        // Catfish 
+        this.anims.create({
+            key: "catfish-loop",
+            frames: this.anims.generateFrameNames("catfish-loop"),
+            frameRate: 12,
+            repeat: -1,
+        })
         /**
          * ====== HERO ======
          */
@@ -436,12 +448,16 @@ class HarborScene extends Phaser.Scene {
         this.addHarborKeeper();
         this.addFire();
         this.addHero();
+        this.addCatfish();
+
+        this.catfishMoveTimer = 0;
 
         this.lights.enable();
         this.lights.setAmbientColor(0x808080);
 
         this.heroSpotlight = this.lights.addLight(this.hero.body.x, this.hero.body.y, 400, 0xffcf51).setIntensity(1);
         this.fireLight = this.lights.addLight(this.fire.body.center.x, this.fire.body.center.y, 300, 0xffcf51, 2);
+        this.catfishGlow = this.lights.addLight(this.catfish.body.center.x, this.catfish.body.center.y, 300, 0xffcf51, 2);
 
         this.backgroundmusic = this.sound.add("atlantis-song");
         this.playBackgroundMusic();
@@ -461,7 +477,7 @@ class HarborScene extends Phaser.Scene {
 
         console.log(this.plugins.scenePlugins);
 
-        this.toast = this.rexUI.add.toast({
+        this.harborKeeperToast = this.rexUI.add.toast({
             x: this.harborKeeperSpawn.x,
             y: this.harborKeeperSpawn.y - 80,
             background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 12, "#222222"),
@@ -496,7 +512,7 @@ class HarborScene extends Phaser.Scene {
 
         this.physics.add.overlap(this.hero, this.harborKeeper, () => {
             if (this.hoverTimer == 0) {
-                this.toast.showMessage("Press Q to access Bonding");
+                this.harborKeeperToast.showMessage("Press Q to access Bonding");
                 this.hoverTimer++;
             }
         });
@@ -517,6 +533,17 @@ class HarborScene extends Phaser.Scene {
             .setPipeline("Light2D");
         this.fire.play("fire-loop");
         this.physics.add.collider(this.fire, this.map.getLayer("Collide").tilemapLayer);
+    }
+
+    addCatfish() {
+        this.catfish = this.physics.add.sprite(this.catfishSpawn.x, this.catfishSpawn.y-30, "catfish").setOrigin(0.5, 1);
+        this.catfish.body.setMaxVelocity(150, 600);
+        this.catfish.body.setDragX(650);
+        this.catfish.body.setSize(128, 128);
+        this.catfish.body.setOffset(0, 0);
+        this.catfish.setScale(0.5)
+        this.catfish.play("catfish-loop");
+        this.physics.add.collider(this.catfish, this.map.getLayer("Collide").tilemapLayer);
     }
 
     addMap() {
@@ -549,6 +576,9 @@ class HarborScene extends Phaser.Scene {
             if (object.name === "HarborKeeper") {
                 this.harborKeeperSpawn = { x: object.x, y: object.y };
             }
+            if (object.name === "Catfish") {
+                this.catfishSpawn = { x: object.x, y: object.y };
+            }
         });
     }
 
@@ -567,7 +597,24 @@ class HarborScene extends Phaser.Scene {
             if (this.hoverTimer >= 3000) this.hoverTimer = 0;
         }
 
+        this.catfishMoveTimer += d;
+        if(this.catfishMoveTimer >= 1000) {
+            let rand = this.getRandInt(100);
+            let flip;
+            (rand > 50
+                ? 
+                (flip = 1, this.catfish.setFlipX(true))
+                :
+                (flip = -1, this.catfish.setFlipX(false))
+            )
+            this.catfish.body.setAccelerationX(50 * flip)
+            this.catfishMoveTimer = 0;
+        }
+
+        // Catfish movement
+
         this.heroSpotlight.setPosition(this.hero.body.center.x, this.hero.body.center.y);
+        this.catfishGlow.setPosition(this.catfish.body.center.x, this.catfish.body.center.y);
     }
 }
 

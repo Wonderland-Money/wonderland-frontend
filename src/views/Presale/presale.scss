@@ -1,7 +1,8 @@
 @use "src/theme.scss";
 
 .presale-view {
-    width: 89%;
+    width: 100%;
+    min-width: 680px;
     max-width: 833px;
     margin: auto;
 

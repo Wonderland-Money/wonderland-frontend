@@ -1,3 +1,4 @@
+import { TransferWithinAStationOutlined } from "@material-ui/icons";
 import Phaser from "phaser";
 import Button from "../../components/Button";
 import MenuButton from "../../components/MenuButton";
@@ -23,6 +24,10 @@ class Menu extends Phaser.Scene {
             frameHeight: 32,
         });
         this.load.spritesheet("forge-button", "assets/buttons/menu/forge-hover.png", {
+            frameWidth: 128,
+            frameHeight: 32,
+        });
+        this.load.spritesheet("appraiser-button", "assets/buttons/menu/appraiser-hover.png", {
             frameWidth: 128,
             frameHeight: 32,
         });
@@ -83,6 +88,12 @@ class Menu extends Phaser.Scene {
         this.anims.create({
             key: "forge-button-hover",
             frames: this.anims.generateFrameNumbers("forge-button"),
+            frameRate: 16,
+            repeat: -1,
+        });
+        this.anims.create({
+            key: "appraiser-button-hover",
+            frames: this.anims.generateFrameNumbers("appraiser-button"),
             frameRate: 16,
             repeat: -1,
         });
@@ -168,6 +179,17 @@ class Menu extends Phaser.Scene {
                 this.scene.start("ForgeScene");
             },
             2,
+        );
+
+        let appraiserButton = new MenuButton(
+            this,
+            width - 300,
+            height / 2 + 64 + SPACING + 64 + SPACING,
+            "Appraiser",
+            () => {
+                this.scene.start("AppraiserScene");
+            },
+            3,
         );
 
         // let harborButton = new Button(

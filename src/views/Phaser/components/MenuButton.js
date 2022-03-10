@@ -6,7 +6,7 @@ class MenuButton extends Phaser.GameObjects.Sprite {
             ["trial-button", "trial-button-hover"],
             ["harbor-button", "harbor-button-hover"],
             ["forge-button", "forge-button-hover"],
-            ["", ""],
+            ["appraiser-button", "appraiser-button-hover"],
         ];
 
         super(scene, x + 64, y + 16, images[imgId][0], 0);
