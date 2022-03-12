@@ -119,7 +119,7 @@ class HarborScene extends Phaser.Scene {
         this.load.spritesheet("catfish-loop", "assets/harbor/presale_catfish.png", {
             frameWidth: 128,
             frameHeight: 128,
-        })
+        });
         // ------ Hero Character ------
         // Idle
         this.load.spritesheet("hero-idle", "assets/player_assets/player_body/atlantianidle.png", {
@@ -262,13 +262,13 @@ class HarborScene extends Phaser.Scene {
             frameRate: 12,
             repeat: -1,
         });
-        // Catfish 
+        // Catfish
         this.anims.create({
             key: "catfish-loop",
             frames: this.anims.generateFrameNames("catfish-loop"),
             frameRate: 12,
             repeat: -1,
-        })
+        });
         /**
          * ====== HERO ======
          */
@@ -495,8 +495,38 @@ class HarborScene extends Phaser.Scene {
             transitOut: 1,
         });
 
+        this.catfishToast = this.rexUI.add.toast({
+            x: this.catfish.body.center.x,
+            y: this.catfish.body.center.y - 20,
+            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 12, "#222222"),
+            text: this.add.text(0, 0, "", {
+                fontSize: "16px",
+                fontFamily: "Cormorant Garamond",
+            }),
+            space: {
+                left: 12,
+                right: 12,
+                top: 12,
+                bottom: 12,
+            },
+            transitIn: 1,
+            transitOut: 1,
+        })
+
         this.input.keyboard.on("keydown-Q", () => {
-            this.openBondingMenu();
+            if(!this.harborKeeper.body.touching.none || this.harborKeeper.body.embedded) {
+                this.openBondingMenu();
+            }
+            if(!this.catfish.body.touching.none || this.catfish.body.embedded) {
+                this.openPresaleMenu();
+            }
+        });
+        this.input.keyboard.on("keydown-R", () => {
+            if(!this.harborKeeper.body.touching.none || this.harborKeeper.body.embedded) {
+                let txt = dialogue.dialogue[this.getRandInt(Object.keys(dialogue.dialogue).length)];
+                events.emit("dialogue", { speaker: "Tidemaster Logii", dialogue: txt });
+                // events.emit("dialogue", { speaker: "Tidemaster Logii", dialogue: "You should really get a bidet, leaves my ass feeling delightful" });
+            }
         });
     }
 
@@ -508,11 +538,12 @@ class HarborScene extends Phaser.Scene {
 
     addHero() {
         this.hero = new Hero(this, this.spawnPos.x, this.spawnPos.y);
+        this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.groundCollider = this.physics.add.collider(this.hero, this.map.getLayer("Collide").tilemapLayer);
 
         this.physics.add.overlap(this.hero, this.harborKeeper, () => {
             if (this.hoverTimer == 0) {
-                this.harborKeeperToast.showMessage("Press Q to access Bonding");
+                events.emit("notification", ["Press Q to access Bonding", "Press R to speak"]);
                 this.hoverTimer++;
             }
         });
@@ -536,14 +567,20 @@ class HarborScene extends Phaser.Scene {
     }
 
     addCatfish() {
-        this.catfish = this.physics.add.sprite(this.catfishSpawn.x, this.catfishSpawn.y-30, "catfish").setOrigin(0.5, 1);
+        this.catfish = this.physics.add.sprite(this.catfishSpawn.x, this.catfishSpawn.y - 30, "catfish").setOrigin(0.5, 1);
         this.catfish.body.setMaxVelocity(150, 600);
         this.catfish.body.setDragX(650);
         this.catfish.body.setSize(128, 128);
         this.catfish.body.setOffset(0, 0);
-        this.catfish.setScale(0.5)
+        this.catfish.setScale(0.5);
         this.catfish.play("catfish-loop");
         this.physics.add.collider(this.catfish, this.map.getLayer("Collide").tilemapLayer);
+        this.physics.add.overlap(this.catfish, this.hero, () => {
+            if (this.hoverTimer == 0) {
+                events.emit("notification", "Press Q to access Claiming");
+                this.hoverTimer++;
+            }
+        })
     }
 
     addMap() {
@@ -590,6 +627,14 @@ class HarborScene extends Phaser.Scene {
         } else return;
     }
 
+    openPresaleMenu() {
+        if (!this.scene.isActive("FreezeScreen")) {
+            this.showPresale();
+            this.hero.setPauseInput(true);
+            this.scene.launch("FreezeScreen", "HarborScene");
+        } else return;
+    }
+
     update(t, d) {
         super.update(t, d);
         if (this.hoverTimer > 0) {
@@ -598,18 +643,14 @@ class HarborScene extends Phaser.Scene {
         }
 
         this.catfishMoveTimer += d;
-        if(this.catfishMoveTimer >= 1000) {
+        if (this.catfishMoveTimer >= 1000) {
             let rand = this.getRandInt(100);
             let flip;
-            (rand > 50
-                ? 
-                (flip = 1, this.catfish.setFlipX(true))
-                :
-                (flip = -1, this.catfish.setFlipX(false))
-            )
-            this.catfish.body.setAccelerationX(50 * flip)
+            rand > 50 ? ((flip = 1), this.catfish.setFlipX(true)) : ((flip = -1), this.catfish.setFlipX(false));
+            this.catfish.body.setAccelerationX(50 * flip);
             this.catfishMoveTimer = 0;
         }
+
 
         // Catfish movement
 

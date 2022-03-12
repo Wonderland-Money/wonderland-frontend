@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAddress, useWeb3Context } from "../hooks";
@@ -22,11 +22,14 @@ function App() {
     const { connect, provider, hasCachedProvider, chainID, connected } = useWeb3Context();
     const address = useAddress();
 
+    const phaserWrapper = useRef<any>(null);
+
     const [walletChecked, setWalletChecked] = useState(false);
 
     const [dashboardActive, setDashboardActive] = useState(false); // Closed by default, opened ingame as needed.
     const [stakingActive, setStakingActive] = useState(false); // Closed by default, opened ingame as needed.
     const [bondingActive, setBondingActive] = useState(false); // Closed by default, opened ingame as needed.
+    const [presaleActive, setPresaleActive] = useState(false); // Closed by default, opened ingame as needed.
     const [socialActive, setSocialActive] = useState(true); // Social open by default, open during menu. Closed during games.
     const [connectButtonActive, setConnectButtonActive] = useState(true); // Connect button open by default, open during menu. Closed during games.
 
@@ -55,7 +58,7 @@ function App() {
             bonds.map(bond => {
                 dispatch(calculateUserBondDetails({ address, bond, provider, networkID: chainID }));
             });
-            dispatch(getPresaleDetails({ provider, networkID: chainID, address }))
+            dispatch(getPresaleDetails({ provider, networkID: chainID, address }));
         }
     }
 
@@ -91,6 +94,8 @@ function App() {
                 setStakingActive(false);
             } else if (msg.startsWith("closeBonding")) {
                 setBondingActive(false);
+            } else if (msg.startsWith("closePresale")) {
+                setPresaleActive(false);
             } else if (msg.startsWith("closeSocial")) {
                 setSocialActive(false);
             } else if (msg.startsWith("closeConnectButton")) {
@@ -101,6 +106,8 @@ function App() {
                 setStakingActive(true);
             } else if (msg.startsWith("openBonding")) {
                 setBondingActive(true);
+            } else if (msg.startsWith("openPresale")) {
+                setPresaleActive(true);
             } else if (msg.startsWith("openSocial")) {
                 setSocialActive(true);
             } else if (msg.startsWith("openConnectButton")) {
@@ -119,6 +126,10 @@ function App() {
         } else {
             return;
         }
+    };
+
+    const setGameActive = (bool: boolean) => {
+        bool ? (phaserWrapper.current!.className = "active") : (phaserWrapper.current!.className = "");
     };
 
     useEffect(() => {
@@ -154,8 +165,8 @@ function App() {
     return (
         <>
             {isAppLoading && <Loading />}
-            <div id="phaser-wrapper">
-                <PhaserGame connected={(connected && chainID === DEFAULT_NETWORK) || false} exitButtonOpen={exitButtonOpen} />
+            <div id="phaser-wrapper" ref={phaserWrapper}>
+                <PhaserGame connected={(connected && chainID === DEFAULT_NETWORK) || false} setGameActive={setGameActive} exitButtonOpen={exitButtonOpen} />
             </div>
             <ViewBase socialIsOpen={socialActive} connectButtonIsOpen={connectButtonActive}>
                 <div className={classNames("psi-interface", "psi-dashboard")}>
@@ -164,8 +175,8 @@ function App() {
                 <div className={classNames("psi-interface", "psi-staking")}>
                     <Stake active={stakingActive} />
                 </div>
-                <div className={classNames("psi-interface", "psi-presale")} style={{"display": "none"}}>
-                    <Presale />
+                <div className={classNames("psi-interface", "psi-presale")}>
+                    <Presale active={presaleActive} />
                 </div>
                 <Switch>
                     <div className={classNames("psi-interface", "psi-bonding")}>

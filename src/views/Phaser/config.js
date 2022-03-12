@@ -28,9 +28,6 @@ function getHeight() {
 const WIDTH = 1280;
 const HEIGHT = 720;
 
-console.log(WIDTH + " | " + getWidth());
-console.log(HEIGHT + " | " + getHeight());
-
 export default {
     type: Phaser.AUTO,
     parent: "phaser-wrapper",

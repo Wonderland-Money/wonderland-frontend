@@ -54,7 +54,7 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 overflow: hidden;
-                background-color: theme.$dark-gray;
+                background-color: lighten(theme.$murky-black, 3%);
                 border-radius: 4px;
                 border: 1px solid theme.$dark-gray-2;
                 padding: 20px 0;
@@ -131,6 +131,7 @@
                         p {
                             color: #ffffff;
                         }
+                        background-color: rgba(0,0,0,0);
 
                         border-bottom: 2px solid #ffffff;
                     }

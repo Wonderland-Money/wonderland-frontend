@@ -31,6 +31,10 @@ class Hero extends Phaser.GameObjects.Sprite {
         this.isHit = false;
         this.isTeleporting = false;
         this.isAttacking = false;
+        
+        if (!this.scene.scene.isActive("DeathScreen")) {
+            this.scene.scene.launch("GameUI", { attackEnabled: this.attackEnabled, hp: this.hitPoints }).moveAbove("GameScene");
+        }
     }
 
     setupAnimations() {

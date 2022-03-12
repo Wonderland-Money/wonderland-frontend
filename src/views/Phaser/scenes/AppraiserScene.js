@@ -5,11 +5,11 @@ import baseSceneMixin from "./mixins/baseSceneMixin";
 import frontendControlsMixin from "./mixins/frontendControlsMixin";
 import { sharedInstance as events } from "../managers/EventCenter";
 
-import dialogue from "./dialogue/Forge.json"
+import dialogue from "./dialogue/Appraiser.json"
 
-class ForgeScene extends Phaser.Scene {
+class AppraiserScene extends Phaser.Scene {
     constructor() {
-        super({ key: "ForgeScene" });
+        super({ key: "AppraiserScene" });
     }
     preload() {
         let { width, height } = this.sys.game.canvas;
@@ -95,12 +95,12 @@ class ForgeScene extends Phaser.Scene {
 
     loadSpritesAndShit() {
         // ========= Tilemaps & Spritesheets =========
-        this.load.tilemapTiledJSON("forge", "assets/tilemap/forge.json");
+        this.load.tilemapTiledJSON("appraiser-map", "assets/tilemap/appraiser.json");
         // Tilesheet
         this.load.image("tileset", "assets/tilesets/castlestone.png");
 
         // ------ Background ------
-        this.load.spritesheet("forge", "assets/forge/alchemistforge.png", {
+        this.load.spritesheet("appraiser-sprite", "assets/appraiser/appraiser.png", {
             frameWidth: 480,
             frameHeight: 270,
         });
@@ -209,8 +209,8 @@ class ForgeScene extends Phaser.Scene {
         });
         // Flares
         this.load.atlas("flares", "assets/particles/flares.png", "assets/particles/flares.json");
-        // Forge Terminal
-        this.load.spritesheet("forge-terminal", "assets/forge/forge-terminal.png", {
+        // Appraiser Scale
+        this.load.spritesheet("scale", "assets/appraiser/scale.png", {
             frameWidth: 32,
             frameHeight: 32,
         })
@@ -234,8 +234,8 @@ class ForgeScene extends Phaser.Scene {
         //     repeat: -1,
         // });
         this.anims.create({
-            key: "forge-loop",
-            frames: this.anims.generateFrameNames("forge"),
+            key: "appraiser-loop",
+            frames: this.anims.generateFrameNames("appraiser-spritesheet"),
             frameRate: 12,
             repeat: -1,
         });
@@ -406,10 +406,10 @@ class ForgeScene extends Phaser.Scene {
             repeat: 0,
         });
 
-        // Terminal Loop
+        // Scale Loop
         this.anims.create({
-            key: "forge-terminal-loop",
-            frames: this.anims.generateFrameNumbers("forge-terminal"),
+            key: "scale-loop",
+            frames: this.anims.generateFrameNumbers("scale"),
             frameRate: 8,
             repeat: -1,
         })
@@ -423,7 +423,7 @@ class ForgeScene extends Phaser.Scene {
         this.loadAnims();
         this.addMap();
 
-        this.addTerminal();
+        this.addScaleObject();
         this.addHero();
 
         this.backgroundmusic = this.sound.add("atlantis-song");
@@ -439,19 +439,19 @@ class ForgeScene extends Phaser.Scene {
 
         // PAUSE MENU CONTROLS
         this.input.keyboard.on("keydown-ESC", () => {
-            this.scene.launch("PauseMenu", "ForgeScene");
+            this.scene.launch("PauseMenu", "AppraiserScene");
             this.scene.pause();
         });
 
         this.input.keyboard.on("keydown-Q", () => {
-            if(!this.terminal.body.touching.none || this.terminal.body.embedded) {
-                this.openStakingMenu();
+            if(!this.scaleObject.body.touching.none || this.scaleObject.body.embedded) {
+                this.openDashboard();
             }
         });
         this.input.keyboard.on("keydown-R", () => {
-            if(!this.terminal.body.touching.none || this.terminal.body.embedded) {
+            if(!this.scaleObject.body.touching.none || this.scaleObject.body.embedded) {
                 let txt = dialogue.dialogue[this.getRandInt(Object.keys(dialogue.dialogue).length)];
-                events.emit("dialogue", { speaker: "Alchemist", dialogue: txt });    
+                events.emit("dialogue", { speaker: "Bilgeworth Tendermint, Treasury Financier", dialogue: txt });    
             }
         });
     }
@@ -465,33 +465,31 @@ class ForgeScene extends Phaser.Scene {
     addHero() {
         this.hero = new Hero(this, this.spawnPos.x, this.spawnPos.y);
         this.groundCollider = this.physics.add.collider(this.hero, this.map.getLayer("Collide").tilemapLayer);
-        this.physics.add.overlap(this.hero, this.terminal, () => {
+        this.physics.add.overlap(this.hero, this.scaleObject, () => {
             
             if (this.hoverTimer == 0) {
-                events.emit("notification", ["Press Q to access Staking", "Press R to speak"]);
+                events.emit("notification", ["Press Q to access Dashboard", "Press R to speak"]);
                 this.hoverTimer++;
             }
         });
     }
 
-    addTerminal() {
-        console.log(this.terminalSpawn)
-        this.terminal = this.physics.add.sprite(this.terminalSpawn.x, this.terminalSpawn.y - 32, "forge-terminal")
-        this.terminal.play("forge-terminal-loop");
-        this.terminal.setImmovable(true);
-        this.physics.add.collider(this.terminal, this.map.getLayer("Collide").tilemapLayer);
-        this.terminal.setScale(2);
+    addScaleObject() {
+        console.log(this.scaleSpawn)
+        this.scaleObject = this.physics.add.sprite(this.scaleSpawn.x, this.scaleSpawn.y - 32, "scale")
+        this.scaleObject.play("scale-loop");
+        this.scaleObject.setImmovable(true);
+        this.physics.add.collider(this.scaleObject, this.map.getLayer("Collide").tilemapLayer);
+        this.scaleObject.setScale(2);
     }
 
     addMap() {
-        this.map = this.make.tilemap({ key: "forge" });
+        this.map = this.make.tilemap({ key: "appraiser-map" });
 
-        const backgroundLoop = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "forge").setOrigin(0.5, 0.5);
-        // const backgroundSprite = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, 'harbor-bg-anim').setOrigin(0.5, 0.5).setScrollFactor(0.7)
-        backgroundLoop.play("forge-loop");
+        const backgroundLoop = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "appraiser-spritesheet").setOrigin(0.5, 0.5);
+        backgroundLoop.play("appraiser-loop");
         backgroundLoop.scale = 3.2;
-        // backgroundSprite.play('harbor-bg-anim')
-        //backgroundSprite.setFrame(0)
+
 
         const groundTiles = this.map.addTilesetImage("castlestone", "tileset");
 
@@ -509,9 +507,8 @@ class ForgeScene extends Phaser.Scene {
             if (object.name === "Start") {
                 this.spawnPos = { x: object.x, y: object.y };
             }
-            if (object.name === "TerminalSpawn") {
-                console.log(object)
-                this.terminalSpawn = { x: object.x, y: object.y };
+            if (object.name === "ScaleSpawn") {
+                this.scaleSpawn = { x: object.x, y: object.y };
             }
         });
     }
@@ -519,7 +516,7 @@ class ForgeScene extends Phaser.Scene {
     openStakingMenu() {
         if (!this.scene.isActive("FreezeScreen")) {
             this.showStaking();
-            this.scene.launch("FreezeScreen", "ForgeScene");
+            this.scene.launch("FreezeScreen", "AppraiserScene");
         } else return;
     }
 
@@ -532,7 +529,7 @@ class ForgeScene extends Phaser.Scene {
     }
 }
 
-Object.assign(ForgeScene.prototype, baseSceneMixin);
-Object.assign(ForgeScene.prototype, frontendControlsMixin);
+Object.assign(AppraiserScene.prototype, baseSceneMixin);
+Object.assign(AppraiserScene.prototype, frontendControlsMixin);
 
-export default ForgeScene;
+export default AppraiserScene;

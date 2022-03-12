@@ -34,9 +34,6 @@ function ChooseBond(props: any) {
                             onClick={() => {
                                 window.parent.postMessage("closeMenu", window.location.origin);
                                 window.parent.postMessage("closeBonding", window.location.origin);
-                                console.log(window.location.href);
-                                // window.parent.postMessage("closeMenu", "http://app.trident.localhost:3000");
-                                // window.parent.postMessage("closeBonding", "http://app.trident.localhost:3000");
                             }}
                             className="close-app-btn"
                         >

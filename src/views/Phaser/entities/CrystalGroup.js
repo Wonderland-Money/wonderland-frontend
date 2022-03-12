@@ -13,7 +13,7 @@ class CrystalGroup extends Phaser.Physics.Arcade.Group {
             active: false,
             visible: false,
             classType: Crystal,
-            frameQuantity: 40,
+            frameQuantity: 60,
         });
     }
 

@@ -28,11 +28,21 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":139.493,
-                 "y":477.171
+                 "x":141.456093835885,
+                 "y":698.222040439733
+                }, 
+                {
+                 "height":0,
+                 "id":3,
+                 "name":"TerminalSpawn",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":770,
+                 "y":696
                 }],
-         "offsetx":-8.05152979066023,
-         "offsety":213.365539452496,
          "opacity":1,
          "type":"objectgroup",
          "visible":true,
@@ -40,16 +50,16 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":3,
+ "nextobjectid":4,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.7.2",
+ "tiledversion":"1.8.2",
  "tileheight":32,
  "tilesets":[
         {
          "columns":10,
          "firstgid":1,
-         "image":"..\/..\/..\/..\/Trial-of-the-Trident\/phaser3\/assets\/tilesets\/castlestone.png",
+         "image":"..\/tilesets\/castlestone.png",
          "imageheight":320,
          "imagewidth":320,
          "margin":0,
@@ -61,6 +71,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.6",
+ "version":"1.8",
  "width":50
 }

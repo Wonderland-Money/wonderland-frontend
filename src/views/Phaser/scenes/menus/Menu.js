@@ -11,8 +11,8 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        console.log(this.load.baseURL);
         this.load.audio("button-click", "assets/audio/button-click.mp3");
+        this.load.image("trident-title", "assets/Wordmark.png");
 
         // Menu Specific Buttons
         this.load.spritesheet("trial-button", "assets/buttons/menu/trial-hover.png", {
@@ -65,6 +65,7 @@ class Menu extends Phaser.Scene {
     }
 
     create(data) {
+        this.showExitButton();
         window.parent.postMessage("gameActive", window.location.origin);
 
         this.input.setDefaultCursor("url(assets/catfish-cursor.png), pointer");
@@ -134,6 +135,8 @@ class Menu extends Phaser.Scene {
         let title = this.add.sprite(width / 2, height / 2, "main-menu");
         title.play("menu-loop");
         title.setOrigin(0.5, 0.5);
+
+        let wordmark = this.add.image(width / 2, 100, "trident-title");
         let scale = this.sys.canvas.width / title.width;
         title.scale = scale;
 
@@ -154,7 +157,7 @@ class Menu extends Phaser.Scene {
             height / 2 - 64 - SPACING,
             "Kraken",
             () => {
-                this.scene.start("GameScene");
+                this.scene.start("InstructionsSplash");
             },
             0,
         );

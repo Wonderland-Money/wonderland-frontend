@@ -1,3 +1,4 @@
+import { useForkRef } from "@material-ui/core";
 import Phaser from "phaser";
 import { sharedInstance as events } from "../../managers/EventCenter";
 
@@ -8,21 +9,241 @@ class InGameUI extends Phaser.Scene {
 
     preload() {
         // Heart Sprite
-        this.load.spritesheet("heart-sprite", "assets/icons/health/heart.png", {
+        this.load.spritesheet("heart-sprite", "assets/playerUI/health/heart.png", {
             frameWidth: 16,
             frameHeight: 16,
         });
 
         // Hotbar
-        this.load.spritesheet("hotbar-sprite", "assets/icons/hotbar/hotbar3.png", {
+        this.load.spritesheet("hotbar-sprite", "assets/playerUI/hotbar/hotbar3.png", {
             frameWidth: 16,
             frameHeight: 16,
         });
+
+        this.load.image("dialogue-box", "assets/playerUI/dialogue_box.png");
     }
 
-    create() {
+    create(data) {
+        this.playerAttackEnabled = data.attackEnabled;
+        this.playerHp = data.hp;
+        this.dialogueActive = false;
+        this.dialogueTriggered = false;
+
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
+
+        (this.playerAttackEnabled) ? this.drawPlayerAttackEnabled() : this.drawPlayerAttackDisabled();
+
+        this.input.keyboard.on("keydown-R", () => {
+            if(this.dialogueActive) {
+                this.clearDialogue();
+            }
+        });
+    }
+
+    drawHotbar() {
+        this.hotbarSlots = [5];
+        let j = 0;
+        for (let i = 0; i < 5; i++) {
+            this.hotbarSlots[i] = this.add
+                .sprite(this.width / 2 + i * 48 - (48 * 2 + 4), this.height, "hotbar-sprite", j)
+                .setOrigin(0.5, 1)
+                .setScale(3);
+            j += 2;
+        }
+        this.setActive(0);
+    }
+
+    /**
+     * hotbarSlots - corresponding sprite frames
+     * 0 - 01
+     * 1 - 23
+     * 2 - 45
+     * 3 - 67
+     * 4 - 89
+     */
+
+    setActive(item) {
+        // Previous active slot should be reset
+        this.hotbarSlots[this.currentActive].setFrame(this.currentActive * 2);
+        // Set slot "item" active
+        this.hotbarSlots[item].setFrame(item * 2 + 1);
+        // Set currentActive to "item"
+        this.currentActive = item;
+    }
+
+    drawPlayerHearts() {
+        this.playerHearts = [];
+        for (let i = 0; i < this.playerHp; i++) {
+            this.playerHearts[i] = this.add.sprite(20 + i * 16, 50, "heart-sprite").setOrigin(0, 0.5);
+        }
+    }
+
+    drawBossHearts() {
+        this.bossHearts = [];
+        let j = -1;
+        for (let i = 0; i < this.bossHp; i++) {
+            if (i % 5 == 0) j++;
+            this.bossHearts[i] = this.add.sprite(this.width - 20 - i * 16 + j * 80, 50 + j * 16, "heart-sprite").setOrigin(1, 0.5);
+        }
+    }
+
+    showNotification(data) {
+        if(Array.isArray(data)) {
+            for(let i = 0; i < data.length; ++i) {
+                let notif = this.rexUI.add.toast({
+                    x: this.width / 2,
+                    y: 40 + (i * 44),
+                    background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 8, "#132217"),
+                    text: this.add.text(0, 0, data[i], {
+                        fontSize: "16px",
+                        fontFamily: "Cormorant Garamond",
+                        color: "#ffe7bc",
+                    }),
+                    space: {
+                        left: 12,
+                        right: 12,
+                        top: 12,
+                        bottom: 12,
+                    },
+                    transitIn: 1,
+                    transitOut: 1,
+                }).showMessage(data[i]);
+            }
+        } else
+            this.notif.showMessage(data);
+    }
+
+    setupNotifs() {
+        this.notif = this.rexUI.add.toast({
+            x: this.width / 2,
+            y: 40,
+            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 8, "#132217"),
+            text: this.add.text(0, 0, "", {
+                fontSize: "16px",
+                fontFamily: "Cormorant Garamond",
+                color: "#ffe7bc",
+            }),
+            space: {
+                left: 12,
+                right: 12,
+                top: 12,
+                bottom: 12,
+            },
+            transitIn: 1,
+            transitOut: 1,
+        });
+
+        events.on(
+            "notification",
+            data => {
+                this.showNotification(data);
+            },
+            this,
+        )
+    }
+
+    drawDialogueBox() {
+        this.dialogueBox = this.add.image(this.width / 2, this.height, "dialogue-box").setOrigin(0.5,1).setScale(2);
+        this.dialogueBox.setAlpha(0); // Hidden until dialogue event
+
+        events.on(
+            "dialogue",
+            data => {
+                if(!this.dialogueActive)
+                    this.beginDialogue(data.speaker, data.dialogue);
+                else
+                    this.clearDialogue();
+            },
+            this,
+        );
+    }
+
+    breakText(dialogue) {
+        let maxLineLen = 83;
+        let finalizedText = [];
+        let words = dialogue.split(" ");
+
+        let tempStr = "";
+        let counter = 0;
+        for (let i = 0; i < words.length; ++i) {
+            tempStr += words[i] + " ";
+            if(tempStr.length > maxLineLen) {
+                finalizedText[counter] = tempStr;
+                tempStr = "";
+                ++counter;
+            }
+        }
+        finalizedText[counter] = tempStr;
+        return finalizedText;
+    }
+
+    beginDialogue(speaker, dialogue) {
+        if (this.dialogueTriggered) return
+        this.dialogueTriggered = true;
+        this.time.delayedCall(200, () => {
+            this.dialogueActive = true
+        })
+        
+        let newDialogue = this.breakText(dialogue);
+        
+        this.tweens.add({
+            targets: this.dialogueBox,
+            alpha: 1,
+            duration: 300,
+            ease: "Power2",
+        })
+
+        // Text
+        this.dialogueSender = this.add
+            .text(this.dialogueBox.getTopLeft().x + 28, this.dialogueBox.getTopLeft().y + 24, speaker, {
+                fontSize: 24,
+                color: "#000000",
+                fontStyle: "bold",
+                fontFamily: "Cormorant Garamond",
+            })
+            .setOrigin(0, 0).setDepth(3);
+
+        this.dialogueContent = this.add
+            .text(this.dialogueBox.getTopLeft().x + 28, this.dialogueBox.getTopLeft().y + 54, newDialogue, {
+                fontSize: 21,
+                color: "#222222",
+                fontStyle: "bold",
+                fontFamily: "Cormorant Garamond",
+            })
+            .setOrigin(0, 0).setDepth(3);
+
+        this.dialogueToolTip = this.add
+            .text(this.width / 2, this.height - 24, "Press [R] to close dialogue.", {
+                fontSize: 18,
+                color: "#444444",
+                fontStyle: "bold",
+                fontFamily: "Cormorant Garamond",
+            })
+            .setOrigin(0.5, 0).setDepth(3);
+    }
+
+    addDialogue() {
+
+    }
+
+    clearDialogue() {
+        this.dialogueTriggered = false;
+        this.dialogueActive = false;
+        this.tweens.add({
+            targets: [this.dialogueBox, this.dialogueSender, this.dialogueContent, this.dialogueToolTip],
+            alpha: 0,
+            duration: 300,
+            ease: "Power2",
+        })
+    }
+
+    drawPlayerAttackDisabled() {
+        this.drawDialogueBox()
+        this.setupNotifs()
+    }
+
+    drawPlayerAttackEnabled() {
         /**
          * === DRAW ATTACK HOTBAR ===
          */
@@ -138,53 +359,6 @@ class InGameUI extends Phaser.Scene {
             },
             this,
         );
-    }
-
-    drawHotbar() {
-        this.hotbarSlots = [5];
-        let j = 0;
-        for (let i = 0; i < 5; i++) {
-            this.hotbarSlots[i] = this.add
-                .sprite(this.width / 2 + i * 48 - (48 * 2 + 4), this.height, "hotbar-sprite", j)
-                .setOrigin(0.5, 1)
-                .setScale(3);
-            j += 2;
-        }
-        this.setActive(0);
-    }
-
-    /**
-     * hotbarSlots - corresponding sprite frames
-     * 0 - 01
-     * 1 - 23
-     * 2 - 45
-     * 3 - 67
-     * 4 - 89
-     */
-
-    setActive(item) {
-        // Previous active slot should be reset
-        this.hotbarSlots[this.currentActive].setFrame(this.currentActive * 2);
-        // Set slot "item" active
-        this.hotbarSlots[item].setFrame(item * 2 + 1);
-        // Set currentActive to "item"
-        this.currentActive = item;
-    }
-
-    drawPlayerHearts() {
-        this.playerHearts = [];
-        for (let i = 0; i < this.playerHp; i++) {
-            this.playerHearts[i] = this.add.sprite(20 + i * 16, 50, "heart-sprite").setOrigin(0, 0.5);
-        }
-    }
-
-    drawBossHearts() {
-        this.bossHearts = [];
-        let j = -1;
-        for (let i = 0; i < this.bossHp; i++) {
-            if (i % 5 == 0) j++;
-            this.bossHearts[i] = this.add.sprite(this.width - 20 - i * 16 + j * 80, 50 + j * 16, "heart-sprite").setOrigin(1, 0.5);
-        }
     }
 
     update(time, delta) {}

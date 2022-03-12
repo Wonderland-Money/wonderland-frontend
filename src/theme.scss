@@ -23,12 +23,12 @@ $lynch: #5d7287;
 $granite-green: #8c8c6c;
 $columbia-blue: #cce6f4;
 $platinum: #e2e2e2;
-$smoky-black: #0d0801;
+$murky-black: hsl(150, 25%, 3%);
 $gunmetal: #1e2a38;
 $indigo-dye: #2a486e;
 
 // THEME
-$background-color: $smoky-black;
+$background-color: $murky-black;
 $black: #0e0e0e;
 $white: #fcfcfc;
 
@@ -38,7 +38,7 @@ $secondary-button-background: $indigo-dye;
 $active-nav-background: $indigo-dye;
 $active-nav-text: $white;
 $inactive-nav-text: $platinum;
-$card-background: $smoky-black;
+$card-background: $murky-black;
 $divider: $bermuda-gray;
 
 // GLOBAL RULES
@@ -48,7 +48,7 @@ a:hover {
 
 // MIXINS
 @mixin soft-shadow {
-    box-shadow: transparentize($smoky-black, 0.8) 0px 1px 4px;
+    box-shadow: transparentize($murky-black, 0.8) 0px 1px 4px;
 }
 
 @mixin medium-shadow {

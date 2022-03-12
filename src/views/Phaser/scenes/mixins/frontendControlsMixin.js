@@ -38,6 +38,14 @@ const frontendControlsMixin = {
         window.parent.postMessage("openBonding", variables.gameUrl);
     },
 
+    // Presale
+    hidePresale() {
+        window.parent.postMessage("closePresale", variables.gameUrl);
+    },
+    showPresale() {
+        window.parent.postMessage("openPresale", variables.gameUrl);
+    },
+
     // Connect Button
     hideConnectButton() {
         window.parent.postMessage("closeConnectButton", variables.gameUrl);

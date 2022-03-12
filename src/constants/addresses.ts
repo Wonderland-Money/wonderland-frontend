@@ -12,7 +12,7 @@ const ONE_MAINNET = {
     presaleContributor: "0xCe5A688530D725a9CE50371a7fcB1e9062Ba9221", // for presale phase 1,2,3 and non-core contributors. Uses Presale.abi but works differently than presalePrestaked.
     presalePhase1: "0xCe5A688530D725a9CE50371a7fcB1e9062Ba9221",
     presalePhase2: "0xCe5A688530D725a9CE50371a7fcB1e9062Ba9221",
-    presalePhase3: "0xCe5A688530D725a9CE50371a7fcB1e9062Ba9221", 
+    presalePhase3: "0xCe5A688530D725a9CE50371a7fcB1e9062Ba9221",
 };
 
 export const getAddresses = (networkID: number) => {

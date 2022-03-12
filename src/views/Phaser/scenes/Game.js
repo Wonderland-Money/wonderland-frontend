@@ -351,9 +351,9 @@ class Game extends Phaser.Scene {
 
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         this.input.mouse.disableContextMenu();
-        if (!this.scene.isActive("DeathScreen")) {
-            this.scene.launch("GameUI").moveAbove("GameScene");
-        }
+        // if (!this.scene.isActive("DeathScreen")) {
+        //     this.scene.launch("GameUI").moveAbove("GameScene");
+        // }
 
         this.loadAnims();
         this.loadEventHandlers();

@@ -25,14 +25,12 @@ export default function App(props) {
     const { connect } = useWeb3Context();
 
     const gameRef = useRef(null);
+
     // Call `setInitialize` when you want to initialize your game! :)
     const [initialize, setInitialize] = useState(false);
 
     const startGame = () => {
         window.parent.postMessage("hideUI", variables.gameUrl);
-        console.log("Var: " + variables.gameUrl);
-        console.log("Win.Href: " + window.location.href);
-        console.log("Win.Origin: " + window.location.origin);
         setInitialize(true);
     };
 
@@ -42,6 +40,7 @@ export default function App(props) {
         }
         window.parent.postMessage("showUI", variables.gameUrl);
         setInitialize(false);
+        props.setGameActive(false);
     };
 
     return (
@@ -61,7 +60,7 @@ export default function App(props) {
                         connect();
                     }
                     if (!initialize && props.connected) {
-                        console.log("Trident 2D Starting up...");
+                        props.setGameActive(true);
                         startGame();
                     }
                 }}
@@ -69,7 +68,7 @@ export default function App(props) {
                 {props.connected ? "Enter Atlantis" : "Connect"}
             </a>
             <a className={classNames("button", "exit-button", { disabled: !initialize || !props.exitButtonOpen })} onClick={destroy}>
-                Exit
+                Quit
             </a>
         </>
     );
