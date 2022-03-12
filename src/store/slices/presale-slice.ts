@@ -45,28 +45,34 @@ export const getPresaleDetails = createAsyncThunk("presale/getPresaleDetails", a
     const addresses = getAddresses(networkID);
     let approvedContractAddress = "";
     let isApproved = false;
-    while (!isApproved) {
-        let contributorContract = new Contract(addresses.presaleContributor, PresaleContract, provider);
-        if ((await contributorContract.buyableFor(address)) > 0) {
-            approvedContractAddress = addresses.presaleContributor;
-            isApproved = true;
-        }
-        let phase1Contract = new Contract(addresses.presalePhase1, PresaleContract, provider);
-        if ((await phase1Contract.buyableFor(address)) > 0) {
-            approvedContractAddress = addresses.presalePhase1;
-            isApproved = true;
-        }
-        let phase2Contract = new Contract(addresses.presalePhase2, PresaleContract, provider);
-        if ((await phase2Contract.buyableFor(address)) > 0) {
-            approvedContractAddress = addresses.presalePhase2;
-            isApproved = true;
-        }
-        let phase3Contract = new Contract(addresses.presalePhase3, PresaleContract, provider);
-        if ((await phase3Contract.buyableFor(address)) > 0) {
-            approvedContractAddress = addresses.presalePhase3;
-            isApproved = true;
-        }
+
+    let phase1Contract = new Contract(addresses.presalePhase1, PresaleContract, provider);
+    let term = await phase1Contract.terms(address);
+    if(term.whitelistedAmount > 0) {
+        approvedContractAddress = addresses.presalePhase1;
+        isApproved = true;
     }
+
+    /*
+     *  Activate next phase by removing phase1 from above and uncommenting below
+     */
+    
+    /*
+    let phase2Contract = new Contract(addresses.presalePhase2, PresaleContract, provider);
+    let term = await phase2Contract.terms(address);
+    if(term.whitelistedAmount > 0) {
+        approvedContractAddress = addresses.presalePhase2;
+        isApproved = true;
+    }
+
+    let phase3Contract = new Contract(addresses.presalePhase3, PresaleContract, provider);
+    let term = await phase3Contract.terms(address);
+    if(term.whitelistedAmount > 0) {
+        approvedContractAddress = addresses.presalePhase3;
+        isApproved = true;
+    }
+    */
+    
 
     let approvedContract = new Contract(approvedContractAddress, PresaleContract, provider);
     claimablePsi = await approvedContract.claimableFor(address);
@@ -83,9 +89,6 @@ export const getPresaleDetails = createAsyncThunk("presale/getPresaleDetails", a
     claimablePsi = ethers.utils.formatUnits(claimablePsi, 9);
     amountBuyable = ethers.utils.formatEther(amountBuyable);
     claimedPsi = ethers.utils.formatUnits(claimedPsi, 9);
-
-    console.log("CLAIMABLE: ", claimablePsi);
-    console.log("CLAIMMED: ", claimedPsi);
 
     vestingStart = prettyVestingPeriod(currentBlock, vestingStartBlock);
     vestingTerm = prettyVestingPeriod(vestingStartBlock, vestingStartBlock.add(vestingTermBlock));
@@ -160,14 +163,6 @@ export const changeApproval = createAsyncThunk("bonding/changeApproval", async (
     balance = await reserveContract.balanceOf(address);
     const balanceVal = ethers.utils.formatEther(balance);
 
-    // return dispatch(
-    //     fetchAccountSuccess({
-    //         ["FRAX"]: {
-    //             allowance: Number(allowance),
-    //             balance: Number(balanceVal),
-    //         },
-    //     }),
-    // );
     return {
         allowance,
         balanceVal,
@@ -200,7 +195,6 @@ export const buyPresale = createAsyncThunk("presale/buyPresale", async ({ value,
         dispatch(success({ text: messages.tx_successfully_send }));
         await presaleTx.wait();
         dispatch(info({ text: messages.your_balance_updated }));
-        //dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
         return;
     } catch (err: any) {
         if (err.code === -32603 && err.message.indexOf("ds-math-sub-underflow") >= 0) {
@@ -298,13 +292,6 @@ const initialState: IPresaleSlice = {
     allowanceVal: 0,
     balanceVal: 0,
 };
-
-// const setPresaleState = (state: IPresaleSlice, payload: any) => {
-//     const claim = payload.claim;
-//     const newState = { ...state[claim], ...payload };
-//     state[claim] = newState;
-//     state.loading = false;
-// };
 
 const presaleSlice = createSlice({
     name: "presale",
