@@ -100,10 +100,18 @@ class AppraiserScene extends Phaser.Scene {
         this.load.image("tileset", "assets/tilesets/castlestone.png");
 
         // ------ Background ------
-        this.load.spritesheet("appraiser-sprite", "assets/appraiser/appraiser.png", {
+        this.load.spritesheet("appraiser-sprite", "assets/appraiser/backdrop.png", {
             frameWidth: 480,
-            frameHeight: 270,
+            frameHeight: 240,
         });
+        // Table
+        this.load.image("table", "assets/appraiser/table.png");
+        // ------ Bilgwater ------
+        this.load.spritesheet("bilgewater", "assets/appraiser/bilgewater.png", {
+            frameWidth: 100,
+            frameHeight: 102,
+        })
+
         // ------ Fire ------
         this.load.spritesheet("fire-loop", "assets/harbor/harbor_fire.png", {
             frameWidth: 60,
@@ -211,8 +219,8 @@ class AppraiserScene extends Phaser.Scene {
         this.load.atlas("flares", "assets/particles/flares.png", "assets/particles/flares.json");
         // Appraiser Scale
         this.load.spritesheet("scale", "assets/appraiser/scale.png", {
-            frameWidth: 32,
-            frameHeight: 32,
+            frameWidth: 128,
+            frameHeight: 128,
         })
 
         // ------ Trident ------
@@ -235,10 +243,17 @@ class AppraiserScene extends Phaser.Scene {
         // });
         this.anims.create({
             key: "appraiser-loop",
-            frames: this.anims.generateFrameNames("appraiser-spritesheet"),
+            frames: this.anims.generateFrameNames("appraiser-sprite"),
             frameRate: 12,
             repeat: -1,
         });
+
+        this.anims.create({
+            key: "bilgewater-loop",
+            frames: this.anims.generateFrameNames("bilgewater"),
+            frameRate: 12,
+            repeat: -1,
+        })
         /**
          * ====== HERO ======
          */
@@ -425,6 +440,9 @@ class AppraiserScene extends Phaser.Scene {
 
         this.addScaleObject();
         this.addHero();
+        this.addFatass();
+        // Place table in front of Bilgewater
+        this.add.image(this.width / 2, this.height / 2, "table").setOrigin(0.5, 0.5).setScale(3.2);
 
         this.backgroundmusic = this.sound.add("atlantis-song");
         this.playBackgroundMusic();
@@ -474,10 +492,16 @@ class AppraiserScene extends Phaser.Scene {
         });
     }
 
+    addFatass() {
+        this.bilgewater = this.add.sprite(this.bilgewaterSpawn.x, this.bilgewaterSpawn.y, "bilgewater");
+        this.bilgewater.play("bilgewater-loop");
+    }
+
     addScaleObject() {
         console.log(this.scaleSpawn)
         this.scaleObject = this.physics.add.sprite(this.scaleSpawn.x, this.scaleSpawn.y - 32, "scale")
         this.scaleObject.play("scale-loop");
+        this.scaleObject.body.setSize(128, 8);
         this.scaleObject.setImmovable(true);
         this.physics.add.collider(this.scaleObject, this.map.getLayer("Collide").tilemapLayer);
         this.scaleObject.setScale(2);
@@ -486,10 +510,9 @@ class AppraiserScene extends Phaser.Scene {
     addMap() {
         this.map = this.make.tilemap({ key: "appraiser-map" });
 
-        const backgroundLoop = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "appraiser-spritesheet").setOrigin(0.5, 0.5);
+        const backgroundLoop = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "appraiser-sprite").setOrigin(0.5, 0.5);
         backgroundLoop.play("appraiser-loop");
         backgroundLoop.scale = 3.2;
-
 
         const groundTiles = this.map.addTilesetImage("castlestone", "tileset");
 

@@ -4,6 +4,9 @@ import { sharedInstance as events } from "../managers/EventCenter";
 import baseSceneMixin from "./mixins/baseSceneMixin";
 import frontendControlsMixin from "./mixins/frontendControlsMixin";
 import dialogue from "./dialogue/Harbor.json";
+import secret from "./dialogue/textblocks/secrets/Secret1.json"
+
+import Scroll from "../entities/items/Scroll";
 
 import variables from "../managers/Variables";
 
@@ -98,7 +101,7 @@ class HarborScene extends Phaser.Scene {
         // ========= Tilemaps & Spritesheets =========
         this.load.tilemapTiledJSON("harbor", "assets/tilemap/harbor.json");
         // Tilesheet
-        this.load.image("tileset", "assets/tilesets/castlestone.png");
+        this.load.image("tileset", "assets/tilesets/harbor.png");
 
         // ------ Background ------
         this.load.spritesheet("harbor", "assets/harbor/harbor.png", {
@@ -595,7 +598,7 @@ class HarborScene extends Phaser.Scene {
         backgroundSprite.play("harbor-bg-anim");
         //backgroundSprite.setFrame(0)
 
-        const groundTiles = this.map.addTilesetImage("castlestone", "tileset");
+        const groundTiles = this.map.addTilesetImage("harbor", "tileset");
 
         const collisionLayer = this.map.createLayer("Collide", groundTiles).setPipeline("Light2D");
         const backgroundLayer = this.map.createLayer("Background", groundTiles);
@@ -615,6 +618,10 @@ class HarborScene extends Phaser.Scene {
             }
             if (object.name === "Catfish") {
                 this.catfishSpawn = { x: object.x, y: object.y };
+            }
+            if (object.name === "Scroll") { // @TODO: Remove this before prod
+            // if (object.name === "Scroll" && this.getRandInt(100) == 69) {
+                this.scroll = new Scroll(this, object.x, object.y, secret); // 1/100 chance of spawning the 1st secret scroll.
             }
         });
     }

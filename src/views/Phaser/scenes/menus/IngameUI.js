@@ -21,6 +21,8 @@ class InGameUI extends Phaser.Scene {
         });
 
         this.load.image("dialogue-box", "assets/playerUI/dialogue_box.png");
+
+        this.load.image("text-scroller", "assets/playerUI/scroller.png");
     }
 
     create(data) {
@@ -28,6 +30,9 @@ class InGameUI extends Phaser.Scene {
         this.playerHp = data.hp;
         this.dialogueActive = false;
         this.dialogueTriggered = false;
+
+        this.textScrollerActive = false;
+        this.textScollerTriggered = false;
 
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
@@ -37,6 +42,9 @@ class InGameUI extends Phaser.Scene {
         this.input.keyboard.on("keydown-R", () => {
             if(this.dialogueActive) {
                 this.clearDialogue();
+            }
+            if(this.textScrollerActive) {
+                this.clearTextScroller();
             }
         });
     }
@@ -231,11 +239,122 @@ class InGameUI extends Phaser.Scene {
         this.dialogueTriggered = false;
         this.dialogueActive = false;
         this.tweens.add({
-            targets: [this.dialogueBox, this.dialogueSender, this.dialogueContent, this.dialogueToolTip],
+            targets: [
+                this.dialogueBox, 
+                this.dialogueSender, 
+                this.dialogueContent, 
+                this.dialogueToolTip
+            ],
             alpha: 0,
             duration: 300,
             ease: "Power2",
         })
+    }
+
+    drawTextScroller() {
+        this.textScroller = this.rexUI.add.textArea({
+            x: this.width / 2,
+            y: this.height / 2,
+            width: 474, // Width of scroller top & bottom (parchment portion)
+            height: this.height - 260,
+            // Elements
+            text: this.add.text({
+                fontFamily: "Cormorant Garamond",
+                fontSize: 21,
+                fontStyle: "bold",
+                color: "#444444",
+            }),
+            slider: {
+                track: this.rexUI.add.roundRectangle(0, 0, 20, 10, 10, "#000000"), 
+                thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 13, "#ff0000"),
+                input: 'drag',
+                position: 'right',
+            },
+            scroller: {
+                threshold: 10,
+                slidingDeceleration: 5000,
+                backDeceleration: 2000,
+                pointerOutRelease: true,
+            },
+            mouseWheelScroller: {
+                focus: false,
+                speed: 0.2
+            },
+        
+            clamplChildOY: false,
+        
+            space: {
+                left: 20,
+                right: 20,
+                top: 50,
+                bottom: 50,
+        
+                text: 0,
+                // text: {
+                //    top: 0,
+                //    bottom: 0,
+                //    left: 0,
+                //    right: 0,
+                //},
+                header: 0,
+                footer: 0,
+            },
+            content: '',
+            draggable: false,
+        }).layout().setOrigin(0.5, 0.5).setAlpha(0);
+
+        this.scrollerEnds = {
+            "top": this.add.image(this.width / 2, 120, "text-scroller"),
+            "bottom": this.add.image(this.width / 2, this.height - 120, "text-scroller")
+        }
+        this.scrollerToolTip = this.add
+            .text(this.width / 2, this.height - 130, "Press [R] to close text.", {
+                fontSize: 18,
+                color: "#444444",
+                fontStyle: "bold",
+                fontFamily: "Cormorant Garamond",
+            })
+            .setOrigin(0.5, 0).setDepth(3).setAlpha(0);
+        this.scrollerEnds.top.setAlpha(0);
+        this.scrollerEnds.bottom.setAlpha(0);
+    }
+
+    setTextScroller(data) {
+        if(this.textScrollerActive) return;
+        this.textScrollerTriggered = true;
+        this.time.delayedCall(200, () => {
+            this.textScrollerActive = true;
+        })
+        this.tweens.add({
+            targets: [
+                this.textScroller,
+                this.scrollerEnds.top,
+                this.scrollerEnds.bottom,
+                this.scrollerToolTip,
+            ],
+            alpha: 1,
+            duration: 300,
+            ease: "Power2",
+        })
+        let fullText = data.text;
+        this.textScroller.setText(fullText)
+    }
+
+    clearTextScroller() {
+        this.textScrollerTriggered = false;
+        this.textScrollerActive = true;
+        this.tweens.add({
+            targets: [
+                this.textScroller,
+                this.scrollerEnds.top,
+                this.scrollerEnds.bottom,
+                this.scrollerToolTip,
+            ],
+            alpha: 0,
+            duration: 300,
+            ease: "Power2",
+        })
+        this.textScroller.setText("")
     }
 
     drawPlayerAttackDisabled() {
