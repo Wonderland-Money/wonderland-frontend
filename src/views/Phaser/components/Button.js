@@ -20,10 +20,10 @@ class Button extends Phaser.GameObjects.Sprite {
 
         this.buttonText = scene.add
             .text(x + 64, y + 8, text, {
-                fontSize: 34,
+                fontSize: 32,
                 color: "#0f0f0f",
-                fontFamily: "compass",
-                fontWeight: "Bold",
+                fontFamily: "Cormorant Garamond",
+                fontStyle: "bold",
             })
             .setOrigin(0.5);
         if (!this.enabled) {

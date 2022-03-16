@@ -1,8 +1,12 @@
 import Phaser from "phaser";
 import Hero from "../entities/Hero";
+
 import { sharedInstance as events } from "../managers/EventCenter";
+
 import baseSceneMixin from "./mixins/baseSceneMixin";
 import frontendControlsMixin from "./mixins/frontendControlsMixin";
+import loadingBar from "./mixins/loadingBar";
+
 import dialogue from "./dialogue/Harbor.json";
 import secret from "./dialogue/textblocks/secrets/Secret1.json"
 
@@ -16,60 +20,14 @@ class HarborScene extends Phaser.Scene {
     }
 
     preload() {
-        let { width, height } = this.sys.game.canvas;
-        // PROGRESS BAR
-        let progressBar = this.add.graphics();
-        let progressBox = this.add.graphics();
-        let loaderBg = this.add.graphics();
-        let loadingText = this.make
-            .text({
-                x: width / 2,
-                y: height / 2,
-                text: "Loading...",
-                fontSize: 34,
-                color: "#0f0f0f",
-                fontFamily: "compass",
-            })
-            .setOrigin(0.5);
-        let loadingItemText = this.make
-            .text({
-                x: width / 2,
-                y: height / 2 + 42,
-                text: "",
-                fontSize: 34,
-                color: "#0f0f0f",
-                fontFamily: "compass",
-            })
-            .setOrigin(0.5);
-        loaderBg.fillStyle(0x0a0a0a, 0.4);
-        loaderBg.fillRect(0, 0, width, height);
-        progressBox.fillStyle(0xefefef, 0.8);
-        progressBox.fillRect(width / 2 - 210, height / 2 - 30, 420, 60);
-
-        this.loadSpritesAndShit();
-        this.loadAudioShit();
-
-        this.load.on("progress", function (value) {
-            try {
-                progressBar.fillStyle(0xffffff, 1);
-                progressBar.fillRect(width / 2 - 195, height / 2 - 15, 390 * value, 30);
-                loadingText.setText(parseInt(value * 100) + "%");
-            } catch (e) {
-                // doesn't matter
-            }
-        });
-
-        this.load.on("fileprogress", function (file) {
-            try {
-                loadingItemText.setText(file.key);
-            } catch (e) {}
-        });
-
-        this.load.on("complete", function () {
-            progressBar.destroy();
-            progressBox.destroy();
-            loaderBg.destroy();
-            loadingText.destroy();
+        this.loadingBar(() => {
+            this.loadSpritesAndShit();
+            this.loadAudioShit();
+            this.load.scenePlugin({
+                key: 'rexuiplugin',
+                url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
+                sceneKey: 'rexUI'
+            });
         });
     }
 
@@ -101,7 +59,8 @@ class HarborScene extends Phaser.Scene {
         // ========= Tilemaps & Spritesheets =========
         this.load.tilemapTiledJSON("harbor", "assets/tilemap/harbor.json");
         // Tilesheet
-        this.load.image("tileset", "assets/tilesets/harbor.png");
+        this.load.image("harbor-tileset", "assets/tilesets/harbor.png");
+        this.load.image("void-tileset", "assets/tilesets/void.png");
 
         // ------ Background ------
         this.load.spritesheet("harbor", "assets/harbor/harbor.png", {
@@ -229,6 +188,12 @@ class HarborScene extends Phaser.Scene {
             frameWidth: 32,
             frameHeight: 64,
         });
+
+        // Scroll
+        this.load.spritesheet("scroll", "assets/entities/scroll.png", {
+            frameWidth: 32,
+            frameHeight: 32,
+        })
     }
 
     loadAnims() {
@@ -438,6 +403,13 @@ class HarborScene extends Phaser.Scene {
             frameRate: 8,
             repeat: 0,
         });
+
+        this.anims.create({
+            key: "scroll",
+            frames: this.anims.generateFrameNames("scroll"),
+            frameRate: 1,
+            repeat: -1,
+        })
     }
 
     create() {
@@ -452,6 +424,7 @@ class HarborScene extends Phaser.Scene {
         this.addFire();
         this.addHero();
         this.addCatfish();
+        this.addItems();
 
         this.catfishMoveTimer = 0;
 
@@ -461,6 +434,15 @@ class HarborScene extends Phaser.Scene {
         this.heroSpotlight = this.lights.addLight(this.hero.body.x, this.hero.body.y, 400, 0xffcf51).setIntensity(1);
         this.fireLight = this.lights.addLight(this.fire.body.center.x, this.fire.body.center.y, 300, 0xffcf51, 2);
         this.catfishGlow = this.lights.addLight(this.catfish.body.center.x, this.catfish.body.center.y, 300, 0xffcf51, 2);
+        this.storedLights = {};
+        this.storedLights.orbs = [];
+        
+        this.lightLocations.forEach((loc) => {
+            console.log(loc);
+            this.storedLights.orbs.push(this.lights.addLight(loc[0], loc[1], 120, 0x0022aa, 2));
+        });
+        console.log(this.storedLights.orbs[0]);
+        console.log(this.fireLight);
 
         this.backgroundmusic = this.sound.add("atlantis-song");
         this.playBackgroundMusic();
@@ -477,44 +459,6 @@ class HarborScene extends Phaser.Scene {
         });
 
         this.hoverTimer = 0;
-
-        console.log(this.plugins.scenePlugins);
-
-        this.harborKeeperToast = this.rexUI.add.toast({
-            x: this.harborKeeperSpawn.x,
-            y: this.harborKeeperSpawn.y - 80,
-            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 12, "#222222"),
-            text: this.add.text(0, 0, "", {
-                fontSize: "16px",
-                fontFamily: "Cormorant Garamond",
-            }),
-            space: {
-                left: 12,
-                right: 12,
-                top: 12,
-                bottom: 12,
-            },
-            transitIn: 1,
-            transitOut: 1,
-        });
-
-        this.catfishToast = this.rexUI.add.toast({
-            x: this.catfish.body.center.x,
-            y: this.catfish.body.center.y - 20,
-            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 12, "#222222"),
-            text: this.add.text(0, 0, "", {
-                fontSize: "16px",
-                fontFamily: "Cormorant Garamond",
-            }),
-            space: {
-                left: 12,
-                right: 12,
-                top: 12,
-                bottom: 12,
-            },
-            transitIn: 1,
-            transitOut: 1,
-        })
 
         this.input.keyboard.on("keydown-Q", () => {
             if(!this.harborKeeper.body.touching.none || this.harborKeeper.body.embedded) {
@@ -586,6 +530,18 @@ class HarborScene extends Phaser.Scene {
         })
     }
 
+    addItems() {
+        this.scroll = new Scroll(this, this.scrollSpawn.x, this.scrollSpawn.y, secret, [this.hero]);
+        this.scroll.addParticles("yellow");
+        this.scroll.addCollideCallback(this.hero, () => {
+            if (this.hoverTimer == 0) {
+                events.emit("notification", "Press R to read scroll");
+                this.hoverTimer++;
+            }
+        })
+        
+    }
+
     addMap() {
         this.map = this.make.tilemap({ key: "harbor" });
 
@@ -598,16 +554,28 @@ class HarborScene extends Phaser.Scene {
         backgroundSprite.play("harbor-bg-anim");
         //backgroundSprite.setFrame(0)
 
-        const groundTiles = this.map.addTilesetImage("harbor", "tileset");
+        const groundTiles = this.map.addTilesetImage("harbor", "harbor-tileset");
+        const voidTiles = this.map.addTilesetImage("void", "void-tileset");
 
         const collisionLayer = this.map.createLayer("Collide", groundTiles).setPipeline("Light2D");
+        
         const backgroundLayer = this.map.createLayer("Background", groundTiles);
         //const decorationLayer = this.map.createStaticLayer('Decoration' , groundTiles)
 
         collisionLayer.setCollision([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 21, 22, 23, 24, 31, 32, 33, 34, 41, 42, 43, 44, 52, 82], true);
 
+
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBoundsCollision(true, true, false, true);
+
+        this.lightLocations = [];
+
+        collisionLayer.forEachTile((tile) => {
+            if(tile.index == 19) 
+            {
+                this.lightLocations.push([tile.getCenterX(this.cameras.main), tile.getCenterY(this.cameras.main)]);
+            }
+        }, this)
 
         this.map.getObjectLayer("Objects").objects.forEach(object => {
             if (object.name === "Start") {
@@ -620,26 +588,9 @@ class HarborScene extends Phaser.Scene {
                 this.catfishSpawn = { x: object.x, y: object.y };
             }
             if (object.name === "Scroll") { // @TODO: Remove this before prod
-            // if (object.name === "Scroll" && this.getRandInt(100) == 69) {
-                this.scroll = new Scroll(this, object.x, object.y, secret); // 1/100 chance of spawning the 1st secret scroll.
+                this.scrollSpawn = { x: object.x, y: object.y }; // 1/100 chance of spawning the 1st secret scroll.
             }
         });
-    }
-
-    openBondingMenu() {
-        if (!this.scene.isActive("FreezeScreen")) {
-            this.showBonding();
-            this.hero.setPauseInput(true);
-            this.scene.launch("FreezeScreen", "HarborScene");
-        } else return;
-    }
-
-    openPresaleMenu() {
-        if (!this.scene.isActive("FreezeScreen")) {
-            this.showPresale();
-            this.hero.setPauseInput(true);
-            this.scene.launch("FreezeScreen", "HarborScene");
-        } else return;
     }
 
     update(t, d) {
@@ -658,9 +609,6 @@ class HarborScene extends Phaser.Scene {
             this.catfishMoveTimer = 0;
         }
 
-
-        // Catfish movement
-
         this.heroSpotlight.setPosition(this.hero.body.center.x, this.hero.body.center.y);
         this.catfishGlow.setPosition(this.catfish.body.center.x, this.catfish.body.center.y);
     }
@@ -668,5 +616,6 @@ class HarborScene extends Phaser.Scene {
 
 Object.assign(HarborScene.prototype, baseSceneMixin);
 Object.assign(HarborScene.prototype, frontendControlsMixin);
+Object.assign(HarborScene.prototype, loadingBar);
 
 export default HarborScene;

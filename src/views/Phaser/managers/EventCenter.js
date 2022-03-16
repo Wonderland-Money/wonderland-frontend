@@ -1,5 +1,7 @@
-import Phaser from "phaser";
+import Phaser from 'phaser'
 
-const sharedInstance = new Phaser.Events.EventEmitter();
+const sharedInstance = new Phaser.Events.EventEmitter()
 
-export { sharedInstance };
+export {
+	sharedInstance
+}

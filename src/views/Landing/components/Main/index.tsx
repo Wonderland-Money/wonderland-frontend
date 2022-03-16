@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
-import TridentWordmark from "../../../../assets/icons/Wordmark.png";
+// import TridentWordmark from "../../../../assets/icons/Wordmark.png";
+import TridentWordmark from "../../../../assets/icons/TridentWordmark.png";
 import "./main.scss";
 
 function Main() {

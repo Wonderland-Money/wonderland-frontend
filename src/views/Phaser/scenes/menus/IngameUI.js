@@ -2,6 +2,9 @@ import { useForkRef } from "@material-ui/core";
 import Phaser from "phaser";
 import { sharedInstance as events } from "../../managers/EventCenter";
 
+import { TextArea, Toast, Label, RoundRectangle } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
+
+
 class InGameUI extends Phaser.Scene {
     constructor() {
         super({ key: "GameUI" });
@@ -23,6 +26,10 @@ class InGameUI extends Phaser.Scene {
         this.load.image("dialogue-box", "assets/playerUI/dialogue_box.png");
 
         this.load.image("text-scroller", "assets/playerUI/scroller.png");
+
+        this.load.image("scroll-ribbon", "assets/playerUI/scroll-ribbon.png");
+
+
     }
 
     create(data) {
@@ -32,7 +39,9 @@ class InGameUI extends Phaser.Scene {
         this.dialogueTriggered = false;
 
         this.textScrollerActive = false;
-        this.textScollerTriggered = false;
+        this.textScrollerTriggered = false;
+
+        this.currentHeader = "Scroll";
 
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
@@ -83,7 +92,7 @@ class InGameUI extends Phaser.Scene {
     drawPlayerHearts() {
         this.playerHearts = [];
         for (let i = 0; i < this.playerHp; i++) {
-            this.playerHearts[i] = this.add.sprite(20 + i * 16, 50, "heart-sprite").setOrigin(0, 0.5);
+            this.playerHearts[i] = this.add.sprite(20 + i * 16, 52, "heart-sprite").setOrigin(0, 0.5);
         }
     }
 
@@ -92,17 +101,20 @@ class InGameUI extends Phaser.Scene {
         let j = -1;
         for (let i = 0; i < this.bossHp; i++) {
             if (i % 5 == 0) j++;
-            this.bossHearts[i] = this.add.sprite(this.width - 20 - i * 16 + j * 80, 50 + j * 16, "heart-sprite").setOrigin(1, 0.5);
+            this.bossHearts[i] = this.add.sprite(this.width - 20 - i * 16 + j * 80, 52 + j * 16, "heart-sprite").setOrigin(1, 0.5);
         }
     }
 
     showNotification(data) {
+        if(this.dialogueActive || this.textScrollerActive) return;
         if(Array.isArray(data)) {
             for(let i = 0; i < data.length; ++i) {
-                let notif = this.rexUI.add.toast({
+                // let notif = this.rexUI.add.toast({
+                let notif = new Toast(this, {
                     x: this.width / 2,
                     y: 40 + (i * 44),
-                    background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 8, "#132217"),
+                    background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 8, 0x132217),
+                    // background: new RoundRectangle(this, 0, 0, 2, 2, 8, "#132217"),
                     text: this.add.text(0, 0, data[i], {
                         fontSize: "16px",
                         fontFamily: "Cormorant Garamond",
@@ -123,10 +135,12 @@ class InGameUI extends Phaser.Scene {
     }
 
     setupNotifs() {
-        this.notif = this.rexUI.add.toast({
+        // this.notif = this.rexUI.add.toast({
+        this.notif = new Toast(this, {
             x: this.width / 2,
             y: 40,
-            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 8, "#132217"),
+            background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 8, 0x132217),
+            // background: new RoundRectangle(this, 0, 0, 2, 2, 8, "#132217"),
             text: this.add.text(0, 0, "", {
                 fontSize: "16px",
                 fontFamily: "Cormorant Garamond",
@@ -216,7 +230,7 @@ class InGameUI extends Phaser.Scene {
             .text(this.dialogueBox.getTopLeft().x + 28, this.dialogueBox.getTopLeft().y + 54, newDialogue, {
                 fontSize: 21,
                 color: "#222222",
-                fontStyle: "bold",
+                fontStyle: "normal",
                 fontFamily: "Cormorant Garamond",
             })
             .setOrigin(0, 0).setDepth(3);
@@ -252,21 +266,42 @@ class InGameUI extends Phaser.Scene {
     }
 
     drawTextScroller() {
-        this.textScroller = this.rexUI.add.textArea({
+        // this.textScroller = this.rexUI.add.textArea({
+        this.textScroller = new TextArea(this, {
             x: this.width / 2,
             y: this.height / 2,
             width: 474, // Width of scroller top & bottom (parchment portion)
-            height: this.height - 260,
+            height: this.height - 208 - 48,
             // Elements
-            text: this.add.text({
+            background: this.rexUI.add.roundRectangle(0, 0, 20, 20, 0, 0xe5e4d2),
+            // background: new RoundRectangle(this, 0, 0, 20, 20, 0, 0xe5e4d2),
+            text: this.add.text(0, 0, '', {
                 fontFamily: "Cormorant Garamond",
-                fontSize: 21,
+                fontSize: 18,
                 fontStyle: "bold",
-                color: "#444444",
+                color: "#333333",
+                align: "justify",
             }),
+            // header: this.rexUI.add.label({
+            header: new Label(this, {
+                height: 36,
+
+                orientation: 0,
+                
+                text: this.add.text(474 / 2, 0, this.currentHeader, {
+                    fontFamily: "Cormorant Garamond",
+                    fontSize: 24,
+                    fontStyle: "bold",
+                    color: "#000000",
+                    align: "center",
+                }),
+            }),
+
             slider: {
-                track: this.rexUI.add.roundRectangle(0, 0, 20, 10, 10, "#000000"), 
-                thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 13, "#ff0000"),
+                track: this.rexUI.add.roundRectangle(0, 0, 20, 10, 10, 0x9e9c7b),
+                thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 13, 0x333333),
+                // track: new RoundRectangle(this, 0, 0, 20, 10, 10, 0x9e9c7b),
+                // thumb: new RoundRectangle(this, 0, 0, 0, 0, 13, 0x333333),
                 input: 'drag',
                 position: 'right',
             },
@@ -286,10 +321,10 @@ class InGameUI extends Phaser.Scene {
             space: {
                 left: 20,
                 right: 20,
-                top: 50,
-                bottom: 50,
+                top: 6,
+                bottom: 6,
         
-                text: 0,
+                text: 6,
                 // text: {
                 //    top: 0,
                 //    bottom: 0,
@@ -303,20 +338,29 @@ class InGameUI extends Phaser.Scene {
             draggable: false,
         }).layout().setOrigin(0.5, 0.5).setAlpha(0);
 
-        this.scrollerEnds = {
-            "top": this.add.image(this.width / 2, 120, "text-scroller"),
-            "bottom": this.add.image(this.width / 2, this.height - 120, "text-scroller")
+        this.scrollComponents = {
+            "top": this.add.image(this.width / 2, 104, "text-scroller"),
+            "bottom": this.add.image(this.width / 2, this.height - 104, "text-scroller"),
+            "ribbon": this.add.image(this.width / 2 + (474/2), 130, "scroll-ribbon"),
         }
+
+        this.scrollComponents.ribbon.setOrigin(0,0).setScale(2);
         this.scrollerToolTip = this.add
-            .text(this.width / 2, this.height - 130, "Press [R] to close text.", {
+            .text(this.width / 2, this.height - 104, "Press [R] to close scroll.", {
                 fontSize: 18,
                 color: "#444444",
                 fontStyle: "bold",
                 fontFamily: "Cormorant Garamond",
             })
-            .setOrigin(0.5, 0).setDepth(3).setAlpha(0);
-        this.scrollerEnds.top.setAlpha(0);
-        this.scrollerEnds.bottom.setAlpha(0);
+            .setOrigin(0.5, 0.5).setDepth(3).setAlpha(0);
+        this.scrollComponents.top.setAlpha(0);
+        this.scrollComponents.bottom.setAlpha(0);
+        this.scrollComponents.ribbon.setAlpha(0);
+
+        events.on("scroll", data => {
+            this.setTextScroller(data);
+        },
+        this);
     }
 
     setTextScroller(data) {
@@ -325,29 +369,36 @@ class InGameUI extends Phaser.Scene {
         this.time.delayedCall(200, () => {
             this.textScrollerActive = true;
         })
+        this.currentHeader = data.title;
+        this.currentText = data.text;
+        
+        // Set new text
+        this.textScroller.setText(this.currentText);
+        this.textScroller.getElement('header').setText(this.currentHeader);
+
         this.tweens.add({
             targets: [
                 this.textScroller,
-                this.scrollerEnds.top,
-                this.scrollerEnds.bottom,
+                this.scrollComponents.top,
+                this.scrollComponents.bottom,
+                this.scrollComponents.ribbon,
                 this.scrollerToolTip,
             ],
             alpha: 1,
             duration: 300,
             ease: "Power2",
         })
-        let fullText = data.text;
-        this.textScroller.setText(fullText)
     }
 
     clearTextScroller() {
         this.textScrollerTriggered = false;
-        this.textScrollerActive = true;
+        this.textScrollerActive = false;
         this.tweens.add({
             targets: [
                 this.textScroller,
-                this.scrollerEnds.top,
-                this.scrollerEnds.bottom,
+                this.scrollComponents.top,
+                this.scrollComponents.bottom,
+                this.scrollComponents.ribbon,
                 this.scrollerToolTip,
             ],
             alpha: 0,
@@ -359,6 +410,7 @@ class InGameUI extends Phaser.Scene {
 
     drawPlayerAttackDisabled() {
         this.drawDialogueBox()
+        this.drawTextScroller()
         this.setupNotifs()
     }
 
@@ -393,7 +445,7 @@ class InGameUI extends Phaser.Scene {
                 fontSize: 24,
                 color: "#000000",
                 fontStyle: "bold",
-                fontFamily: "compass",
+                fontFamily: "Cormorant Garamond",
             })
             .setOrigin(0, 0);
         this.playerHPText = this.add
@@ -401,7 +453,7 @@ class InGameUI extends Phaser.Scene {
                 fontSize: 24,
                 color: "#ffffff",
                 fontStyle: "bold",
-                fontFamily: "compass",
+                fontFamily: "Cormorant Garamond",
             })
             .setOrigin(0, 0);
 
@@ -410,7 +462,7 @@ class InGameUI extends Phaser.Scene {
                 fontSize: 24,
                 color: "#000000",
                 fontStyle: "bold",
-                fontFamily: "compass",
+                fontFamily: "Cormorant Garamond",
             })
             .setOrigin(1, 0);
         this.bossHPText = this.add
@@ -418,7 +470,7 @@ class InGameUI extends Phaser.Scene {
                 fontSize: 24,
                 color: "#ffffff",
                 fontStyle: "bold",
-                fontFamily: "compass",
+                fontFamily: "Cormorant Garamond",
             })
             .setOrigin(1, 0);
 

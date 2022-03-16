@@ -1,6 +1,6 @@
 @use "src/theme.scss";
 
-.dashboard-view {
+.message-view {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,9 +15,9 @@
 
     margin: auto;
 
-    .dashboard-infos-wrap {
+    .message-infos-wrap {
 
-        .dashboard-view-card-header {
+        .message-view-card-header {
             display: flex;
             direction: row;
             align-content:center;
@@ -25,7 +25,7 @@
             .close-app-btn {
                 margin-right: 20px;
             }
-            .dashboard-view-card-title {
+            .message-view-card-title {
                 font-family: 'Cormorant Garamond', serif;
                 font-weight: bold;
                 font-size: 28px;
@@ -33,7 +33,7 @@
             }
         }
 
-        .dashboard-card {
+        .message-card {
 
             display: flex;
             flex-direction: column;
@@ -47,6 +47,10 @@
 
             background-color: theme.$dark-gray;
             border: 1px solid theme.$dark-gray-2;
+
+            .message-sign-btn {
+                @include theme.primary-button();
+            }
 
             .card-title {
                 font-family: 'Cormorant Garamond', serif;

@@ -14,6 +14,7 @@ class Crystal extends Phaser.Physics.Arcade.Sprite {
     }
 
     fireAttack(x, y, type) {
+        this.alpha = 1;
         this.colliding = false;
         this.setPosition(x, y);
         this.type = type;
@@ -34,13 +35,20 @@ class Crystal extends Phaser.Physics.Arcade.Sprite {
         if (!this.colliding) {
             this.colliding = true;
             this.anims.play(`kraken-${this.elementName[this.type]}-impact`);
+            this.scene.tweens.add({
+                targets: this,
+                alpha: 0,
+                duration: 300,
+                ease: "Power2",
+            })
+            
             this.body.setVelocityX(0);
             this.body.setAccelerationX(0);
             this.scene.time.addEvent({
-                delay: 200,
+                delay: 400,
                 callback: () => {
                     this.setActive(false);
-                    this.setVisible(false);
+                    // this.setVisible(false);
                 },
             });
         } else {

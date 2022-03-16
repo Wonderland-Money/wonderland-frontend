@@ -32,6 +32,10 @@ class Menu extends Phaser.Scene {
             frameHeight: 32,
         });
 
+        this.load.spritesheet("sml-button", "assets/buttons/small/button.png", {
+            frameWidth: 64,
+            frameHeight: 32,
+        })
         this.load.spritesheet("button-img", "assets/buttons/normal/button2.png", {
             frameWidth: 128,
             frameHeight: 52,
@@ -128,28 +132,14 @@ class Menu extends Phaser.Scene {
 
         this.input.mouse.disableContextMenu();
 
-        // let title = this.add.image(width / 2, 140, 'title')
-        // title.setOrigin(0.5, 0.5)
-        // title.scale = 3
-
         let title = this.add.sprite(width / 2, height / 2, "main-menu");
         title.play("menu-loop");
         title.setOrigin(0.5, 0.5);
 
         let wordmark = this.add.image(width / 2, 100, "trident-title");
+        wordmark.setScale(0.5);
         let scale = this.sys.canvas.width / title.width;
         title.scale = scale;
-
-        // let playButton = new Button(
-        //     this,
-        //     width - 300,
-        //     height / 2 - 52 - 120,
-        //     "Play",
-        //     () => {
-        //         this.scene.start("InstructionsSplash");
-        //     },
-        //     true,
-        // ).setHighlighted(true);
 
         let playButton = new MenuButton(
             this,
@@ -194,28 +184,6 @@ class Menu extends Phaser.Scene {
             },
             3,
         );
-
-        // let harborButton = new Button(
-        //     this,
-        //     width - 300,
-        //     height / 2 - 52,
-        //     "Harbor",
-        //     () => {
-        //         this.scene.start("HarborScene");
-        //     },
-        //     this.playerWonGame,
-        // );
-
-        // let forgeButton = new Button(
-        //     this,
-        //     width - 300,
-        //     height / 2 - 52 + 120,
-        //     "Forge",
-        //     () => {
-        //         this.scene.start("ForgeScene");
-        //     },
-        //     this.playerWonGame,
-        // );
     }
 
     update(time, delta) {}

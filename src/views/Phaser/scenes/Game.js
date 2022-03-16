@@ -10,6 +10,7 @@ import EnergySphereGroup from "../entities/EnergySphereGroup";
 
 import baseSceneMixin from "./mixins/baseSceneMixin";
 import frontendControlsMixin from "./mixins/frontendControlsMixin";
+import loadingBar from "./mixins/loadingBar";
 
 import { sharedInstance as events } from "../managers/EventCenter";
 import variables from "../managers/Variables";
@@ -20,61 +21,9 @@ class Game extends Phaser.Scene {
     }
 
     preload() {
-        let { width, height } = this.sys.game.canvas;
-
-        // PROGRESS BAR
-        let progressBar = this.add.graphics();
-        let progressBox = this.add.graphics();
-        let loaderBg = this.add.graphics();
-        let loadingText = this.make
-            .text({
-                x: width / 2,
-                y: height / 2,
-                text: "Loading...",
-                fontSize: 34,
-                color: "#0f0f0f",
-                fontFamily: "compass",
-            })
-            .setOrigin(0.5);
-        let loadingItemText = this.make
-            .text({
-                x: width / 2,
-                y: height / 2 + 42,
-                text: "",
-                fontSize: 34,
-                color: "#0f0f0f",
-                fontFamily: "compass",
-            })
-            .setOrigin(0.5);
-        loaderBg.fillStyle(0x0a0a0a, 0.4);
-        loaderBg.fillRect(0, 0, width, height);
-        progressBox.fillStyle(0xefefef, 0.8);
-        progressBox.fillRect(width / 2 - 210, height / 2 - 30, 420, 60);
-
-        this.loadAudioShit();
-        this.loadSpritesAndShit();
-
-        this.load.on("progress", function (value) {
-            try {
-                progressBar.fillStyle(0xffffff, 1);
-                progressBar.fillRect(width / 2 - 195, height / 2 - 15, 390 * value, 30);
-                loadingText.setText(parseInt(value * 100) + "%");
-            } catch (e) {
-                // doesn't matter
-            }
-        });
-
-        this.load.on("fileprogress", function (file) {
-            try {
-                loadingItemText.setText(file.key);
-            } catch (e) {}
-        });
-
-        this.load.on("complete", function () {
-            progressBar.destroy();
-            progressBox.destroy();
-            loaderBg.destroy();
-            loadingText.destroy();
+        this.loadingBar(() => {
+            this.loadAudioShit();
+            this.loadSpritesAndShit();
         });
     }
 
@@ -1018,6 +967,7 @@ class Game extends Phaser.Scene {
             if (crystal.body.center.x > 0 && bullet.type != crystal.type) {
                 crystal.collide();
                 bullet.collide();
+                crystal.scene.sound.add("bullet-break").play();
             } else bullet.collide();
         });
     }
@@ -1204,5 +1154,6 @@ class Game extends Phaser.Scene {
 
 Object.assign(Game.prototype, baseSceneMixin);
 Object.assign(Game.prototype, frontendControlsMixin);
+Object.assign(Game.prototype, loadingBar);
 
 export default Game;

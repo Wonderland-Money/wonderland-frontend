@@ -85,7 +85,6 @@ function App() {
      * phaserMessageHandler interprets input from the Phaser game canvas to control the UI.
      **/
     const phaserMessageHandler = (e: any) => {
-        // if (e.origin.startsWith("http://app.trident.localhost:3000")) {
         if (e.origin.startsWith(window.location.origin)) {
             let msg = e.data.toString();
             if (msg.startsWith("closeDashboard")) {

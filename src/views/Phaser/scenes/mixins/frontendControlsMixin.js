@@ -69,6 +69,43 @@ const frontendControlsMixin = {
     showExitButton() {
         window.parent.postMessage("openExitButton", variables.gameUrl);
     },
+
+    /*
+     * Full open interaction
+     */
+
+    // Dashboard
+    openDashboard() {
+        if (!this.scene.isActive("FreezeScreen")) {
+            this.showDashboard();
+            this.hero.setPauseInput(true);
+            this.scene.launch("FreezeScreen", this);
+        } else return;
+    },
+
+    // Staking
+    openStakingMenu() {
+        if (!this.scene.isActive("FreezeScreen")) {
+            this.showStaking();
+            this.scene.launch("FreezeScreen", this);
+        } else return;
+    },
+
+    // Bonding
+    openBondingMenu() {
+        if (!this.scene.isActive("FreezeScreen")) {
+            this.showBonding();
+            this.scene.launch("FreezeScreen", this);
+        } else return;
+    },
+
+    // Presale
+    openPresaleMenu() {
+        if (!this.scene.isActive("FreezeScreen")) {
+            this.showPresale();
+            this.scene.launch("FreezeScreen", this);
+        } else return;
+    },
 };
 
 export default frontendControlsMixin;

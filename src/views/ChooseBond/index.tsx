@@ -37,7 +37,6 @@ function ChooseBond(props: any) {
                             }}
                             className="close-app-btn"
                         >
-                            {/* @TODO */}
                             <SvgIcon color="primary" component={XIcon} />
                         </a>
                         <p className="choose-bond-view-card-title">Mint</p>

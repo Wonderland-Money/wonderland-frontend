@@ -5,9 +5,12 @@ import config from "./config";
 import "./style.scss";
 // Scenes
 import InstructionsSplash from "./scenes/InstructionsSplash";
+
 import GameScene from "./scenes/Game";
 import ForgeScene from "./scenes/ForgeScene";
 import HarborScene from "./scenes/HarborScene";
+import AppraiserScene from "./scenes/AppraiserScene";
+
 import PlayerWinScene from "./scenes/PlayerWinScene";
 // Interfaces
 import MainMenu from "./scenes/menus/Menu";
@@ -48,7 +51,7 @@ export default function App(props) {
             <IonPhaser
                 ref={gameRef}
                 game={Object.assign(config, {
-                    scene: [MainMenu, InstructionsSplash, GameScene, HarborScene, ForgeScene, PauseMenu, FreezeScreen, GameUI, DeathScreen, PlayerWinMenu, PlayerWinScene],
+                    scene: [MainMenu, InstructionsSplash, GameScene, HarborScene, ForgeScene, AppraiserScene, PauseMenu, FreezeScreen, GameUI, DeathScreen, PlayerWinMenu, PlayerWinScene],
                 })}
                 initialize={initialize}
             />

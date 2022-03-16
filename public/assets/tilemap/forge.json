@@ -42,6 +42,18 @@
                  "width":0,
                  "x":770,
                  "y":696
+                }, 
+                {
+                 "height":0,
+                 "id":4,
+                 "name":"AlchemistSpawn",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":907.506166573618,
+                 "y":449.504846977618
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -50,10 +62,10 @@
          "y":0
         }],
  "nextlayerid":3,
- "nextobjectid":4,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.8.2",
+ "tiledversion":"1.7.2",
  "tileheight":32,
  "tilesets":[
         {
@@ -71,6 +83,6 @@
         }],
  "tilewidth":32,
  "type":"map",
- "version":"1.8",
+ "version":"1.6",
  "width":50
 }

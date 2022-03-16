@@ -3,6 +3,8 @@ import Hero from "../entities/Hero";
 
 import baseSceneMixin from "./mixins/baseSceneMixin";
 import frontendControlsMixin from "./mixins/frontendControlsMixin";
+import loadingBar from "./mixins/loadingBar";
+
 import { sharedInstance as events } from "../managers/EventCenter";
 
 import dialogue from "./dialogue/Forge.json"
@@ -12,61 +14,10 @@ class ForgeScene extends Phaser.Scene {
         super({ key: "ForgeScene" });
     }
     preload() {
-        let { width, height } = this.sys.game.canvas;
-        // PROGRESS BAR
-        let progressBar = this.add.graphics();
-        let progressBox = this.add.graphics();
-        let loaderBg = this.add.graphics();
-        let loadingText = this.make
-            .text({
-                x: width / 2,
-                y: height / 2,
-                text: "Loading...",
-                fontSize: 34,
-                color: "#0f0f0f",
-                fontFamily: "compass",
-            })
-            .setOrigin(0.5);
-        let loadingItemText = this.make
-            .text({
-                x: width / 2,
-                y: height / 2 + 42,
-                text: "",
-                fontSize: 34,
-                color: "#0f0f0f",
-                fontFamily: "compass",
-            })
-            .setOrigin(0.5);
-        loaderBg.fillStyle(0x0a0a0a, 0.4);
-        loaderBg.fillRect(0, 0, width, height);
-        progressBox.fillStyle(0xefefef, 0.8);
-        progressBox.fillRect(width / 2 - 210, height / 2 - 30, 420, 60);
-
-        this.loadSpritesAndShit();
-        this.loadAudioShit();
-
-        this.load.on("progress", function (value) {
-            try {
-                progressBar.fillStyle(0xffffff, 1);
-                progressBar.fillRect(width / 2 - 195, height / 2 - 15, 390 * value, 30);
-                loadingText.setText(parseInt(value * 100) + "%");
-            } catch (e) {
-                // doesn't matter
-            }
-        });
-
-        this.load.on("fileprogress", function (file) {
-            try {
-                loadingItemText.setText(file.key);
-            } catch (e) {}
-        });
-
-        this.load.on("complete", function () {
-            progressBar.destroy();
-            progressBox.destroy();
-            loaderBg.destroy();
-            loadingText.destroy();
-        });
+        this.loadingBar(() => {
+            this.loadSpritesAndShit();
+            this.loadAudioShit();
+        })
     }
 
     loadAudioShit() {
@@ -99,10 +50,15 @@ class ForgeScene extends Phaser.Scene {
         // Tilesheet
         this.load.image("tileset", "assets/tilesets/castlestone.png");
 
+        this.load.spritesheet("alchemist", "assets/forge/alchemist.png", {
+            frameWidth: 400,
+            frameHeight: 153,
+        });
+
         // ------ Background ------
         this.load.spritesheet("forge", "assets/forge/alchemistforge.png", {
             frameWidth: 480,
-            frameHeight: 270,
+            frameHeight: 209,
         });
         // ------ Fire ------
         this.load.spritesheet("fire-loop", "assets/harbor/harbor_fire.png", {
@@ -239,6 +195,13 @@ class ForgeScene extends Phaser.Scene {
             frameRate: 12,
             repeat: -1,
         });
+
+        this.anims.create({
+            key: "alchemist-loop",
+            frames: this.anims.generateFrameNumbers("alchemist"),
+            frameRate: 12,
+            repeat: -1,
+        })
         /**
          * ====== HERO ======
          */
@@ -425,6 +388,7 @@ class ForgeScene extends Phaser.Scene {
 
         this.addTerminal();
         this.addHero();
+        this.addAlchemist();
 
         this.backgroundmusic = this.sound.add("atlantis-song");
         this.playBackgroundMusic();
@@ -449,7 +413,8 @@ class ForgeScene extends Phaser.Scene {
             }
         });
         this.input.keyboard.on("keydown-R", () => {
-            if(!this.terminal.body.touching.none || this.terminal.body.embedded) {
+            if(!this.terminal.body.touching.none || this.terminal.body.embedded
+                || !this.alchemist.body.touching.none || this.alchemist.body.embedded) {
                 let txt = dialogue.dialogue[this.getRandInt(Object.keys(dialogue.dialogue).length)];
                 events.emit("dialogue", { speaker: "Alchemist", dialogue: txt });    
             }
@@ -474,6 +439,24 @@ class ForgeScene extends Phaser.Scene {
         });
     }
 
+    addAlchemist() {
+        this.alchemist = this.physics.add.sprite(this.alchemistSpawn.x, this.alchemistSpawn.y, "alchemist").setOrigin(0.7, 0.5);
+        this.physics.add.collider(this.alchemist, this.map.getLayer("Collide").tilemapLayer);
+        this.alchemist.body.setSize(90, 153);
+        this.alchemist.body.setOffset(310, 0);
+        this.alchemist.body.setAllowGravity(false);
+        this.alchemist.setScale(3);
+        this.alchemist.play("alchemist-loop");
+
+        this.physics.add.overlap(this.hero, this.alchemist, () => {
+            
+            if (this.hoverTimer == 0) {
+                events.emit("notification", ["Press Q to access Staking", "Press R to speak"]);
+                this.hoverTimer++;
+            }
+        });
+    }
+
     addTerminal() {
         console.log(this.terminalSpawn)
         this.terminal = this.physics.add.sprite(this.terminalSpawn.x, this.terminalSpawn.y - 32, "forge-terminal")
@@ -486,7 +469,7 @@ class ForgeScene extends Phaser.Scene {
     addMap() {
         this.map = this.make.tilemap({ key: "forge" });
 
-        const backgroundLoop = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "forge").setOrigin(0.5, 0.5);
+        const backgroundLoop = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "forge").setOrigin(0.5, 0.7);
         // const backgroundSprite = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, 'harbor-bg-anim').setOrigin(0.5, 0.5).setScrollFactor(0.7)
         backgroundLoop.play("forge-loop");
         backgroundLoop.scale = 3.2;
@@ -510,17 +493,12 @@ class ForgeScene extends Phaser.Scene {
                 this.spawnPos = { x: object.x, y: object.y };
             }
             if (object.name === "TerminalSpawn") {
-                console.log(object)
                 this.terminalSpawn = { x: object.x, y: object.y };
             }
+            if (object.name === "AlchemistSpawn") {
+                this.alchemistSpawn = { x: object.x, y: object.y };
+            }
         });
-    }
-
-    openStakingMenu() {
-        if (!this.scene.isActive("FreezeScreen")) {
-            this.showStaking();
-            this.scene.launch("FreezeScreen", "ForgeScene");
-        } else return;
     }
 
     update(t, d) {
@@ -534,5 +512,6 @@ class ForgeScene extends Phaser.Scene {
 
 Object.assign(ForgeScene.prototype, baseSceneMixin);
 Object.assign(ForgeScene.prototype, frontendControlsMixin);
+Object.assign(ForgeScene.prototype, loadingBar);
 
 export default ForgeScene;

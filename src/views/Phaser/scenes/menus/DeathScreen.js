@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import Button from "../../components/Button";
+import SmallButton from "../../components/SmallButton";
 
 class DeathScreen extends Phaser.Scene {
     constructor() {
@@ -30,22 +30,22 @@ class DeathScreen extends Phaser.Scene {
         pauseBg.setOrigin(0, 0);
 
         let deathTextShadow = this.add
-            .text(width / 2 + 4, height / 3 + 4, "You Died!", {
+            .text(width / 2 + 4, height / 2 - 64 + 4, "You Died!", {
                 fontSize: 72,
                 color: "#000000",
                 fontStyle: "bold",
-                fontFamily: "compass",
+                fontFamily: "Cormorant Garamond",
             })
             .setOrigin(0.5, 0);
         let deathText = this.add
-            .text(width / 2, height / 3, "You Died!", {
+            .text(width / 2, height / 2 - 64, "You Died!", {
                 fontSize: 72,
                 color: "#ee0000",
                 fontStyle: "bold",
-                fontFamily: "compass",
+                fontFamily: "Cormorant Garamond",
             })
             .setOrigin(0.5, 0);
-        let playButton = new Button(this, width / 2 - 64, height / 2, "Retry", () => {
+        let playButton = new SmallButton(this, width / 2, height / 2 + 64, "Retry", () => {
             this.restartGame();
         });
         this.input.keyboard.on("keydown-ESC", () => {

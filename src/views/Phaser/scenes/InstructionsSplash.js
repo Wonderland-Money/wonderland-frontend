@@ -53,7 +53,7 @@ class InstructionsSplash extends Phaser.Scene {
                 ],
                 {
                     fontSize: 22,
-                    fontFamily: "compass",
+                    fontFamily: "Cormorant Garamond",
                 },
             )
             .setOrigin(0, 0.5);
@@ -61,7 +61,7 @@ class InstructionsSplash extends Phaser.Scene {
         this.add
             .text(width - PADDING, height / 2 - 128 - SPACE_BETWEEN - 44 - 24, "Select Element", {
                 fontSize: 24,
-                fontFamily: "compass",
+                fontFamily: "Cormorant Garamond",
             })
             .setOrigin(1, 0);
         this.keyOne = this.add
@@ -88,7 +88,7 @@ class InstructionsSplash extends Phaser.Scene {
         this.add
             .text(width - PADDING, height / 2 - 64 - SPACE_BETWEEN - 24, "Movement", {
                 fontSize: 24,
-                fontFamily: "compass",
+                fontFamily: "Cormorant Garamond",
             })
             .setOrigin(1, 0);
         this.lArrow = this.add
@@ -111,7 +111,7 @@ class InstructionsSplash extends Phaser.Scene {
         this.add
             .text(width - PADDING, height / 2 + 64 + SPACE_BETWEEN + 24 - 24, "Attack", {
                 fontSize: 24,
-                fontFamily: "compass",
+                fontFamily: "Cormorant Garamond",
             })
             .setOrigin(1, 0);
         this.spaceBar = this.add
@@ -127,7 +127,7 @@ class InstructionsSplash extends Phaser.Scene {
         });
 
         // Continue text
-        this.add.text(width / 2, height - 40, "Press ENTER to continue...", { fontSize: 24, fontFamily: "compass" }).setOrigin(0.5, 0);
+        this.add.text(width / 2, height - 40, "Press ENTER to continue...", { fontSize: 24, fontFamily: "Cormorant Garamond" }).setOrigin(0.5, 0);
 
         this.time.delayedCall(25000, () => {
             this.enterGame();

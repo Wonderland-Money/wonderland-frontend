@@ -3,6 +3,8 @@ import Hero from "../entities/Hero";
 
 import baseSceneMixin from "./mixins/baseSceneMixin";
 import frontendControlsMixin from "./mixins/frontendControlsMixin";
+import loadingBar from "./mixins/loadingBar";
+
 import { sharedInstance as events } from "../managers/EventCenter";
 
 import dialogue from "./dialogue/Appraiser.json"
@@ -12,61 +14,10 @@ class AppraiserScene extends Phaser.Scene {
         super({ key: "AppraiserScene" });
     }
     preload() {
-        let { width, height } = this.sys.game.canvas;
-        // PROGRESS BAR
-        let progressBar = this.add.graphics();
-        let progressBox = this.add.graphics();
-        let loaderBg = this.add.graphics();
-        let loadingText = this.make
-            .text({
-                x: width / 2,
-                y: height / 2,
-                text: "Loading...",
-                fontSize: 34,
-                color: "#0f0f0f",
-                fontFamily: "compass",
-            })
-            .setOrigin(0.5);
-        let loadingItemText = this.make
-            .text({
-                x: width / 2,
-                y: height / 2 + 42,
-                text: "",
-                fontSize: 34,
-                color: "#0f0f0f",
-                fontFamily: "compass",
-            })
-            .setOrigin(0.5);
-        loaderBg.fillStyle(0x0a0a0a, 0.4);
-        loaderBg.fillRect(0, 0, width, height);
-        progressBox.fillStyle(0xefefef, 0.8);
-        progressBox.fillRect(width / 2 - 210, height / 2 - 30, 420, 60);
-
-        this.loadSpritesAndShit();
-        this.loadAudioShit();
-
-        this.load.on("progress", function (value) {
-            try {
-                progressBar.fillStyle(0xffffff, 1);
-                progressBar.fillRect(width / 2 - 195, height / 2 - 15, 390 * value, 30);
-                loadingText.setText(parseInt(value * 100) + "%");
-            } catch (e) {
-                // doesn't matter
-            }
-        });
-
-        this.load.on("fileprogress", function (file) {
-            try {
-                loadingItemText.setText(file.key);
-            } catch (e) {}
-        });
-
-        this.load.on("complete", function () {
-            progressBar.destroy();
-            progressBox.destroy();
-            loaderBg.destroy();
-            loadingText.destroy();
-        });
+        this.loadingBar(() => {
+            this.loadSpritesAndShit();
+            this.loadAudioShit();
+        })
     }
 
     loadAudioShit() {
@@ -97,19 +48,18 @@ class AppraiserScene extends Phaser.Scene {
         // ========= Tilemaps & Spritesheets =========
         this.load.tilemapTiledJSON("appraiser-map", "assets/tilemap/appraiser.json");
         // Tilesheet
-        this.load.image("tileset", "assets/tilesets/castlestone.png");
+        this.load.image("appraiser-tileset", "assets/tilesets/appraiser.png");
 
         // ------ Background ------
         this.load.spritesheet("appraiser-sprite", "assets/appraiser/backdrop.png", {
             frameWidth: 480,
             frameHeight: 240,
         });
-        // Table
-        this.load.image("table", "assets/appraiser/table.png");
+
         // ------ Bilgwater ------
         this.load.spritesheet("bilgewater", "assets/appraiser/bilgewater.png", {
-            frameWidth: 100,
-            frameHeight: 102,
+            frameWidth: 120,
+            frameHeight: 134,
         })
 
         // ------ Fire ------
@@ -251,7 +201,7 @@ class AppraiserScene extends Phaser.Scene {
         this.anims.create({
             key: "bilgewater-loop",
             frames: this.anims.generateFrameNames("bilgewater"),
-            frameRate: 12,
+            frameRate: 8,
             repeat: -1,
         })
         /**
@@ -439,10 +389,8 @@ class AppraiserScene extends Phaser.Scene {
         this.addMap();
 
         this.addScaleObject();
-        this.addHero();
         this.addFatass();
-        // Place table in front of Bilgewater
-        this.add.image(this.width / 2, this.height / 2, "table").setOrigin(0.5, 0.5).setScale(3.2);
+        this.addHero();
 
         this.backgroundmusic = this.sound.add("atlantis-song");
         this.playBackgroundMusic();
@@ -493,45 +441,49 @@ class AppraiserScene extends Phaser.Scene {
     }
 
     addFatass() {
-        this.bilgewater = this.add.sprite(this.bilgewaterSpawn.x, this.bilgewaterSpawn.y, "bilgewater");
+        this.bilgewater = this.physics.add.sprite(this.bilgewaterSpawn.x, this.bilgewaterSpawn.y, "bilgewater");
+        this.physics.add.collider(this.bilgewater, this.map.getLayer("Collide").tilemapLayer);
         this.bilgewater.play("bilgewater-loop");
+        this.bilgewater.setScale(2);
     }
 
     addScaleObject() {
-        console.log(this.scaleSpawn)
         this.scaleObject = this.physics.add.sprite(this.scaleSpawn.x, this.scaleSpawn.y - 32, "scale")
         this.scaleObject.play("scale-loop");
-        this.scaleObject.body.setSize(128, 8);
+        this.scaleObject.body.setSize(256, 32);
+        this.scaleObject.body.setOffset(-64, 100);
         this.scaleObject.setImmovable(true);
         this.physics.add.collider(this.scaleObject, this.map.getLayer("Collide").tilemapLayer);
-        this.scaleObject.setScale(2);
+        this.scaleObject.setScale(0.5);
     }
 
     addMap() {
         this.map = this.make.tilemap({ key: "appraiser-map" });
 
-        const backgroundLoop = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "appraiser-sprite").setOrigin(0.5, 0.5);
+        const backgroundLoop = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2 - 120, "appraiser-sprite").setOrigin(0.5, 0.5);
         backgroundLoop.play("appraiser-loop");
         backgroundLoop.scale = 3.2;
 
-        const groundTiles = this.map.addTilesetImage("castlestone", "tileset");
+        const groundTiles = this.map.addTilesetImage("appraiser", "appraiser-tileset");
 
         const collisionLayer = this.map.createLayer("Collide", groundTiles);
         const backgroundLayer = this.map.createLayer("Background", groundTiles);
         //const decorationLayer = this.map.createStaticLayer('Decoration' , groundTiles)
 
-        collisionLayer.setCollision([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 31, 32, 33, 34, 41, 42, 43, 44, 52, 82], true);
+        collisionLayer.setCollision([0, 1, 2, 3, 4, 8, 9, 10, 11, 12], true);
 
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBoundsCollision(true, true, false, true);
 
-        console.log(this.map.getObjectLayer("Objects").objects)
         this.map.getObjectLayer("Objects").objects.forEach(object => {
             if (object.name === "Start") {
                 this.spawnPos = { x: object.x, y: object.y };
             }
             if (object.name === "ScaleSpawn") {
                 this.scaleSpawn = { x: object.x, y: object.y };
+            }
+            if (object.name === "Fatty") {
+                this.bilgewaterSpawn = { x: object.x, y: object.y };
             }
         });
     }
@@ -554,5 +506,6 @@ class AppraiserScene extends Phaser.Scene {
 
 Object.assign(AppraiserScene.prototype, baseSceneMixin);
 Object.assign(AppraiserScene.prototype, frontendControlsMixin);
+Object.assign(AppraiserScene.prototype, loadingBar);
 
 export default AppraiserScene;
