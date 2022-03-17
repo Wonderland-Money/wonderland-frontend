@@ -110,6 +110,7 @@ class Boss extends Phaser.GameObjects.Sprite {
         if (!this.isHurt) {
             this.isHurt = true;
             if (this.isAlive) {
+                dmg = 25; // REMOVE AFTER TESTING
                 this.hitPoints = this.hitPoints - dmg || this.hitPoints - 1;
                 events.emit("boss-hit", this.hitPoints);
                 this.body.setVelocityY(-70);

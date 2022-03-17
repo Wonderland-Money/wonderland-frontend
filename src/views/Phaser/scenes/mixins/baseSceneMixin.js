@@ -18,6 +18,20 @@ const baseSceneMixin = {
         return variables.musicEnabled;
     },
 
+    toggleSound() {
+        if (variables.soundEnabled) {
+            this.sound.setMute(true);
+            variables.soundEnabled = false;
+        } else {
+            this.sound.setMute(false);
+            variables.soundEnabled = true;
+        }
+    },
+
+    getMusicEnabled() {
+        return variables.musicEnabled;
+    },
+
     playBackgroundMusic() {
         if (variables.musicEnabled) this.backgroundmusic.play({ loop: true });
     },

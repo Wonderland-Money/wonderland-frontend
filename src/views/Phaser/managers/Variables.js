@@ -6,6 +6,10 @@
 
 export default {
     musicEnabled: true,
+    soundEnabled: true,
+    fullscreenEnabled: false,
+    currentAccount: "",
+    accountIsGoatedWithTheSauce: false,
     lang: "en-US",
     keybindings: {
         "keydown-LEFT": "keydown-LEFT",
@@ -15,5 +19,4 @@ export default {
     },
     inputPaused: false,
     gameUrl: window.location.origin,
-    // gameUrl: "http://app.trident.localhost:3000",
 };

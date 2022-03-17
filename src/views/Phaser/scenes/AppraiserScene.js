@@ -403,12 +403,6 @@ class AppraiserScene extends Phaser.Scene {
 
         this.hoverTimer = 0;
 
-        // PAUSE MENU CONTROLS
-        this.input.keyboard.on("keydown-ESC", () => {
-            this.scene.launch("PauseMenu", "AppraiserScene");
-            this.scene.pause();
-        });
-
         this.input.keyboard.on("keydown-Q", () => {
             if(!this.scaleObject.body.touching.none || this.scaleObject.body.embedded) {
                 this.openDashboard();

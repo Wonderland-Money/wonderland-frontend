@@ -335,13 +335,6 @@ class Game extends Phaser.Scene {
         this.cameras.main.startFollow(this.hero, true, 0.06, 0.06);
         this.cameras.main.setFollowOffset(-90, 140);
         //this.cameras.main.setZoom(0.9)
-
-        // PAUSE MENU CONTROLS
-        this.input.keyboard.on("keydown-ESC", () => {
-            this.scene.launch("PauseMenu", "GameScene");
-            //this.scene.pause()
-            this.sound.pauseAll();
-        });
     }
 
     loadAnims() {
@@ -1138,7 +1131,6 @@ class Game extends Phaser.Scene {
         });
         this.time.delayedCall(1800, () => {
             this.boss.destroy();
-            console.log("u win :)");
             // Set player win cookies
         });
     }

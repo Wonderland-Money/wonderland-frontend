@@ -55,7 +55,7 @@ class Scroll extends Item {
                 angle: -90,
                 gravityY: 20,
                 scale: { start: 0.08, end: 0.05 },
-                quantity: 2,
+                quantity: 1,
                 blendMode: "ADD",
             })
             .startFollow(this.body.center);

@@ -127,7 +127,7 @@ class InstructionsSplash extends Phaser.Scene {
         });
 
         // Continue text
-        this.add.text(width / 2, height - 40, "Press ENTER to continue...", { fontSize: 24, fontFamily: "Cormorant Garamond" }).setOrigin(0.5, 0);
+        this.add.text(width / 2, height - 40, "Press [ENTER] to continue...", { fontSize: 24, fontFamily: "Cormorant Garamond" }).setOrigin(0.5, 0);
 
         this.time.delayedCall(25000, () => {
             this.enterGame();

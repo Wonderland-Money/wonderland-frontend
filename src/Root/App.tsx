@@ -11,7 +11,7 @@ import { IReduxState } from "../store/slices/state.interface";
 import Loading from "../components/Loader";
 import useBonds from "../hooks/bonds";
 import ViewBase from "../components/ViewBase";
-import { Stake, ChooseBond, Bond, Presale, Dashboard, PhaserGame } from "../views";
+import { Stake, ChooseBond, Bond, Presale, Dashboard, PhaserGame, MessageSign } from "../views";
 import "./style.scss";
 import Landing from "src/views/Landing";
 import classNames from "classnames";
@@ -19,7 +19,7 @@ import classNames from "classnames";
 function App() {
     const dispatch = useDispatch();
 
-    const { connect, provider, hasCachedProvider, chainID, connected } = useWeb3Context();
+    const { connect, provider, hasCachedProvider, providerChainID, chainID, connected } = useWeb3Context();
     const address = useAddress();
 
     const phaserWrapper = useRef<any>(null);
@@ -30,6 +30,7 @@ function App() {
     const [stakingActive, setStakingActive] = useState(false); // Closed by default, opened ingame as needed.
     const [bondingActive, setBondingActive] = useState(false); // Closed by default, opened ingame as needed.
     const [presaleActive, setPresaleActive] = useState(false); // Closed by default, opened ingame as needed.
+    const [messageActive, setMessageActive] = useState(false); // Closed by default, opened ingame as needed.
     const [socialActive, setSocialActive] = useState(true); // Social open by default, open during menu. Closed during games.
     const [connectButtonActive, setConnectButtonActive] = useState(true); // Connect button open by default, open during menu. Closed during games.
 
@@ -97,6 +98,8 @@ function App() {
                 setPresaleActive(false);
             } else if (msg.startsWith("closeSocial")) {
                 setSocialActive(false);
+            } else if (msg.startsWith("closeMessage")) {
+                setMessageActive(false);
             } else if (msg.startsWith("closeConnectButton")) {
                 setConnectButtonActive(false);
             } else if (msg.startsWith("openDashboard")) {
@@ -109,6 +112,8 @@ function App() {
                 setPresaleActive(true);
             } else if (msg.startsWith("openSocial")) {
                 setSocialActive(true);
+            } else if (msg.startsWith("openMessage")) {
+                setMessageActive(true);
             } else if (msg.startsWith("openConnectButton")) {
                 setConnectButtonActive(true);
             } else if (msg.startsWith("closeExitButton")) {
@@ -165,7 +170,7 @@ function App() {
         <>
             {isAppLoading && <Loading />}
             <div id="phaser-wrapper" ref={phaserWrapper}>
-                <PhaserGame connected={(connected && chainID === DEFAULT_NETWORK) || false} setGameActive={setGameActive} exitButtonOpen={exitButtonOpen} />
+                <PhaserGame setGameActive={setGameActive} exitButtonOpen={exitButtonOpen} />
             </div>
             <ViewBase socialIsOpen={socialActive} connectButtonIsOpen={connectButtonActive}>
                 <div className={classNames("psi-interface", "psi-dashboard")}>
@@ -176,6 +181,9 @@ function App() {
                 </div>
                 <div className={classNames("psi-interface", "psi-presale")}>
                     <Presale active={presaleActive} />
+                </div>
+                <div className={classNames("psi-interface", "psi-message")}>
+                    <MessageSign active={messageActive} />
                 </div>
                 <Switch>
                     <div className={classNames("psi-interface", "psi-bonding")}>

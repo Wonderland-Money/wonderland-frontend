@@ -39,19 +39,6 @@ class FreezeScreen extends Phaser.Scene {
         }
     };
 
-    resetScenes() {
-        this.scene.manager.sendToBack("InstructionsSplash");
-        this.scene.manager.stop("InstructionsSplash");
-        this.scene.manager.sendToBack("IngameUI");
-        this.scene.manager.stop("IngameUI");
-        this.scene.manager.sendToBack("GameScene");
-        this.scene.manager.stop("GameScene");
-        this.scene.manager.sendToBack("HarborScene");
-        this.scene.manager.stop("HarborScene");
-        this.scene.manager.sendToBack("ForgeScene");
-        this.scene.manager.stop("ForgeScene");
-    }
-
     unpauseGame() {
         window.removeEventListener("message", this.handler, false);
         this.tweens.add({
@@ -61,7 +48,9 @@ class FreezeScreen extends Phaser.Scene {
             ease: "Power2",
         });
         this.scene.resume(this.toScene);
-        this.scene.get(this.toScene).hero.setPauseInput(false);
+        try {
+            this.scene.get(this.toScene).hero.setPauseInput(false);
+        } catch (e) { }
         this.time.delayedCall(750, () => this.scene.stop());
     }
 

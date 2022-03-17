@@ -18,10 +18,7 @@ class PlayerWinScene extends Phaser.Scene {
         this.input.mouse.disableContextMenu();
         let { width, height } = this.sys.game.canvas;
 
-        this.time.delayedCall(5000, () => {
-            this.cameras.main.fadeOut(2000);
-        });
-        this.time.delayedCall(7000, () => {
+        this.time.delayedCall(3000, () => {
             this.scene.start("PlayerWinMenu");
         });
     }

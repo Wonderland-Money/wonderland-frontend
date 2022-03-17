@@ -16,16 +16,22 @@ import PlayerWinScene from "./scenes/PlayerWinScene";
 import MainMenu from "./scenes/menus/Menu";
 import FreezeScreen from "./scenes/menus/FreezeScreen";
 import PauseMenu from "./scenes/menus/PauseMenu";
+import SettingsMenu from "./scenes/menus/SettingsMenu";
 import GameUI from "./scenes/menus/IngameUI";
 import PlayerWinMenu from "./scenes/menus/PlayerWinMenu";
 import DeathScreen from "./scenes/menus/DeathScreen";
 
 import classNames from "classnames";
-import { useWeb3Context } from "../../hooks";
+import { useWeb3Context, useAddress } from "../../hooks";
 import variables from "./managers/Variables";
 
+import { DEFAULT_NETWORK } from "../../constants";
+
 export default function App(props) {
-    const { connect } = useWeb3Context();
+    const { connect, connected, web3, providerChainID, checkWrongNetwork } = useWeb3Context();
+    const [isConnected, setConnected] = useState(connected);
+
+    const account = useAddress();
 
     const gameRef = useRef(null);
 
@@ -46,29 +52,45 @@ export default function App(props) {
         props.setGameActive(false);
     };
 
+    let buttonText = "Connect Wallet";
+    let clickFunc = connect;
+
+    if (isConnected) {
+        buttonText = "Enter Atlantis";
+        clickFunc = () => {
+            variables.currentAccount = account;
+            console.log("Connected with: " + variables.currentAccount);
+            props.setGameActive(true);
+            startGame();
+        }
+    }
+
+    if (isConnected && providerChainID !== DEFAULT_NETWORK) {
+        buttonText = "Wrong Network";
+        clickFunc = () => {
+            checkWrongNetwork();
+        };
+    }
+
+    useEffect(() => {
+        setConnected(connected);
+    }, [web3, connected]);
+
     return (
         <>
             <IonPhaser
                 ref={gameRef}
                 game={Object.assign(config, {
-                    scene: [MainMenu, InstructionsSplash, GameScene, HarborScene, ForgeScene, AppraiserScene, PauseMenu, FreezeScreen, GameUI, DeathScreen, PlayerWinMenu, PlayerWinScene],
+                    scene: [MainMenu, GameScene, HarborScene, ForgeScene, AppraiserScene, GameUI, InstructionsSplash, SettingsMenu, PauseMenu, FreezeScreen, DeathScreen, PlayerWinMenu, PlayerWinScene],
                 })}
                 initialize={initialize}
             />
             <a
                 id="initialize-button"
                 className={classNames("button", { disabled: initialize })}
-                onClick={() => {
-                    if (!props.connected) {
-                        connect();
-                    }
-                    if (!initialize && props.connected) {
-                        props.setGameActive(true);
-                        startGame();
-                    }
-                }}
+                onClick={clickFunc}
             >
-                {props.connected ? "Enter Atlantis" : "Connect"}
+                {buttonText}
             </a>
             <a className={classNames("button", "exit-button", { disabled: !initialize || !props.exitButtonOpen })} onClick={destroy}>
                 Quit

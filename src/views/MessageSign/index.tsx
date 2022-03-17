@@ -15,7 +15,11 @@ function MessageSign(props: any) {
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const app = useSelector<IReduxState, IAppSlice>(state => state.app);
 
-    const trimmedStakingAPY = trim(app.stakingAPY * 100, 1);
+    const messageSigned = () => {
+        window.parent.postMessage("closeMenu", window.location.origin);
+        window.parent.postMessage("closeMessage", window.location.origin);
+        window.parent.postMessage("signedMessage", window.location.origin);
+    }
 
     return (
         <div className={classNames("message-view", { disabled: !props.active })}>
@@ -23,7 +27,7 @@ function MessageSign(props: any) {
                 <div className="message-view-card-header">
                     <a onClick={() => {
                             window.parent.postMessage("closeMenu", window.location.origin);
-                            window.parent.postMessage("closeDashboard", window.location.origin);
+                            window.parent.postMessage("closeMessage", window.location.origin);
                         }}
                         className="close-app-btn">
                         <SvgIcon color="primary" component={XIcon} />
@@ -42,6 +46,9 @@ function MessageSign(props: any) {
                     >
                         <p>{txnButtonText(pendingTransactions, "presale", "Buy PSI")}</p>
                     </div> */}
+                    <div className="message-sign-btn" onClick={messageSigned}>
+                        <p>Confirm</p>
+                    </div>
                 </div>
             </div>
         </div>

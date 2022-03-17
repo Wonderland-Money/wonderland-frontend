@@ -87,6 +87,7 @@ const frontendControlsMixin = {
     openStakingMenu() {
         if (!this.scene.isActive("FreezeScreen")) {
             this.showStaking();
+            this.hero.setPauseInput(true);
             this.scene.launch("FreezeScreen", this);
         } else return;
     },
@@ -95,6 +96,7 @@ const frontendControlsMixin = {
     openBondingMenu() {
         if (!this.scene.isActive("FreezeScreen")) {
             this.showBonding();
+            this.hero.setPauseInput(true);
             this.scene.launch("FreezeScreen", this);
         } else return;
     },
@@ -103,6 +105,7 @@ const frontendControlsMixin = {
     openPresaleMenu() {
         if (!this.scene.isActive("FreezeScreen")) {
             this.showPresale();
+            this.hero.setPauseInput(true);
             this.scene.launch("FreezeScreen", this);
         } else return;
     },

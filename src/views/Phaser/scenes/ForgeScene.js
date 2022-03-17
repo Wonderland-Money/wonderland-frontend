@@ -401,12 +401,6 @@ class ForgeScene extends Phaser.Scene {
 
         this.hoverTimer = 0;
 
-        // PAUSE MENU CONTROLS
-        this.input.keyboard.on("keydown-ESC", () => {
-            this.scene.launch("PauseMenu", "ForgeScene");
-            this.scene.pause();
-        });
-
         this.input.keyboard.on("keydown-Q", () => {
             if(!this.terminal.body.touching.none || this.terminal.body.embedded) {
                 this.openStakingMenu();
@@ -458,7 +452,6 @@ class ForgeScene extends Phaser.Scene {
     }
 
     addTerminal() {
-        console.log(this.terminalSpawn)
         this.terminal = this.physics.add.sprite(this.terminalSpawn.x, this.terminalSpawn.y - 32, "forge-terminal")
         this.terminal.play("forge-terminal-loop");
         this.terminal.setImmovable(true);
@@ -487,7 +480,6 @@ class ForgeScene extends Phaser.Scene {
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBoundsCollision(true, true, false, true);
 
-        console.log(this.map.getObjectLayer("Objects").objects)
         this.map.getObjectLayer("Objects").objects.forEach(object => {
             if (object.name === "Start") {
                 this.spawnPos = { x: object.x, y: object.y };

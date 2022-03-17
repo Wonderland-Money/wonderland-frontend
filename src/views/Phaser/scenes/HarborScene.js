@@ -8,6 +8,7 @@ import frontendControlsMixin from "./mixins/frontendControlsMixin";
 import loadingBar from "./mixins/loadingBar";
 
 import dialogue from "./dialogue/Harbor.json";
+import denied from "./dialogue/HarborDenied.json";
 import secret from "./dialogue/textblocks/secrets/Secret1.json"
 
 import Scroll from "../entities/items/Scroll";
@@ -59,7 +60,10 @@ class HarborScene extends Phaser.Scene {
         // ========= Tilemaps & Spritesheets =========
         this.load.tilemapTiledJSON("harbor", "assets/tilemap/harbor.json");
         // Tilesheet
-        this.load.image("harbor-tileset", "assets/tilesets/harbor.png");
+        this.load.spritesheet("harbor-tileset", "assets/tilesets/harbor.png", {
+            frameWidth: 32,
+            frameHeight: 32,
+        });
         this.load.image("void-tileset", "assets/tilesets/void.png");
 
         // ------ Background ------
@@ -431,18 +435,20 @@ class HarborScene extends Phaser.Scene {
         this.lights.enable();
         this.lights.setAmbientColor(0x808080);
 
-        this.heroSpotlight = this.lights.addLight(this.hero.body.x, this.hero.body.y, 400, 0xffcf51).setIntensity(1);
+        this.heroSpotlight = this.lights.addLight(this.hero.body.x, this.hero.body.y, 400, 0xffcf51).setIntensity(1.5);
         this.fireLight = this.lights.addLight(this.fire.body.center.x, this.fire.body.center.y, 300, 0xffcf51, 2);
         this.catfishGlow = this.lights.addLight(this.catfish.body.center.x, this.catfish.body.center.y, 300, 0xffcf51, 2);
         this.storedLights = {};
         this.storedLights.orbs = [];
+        this.storedLights.lanterns = [];
         
+        // Adds subtle purple lights to orbs
         this.lightLocations.forEach((loc) => {
-            console.log(loc);
-            this.storedLights.orbs.push(this.lights.addLight(loc[0], loc[1], 120, 0x0022aa, 2));
+            this.storedLights.orbs.push(this.lights.addLight(loc[0], loc[1], 120, 0x7b359e, 1));
         });
-        console.log(this.storedLights.orbs[0]);
-        console.log(this.fireLight);
+        this.lanterns.getChildren().forEach((lantern) => {
+            this.storedLights.lanterns.push(this.lights.addLight(lantern.body.center.x, lantern.body.center.y, 100, 0xffcf51, 3));
+        })
 
         this.backgroundmusic = this.sound.add("atlantis-song");
         this.playBackgroundMusic();
@@ -452,27 +458,34 @@ class HarborScene extends Phaser.Scene {
         this.cameras.main.setZoom(1);
         this.cameras.main.startFollow(this.hero, true, 0.08, 0.08);
 
-        // PAUSE MENU CONTROLS
-        this.input.keyboard.on("keydown-ESC", () => {
-            this.scene.launch("PauseMenu", "HarborScene");
-            this.scene.pause();
-        });
-
         this.hoverTimer = 0;
 
         this.input.keyboard.on("keydown-Q", () => {
             if(!this.harborKeeper.body.touching.none || this.harborKeeper.body.embedded) {
-                this.openBondingMenu();
+                if(variables.accountIsGoatedWithTheSauce)
+                    this.openBondingMenu();
+                else {
+                    let txt = denied.dialogue[this.getRandInt(Object.keys(denied.dialogue).length)];
+                    events.emit("dialogue", { speaker: "Mysterious Monk", dialogue: txt });
+                }
             }
             if(!this.catfish.body.touching.none || this.catfish.body.embedded) {
-                this.openPresaleMenu();
+                if(variables.accountIsGoatedWithTheSauce)
+                    this.openPresaleMenu();
+                else {
+                    events.emit("dialogue", { speaker: "Magic Catfish", dialogue: "..." });
+                }
             }
         });
         this.input.keyboard.on("keydown-R", () => {
             if(!this.harborKeeper.body.touching.none || this.harborKeeper.body.embedded) {
-                let txt = dialogue.dialogue[this.getRandInt(Object.keys(dialogue.dialogue).length)];
-                events.emit("dialogue", { speaker: "Tidemaster Logii", dialogue: txt });
-                // events.emit("dialogue", { speaker: "Tidemaster Logii", dialogue: "You should really get a bidet, leaves my ass feeling delightful" });
+                if(variables.accountIsGoatedWithTheSauce) {
+                    let txt = dialogue.dialogue[this.getRandInt(Object.keys(dialogue.dialogue).length)];
+                    events.emit("dialogue", { speaker: "Tidemaster Logii", dialogue: txt });
+                } else {
+                    let txt = denied.dialogue[this.getRandInt(Object.keys(denied.dialogue).length)];
+                    events.emit("dialogue", { speaker: "Mysterious Monk", dialogue: txt });
+                }
             }
         });
     }
@@ -485,7 +498,7 @@ class HarborScene extends Phaser.Scene {
 
     addHero() {
         this.hero = new Hero(this, this.spawnPos.x, this.spawnPos.y);
-        this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+        // this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.groundCollider = this.physics.add.collider(this.hero, this.map.getLayer("Collide").tilemapLayer);
 
         this.physics.add.overlap(this.hero, this.harborKeeper, () => {
@@ -519,6 +532,7 @@ class HarborScene extends Phaser.Scene {
         this.catfish.body.setDragX(650);
         this.catfish.body.setSize(128, 128);
         this.catfish.body.setOffset(0, 0);
+        this.catfish.body.setCollideWorldBounds(true);
         this.catfish.setScale(0.5);
         this.catfish.play("catfish-loop");
         this.physics.add.collider(this.catfish, this.map.getLayer("Collide").tilemapLayer);
@@ -559,7 +573,7 @@ class HarborScene extends Phaser.Scene {
 
         const collisionLayer = this.map.createLayer("Collide", groundTiles).setPipeline("Light2D");
         
-        const backgroundLayer = this.map.createLayer("Background", groundTiles);
+        const backgroundLayer = this.map.createLayer("Background", groundTiles).setPipeline("Light2D");
         //const decorationLayer = this.map.createStaticLayer('Decoration' , groundTiles)
 
         collisionLayer.setCollision([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 21, 22, 23, 24, 31, 32, 33, 34, 41, 42, 43, 44, 52, 82], true);
@@ -577,6 +591,8 @@ class HarborScene extends Phaser.Scene {
             }
         }, this)
 
+        this.lanterns = this.physics.add.group({ immovable: true, allowGravity: false })
+
         this.map.getObjectLayer("Objects").objects.forEach(object => {
             if (object.name === "Start") {
                 this.spawnPos = { x: object.x, y: object.y };
@@ -587,8 +603,14 @@ class HarborScene extends Phaser.Scene {
             if (object.name === "Catfish") {
                 this.catfishSpawn = { x: object.x, y: object.y };
             }
-            if (object.name === "Scroll") { // @TODO: Remove this before prod
+            if (object.name === "Scroll") {
                 this.scrollSpawn = { x: object.x, y: object.y }; // 1/100 chance of spawning the 1st secret scroll.
+            }
+            if (object.type === "Lantern") {
+                let l = this.lanterns.create(object.x, object.y, "harbor-tileset", object.gid - 1)
+                    .setOrigin(0, 1);
+                l.body.setSize(16,16);
+                l.body.setOffset(8, 16);
             }
         });
     }

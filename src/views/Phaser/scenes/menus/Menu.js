@@ -2,6 +2,7 @@ import { TransferWithinAStationOutlined } from "@material-ui/icons";
 import Phaser from "phaser";
 import Button from "../../components/Button";
 import MenuButton from "../../components/MenuButton";
+import CustomButton from "../../components/CustomButton";
 
 import frontendControlsMixin from "../mixins/frontendControlsMixin";
 
@@ -36,6 +37,30 @@ class Menu extends Phaser.Scene {
             frameWidth: 64,
             frameHeight: 32,
         })
+        this.load.spritesheet("wide-button", "assets/buttons/wide/button.png", {
+            frameWidth: 128,
+            frameHeight: 32,
+        })
+
+        // Small Button Icons
+        this.load.spritesheet("sound-button", "assets/buttons/sound.png", {
+            frameWidth: 16,
+            frameHeight: 16,
+        })
+        this.load.spritesheet("music-button", "assets/buttons/music.png", {
+            frameWidth: 16,
+            frameHeight: 16,
+        })
+        this.load.spritesheet("fullscreen-button", "assets/buttons/fullscreen.png", {
+            frameWidth: 16,
+            frameHeight: 16,
+        })
+        this.load.spritesheet("settings-button", "assets/buttons/settings.png", {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
+        // Default Button
         this.load.spritesheet("button-img", "assets/buttons/normal/button2.png", {
             frameWidth: 128,
             frameHeight: 52,
@@ -184,6 +209,13 @@ class Menu extends Phaser.Scene {
             },
             3,
         );
+
+        // Display settings button with next release
+
+        // let settingsButton = new CustomButton(this, width - 48, height - 48, "", () => {
+        //         this.scene.launch("SettingsMenu")
+        //     }, "settings-button",
+        // )
     }
 
     update(time, delta) {}

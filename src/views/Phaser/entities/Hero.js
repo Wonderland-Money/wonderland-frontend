@@ -33,8 +33,17 @@ class Hero extends Phaser.GameObjects.Sprite {
         this.isAttacking = false;
         
         if (!this.scene.scene.isActive("DeathScreen")) {
-            this.scene.scene.launch("GameUI", { attackEnabled: this.attackEnabled, hp: this.hitPoints }).moveAbove("GameScene");
+            this.scene.scene.launch("GameUI", { attackEnabled: this.attackEnabled, hp: this.hitPoints }).moveAbove(scene.key);
         }
+
+        scene.input.keyboard.on("keydown-ESC", () => {
+            scene.scene.launch("PauseMenu", scene);
+            scene.scene.pause();
+        });
+        scene.input.keyboard.on("keydown-P", () => {
+            scene.scene.launch("PauseMenu", scene);
+            scene.scene.pause();
+        });
     }
 
     setupAnimations() {
@@ -151,7 +160,19 @@ class Hero extends Phaser.GameObjects.Sprite {
         this.isAlive = false;
         this.body.setBounce(0.6);
         events.emit("player-died");
-        console.log("RIP BOZO 💔");
+        const deathMsg = [
+            "RIP BOZO 💔",
+            "No maidens? 😢",
+            "Git gud",
+            "NGMI 😈",
+            "You are not goated with the sauce.",
+            "F 💀",
+            "💀💀💀",
+            "🪦",
+        ]
+        const styles = ["font-size: 18px", "padding: 2px 4px", "background-color: #000000"].join(";");
+        const index = this.scene.getRandInt(deathMsg.length);
+        console.log("%c" + deathMsg[index], styles);
         this.body.setVelocityY(-300);
     }
 
