@@ -9,20 +9,20 @@ import { PresaleContract } from "../../abi/index";
 import { Networks } from "../../constants/blockchain";
 import { getBondCalculator } from "../../helpers/bond-calculator";
 import { RootState } from "../store";
-import { error, warning, success, info } from "../slices/messages-slice";
+import { error, warning, success, info } from "./messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { ust, frax } from "src/helpers/bond";
 import { trim, prettifySeconds, prettyVestingPeriod } from "../../helpers";
 import { setAll } from "../../helpers";
 
-interface IGetPresaleDetails {
+interface IGetPresaleFourDetails {
     provider: StaticJsonRpcProvider | JsonRpcProvider;
     networkID: Networks;
     address: string;
 }
 
-export interface IPresaleDetails {
+export interface IPresaleFourDetails {
     contract: string;
     claimablePsi: string;
     amountBuyable: string;
@@ -34,7 +34,7 @@ export interface IPresaleDetails {
     balanceVal: number;
 }
 
-export const getPresaleDetails = createAsyncThunk("presale/getPresaleDetails", async ({ provider, networkID, address }: IGetPresaleDetails, { dispatch }) => {
+export const getPresaleFourDetails = createAsyncThunk("presaleFour/getPresaleFourDetails", async ({ provider, networkID, address }: IGetPresaleFourDetails, { dispatch }) => {
     let claimablePsi = "",
         amountBuyable = "",
         claimedPsi = "",
@@ -43,37 +43,7 @@ export const getPresaleDetails = createAsyncThunk("presale/getPresaleDetails", a
         psiPrice = 0;
 
     const addresses = getAddresses(networkID);
-    let approvedContractAddress = "";
-    let isApproved = false;
-
-    let phase1Contract = new Contract(addresses.presalePhase1, PresaleContract, provider);
-    let term = await phase1Contract.terms(address);
-    if(term.whitelistedAmount > 0) {
-        approvedContractAddress = addresses.presalePhase1;
-        isApproved = true;
-    }
-
-    /*
-     *  Activate next phase by removing phase1 from above and uncommenting below
-     */
-    
-    /*
-    let phase2Contract = new Contract(addresses.presalePhase2, PresaleContract, provider);
-    let term = await phase2Contract.terms(address);
-    if(term.whitelistedAmount > 0) {
-        approvedContractAddress = addresses.presalePhase2;
-        isApproved = true;
-    }
-
-    let phase3Contract = new Contract(addresses.presalePhase3, PresaleContract, provider);
-    let term = await phase3Contract.terms(address);
-    if(term.whitelistedAmount > 0) {
-        approvedContractAddress = addresses.presalePhase3;
-        isApproved = true;
-    }
-    */
-    
-
+    const approvedContractAddress = addresses.presalePhase4;
     let approvedContract = new Contract(approvedContractAddress, PresaleContract, provider);
     claimablePsi = await approvedContract.claimableFor(address);
     amountBuyable = await approvedContract.buyableFor(address);
@@ -169,13 +139,13 @@ export const changeApproval = createAsyncThunk("bonding/changeApproval", async (
     };
 });
 
-interface IBuyPresale {
+interface IBuyPresaleFour {
     value: string;
     presaleAddress: string;
     provider: StaticJsonRpcProvider | JsonRpcProvider;
 }
 
-export const buyPresale = createAsyncThunk("presale/buyPresale", async ({ value, presaleAddress, provider }: IBuyPresale, { dispatch }) => {
+export const buyPresaleFour = createAsyncThunk("presaleFour/buyPresaleFour", async ({ value, presaleAddress, provider }: IBuyPresaleFour, { dispatch }) => {
     const valueInWei = ethers.utils.parseUnits(value.toString(), 18);
 
     const signer = provider.getSigner();
@@ -211,7 +181,7 @@ export const buyPresale = createAsyncThunk("presale/buyPresale", async ({ value,
     }
 });
 
-interface IClaimPresale {
+interface IClaimPresaleFour {
     address: string;
     presaleAddress: string;
     networkID: Networks;
@@ -219,7 +189,7 @@ interface IClaimPresale {
     stake: boolean;
 }
 
-export const claimPresale = createAsyncThunk("presale/claimPresale", async ({ address, presaleAddress, networkID, provider, stake }: IClaimPresale, { dispatch }) => {
+export const claimPresaleFour = createAsyncThunk("presaleFour/claimPresaleFour", async ({ address, presaleAddress, networkID, provider, stake }: IClaimPresaleFour, { dispatch }) => {
     if (!provider) {
         dispatch(warning({ text: messages.please_connect_wallet }));
         return;
@@ -267,7 +237,7 @@ export const claimPresale = createAsyncThunk("presale/claimPresale", async ({ ad
     }
 });
 
-export interface IPresaleSlice {
+export interface IPresaleFourSlice {
     loading: boolean;
     approvedContractAddress: string;
     claimablePsi: number;
@@ -280,7 +250,7 @@ export interface IPresaleSlice {
     balanceVal: number;
 }
 
-const initialState: IPresaleSlice = {
+const initialState: IPresaleFourSlice = {
     loading: true,
     approvedContractAddress: "",
     claimablePsi: 0,
@@ -293,8 +263,8 @@ const initialState: IPresaleSlice = {
     balanceVal: 0,
 };
 
-const presaleSlice = createSlice({
-    name: "presale",
+const presaleFourSlice = createSlice({
+    name: "presaleFour",
     initialState,
     reducers: {
         fetchPresaleSuccess(state, action) {
@@ -303,24 +273,24 @@ const presaleSlice = createSlice({
     },
     extraReducers: builder => {
         builder
-            .addCase(getPresaleDetails.pending, state => {
+            .addCase(getPresaleFourDetails.pending, state => {
                 state.loading = true;
             })
-            .addCase(getPresaleDetails.fulfilled, (state, action) => {
+            .addCase(getPresaleFourDetails.fulfilled, (state, action) => {
                 setAll(state, action.payload);
                 state.loading = false;
             })
-            .addCase(getPresaleDetails.rejected, (state, { error }) => {
+            .addCase(getPresaleFourDetails.rejected, (state, { error }) => {
                 state.loading = false;
                 console.log(error);
             });
     },
 });
 
-export default presaleSlice.reducer;
+export default presaleFourSlice.reducer;
 
-export const { fetchPresaleSuccess } = presaleSlice.actions;
+export const { fetchPresaleSuccess } = presaleFourSlice.actions;
 
-const baseInfo = (state: RootState) => state.presale;
+const baseInfo = (state: RootState) => state.presaleFour;
 
-export const getPresaleState = createSelector(baseInfo, claiming => claiming);
+export const getPresaleFourState = createSelector(baseInfo, claiming => claiming);
