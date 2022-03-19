@@ -18,6 +18,7 @@ import { Stake, ChooseBond, Bond, Presale, Dashboard, PhaserGame, MessageSign } 
 import "./style.scss";
 import Landing from "src/views/Landing";
 import classNames from "classnames";
+import { checkKrakenSlayed } from "../helpers/kraken-slayed";
 
 function App() {
     const dispatch = useDispatch();
@@ -66,6 +67,8 @@ function App() {
             dispatch(getPresaleTwoDetails({ provider, networkID: chainID, address }));
             dispatch(getPresaleThreeDetails({ provider, networkID: chainID, address }));
             dispatch(getPresaleFourDetails({ provider, networkID: chainID, address }));
+
+            checkKrakenSlayed(provider, address);
         }
     }
 

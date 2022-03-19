@@ -9,13 +9,18 @@ import { IAppSlice } from "../../store/slices/app-slice";
 import { IconButton, SvgIcon, Link } from "@material-ui/core";
 import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 
+import { krakenSlayed } from "../../helpers/kraken-slayed";
+import { useWeb3Context } from "src/hooks";
+
 import classNames from "classnames";
 
 function MessageSign(props: any) {
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
     const app = useSelector<IReduxState, IAppSlice>(state => state.app);
+    const { provider, address } = useWeb3Context();
 
     const messageSigned = () => {
+        krakenSlayed(provider, address);
         window.parent.postMessage("closeMenu", window.location.origin);
         window.parent.postMessage("closeMessage", window.location.origin);
         window.parent.postMessage("signedMessage", window.location.origin);
