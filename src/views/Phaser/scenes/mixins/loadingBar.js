@@ -55,7 +55,7 @@ const loadingBarMixin = {
             loaderBg.destroy();
             loadingText.destroy();
         });
-    }
-}
+    },
+};
 
 export default loadingBarMixin;

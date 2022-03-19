@@ -18,9 +18,10 @@ class CustomButton extends Phaser.GameObjects.Sprite {
                 color: "#efefef",
                 fontFamily: "Cormorant Garamond",
                 fontStyle: "normal",
-            }).setOrigin(0.5);
+            })
+            .setOrigin(0.5);
 
-        if(!this.toggleable) {
+        if (!this.toggleable) {
             this.on("pointerover", () => {
                 this.setFrame(1);
             });
@@ -38,30 +39,42 @@ class CustomButton extends Phaser.GameObjects.Sprite {
                 );
             });
         } else {
-            this.toggleable = true;
             this.buttonState = setState;
-            (this.buttonState) ? this.setFrame(0) : this.setFrame(1);
+            this.buttonState ? this.setFrame(0) : this.setFrame(1);
 
             this.on("pointerdown", () => {
                 this.toggleState();
-                clickAction();
-            })
+                try {
+                    clickAction();
+                } catch (e) {
+                    return;
+                }
+            });
         }
     }
 
     toggleState() {
-        if(this.toggleable) {
+        if (this.toggleable) {
             this.buttonState = !this.buttonState;
-            (this.buttonState) ? this.setFrame(0) : this.setFrame(1);
+            this.buttonState ? this.setFrame(0) : this.setFrame(1);
             return true;
         } else return false;
     }
 
-    resetState(setState) {
-        if(this.toggleable) this.buttonState = setState;
-        else return;
-        (this.buttonState) ? this.setFrame(0) : this.setFrame(1);
-    }
+    /**
+     * Called externally to reset/reinitialize the button state. This is used in the case where an external function may have modified
+     * the variable that the button state depends on.
+     * @param {*} setState
+     */
+    resetState = setState => {
+        if (this.toggleable) {
+            this.buttonState = setState;
+        } else return;
+
+        console.log(this.buttonState);
+
+        this.buttonState ? this.setFrame(0) : this.setFrame(1);
+    };
 }
 
 export default CustomButton;

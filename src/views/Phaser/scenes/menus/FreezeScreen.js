@@ -50,7 +50,7 @@ class FreezeScreen extends Phaser.Scene {
         this.scene.resume(this.toScene);
         try {
             this.scene.get(this.toScene).hero.setPauseInput(false);
-        } catch (e) { }
+        } catch (e) {}
         this.time.delayedCall(750, () => this.scene.stop());
     }
 

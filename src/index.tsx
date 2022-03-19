@@ -8,13 +8,13 @@ import SnackMessage from "./components/Messages/snackbar";
 
 ReactDOM.render(
     <SnackbarProvider
-        maxSnack={4}
+        maxSnack={3}
         anchorOrigin={{
             vertical: "bottom",
             horizontal: "right",
         }}
         content={(key, message: string) => <SnackMessage id={key} message={JSON.parse(message)} />}
-        autoHideDuration={3 * 60000}
+        autoHideDuration={15000}
     >
         <Provider store={store}>
             <Web3ContextProvider>

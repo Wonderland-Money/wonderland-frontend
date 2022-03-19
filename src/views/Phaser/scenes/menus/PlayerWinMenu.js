@@ -16,7 +16,7 @@ class PlayerWinMenu extends Phaser.Scene {
         this.input.mouse.disableContextMenu();
         let { width, height } = this.sys.game.canvas;
 
-        (variables.accountIsGoatedWithTheSauce) ? this.exitToMenu() : this.openMessageSigningMenu();
+        variables.accountIsGoatedWithTheSauce ? this.exitToMenu() : this.openMessageSigningMenu();
     }
 
     openMessageSigningMenu() {
@@ -63,7 +63,7 @@ class PlayerWinMenu extends Phaser.Scene {
         this.scene.manager.stop("HarborScene");
         this.scene.manager.sendToBack("ForgeScene");
         this.scene.manager.stop("ForgeScene");
-        
+
         this.scene.stop();
     }
 

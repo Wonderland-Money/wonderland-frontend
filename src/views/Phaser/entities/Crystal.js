@@ -40,8 +40,8 @@ class Crystal extends Phaser.Physics.Arcade.Sprite {
                 alpha: 0,
                 duration: 300,
                 ease: "Power2",
-            })
-            
+            });
+
             this.body.setVelocityX(0);
             this.body.setAccelerationX(0);
             this.scene.time.addEvent({

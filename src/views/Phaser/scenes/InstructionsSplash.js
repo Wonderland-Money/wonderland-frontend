@@ -17,6 +17,10 @@ class InstructionsSplash extends Phaser.Scene {
             frameWidth: 32,
             frameHeight: 32,
         });
+        this.load.spritesheet("pause-keys", "assets/instructions/pause.png", {
+            frameWidth: 32,
+            frameHeight: 32,
+        })
         this.load.spritesheet("space-bar", "assets/instructions/spacebar.png", {
             frameWidth: 160,
             frameHeight: 32,
@@ -58,12 +62,7 @@ class InstructionsSplash extends Phaser.Scene {
             )
             .setOrigin(0, 0.5);
 
-        this.add
-            .text(width - PADDING, height / 2 - 128 - SPACE_BETWEEN - 44 - 24, "Select Element", {
-                fontSize: 24,
-                fontFamily: "Cormorant Garamond",
-            })
-            .setOrigin(1, 0);
+        // Num Keys
         this.keyOne = this.add
             .sprite(width - PADDING - 4 * SPACE_BETWEEN - 4 * 64, height / 2 - 128 - SPACE_BETWEEN - 44, "number-keys", 0)
             .setOrigin(1, 0)
@@ -84,13 +83,30 @@ class InstructionsSplash extends Phaser.Scene {
             .sprite(width - PADDING, height / 2 - 128 - SPACE_BETWEEN - 44, "number-keys", 4)
             .setOrigin(1, 0)
             .setScale(2);
-
         this.add
-            .text(width - PADDING, height / 2 - 64 - SPACE_BETWEEN - 24, "Movement", {
+            .text(width - PADDING - 4 * SPACE_BETWEEN - 4 * 64 - (this.keyOne.width * 2), height / 2 - 128 - SPACE_BETWEEN - 44 - 24, "Select Element", {
                 fontSize: 24,
                 fontFamily: "Cormorant Garamond",
             })
-            .setOrigin(1, 0);
+            .setOrigin(0, 0);
+
+        // Pause Keys
+        this.keyEsc = this.add
+            .sprite(width - PADDING - (6+2) * SPACE_BETWEEN - 6 * 64, height / 2 - 128 - SPACE_BETWEEN - 44, "pause-keys", 0)
+            .setOrigin(1, 0)
+            .setScale(2);
+        this.keyP = this.add
+            .sprite(width - PADDING - (5+2) * SPACE_BETWEEN - 5 * 64, height / 2 - 128 - SPACE_BETWEEN - 44, "pause-keys", 1)
+            .setOrigin(1, 0)
+            .setScale(2);
+        this.add
+            .text(width - PADDING - (6+2) * SPACE_BETWEEN - 6 * 64 - (this.keyEsc.width * 2), height / 2 - 128 - SPACE_BETWEEN - 44 - 24, "Pause", {
+                fontSize: 24,
+                fontFamily: "Cormorant Garamond",
+            })
+            .setOrigin(0, 0);
+
+        // Movement Keys
         this.lArrow = this.add
             .sprite(width - PADDING - 128 - 2 * SPACE_BETWEEN, height / 2, "arrow-keys", 0)
             .setOrigin(1, 0)
@@ -107,17 +123,25 @@ class InstructionsSplash extends Phaser.Scene {
             .sprite(width - PADDING - 64 - SPACE_BETWEEN, height / 2, "arrow-keys", 3)
             .setOrigin(1, 0)
             .setScale(2);
-
         this.add
-            .text(width - PADDING, height / 2 + 64 + SPACE_BETWEEN + 24 - 24, "Attack", {
+            .text(width - PADDING - 128 - 2 * SPACE_BETWEEN - (this.lArrow.width * 2), height / 2 - 64 - SPACE_BETWEEN - 24, "Movement", {
                 fontSize: 24,
                 fontFamily: "Cormorant Garamond",
             })
-            .setOrigin(1, 0);
+            .setOrigin(0, 0);
+
+        // Space
         this.spaceBar = this.add
             .sprite(width - PADDING, height / 2 + 64 + SPACE_BETWEEN + 24, "space-bar", 0)
             .setOrigin(1, 0)
             .setScale(2);
+        this.add
+            .text(width - PADDING - (this.spaceBar.width * 2), height / 2 + 64 + SPACE_BETWEEN + 24 - 24, "Attack", {
+                fontSize: 24,
+                fontFamily: "Cormorant Garamond",
+            })
+            .setOrigin(0, 0);
+
         this.setupKeyEvents();
 
         let rect = this.add.rectangle(0, 0, width, height, 0x000000, 0).setInteractive().setOrigin(0, 0);
@@ -127,7 +151,7 @@ class InstructionsSplash extends Phaser.Scene {
         });
 
         // Continue text
-        this.add.text(width / 2, height - 40, "Press [ENTER] to continue...", { fontSize: 24, fontFamily: "Cormorant Garamond" }).setOrigin(0.5, 0);
+        this.add.text(width / 2, height - 40, "Press [ENTER] to continue...", { fontSize: 22, fontFamily: "Cormorant Garamond", color: "#444444" }).setOrigin(0.5, 0);
 
         this.time.delayedCall(25000, () => {
             this.enterGame();
@@ -171,6 +195,22 @@ class InstructionsSplash extends Phaser.Scene {
             this.keyFive.setFrame(4);
         });
 
+        // Esc
+        this.input.keyboard.on("keydown-ESC", () => {
+            this.keyEsc.setFrame(2);
+        });
+        this.input.keyboard.on("keyup-ESC", () => {
+            this.keyEsc.setFrame(0);
+        });
+
+        // P
+        this.input.keyboard.on("keydown-P", () => {
+            this.keyP.setFrame(3);
+        });
+        this.input.keyboard.on("keyup-P", () => {
+            this.keyP.setFrame(1);
+        });
+
         // Left
         this.input.keyboard.on("keydown-LEFT", () => {
             this.lArrow.setFrame(4);
@@ -208,9 +248,7 @@ class InstructionsSplash extends Phaser.Scene {
             this.spaceBar.setFrame(0);
         });
 
-        this.input.keyboard.on("keydown-ESC", () => {
-            this.enterGame();
-        });
+        // Enter Game
         this.input.keyboard.on("keydown-ENTER", () => {
             this.enterGame();
         });

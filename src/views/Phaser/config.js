@@ -21,10 +21,6 @@ function getHeight() {
     );
 }
 
-//const WIDTH = window.innerWidth * window.devicePixelRatio / 3
-//const HEIGHT = window.innerHeight * window.devicePixelRatio / 3
-// const WIDTH = 1100
-// const HEIGHT = 640
 const WIDTH = 1280;
 const HEIGHT = 720;
 
@@ -65,7 +61,6 @@ export default {
                 plugin: RexUIPlugin,
                 mapping: "rexUI",
             },
-            // ...
         ],
     },
     audio: {

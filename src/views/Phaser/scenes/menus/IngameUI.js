@@ -2,8 +2,7 @@ import { useForkRef } from "@material-ui/core";
 import Phaser from "phaser";
 import { sharedInstance as events } from "../../managers/EventCenter";
 
-import { TextArea, Toast, Label, RoundRectangle } from 'phaser3-rex-plugins/templates/ui/ui-components.js';
-
+import { TextArea, Toast, Label, RoundRectangle } from "phaser3-rex-plugins/templates/ui/ui-components.js";
 
 class InGameUI extends Phaser.Scene {
     constructor() {
@@ -28,8 +27,6 @@ class InGameUI extends Phaser.Scene {
         this.load.image("text-scroller", "assets/playerUI/scroller.png");
 
         this.load.image("scroll-ribbon", "assets/playerUI/scroll-ribbon.png");
-
-
     }
 
     create(data) {
@@ -46,13 +43,13 @@ class InGameUI extends Phaser.Scene {
         this.width = this.sys.game.canvas.width;
         this.height = this.sys.game.canvas.height;
 
-        (this.playerAttackEnabled) ? this.drawPlayerAttackEnabled() : this.drawPlayerAttackDisabled();
+        this.playerAttackEnabled ? this.drawPlayerAttackEnabled() : this.drawPlayerAttackDisabled();
 
         this.input.keyboard.on("keydown-R", () => {
-            if(this.dialogueActive) {
+            if (this.dialogueActive) {
                 this.clearDialogue();
             }
-            if(this.textScrollerActive) {
+            if (this.textScrollerActive) {
                 this.clearTextScroller();
             }
         });
@@ -106,13 +103,13 @@ class InGameUI extends Phaser.Scene {
     }
 
     showNotification(data) {
-        if(this.dialogueActive || this.textScrollerActive) return;
-        if(Array.isArray(data)) {
-            for(let i = 0; i < data.length; ++i) {
+        if (this.dialogueActive || this.textScrollerActive) return;
+        if (Array.isArray(data)) {
+            for (let i = 0; i < data.length; ++i) {
                 // let notif = this.rexUI.add.toast({
                 let notif = new Toast(this, {
                     x: this.width / 2,
-                    y: 40 + (i * 44),
+                    y: 40 + i * 44,
                     background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 8, 0x132217),
                     // background: new RoundRectangle(this, 0, 0, 2, 2, 8, "#132217"),
                     text: this.add.text(0, 0, data[i], {
@@ -130,8 +127,7 @@ class InGameUI extends Phaser.Scene {
                     transitOut: 1,
                 }).showMessage(data[i]);
             }
-        } else
-            this.notif.showMessage(data);
+        } else this.notif.showMessage(data);
     }
 
     setupNotifs() {
@@ -162,20 +158,21 @@ class InGameUI extends Phaser.Scene {
                 this.showNotification(data);
             },
             this,
-        )
+        );
     }
 
     drawDialogueBox() {
-        this.dialogueBox = this.add.image(this.width / 2, this.height, "dialogue-box").setOrigin(0.5,1).setScale(2);
+        this.dialogueBox = this.add
+            .image(this.width / 2, this.height, "dialogue-box")
+            .setOrigin(0.5, 1)
+            .setScale(2);
         this.dialogueBox.setAlpha(0); // Hidden until dialogue event
 
         events.on(
             "dialogue",
             data => {
-                if(!this.dialogueActive)
-                    this.beginDialogue(data.speaker, data.dialogue);
-                else
-                    this.clearDialogue();
+                if (!this.dialogueActive) this.beginDialogue(data.speaker, data.dialogue);
+                else this.clearDialogue();
             },
             this,
         );
@@ -190,7 +187,7 @@ class InGameUI extends Phaser.Scene {
         let counter = 0;
         for (let i = 0; i < words.length; ++i) {
             tempStr += words[i] + " ";
-            if(tempStr.length > maxLineLen) {
+            if (tempStr.length > maxLineLen) {
                 finalizedText[counter] = tempStr;
                 tempStr = "";
                 ++counter;
@@ -201,20 +198,20 @@ class InGameUI extends Phaser.Scene {
     }
 
     beginDialogue(speaker, dialogue) {
-        if (this.dialogueTriggered) return
+        if (this.dialogueTriggered) return;
         this.dialogueTriggered = true;
         this.time.delayedCall(200, () => {
-            this.dialogueActive = true
-        })
-        
+            this.dialogueActive = true;
+        });
+
         let newDialogue = this.breakText(dialogue);
-        
+
         this.tweens.add({
             targets: this.dialogueBox,
             alpha: 1,
             duration: 300,
             ease: "Power2",
-        })
+        });
 
         // Text
         this.dialogueSender = this.add
@@ -224,7 +221,8 @@ class InGameUI extends Phaser.Scene {
                 fontStyle: "bold",
                 fontFamily: "Cormorant Garamond",
             })
-            .setOrigin(0, 0).setDepth(3);
+            .setOrigin(0, 0)
+            .setDepth(3);
 
         this.dialogueContent = this.add
             .text(this.dialogueBox.getTopLeft().x + 28, this.dialogueBox.getTopLeft().y + 54, newDialogue, {
@@ -233,7 +231,8 @@ class InGameUI extends Phaser.Scene {
                 fontStyle: "normal",
                 fontFamily: "Cormorant Garamond",
             })
-            .setOrigin(0, 0).setDepth(3);
+            .setOrigin(0, 0)
+            .setDepth(3);
 
         this.dialogueToolTip = this.add
             .text(this.width / 2, this.height - 24, "Press [R] to close dialogue.", {
@@ -242,27 +241,21 @@ class InGameUI extends Phaser.Scene {
                 fontStyle: "bold",
                 fontFamily: "Cormorant Garamond",
             })
-            .setOrigin(0.5, 0).setDepth(3);
+            .setOrigin(0.5, 0)
+            .setDepth(3);
     }
 
-    addDialogue() {
-
-    }
+    addDialogue() {}
 
     clearDialogue() {
         this.dialogueTriggered = false;
         this.dialogueActive = false;
         this.tweens.add({
-            targets: [
-                this.dialogueBox, 
-                this.dialogueSender, 
-                this.dialogueContent, 
-                this.dialogueToolTip
-            ],
+            targets: [this.dialogueBox, this.dialogueSender, this.dialogueContent, this.dialogueToolTip],
             alpha: 0,
             duration: 300,
             ease: "Power2",
-        })
+        });
     }
 
     drawTextScroller() {
@@ -275,7 +268,7 @@ class InGameUI extends Phaser.Scene {
             // Elements
             background: this.rexUI.add.roundRectangle(0, 0, 20, 20, 0, 0xe5e4d2),
             // background: new RoundRectangle(this, 0, 0, 20, 20, 0, 0xe5e4d2),
-            text: this.add.text(0, 0, '', {
+            text: this.add.text(0, 0, "", {
                 fontFamily: "Cormorant Garamond",
                 fontSize: 18,
                 fontStyle: "bold",
@@ -287,7 +280,7 @@ class InGameUI extends Phaser.Scene {
                 height: 36,
 
                 orientation: 0,
-                
+
                 text: this.add.text(474 / 2, 0, this.currentHeader, {
                     fontFamily: "Cormorant Garamond",
                     fontSize: 24,
@@ -302,8 +295,8 @@ class InGameUI extends Phaser.Scene {
                 thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 13, 0x333333),
                 // track: new RoundRectangle(this, 0, 0, 20, 10, 10, 0x9e9c7b),
                 // thumb: new RoundRectangle(this, 0, 0, 0, 0, 13, 0x333333),
-                input: 'drag',
-                position: 'right',
+                input: "drag",
+                position: "right",
             },
             scroller: {
                 threshold: 10,
@@ -313,17 +306,17 @@ class InGameUI extends Phaser.Scene {
             },
             mouseWheelScroller: {
                 focus: false,
-                speed: 0.2
+                speed: 0.2,
             },
-        
+
             clamplChildOY: false,
-        
+
             space: {
                 left: 20,
                 right: 20,
                 top: 6,
                 bottom: 6,
-        
+
                 text: 6,
                 // text: {
                 //    top: 0,
@@ -334,17 +327,20 @@ class InGameUI extends Phaser.Scene {
                 header: 0,
                 footer: 0,
             },
-            content: '',
+            content: "",
             draggable: false,
-        }).layout().setOrigin(0.5, 0.5).setAlpha(0);
+        })
+            .layout()
+            .setOrigin(0.5, 0.5)
+            .setAlpha(0);
 
         this.scrollComponents = {
-            "top": this.add.image(this.width / 2, 104, "text-scroller"),
-            "bottom": this.add.image(this.width / 2, this.height - 104, "text-scroller"),
-            "ribbon": this.add.image(this.width / 2 + (474/2), 130, "scroll-ribbon"),
-        }
+            top: this.add.image(this.width / 2, 104, "text-scroller"),
+            bottom: this.add.image(this.width / 2, this.height - 104, "text-scroller"),
+            ribbon: this.add.image(this.width / 2 + 474 / 2, 130, "scroll-ribbon"),
+        };
 
-        this.scrollComponents.ribbon.setOrigin(0,0).setScale(2);
+        this.scrollComponents.ribbon.setOrigin(0, 0).setScale(2);
         this.scrollerToolTip = this.add
             .text(this.width / 2, this.height - 104, "Press [R] to close scroll.", {
                 fontSize: 18,
@@ -352,66 +348,59 @@ class InGameUI extends Phaser.Scene {
                 fontStyle: "bold",
                 fontFamily: "Cormorant Garamond",
             })
-            .setOrigin(0.5, 0.5).setDepth(3).setAlpha(0);
+            .setOrigin(0.5, 0.5)
+            .setDepth(3)
+            .setAlpha(0);
         this.scrollComponents.top.setAlpha(0);
         this.scrollComponents.bottom.setAlpha(0);
         this.scrollComponents.ribbon.setAlpha(0);
 
-        events.on("scroll", data => {
-            this.setTextScroller(data);
-        },
-        this);
+        events.on(
+            "scroll",
+            data => {
+                this.setTextScroller(data);
+            },
+            this,
+        );
     }
 
     setTextScroller(data) {
-        if(this.textScrollerActive) return;
+        if (this.textScrollerActive) return;
         this.textScrollerTriggered = true;
         this.time.delayedCall(200, () => {
             this.textScrollerActive = true;
-        })
+        });
         this.currentHeader = data.title;
         this.currentText = data.text;
-        
+
         // Set new text
         this.textScroller.setText(this.currentText);
-        this.textScroller.getElement('header').setText(this.currentHeader);
+        this.textScroller.getElement("header").setText(this.currentHeader);
 
         this.tweens.add({
-            targets: [
-                this.textScroller,
-                this.scrollComponents.top,
-                this.scrollComponents.bottom,
-                this.scrollComponents.ribbon,
-                this.scrollerToolTip,
-            ],
+            targets: [this.textScroller, this.scrollComponents.top, this.scrollComponents.bottom, this.scrollComponents.ribbon, this.scrollerToolTip],
             alpha: 1,
             duration: 300,
             ease: "Power2",
-        })
+        });
     }
 
     clearTextScroller() {
         this.textScrollerTriggered = false;
         this.textScrollerActive = false;
         this.tweens.add({
-            targets: [
-                this.textScroller,
-                this.scrollComponents.top,
-                this.scrollComponents.bottom,
-                this.scrollComponents.ribbon,
-                this.scrollerToolTip,
-            ],
+            targets: [this.textScroller, this.scrollComponents.top, this.scrollComponents.bottom, this.scrollComponents.ribbon, this.scrollerToolTip],
             alpha: 0,
             duration: 300,
             ease: "Power2",
-        })
-        this.textScroller.setText("")
+        });
+        this.textScroller.setText("");
     }
 
     drawPlayerAttackDisabled() {
-        this.drawDialogueBox()
-        this.drawTextScroller()
-        this.setupNotifs()
+        this.drawDialogueBox();
+        this.drawTextScroller();
+        this.setupNotifs();
     }
 
     drawPlayerAttackEnabled() {

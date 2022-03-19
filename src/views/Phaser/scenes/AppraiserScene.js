@@ -7,7 +7,7 @@ import loadingBar from "./mixins/loadingBar";
 
 import { sharedInstance as events } from "../managers/EventCenter";
 
-import dialogue from "./dialogue/Appraiser.json"
+import dialogue from "./dialogue/Appraiser.json";
 
 class AppraiserScene extends Phaser.Scene {
     constructor() {
@@ -17,7 +17,7 @@ class AppraiserScene extends Phaser.Scene {
         this.loadingBar(() => {
             this.loadSpritesAndShit();
             this.loadAudioShit();
-        })
+        });
     }
 
     loadAudioShit() {
@@ -60,7 +60,7 @@ class AppraiserScene extends Phaser.Scene {
         this.load.spritesheet("bilgewater", "assets/appraiser/bilgewater.png", {
             frameWidth: 120,
             frameHeight: 134,
-        })
+        });
 
         // ------ Fire ------
         this.load.spritesheet("fire-loop", "assets/harbor/harbor_fire.png", {
@@ -171,7 +171,7 @@ class AppraiserScene extends Phaser.Scene {
         this.load.spritesheet("scale", "assets/appraiser/scale.png", {
             frameWidth: 128,
             frameHeight: 128,
-        })
+        });
 
         // ------ Trident ------
         this.load.spritesheet("trident", "assets/victory_screen/trident.png", {
@@ -203,7 +203,7 @@ class AppraiserScene extends Phaser.Scene {
             frames: this.anims.generateFrameNames("bilgewater"),
             frameRate: 8,
             repeat: -1,
-        })
+        });
         /**
          * ====== HERO ======
          */
@@ -377,7 +377,7 @@ class AppraiserScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("scale"),
             frameRate: 8,
             repeat: -1,
-        })
+        });
     }
 
     create() {
@@ -404,14 +404,14 @@ class AppraiserScene extends Phaser.Scene {
         this.hoverTimer = 0;
 
         this.input.keyboard.on("keydown-Q", () => {
-            if(!this.scaleObject.body.touching.none || this.scaleObject.body.embedded) {
+            if (!this.scaleObject.body.touching.none || this.scaleObject.body.embedded) {
                 this.openDashboard();
             }
         });
         this.input.keyboard.on("keydown-R", () => {
-            if(!this.scaleObject.body.touching.none || this.scaleObject.body.embedded) {
+            if (!this.scaleObject.body.touching.none || this.scaleObject.body.embedded) {
                 let txt = dialogue.dialogue[this.getRandInt(Object.keys(dialogue.dialogue).length)];
-                events.emit("dialogue", { speaker: "Bilgeworth Tendermint, Treasury Financier", dialogue: txt });    
+                events.emit("dialogue", { speaker: "Bilgeworth Tendermint, Treasury Financier", dialogue: txt });
             }
         });
     }
@@ -426,7 +426,6 @@ class AppraiserScene extends Phaser.Scene {
         this.hero = new Hero(this, this.spawnPos.x, this.spawnPos.y);
         this.groundCollider = this.physics.add.collider(this.hero, this.map.getLayer("Collide").tilemapLayer);
         this.physics.add.overlap(this.hero, this.scaleObject, () => {
-            
             if (this.hoverTimer == 0) {
                 events.emit("notification", ["Press Q to access Dashboard", "Press R to speak"]);
                 this.hoverTimer++;
@@ -442,7 +441,7 @@ class AppraiserScene extends Phaser.Scene {
     }
 
     addScaleObject() {
-        this.scaleObject = this.physics.add.sprite(this.scaleSpawn.x, this.scaleSpawn.y - 32, "scale")
+        this.scaleObject = this.physics.add.sprite(this.scaleSpawn.x, this.scaleSpawn.y - 32, "scale");
         this.scaleObject.play("scale-loop");
         this.scaleObject.body.setSize(256, 32);
         this.scaleObject.body.setOffset(-64, 100);

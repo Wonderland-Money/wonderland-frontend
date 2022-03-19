@@ -4,6 +4,8 @@ import Button from "../../components/Button";
 import MenuButton from "../../components/MenuButton";
 import CustomButton from "../../components/CustomButton";
 
+import variables from "../../managers/Variables";
+
 import frontendControlsMixin from "../mixins/frontendControlsMixin";
 
 class Menu extends Phaser.Scene {
@@ -36,25 +38,25 @@ class Menu extends Phaser.Scene {
         this.load.spritesheet("sml-button", "assets/buttons/small/button.png", {
             frameWidth: 64,
             frameHeight: 32,
-        })
+        });
         this.load.spritesheet("wide-button", "assets/buttons/wide/button.png", {
             frameWidth: 128,
             frameHeight: 32,
-        })
+        });
 
         // Small Button Icons
         this.load.spritesheet("sound-button", "assets/buttons/sound.png", {
             frameWidth: 16,
             frameHeight: 16,
-        })
+        });
         this.load.spritesheet("music-button", "assets/buttons/music.png", {
             frameWidth: 16,
             frameHeight: 16,
-        })
+        });
         this.load.spritesheet("fullscreen-button", "assets/buttons/fullscreen.png", {
             frameWidth: 16,
             frameHeight: 16,
-        })
+        });
         this.load.spritesheet("settings-button", "assets/buttons/settings.png", {
             frameWidth: 16,
             frameHeight: 16,
@@ -91,11 +93,17 @@ class Menu extends Phaser.Scene {
             frameWidth: 480,
             frameHeight: 240,
         });
+
+        window.addEventListener("message", this.shutdownHandler, false); // Listens for plugin-shutdown message
     }
 
     create(data) {
         this.showExitButton();
         window.parent.postMessage("gameActive", window.location.origin);
+
+        console.log(this.plugins.scenePlugins);
+        // console.log(this.plugins.removeScenePlugin("rexUI"));
+        // console.log(this.plugins.scenePlugins);
 
         this.input.setDefaultCursor("url(assets/catfish-cursor.png), pointer");
         let { width, height } = this.sys.game.canvas;
@@ -217,6 +225,24 @@ class Menu extends Phaser.Scene {
         //     }, "settings-button",
         // )
     }
+
+    shutdownHandler = e => {
+        if (e.origin.startsWith(variables.gameUrl) && e.data.toString().startsWith("shutdownInit")) {
+            this.plugins.removeScenePlugin("rexUI");
+            /* Standard syntax */
+            document.removeEventListener("fullscreenchange", this.checkFullscreenState);
+            /* Firefox */
+            document.removeEventListener("mozfullscreenchange", this.checkFullscreenState);
+            /* Chrome, Safari and Opera */
+            document.removeEventListener("webkitfullscreenchange", this.checkFullscreenState);
+            /* IE / Edge */
+            document.removeEventListener("msfullscreenchange", this.checkFullscreenState);
+
+            this.sys.game.destroy(true, true);
+            window.postMessage("shutdownFinal", variables.gameUrl);
+            window.removeEventListener("message", this.shutdownHandler, false);
+        } else return;
+    };
 
     update(time, delta) {}
 }

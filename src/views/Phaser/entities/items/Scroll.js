@@ -15,7 +15,7 @@ class Scroll extends Item {
          * @TODO Update the keybinding to use the KeyboardManager (next release)
          */
         scene.input.keyboard.on("keydown-R", () => {
-            if(!this.body.touching.none || this.body.embedded) {
+            if (!this.body.touching.none || this.body.embedded) {
                 this.openScroll();
             }
         });

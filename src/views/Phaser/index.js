@@ -38,18 +38,26 @@ export default function App(props) {
     // Call `setInitialize` when you want to initialize your game! :)
     const [initialize, setInitialize] = useState(false);
 
+    const shutdownHandler = e => {
+        if (e.origin.startsWith(variables.gameUrl) && e.data.toString().startsWith("shutdownFinal")) {
+            if (gameRef.current) {
+                gameRef.current.destroy();
+            }
+            window.parent.postMessage("showUI", variables.gameUrl);
+            setInitialize(false);
+            props.setGameActive(false);
+            window.removeEventListener("message", shutdownHandler, variables.gameUrl);
+        } else return;
+    };
+
     const startGame = () => {
         window.parent.postMessage("hideUI", variables.gameUrl);
         setInitialize(true);
     };
 
     const destroy = () => {
-        if (gameRef.current) {
-            gameRef.current.destroy();
-        }
-        window.parent.postMessage("showUI", variables.gameUrl);
-        setInitialize(false);
-        props.setGameActive(false);
+        window.addEventListener("message", shutdownHandler, false);
+        window.postMessage("shutdownInit", variables.gameUrl);
     };
 
     let buttonText = "Connect Wallet";
@@ -62,7 +70,7 @@ export default function App(props) {
             console.log("Connected with: " + variables.currentAccount);
             props.setGameActive(true);
             startGame();
-        }
+        };
     }
 
     if (isConnected && providerChainID !== DEFAULT_NETWORK) {
@@ -81,15 +89,25 @@ export default function App(props) {
             <IonPhaser
                 ref={gameRef}
                 game={Object.assign(config, {
-                    scene: [MainMenu, GameScene, HarborScene, ForgeScene, AppraiserScene, GameUI, InstructionsSplash, SettingsMenu, PauseMenu, FreezeScreen, DeathScreen, PlayerWinMenu, PlayerWinScene],
+                    scene: [
+                        MainMenu,
+                        GameScene,
+                        HarborScene,
+                        ForgeScene,
+                        AppraiserScene,
+                        GameUI,
+                        InstructionsSplash,
+                        SettingsMenu,
+                        PauseMenu,
+                        FreezeScreen,
+                        DeathScreen,
+                        PlayerWinMenu,
+                        PlayerWinScene,
+                    ],
                 })}
                 initialize={initialize}
             />
-            <a
-                id="initialize-button"
-                className={classNames("button", { disabled: initialize })}
-                onClick={clickFunc}
-            >
+            <a id="initialize-button" className={classNames("button", { disabled: initialize })} onClick={clickFunc}>
                 {buttonText}
             </a>
             <a className={classNames("button", "exit-button", { disabled: !initialize || !props.exitButtonOpen })} onClick={destroy}>

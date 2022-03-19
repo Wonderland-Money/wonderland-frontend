@@ -11,6 +11,9 @@ export default {
     currentAccount: "",
     accountIsGoatedWithTheSauce: false,
     lang: "en-US",
+    languages: {
+        "en-US": "English",
+    },
     keybindings: {
         "keydown-LEFT": "keydown-LEFT",
         "keydown-RIGHT": "keydown-RIGHT",

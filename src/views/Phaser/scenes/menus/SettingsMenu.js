@@ -25,20 +25,50 @@ class SettingsMenu extends Phaser.Scene {
         const SPACING_HEIGHT = 58;
         const SPACING_WIDTH = 110;
 
-        let musicToggleButton = new CustomButton(this, width - 96, height - 48, "", () => {
-            this.scene.manager.getScene(this.toScene).toggleMusic();
-        }, "music-button", true, variables.musicEnabled, 3);
+        let musicToggleButton = new CustomButton(
+            this,
+            width - 96,
+            height - 48,
+            "",
+            () => {
+                this.scene.manager.getScene(this.toScene).toggleMusic();
+            },
+            "music-button",
+            true,
+            variables.musicEnabled,
+            3,
+        );
 
-        let soundToggleButton = new CustomButton(this, width - 48, height - 48, "", () => {
-            this.scene.manager.getScene(this.toScene).toggleSound();
-        }, "sound-button", true, variables.soundEnabled, 3);
+        let soundToggleButton = new CustomButton(
+            this,
+            width - 48,
+            height - 48,
+            "",
+            () => {
+                this.scene.manager.getScene(this.toScene).toggleSound();
+            },
+            "sound-button",
+            true,
+            variables.soundEnabled,
+            3,
+        );
 
-        let fullscreenToggleButton = new CustomButton(this, width - 144, height - 48, "", () => {
-            (!variables.fullscreenEnabled) ? this.openFullscreen() : this.closeFullscreen();
-        }, "fullscreen-button", true, variables.soundEnabled, 3);
+        let fullscreenToggleButton = new CustomButton(
+            this,
+            width - 144,
+            height - 48,
+            "",
+            () => {
+                !variables.fullscreenEnabled ? this.openFullscreen() : this.closeFullscreen();
+            },
+            "fullscreen-button",
+            true,
+            variables.soundEnabled,
+            3,
+        );
 
         this.input.keyboard.on("keydown-ESC", () => {
-            if(variables.fullscreenEnabled) variables.fullscreenEnabled = false;
+            if (variables.fullscreenEnabled) variables.fullscreenEnabled = false;
             this.unpauseGame();
         });
     }
@@ -47,9 +77,11 @@ class SettingsMenu extends Phaser.Scene {
         try {
             if (this.elem.requestFullscreen) {
                 this.elem.requestFullscreen();
-            } else if (this.elem.webkitRequestFullscreen) { /* Safari */
+            } else if (this.elem.webkitRequestFullscreen) {
+                /* Safari */
                 this.elem.webkitRequestFullscreen();
-            } else if (this.elem.msRequestFullscreen) { /* IE11 */
+            } else if (this.elem.msRequestFullscreen) {
+                /* IE11 */
                 this.elem.msRequestFullscreen();
             }
             variables.fullscreenEnabled = true;
@@ -62,9 +94,11 @@ class SettingsMenu extends Phaser.Scene {
         try {
             if (document.exitFullscreen) {
                 document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) { /* Safari */
+            } else if (document.webkitExitFullscreen) {
+                /* Safari */
                 document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE11 */
+            } else if (document.msExitFullscreen) {
+                /* IE11 */
                 document.msExitFullscreen();
             }
             variables.fullscreenEnabled = false;

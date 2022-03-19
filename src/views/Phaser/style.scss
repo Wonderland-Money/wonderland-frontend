@@ -35,13 +35,20 @@
 }
 
 .exit-button {
-
-    @include theme.primary-button;
+    transition: none;
+    background-color: #000000;
+    border-radius: 0;
+    border: 2px solid #242424;
 
     position: absolute;
     top: 20px;
     left: 20px;
     z-index: 8;
+
+    &:hover {
+        background-color: #1a1a1a;
+        border-color: #fff;
+    }
 }
 
 .disabled {

@@ -21,11 +21,13 @@ function Dashboard(props: any) {
         <div className={classNames("dashboard-view", { disabled: !props.active })}>
             <div className="dashboard-infos-wrap">
                 <div className="dashboard-view-card-header">
-                    <a onClick={() => {
+                    <a
+                        onClick={() => {
                             window.parent.postMessage("closeMenu", window.location.origin);
                             window.parent.postMessage("closeDashboard", window.location.origin);
                         }}
-                        className="close-app-btn">
+                        className="close-app-btn"
+                    >
                         <SvgIcon color="primary" component={XIcon} />
                     </a>
                     <p className="dashboard-view-card-title">Dashboard</p>

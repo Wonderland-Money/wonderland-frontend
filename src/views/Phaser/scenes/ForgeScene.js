@@ -7,7 +7,7 @@ import loadingBar from "./mixins/loadingBar";
 
 import { sharedInstance as events } from "../managers/EventCenter";
 
-import dialogue from "./dialogue/Forge.json"
+import dialogue from "./dialogue/Forge.json";
 
 class ForgeScene extends Phaser.Scene {
     constructor() {
@@ -17,7 +17,7 @@ class ForgeScene extends Phaser.Scene {
         this.loadingBar(() => {
             this.loadSpritesAndShit();
             this.loadAudioShit();
-        })
+        });
     }
 
     loadAudioShit() {
@@ -169,7 +169,7 @@ class ForgeScene extends Phaser.Scene {
         this.load.spritesheet("forge-terminal", "assets/forge/forge-terminal.png", {
             frameWidth: 32,
             frameHeight: 32,
-        })
+        });
 
         // ------ Trident ------
         this.load.spritesheet("trident", "assets/victory_screen/trident.png", {
@@ -201,7 +201,7 @@ class ForgeScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("alchemist"),
             frameRate: 12,
             repeat: -1,
-        })
+        });
         /**
          * ====== HERO ======
          */
@@ -375,7 +375,7 @@ class ForgeScene extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers("forge-terminal"),
             frameRate: 8,
             repeat: -1,
-        })
+        });
     }
 
     create() {
@@ -402,15 +402,14 @@ class ForgeScene extends Phaser.Scene {
         this.hoverTimer = 0;
 
         this.input.keyboard.on("keydown-Q", () => {
-            if(!this.terminal.body.touching.none || this.terminal.body.embedded) {
+            if (!this.terminal.body.touching.none || this.terminal.body.embedded) {
                 this.openStakingMenu();
             }
         });
         this.input.keyboard.on("keydown-R", () => {
-            if(!this.terminal.body.touching.none || this.terminal.body.embedded
-                || !this.alchemist.body.touching.none || this.alchemist.body.embedded) {
+            if (!this.terminal.body.touching.none || this.terminal.body.embedded || !this.alchemist.body.touching.none || this.alchemist.body.embedded) {
                 let txt = dialogue.dialogue[this.getRandInt(Object.keys(dialogue.dialogue).length)];
-                events.emit("dialogue", { speaker: "Alchemist", dialogue: txt });    
+                events.emit("dialogue", { speaker: "Alchemist", dialogue: txt });
             }
         });
     }
@@ -425,7 +424,6 @@ class ForgeScene extends Phaser.Scene {
         this.hero = new Hero(this, this.spawnPos.x, this.spawnPos.y);
         this.groundCollider = this.physics.add.collider(this.hero, this.map.getLayer("Collide").tilemapLayer);
         this.physics.add.overlap(this.hero, this.terminal, () => {
-            
             if (this.hoverTimer == 0) {
                 events.emit("notification", ["Press Q to access Staking", "Press R to speak"]);
                 this.hoverTimer++;
@@ -443,7 +441,6 @@ class ForgeScene extends Phaser.Scene {
         this.alchemist.play("alchemist-loop");
 
         this.physics.add.overlap(this.hero, this.alchemist, () => {
-            
             if (this.hoverTimer == 0) {
                 events.emit("notification", ["Press Q to access Staking", "Press R to speak"]);
                 this.hoverTimer++;
@@ -452,7 +449,7 @@ class ForgeScene extends Phaser.Scene {
     }
 
     addTerminal() {
-        this.terminal = this.physics.add.sprite(this.terminalSpawn.x, this.terminalSpawn.y - 32, "forge-terminal")
+        this.terminal = this.physics.add.sprite(this.terminalSpawn.x, this.terminalSpawn.y - 32, "forge-terminal");
         this.terminal.play("forge-terminal-loop");
         this.terminal.setImmovable(true);
         this.physics.add.collider(this.terminal, this.map.getLayer("Collide").tilemapLayer);

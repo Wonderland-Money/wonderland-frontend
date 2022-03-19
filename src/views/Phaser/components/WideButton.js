@@ -18,7 +18,8 @@ class WideButton extends Phaser.GameObjects.Sprite {
                 color: "#efefef",
                 fontFamily: "Cormorant Garamond",
                 fontStyle: "normal",
-            }).setOrigin(0.5);
+            })
+            .setOrigin(0.5);
         this.scale = 2;
 
         this.on("pointerover", () => {

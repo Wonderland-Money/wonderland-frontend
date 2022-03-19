@@ -52,18 +52,48 @@ class PauseMenu extends Phaser.Scene {
             false,
         );
 
-        let musicToggleButton = new CustomButton(this, width - 96, height - 48, "", () => {
-            this.scene.manager.getScene(this.toScene).toggleMusic();
-        }, "music-button", true, variables.musicEnabled, 3);
+        let musicToggleButton = new CustomButton(
+            this,
+            width - 96,
+            height - 48,
+            "",
+            () => {
+                this.scene.manager.getScene(this.toScene).toggleMusic();
+            },
+            "music-button",
+            true,
+            variables.musicEnabled,
+            3,
+        );
 
-        let soundToggleButton = new CustomButton(this, width - 48, height - 48, "", () => {
-            this.scene.manager.getScene(this.toScene).toggleSound();
-        }, "sound-button", true, variables.soundEnabled, 3);
+        let soundToggleButton = new CustomButton(
+            this,
+            width - 48,
+            height - 48,
+            "",
+            () => {
+                this.scene.manager.getScene(this.toScene).toggleSound();
+            },
+            "sound-button",
+            true,
+            variables.soundEnabled,
+            3,
+        );
 
-        this.fullscreenToggleButton = new CustomButton(this, width - 144, height - 48, "", () => {
-            
-            (!variables.fullscreenEnabled) ? this.openFullscreen() : this.closeFullscreen();
-        }, "fullscreen-button", true, variables.fullscreenEnabled, 3);
+        this.fullscreenToggleButton = new CustomButton(
+            this,
+            width - 144,
+            height - 48,
+            "",
+            () => {
+                this.checkFullscreenState();
+                !variables.fullscreenEnabled ? this.openFullscreen() : this.closeFullscreen();
+            },
+            "fullscreen-button",
+            true,
+            variables.fullscreenEnabled,
+            3,
+        );
 
         this.input.keyboard.on("keydown-ESC", () => {
             this.unpauseGame();
@@ -75,52 +105,48 @@ class PauseMenu extends Phaser.Scene {
 
         /* Standard syntax */
         document.addEventListener("fullscreenchange", this.checkFullscreenState);
-        
+
         /* Firefox */
         document.addEventListener("mozfullscreenchange", this.checkFullscreenState);
-        
+
         /* Chrome, Safari and Opera */
         document.addEventListener("webkitfullscreenchange", this.checkFullscreenState);
-        
+
         /* IE / Edge */
         document.addEventListener("msfullscreenchange", this.checkFullscreenState);
     }
 
     checkFullscreenState = () => {
-        (window.innerHeight == screen.height)
-            ? variables.fullscreenEnabled = true
-            : variables.fullscreenEnabled = false;
-        this.fullscreenToggleButton.resetState(variables.fullscreenEnabled)
-    }
+        window.innerHeight == screen.height ? (variables.fullscreenEnabled = true) : (variables.fullscreenEnabled = false);
+        this.fullscreenToggleButton.resetState(variables.fullscreenEnabled);
+    };
 
     openFullscreen() {
-        try {
-            if (this.elem.requestFullscreen) {
-                this.elem.requestFullscreen();
-            } else if (this.elem.webkitRequestFullscreen) { /* Safari */
-                this.elem.webkitRequestFullscreen();
-            } else if (this.elem.msRequestFullscreen) { /* IE11 */
-                this.elem.msRequestFullscreen();
-            }
-            variables.fullscreenEnabled = true;
-        } catch (e) {
-            variables.fullscreenEnabled = true;
+        if (this.elem.requestFullscreen) {
+            this.elem.requestFullscreen();
+        } else if (this.elem.webkitRequestFullscreen) {
+            /* Safari */
+            this.elem.webkitRequestFullscreen();
+        } else if (this.elem.msRequestFullscreen) {
+            /* IE11 */
+            this.elem.msRequestFullscreen();
         }
+        variables.fullscreenEnabled = true;
+        return true;
     }
 
     closeFullscreen() {
-        try {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) { /* Safari */
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE11 */
-                document.msExitFullscreen();
-            }
-            variables.fullscreenEnabled = false;
-        } catch (e) {
-            variables.fullscreenEnabled = false;
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            /* IE11 */
+            document.msExitFullscreen();
         }
+        variables.fullscreenEnabled = false;
+        return true;
     }
 
     resetScenes() {

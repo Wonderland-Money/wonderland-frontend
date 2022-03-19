@@ -48,7 +48,7 @@ export const getPresaleDetails = createAsyncThunk("presale/getPresaleDetails", a
 
     let phase1Contract = new Contract(addresses.presalePhase1, PresaleContract, provider);
     let term = await phase1Contract.terms(address);
-    if(term.whitelistedAmount > 0) {
+    if (term.whitelistedAmount > 0) {
         approvedContractAddress = addresses.presalePhase1;
         isApproved = true;
     }
@@ -56,7 +56,7 @@ export const getPresaleDetails = createAsyncThunk("presale/getPresaleDetails", a
     /*
      *  Activate next phase by removing phase1 from above and uncommenting below
      */
-    
+
     /*
     let phase2Contract = new Contract(addresses.presalePhase2, PresaleContract, provider);
     let term = await phase2Contract.terms(address);
@@ -72,7 +72,6 @@ export const getPresaleDetails = createAsyncThunk("presale/getPresaleDetails", a
         isApproved = true;
     }
     */
-    
 
     let approvedContract = new Contract(approvedContractAddress, PresaleContract, provider);
     claimablePsi = await approvedContract.claimableFor(address);

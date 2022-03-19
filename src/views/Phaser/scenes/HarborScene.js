@@ -9,7 +9,7 @@ import loadingBar from "./mixins/loadingBar";
 
 import dialogue from "./dialogue/Harbor.json";
 import denied from "./dialogue/HarborDenied.json";
-import secret from "./dialogue/textblocks/secrets/Secret1.json"
+import secret from "./dialogue/textblocks/secrets/Secret1.json";
 
 import Scroll from "../entities/items/Scroll";
 
@@ -24,12 +24,8 @@ class HarborScene extends Phaser.Scene {
         this.loadingBar(() => {
             this.loadSpritesAndShit();
             this.loadAudioShit();
-            this.load.scenePlugin({
-                key: 'rexuiplugin',
-                url: 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js',
-                sceneKey: 'rexUI'
-            });
         });
+        // this.load.scenePlugin('rexuiplugin', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexuiplugin.min.js', 'rexUI', 'rexUI');
     }
 
     loadAudioShit() {
@@ -197,7 +193,7 @@ class HarborScene extends Phaser.Scene {
         this.load.spritesheet("scroll", "assets/entities/scroll.png", {
             frameWidth: 32,
             frameHeight: 32,
-        })
+        });
     }
 
     loadAnims() {
@@ -413,7 +409,7 @@ class HarborScene extends Phaser.Scene {
             frames: this.anims.generateFrameNames("scroll"),
             frameRate: 1,
             repeat: -1,
-        })
+        });
     }
 
     create() {
@@ -441,14 +437,14 @@ class HarborScene extends Phaser.Scene {
         this.storedLights = {};
         this.storedLights.orbs = [];
         this.storedLights.lanterns = [];
-        
+
         // Adds subtle purple lights to orbs
-        this.lightLocations.forEach((loc) => {
+        this.lightLocations.forEach(loc => {
             this.storedLights.orbs.push(this.lights.addLight(loc[0], loc[1], 120, 0x7b359e, 1));
         });
-        this.lanterns.getChildren().forEach((lantern) => {
+        this.lanterns.getChildren().forEach(lantern => {
             this.storedLights.lanterns.push(this.lights.addLight(lantern.body.center.x, lantern.body.center.y, 100, 0xffcf51, 3));
-        })
+        });
 
         this.backgroundmusic = this.sound.add("atlantis-song");
         this.playBackgroundMusic();
@@ -461,25 +457,23 @@ class HarborScene extends Phaser.Scene {
         this.hoverTimer = 0;
 
         this.input.keyboard.on("keydown-Q", () => {
-            if(!this.harborKeeper.body.touching.none || this.harborKeeper.body.embedded) {
-                if(variables.accountIsGoatedWithTheSauce)
-                    this.openBondingMenu();
+            if (!this.harborKeeper.body.touching.none || this.harborKeeper.body.embedded) {
+                if (variables.accountIsGoatedWithTheSauce) this.openBondingMenu();
                 else {
                     let txt = denied.dialogue[this.getRandInt(Object.keys(denied.dialogue).length)];
                     events.emit("dialogue", { speaker: "Mysterious Monk", dialogue: txt });
                 }
             }
-            if(!this.catfish.body.touching.none || this.catfish.body.embedded) {
-                if(variables.accountIsGoatedWithTheSauce)
-                    this.openPresaleMenu();
+            if (!this.catfish.body.touching.none || this.catfish.body.embedded) {
+                if (variables.accountIsGoatedWithTheSauce) this.openPresaleMenu();
                 else {
                     events.emit("dialogue", { speaker: "Magic Catfish", dialogue: "..." });
                 }
             }
         });
         this.input.keyboard.on("keydown-R", () => {
-            if(!this.harborKeeper.body.touching.none || this.harborKeeper.body.embedded) {
-                if(variables.accountIsGoatedWithTheSauce) {
+            if (!this.harborKeeper.body.touching.none || this.harborKeeper.body.embedded) {
+                if (variables.accountIsGoatedWithTheSauce) {
                     let txt = dialogue.dialogue[this.getRandInt(Object.keys(dialogue.dialogue).length)];
                     events.emit("dialogue", { speaker: "Tidemaster Logii", dialogue: txt });
                 } else {
@@ -541,7 +535,7 @@ class HarborScene extends Phaser.Scene {
                 events.emit("notification", "Press Q to access Claiming");
                 this.hoverTimer++;
             }
-        })
+        });
     }
 
     addItems() {
@@ -552,8 +546,7 @@ class HarborScene extends Phaser.Scene {
                 events.emit("notification", "Press R to read scroll");
                 this.hoverTimer++;
             }
-        })
-        
+        });
     }
 
     addMap() {
@@ -572,26 +565,24 @@ class HarborScene extends Phaser.Scene {
         const voidTiles = this.map.addTilesetImage("void", "void-tileset");
 
         const collisionLayer = this.map.createLayer("Collide", groundTiles).setPipeline("Light2D");
-        
+
         const backgroundLayer = this.map.createLayer("Background", groundTiles).setPipeline("Light2D");
         //const decorationLayer = this.map.createStaticLayer('Decoration' , groundTiles)
 
         collisionLayer.setCollision([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 21, 22, 23, 24, 31, 32, 33, 34, 41, 42, 43, 44, 52, 82], true);
-
 
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBoundsCollision(true, true, false, true);
 
         this.lightLocations = [];
 
-        collisionLayer.forEachTile((tile) => {
-            if(tile.index == 19) 
-            {
+        collisionLayer.forEachTile(tile => {
+            if (tile.index == 19) {
                 this.lightLocations.push([tile.getCenterX(this.cameras.main), tile.getCenterY(this.cameras.main)]);
             }
-        }, this)
+        }, this);
 
-        this.lanterns = this.physics.add.group({ immovable: true, allowGravity: false })
+        this.lanterns = this.physics.add.group({ immovable: true, allowGravity: false });
 
         this.map.getObjectLayer("Objects").objects.forEach(object => {
             if (object.name === "Start") {
@@ -607,9 +598,8 @@ class HarborScene extends Phaser.Scene {
                 this.scrollSpawn = { x: object.x, y: object.y }; // 1/100 chance of spawning the 1st secret scroll.
             }
             if (object.type === "Lantern") {
-                let l = this.lanterns.create(object.x, object.y, "harbor-tileset", object.gid - 1)
-                    .setOrigin(0, 1);
-                l.body.setSize(16,16);
+                let l = this.lanterns.create(object.x, object.y, "harbor-tileset", object.gid - 1).setOrigin(0, 1);
+                l.body.setSize(16, 16);
                 l.body.setOffset(8, 16);
             }
         });
