@@ -2,7 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import accountReducer from "./slices/account-slice";
 import bondingReducer from "./slices/bond-slice";
-import presaleReducer from "./slices/presale-slice";
+import presaleOneReducer from "./slices/presale-one-slice";
+import presaleTwoReducer from "./slices/presale-two-slice";
+import presaleThreeReducer from "./slices/presale-three-slice";
+import presaleFourReducer from "./slices/presale-four-slice";
 import appReducer from "./slices/app-slice";
 import pendingTransactionsReducer from "./slices/pending-txns-slice";
 import messagesReducer from "./slices/messages-slice";
@@ -11,7 +14,10 @@ const store = configureStore({
     reducer: {
         account: accountReducer,
         bonding: bondingReducer,
-        presale: presaleReducer,
+        presaleOne: presaleOneReducer,
+        presaleTwo: presaleTwoReducer,
+        presaleThree: presaleThreeReducer,
+        presaleFour: presaleFourReducer,
         app: appReducer,
         pendingTransactions: pendingTransactionsReducer,
         messages: messagesReducer,

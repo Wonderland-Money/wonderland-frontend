@@ -3,7 +3,10 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAddress, useWeb3Context } from "../hooks";
 import { calcBondDetails } from "../store/slices/bond-slice";
-import { getPresaleDetails } from "../store/slices/presale-slice";
+import { getPresaleOneDetails } from "../store/slices/presale-one-slice";
+import { getPresaleTwoDetails } from "src/store/slices/presale-two-slice";
+import { getPresaleThreeDetails } from "src/store/slices/presale-three-slice";
+import { getPresaleFourDetails } from "src/store/slices/presale-four-slice";
 import { loadAppDetails } from "../store/slices/app-slice";
 import { loadAccountDetails, calculateUserBondDetails } from "../store/slices/account-slice";
 import { DEFAULT_NETWORK } from "../constants";
@@ -59,7 +62,10 @@ function App() {
             bonds.map(bond => {
                 dispatch(calculateUserBondDetails({ address, bond, provider, networkID: chainID }));
             });
-            dispatch(getPresaleDetails({ provider, networkID: chainID, address }));
+            dispatch(getPresaleOneDetails({ provider, networkID: chainID, address }));
+            dispatch(getPresaleTwoDetails({ provider, networkID: chainID, address }));
+            dispatch(getPresaleThreeDetails({ provider, networkID: chainID, address }));
+            dispatch(getPresaleFourDetails({ provider, networkID: chainID, address }));
         }
     }
 

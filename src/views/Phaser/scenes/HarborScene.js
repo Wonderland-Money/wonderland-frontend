@@ -464,8 +464,9 @@ class HarborScene extends Phaser.Scene {
                     events.emit("dialogue", { speaker: "Mysterious Monk", dialogue: txt });
                 }
             }
-            if (!this.catfish.body.touching.none || this.catfish.body.embedded) {
-                if (variables.accountIsGoatedWithTheSauce) this.openPresaleMenu();
+            if(!this.catfish.body.touching.none || this.catfish.body.embedded) {
+                if(!variables.accountIsGoatedWithTheSauce)
+                    this.openPresaleMenu();
                 else {
                     events.emit("dialogue", { speaker: "Magic Catfish", dialogue: "..." });
                 }
