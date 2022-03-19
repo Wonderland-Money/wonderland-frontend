@@ -245,8 +245,6 @@ class InGameUI extends Phaser.Scene {
             .setDepth(3);
     }
 
-    addDialogue() {}
-
     clearDialogue() {
         this.dialogueTriggered = false;
         this.dialogueActive = false;

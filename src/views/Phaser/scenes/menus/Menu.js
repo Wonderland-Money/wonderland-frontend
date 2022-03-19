@@ -101,7 +101,7 @@ class Menu extends Phaser.Scene {
         this.showExitButton();
         window.parent.postMessage("gameActive", window.location.origin);
 
-        console.log(this.plugins.scenePlugins);
+        variables.resetStateVariables();
         // console.log(this.plugins.removeScenePlugin("rexUI"));
         // console.log(this.plugins.scenePlugins);
 
@@ -238,7 +238,7 @@ class Menu extends Phaser.Scene {
             /* IE / Edge */
             document.removeEventListener("msfullscreenchange", this.checkFullscreenState);
 
-            this.sys.game.destroy(true, true);
+            //this.sys.game.destroy(true, true);
             window.postMessage("shutdownFinal", variables.gameUrl);
             window.removeEventListener("message", this.shutdownHandler, false);
         } else return;

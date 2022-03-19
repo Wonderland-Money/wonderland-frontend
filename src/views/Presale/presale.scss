@@ -10,9 +10,12 @@
         position: relative;
         z-index: 2;
 
-        @include theme.card();
-
         width: 100%;
+        max-width: 833px;
+        border-radius: 6px;
+        background-color: theme.$dark-gray;
+        border: 1px solid theme.$dark-gray;
+        padding:20px;
 
         .presale-card-grid {
             margin: 0;
@@ -97,7 +100,17 @@
 
             .presale-card-action-area {
                 width: 100%;
-                margin-top: 25px;
+                margin-top: 10px;
+
+                .presale-content-card {
+                    padding: 10px 20px;
+                    
+                    @include theme.soft-shadow();
+
+                    background-color: theme.$black;
+                    border: 1px solid theme.$dark-gray-2;
+                    border-radius: 6px;
+                }
 
                 .presale-card-action-stage-btns-wrap {
                     display: flex;
@@ -117,6 +130,34 @@
                             font-weight: 600;
                             font-size: 22px;
                             color: rgba(255, 255, 255, 0.6);
+                        }
+                    }
+
+                    .presale-phase-btn {
+                        background-color: lighten(theme.$card-background, 5%);
+                        min-width: 90px;
+                        text-align: center;
+                        padding: 8px 14px;
+                        cursor: pointer;
+                        transition: all 0.4s ease;
+                        border-radius: 4px;
+                        border: 1px solid rgba(0,0,0,0);
+                        margin: 0 6px 10px 6px; 
+
+                        p {
+                            font-family: "Cormorant Garamond";
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 22px;
+                            color: rgba(255, 255, 255, 0.6);
+                        }
+                    }
+
+                    .presale-phase-btn.active {
+                        background-color: theme.$black;
+                        border: 1px solid theme.$dark-gray-2;
+                        p {
+                            color: #ffffff;
                         }
                     }
 

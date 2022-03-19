@@ -127,6 +127,11 @@ function App() {
             } else if (msg.startsWith("openExitButton")) {
                 setExitButtonOpen(true);
             } else if (msg.startsWith("hideUI")) {
+                setPresaleActive(false);
+                setDashboardActive(false);
+                setStakingActive(false);
+                setBondingActive(false);
+                setMessageActive(false);
                 setSocialActive(false);
                 setConnectButtonActive(false);
             } else if (msg.startsWith("showUI")) {

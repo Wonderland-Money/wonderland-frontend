@@ -70,9 +70,6 @@ class CustomButton extends Phaser.GameObjects.Sprite {
         if (this.toggleable) {
             this.buttonState = setState;
         } else return;
-
-        console.log(this.buttonState);
-
         this.buttonState ? this.setFrame(0) : this.setFrame(1);
     };
 }

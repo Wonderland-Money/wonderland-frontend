@@ -209,7 +209,7 @@ class Hero extends Phaser.GameObjects.Sprite {
     }
 
     setPauseInput(bool) {
-        variables.inputPaused = bool;
+        variables.gameState.inputPaused = bool;
         this.keyboard.clearCaptures();
     }
 
@@ -247,7 +247,7 @@ class Hero extends Phaser.GameObjects.Sprite {
         }
         super.preUpdate(time, delta);
 
-        if (!variables.inputPaused) {
+        if (!variables.gameState.inputPaused) {
             this.keyboard = this.scene.input.keyboard;
             this.input.didPressJump = Phaser.Input.Keyboard.JustDown(this.keys.up);
             let key1 = this.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);

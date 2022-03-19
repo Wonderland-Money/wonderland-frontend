@@ -43,6 +43,7 @@ export default function App(props) {
             if (gameRef.current) {
                 gameRef.current.destroy();
             }
+            window.parent.postMessage("hideUI", variables.gameUrl);
             window.parent.postMessage("showUI", variables.gameUrl);
             setInitialize(false);
             props.setGameActive(false);
