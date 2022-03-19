@@ -14,6 +14,7 @@ const ONE_MAINNET = {
     presalePhase2: "0xCe5A688530D725a9CE50371a7fcB1e9062Ba9221",
     presalePhase3: "0xCe5A688530D725a9CE50371a7fcB1e9062Ba9221",
     presalePhase4: "0xCe5A688530D725a9CE50371a7fcB1e9062Ba9221",
+    krakenSlayers: "0xB21AEa83a92e7CF4544e1C0B7dF052C4796Db7D1",
 };
 
 export const getAddresses = (networkID: number) => {
