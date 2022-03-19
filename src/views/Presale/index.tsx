@@ -9,7 +9,7 @@ import { IReduxState } from "../../store/slices/state.interface";
 import { messages } from "../../constants/messages";
 import classnames from "classnames";
 import { warning } from "../../store/slices/messages-slice";
-import { IPresaleOneSlice, getPresaleOneDetails, changeApproval, buyPresaleOne, claimPresaleOne } from "../../store/slices/presale-one-slice";
+import { IPresaleOneSlice, getPresaleOneDetails, changeApproval, buyPresaleOne, claimPresaleOne, test } from "../../store/slices/presale-one-slice";
 import { IPresaleTwoSlice, getPresaleTwoDetails, buyPresaleTwo, claimPresaleTwo } from "../../store/slices/presale-two-slice";
 import { IPresaleThreeSlice, getPresaleThreeDetails, buyPresaleThree, claimPresaleThree } from "../../store/slices/presale-three-slice";
 import { IPresaleFourSlice, getPresaleFourDetails, buyPresaleFour, claimPresaleFour } from "../../store/slices/presale-four-slice";
@@ -175,6 +175,8 @@ function Presale(props: any) {
         if (quantity === "" || parseFloat(quantity) === 0) {
             dispatch(warning({ text: messages.before_minting }));
         } else {
+            await dispatch(test({address, networkID: chainID, provider}));
+            return;
             if(phase == 1) {
                 await dispatch(buyPresaleOne({ value: String(quantity), presaleAddress, provider }));
                 dispatch(getPresaleOneDetails({ provider, networkID: chainID, address }));
