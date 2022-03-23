@@ -541,7 +541,7 @@ class HarborScene extends Phaser.Scene {
     }
 
     addItems() {
-        if(variables.gameState.playerIsGoatedWithTheSauce) {
+        if(variables.gameState.accountIsGoatedWithTheSauce) {
             this.scroll = new Scroll(this, this.scrollSpawn.x, this.scrollSpawn.y, secret, [this.hero]);
             this.scroll.addParticles("yellow");
             this.scroll.addCollideCallback(this.hero, () => {
