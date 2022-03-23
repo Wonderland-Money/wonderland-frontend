@@ -67,8 +67,8 @@ export default function App(props) {
     if (isConnected) {
         buttonText = "Enter Atlantis";
         clickFunc = () => {
-            variables.currentAccount = account;
-            console.log("Connected with: " + variables.currentAccount);
+            variables.gameState.currentAccount = account;
+            console.log("Connected with: " + variables.gameState.currentAccount);
             props.setGameActive(true);
             startGame();
         };

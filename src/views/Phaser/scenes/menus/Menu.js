@@ -4,7 +4,10 @@ import Button from "../../components/Button";
 import MenuButton from "../../components/MenuButton";
 import CustomButton from "../../components/CustomButton";
 
+import PauseMenu from "../../scenes/menus/PauseMenu";
+
 import variables from "../../managers/Variables";
+import { sharedInstance as events } from "../../managers/EventCenter";
 
 import frontendControlsMixin from "../mixins/frontendControlsMixin";
 
@@ -100,10 +103,6 @@ class Menu extends Phaser.Scene {
     create(data) {
         this.showExitButton();
         window.parent.postMessage("gameActive", window.location.origin);
-
-        variables.resetStateVariables();
-        // console.log(this.plugins.removeScenePlugin("rexUI"));
-        // console.log(this.plugins.scenePlugins);
 
         this.input.setDefaultCursor("url(assets/catfish-cursor.png), pointer");
         let { width, height } = this.sys.game.canvas;
@@ -230,15 +229,19 @@ class Menu extends Phaser.Scene {
         if (e.origin.startsWith(variables.gameUrl) && e.data.toString().startsWith("shutdownInit")) {
             this.plugins.removeScenePlugin("rexUI");
             /* Standard syntax */
-            document.removeEventListener("fullscreenchange", this.checkFullscreenState);
+            document.removeEventListener("fullscreenchange", PauseMenu.checkFullscreenState);
             /* Firefox */
-            document.removeEventListener("mozfullscreenchange", this.checkFullscreenState);
+            document.removeEventListener("mozfullscreenchange", PauseMenu.checkFullscreenState);
             /* Chrome, Safari and Opera */
-            document.removeEventListener("webkitfullscreenchange", this.checkFullscreenState);
+            document.removeEventListener("webkitfullscreenchange", PauseMenu.checkFullscreenState);
             /* IE / Edge */
-            document.removeEventListener("msfullscreenchange", this.checkFullscreenState);
+            document.removeEventListener("msfullscreenchange", PauseMenu.checkFullscreenState);
 
-            //this.sys.game.destroy(true, true);
+            variables.resetStateVariables();
+            this.sys.game.destroy(true, false);
+            
+            events.destroy();
+
             window.postMessage("shutdownFinal", variables.gameUrl);
             window.removeEventListener("message", this.shutdownHandler, false);
         } else return;

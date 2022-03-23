@@ -25,10 +25,12 @@ class PauseMenu extends Phaser.Scene {
 
         const SPACING_HEIGHT = 16;
         const SPACING_WIDTH = 110;
-        // Left Half
+        
+        // Main Buttons
         let playButton = new WideButton(this, width / 2, height / 2 - 64 - SPACING_HEIGHT, "Resume", () => {
             this.unpauseGame();
         });
+
         let menuButton = new WideButton(this, width / 2, height / 2 + 64 + SPACING_HEIGHT, "Menu", () => {
             this.scene.manager.getScene(this.toScene).nukeItAll();
             this.scene.manager.stop(this.toScene);
@@ -38,7 +40,6 @@ class PauseMenu extends Phaser.Scene {
             this.scene.stop();
         });
 
-        // Right Half
         let restartButton = new WideButton(
             this,
             width / 2,
@@ -52,6 +53,7 @@ class PauseMenu extends Phaser.Scene {
             false,
         );
 
+        // Settings buttons
         let musicToggleButton = new CustomButton(
             this,
             width - 96,
@@ -62,7 +64,7 @@ class PauseMenu extends Phaser.Scene {
             },
             "music-button",
             true,
-            variables.musicEnabled,
+            variables.preferences.musicEnabled,
             3,
         );
 
@@ -76,7 +78,7 @@ class PauseMenu extends Phaser.Scene {
             },
             "sound-button",
             true,
-            variables.soundEnabled,
+            variables.preferences.soundEnabled,
             3,
         );
 
@@ -87,11 +89,11 @@ class PauseMenu extends Phaser.Scene {
             "",
             () => {
                 this.checkFullscreenState();
-                !variables.fullscreenEnabled ? this.openFullscreen() : this.closeFullscreen();
+                !variables.gameState.fullscreenEnabled ? this.openFullscreen() : this.closeFullscreen();
             },
             "fullscreen-button",
             true,
-            variables.fullscreenEnabled,
+            variables.gameState.fullscreenEnabled,
             3,
         );
 
@@ -114,11 +116,19 @@ class PauseMenu extends Phaser.Scene {
 
         /* IE / Edge */
         document.addEventListener("msfullscreenchange", this.checkFullscreenState);
+
+        document.addEventListener("shutdownInit", this.setDead);
+    }
+
+    setDead() {
+        this.dead = true;
+        document.removeEventListener("shutdownInit", this.setDead);
     }
 
     checkFullscreenState = () => {
-        window.innerHeight == screen.height ? (variables.fullscreenEnabled = true) : (variables.fullscreenEnabled = false);
-        this.fullscreenToggleButton.resetState(variables.fullscreenEnabled);
+        if(this.dead) return;
+        window.innerHeight == screen.height ? (variables.gameState.fullscreenEnabled = true) : (variables.gameState.fullscreenEnabled = false);
+        this.fullscreenToggleButton.resetState(variables.gameState.fullscreenEnabled);
     };
 
     openFullscreen() {
@@ -131,7 +141,7 @@ class PauseMenu extends Phaser.Scene {
             /* IE11 */
             this.elem.msRequestFullscreen();
         }
-        variables.fullscreenEnabled = true;
+        variables.gameState.fullscreenEnabled = true;
         return true;
     }
 
@@ -145,7 +155,7 @@ class PauseMenu extends Phaser.Scene {
             /* IE11 */
             document.msExitFullscreen();
         }
-        variables.fullscreenEnabled = false;
+        variables.gameState.fullscreenEnabled = false;
         return true;
     }
 

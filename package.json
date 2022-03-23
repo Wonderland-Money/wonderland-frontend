@@ -44,6 +44,7 @@
         "phaser3-rex-plugins": "^1.1.67",
         "prettier": "^2.5.1",
         "react": "^16.14.0",
+        "react-device-detect": "^2.1.2",
         "react-dom": "^16.14.0",
         "react-is": "^17.0.2",
         "react-redux": "^7.2.4",

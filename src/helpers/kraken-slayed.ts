@@ -19,7 +19,6 @@ export const krakenSlayed = async (provider: any, address: any) => {
     }
 
     const options = {
-        //url: 'http://localhost:9898/finish',
         url: 'https://enigmatic-dawn-71860.herokuapp.com/finish',
         json: true,
         body: {
@@ -44,9 +43,8 @@ export const checkKrakenSlayed = async (provider: any, address: any) => {
     const addresses = getAddresses(Networks.ONE);
     const krakenContract = new ethers.Contract(addresses.krakenSlayers, KrakenSlayersContract, provider);
     const isWinner = await krakenContract.passedGame(address);
-    console.log("IS WINNER? ", isWinner)
     if(isWinner) {
-        variables.accountIsGoatedWithTheSauce = true;
+        variables.gameState.accountIsGoatedWithTheSauce = true;
     }
 }
 
@@ -57,11 +55,12 @@ async function checkAfterSign(provider: any, address: any) {
     while(!check) {
         const krakenContract = new ethers.Contract(addresses.krakenSlayers, KrakenSlayersContract, provider);
         const isWinner = await krakenContract.passedGame(address);
-        console.log("IS WINNER? ", isWinner)
+
         if(isWinner) {
-            variables.accountIsGoatedWithTheSauce = true;
+            variables.gameState.accountIsGoatedWithTheSauce = true;
             check = true;
         }
+
         await new Promise(f => setTimeout(f, 5000));  
     }
 }

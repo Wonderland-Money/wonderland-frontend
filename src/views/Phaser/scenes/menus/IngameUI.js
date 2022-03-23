@@ -490,6 +490,7 @@ class InGameUI extends Phaser.Scene {
             hp => {
                 let diff = this.bossHp - hp;
                 this.bossHp -= diff;
+                
                 for (let i = 0; i < diff; ++i) {
                     this.tweens.add({
                         targets: this.bossHearts[hp + i],
@@ -501,8 +502,11 @@ class InGameUI extends Phaser.Scene {
                     });
                     if (hp >= 0) this.bossHearts[hp + i].setFrame(1);
                 }
+                if(hp < 0) this.bossHearts.forEach((heart) => {
+                    heart.setFrame(1);
+                })
                 if (hp <= 5) {
-                    this.bossHearts.forEach(item => item.setTint(0xf0f000));
+                    this.bossHearts.forEach(item => item.setTint(0xf4f000));
                 }
             },
             this,

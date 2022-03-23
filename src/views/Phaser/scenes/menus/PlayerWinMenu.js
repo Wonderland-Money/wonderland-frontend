@@ -16,7 +16,7 @@ class PlayerWinMenu extends Phaser.Scene {
         this.input.mouse.disableContextMenu();
         let { width, height } = this.sys.game.canvas;
 
-        variables.accountIsGoatedWithTheSauce ? this.exitToMenu() : this.openMessageSigningMenu();
+        variables.gameState.accountIsGoatedWithTheSauce ? this.exitToMenu() : this.openMessageSigningMenu();
     }
 
     openMessageSigningMenu() {
@@ -36,10 +36,10 @@ class PlayerWinMenu extends Phaser.Scene {
 
     handler = e => {
         if (e.origin.startsWith(variables.gameUrl) && e.data.toString().startsWith("closeMenu")) {
-            variables.accountIsGoatedWithTheSauce = true;
+            variables.gameState.accountIsGoatedWithTheSauce = true;
             this.exitToMenu();
         } else if (e.origin.startsWith(variables.gameUrl) && e.data.toString().startsWith("signedMessage")) {
-            variables.accountIsGoatedWithTheSauce = true;
+            variables.gameState.accountIsGoatedWithTheSauce = true;
             this.exitToMenu();
         } else {
             return;
@@ -58,6 +58,7 @@ class PlayerWinMenu extends Phaser.Scene {
         this.scene.manager.sendToBack("IngameUI");
         this.scene.manager.stop("IngameUI");
         this.scene.manager.sendToBack("GameScene");
+        this.scene.manager.getScene("GameScene").nukeItAll();
         this.scene.manager.stop("GameScene");
         this.scene.manager.sendToBack("HarborScene");
         this.scene.manager.stop("HarborScene");

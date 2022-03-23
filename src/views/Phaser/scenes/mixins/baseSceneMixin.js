@@ -5,35 +5,35 @@ import { sharedInstance as events } from "../../managers/EventCenter";
 
 const baseSceneMixin = {
     toggleMusic() {
-        if (variables.musicEnabled) {
+        if (variables.preferences.musicEnabled) {
             this.backgroundmusic.stop();
-            variables.musicEnabled = false;
+            variables.preferences.musicEnabled = false;
         } else {
             this.backgroundmusic.play({ loop: true });
-            variables.musicEnabled = true;
+            variables.preferences.musicEnabled = true;
         }
     },
 
     getMusicEnabled() {
-        return variables.musicEnabled;
+        return variables.preferences.musicEnabled;
     },
 
     toggleSound() {
-        if (variables.soundEnabled) {
+        if (variables.preferences.soundEnabled) {
             this.sound.setMute(true);
-            variables.soundEnabled = false;
+            variables.preferences.soundEnabled = false;
         } else {
             this.sound.setMute(false);
-            variables.soundEnabled = true;
+            variables.preferences.soundEnabled = true;
         }
     },
 
     getMusicEnabled() {
-        return variables.musicEnabled;
+        return variables.preferences.musicEnabled;
     },
 
     playBackgroundMusic() {
-        if (variables.musicEnabled) this.backgroundmusic.play({ loop: true });
+        if (variables.preferences.musicEnabled) this.backgroundmusic.play({ loop: true });
     },
 
     getRandInt(max) {

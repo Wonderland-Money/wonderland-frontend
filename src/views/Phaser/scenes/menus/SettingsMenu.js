@@ -35,7 +35,7 @@ class SettingsMenu extends Phaser.Scene {
             },
             "music-button",
             true,
-            variables.musicEnabled,
+            variables.preferences.musicEnabled,
             3,
         );
 
@@ -49,7 +49,7 @@ class SettingsMenu extends Phaser.Scene {
             },
             "sound-button",
             true,
-            variables.soundEnabled,
+            variables.preferences.soundEnabled,
             3,
         );
 
@@ -59,16 +59,16 @@ class SettingsMenu extends Phaser.Scene {
             height - 48,
             "",
             () => {
-                !variables.fullscreenEnabled ? this.openFullscreen() : this.closeFullscreen();
+                !variables.gameState.fullscreenEnabled ? this.openFullscreen() : this.closeFullscreen();
             },
             "fullscreen-button",
             true,
-            variables.soundEnabled,
+            variables.preferences.soundEnabled,
             3,
         );
 
         this.input.keyboard.on("keydown-ESC", () => {
-            if (variables.fullscreenEnabled) variables.fullscreenEnabled = false;
+            if (variables.gameState.fullscreenEnabled) variables.gameState.fullscreenEnabled = false;
             this.unpauseGame();
         });
     }
@@ -84,9 +84,9 @@ class SettingsMenu extends Phaser.Scene {
                 /* IE11 */
                 this.elem.msRequestFullscreen();
             }
-            variables.fullscreenEnabled = true;
+            variables.gameState.fullscreenEnabled = true;
         } catch (e) {
-            variables.fullscreenEnabled = true;
+            variables.gameState.fullscreenEnabled = true;
         }
     }
 
@@ -101,9 +101,9 @@ class SettingsMenu extends Phaser.Scene {
                 /* IE11 */
                 document.msExitFullscreen();
             }
-            variables.fullscreenEnabled = false;
+            variables.gameState.fullscreenEnabled = false;
         } catch (e) {
-            variables.fullscreenEnabled = false;
+            variables.gameState.fullscreenEnabled = false;
         }
     }
 
