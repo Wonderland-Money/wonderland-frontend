@@ -20,10 +20,10 @@ const data = {
         },
     },
     keybindings: {
-        "keydown-LEFT":  "keydown-LEFT",
+        "keydown-LEFT": "keydown-LEFT",
         "keydown-RIGHT": "keydown-RIGHT",
-        "keydown-UP":    "keydown-UP",
-        "keydown-DOWN":  "keydown-DOWN",
+        "keydown-UP": "keydown-UP",
+        "keydown-DOWN": "keydown-DOWN",
     },
     gameUrl: window.location.origin,
     /**
@@ -31,12 +31,11 @@ const data = {
      */
     resetStateVariables: () => {
         data.gameState.inputPaused = false;
-        data.gameState.accountIsGoatedWithTheSauce = false;
         data.gameState.currentAccount = "";
         data.gameState.fullscreenEnabled = false;
     },
     setPreference: (key, value) => {
-        if(data.preferences[key]) {
+        if (data.preferences[key]) {
             data.preferences[key] = value;
             window.localStorage.setItem(key, value);
         }
@@ -49,4 +48,3 @@ const data = {
 };
 
 export default data;
-

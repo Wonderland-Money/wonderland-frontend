@@ -397,7 +397,7 @@ class ForgeScene extends Phaser.Scene {
         this.cameras.main.fadeIn(750);
         this.cameras.main.setZoom(1);
         this.cameras.main.startFollow(this.hero, true, 0.08, 0.08);
-        this.cameras.main.setFollowOffset(-40, 140);
+        this.cameras.main.setFollowOffset(-40, 220);
 
         this.hoverTimer = 0;
 
