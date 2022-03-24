@@ -25,7 +25,7 @@ class PauseMenu extends Phaser.Scene {
 
         const SPACING_HEIGHT = 16;
         const SPACING_WIDTH = 110;
-        
+
         // Main Buttons
         let playButton = new WideButton(this, width / 2, height / 2 - 64 - SPACING_HEIGHT, "Resume", () => {
             this.unpauseGame();
@@ -126,7 +126,7 @@ class PauseMenu extends Phaser.Scene {
     }
 
     checkFullscreenState = () => {
-        if(this.dead) return;
+        if (this.dead) return;
         window.innerHeight == screen.height ? (variables.gameState.fullscreenEnabled = true) : (variables.gameState.fullscreenEnabled = false);
         this.fullscreenToggleButton.resetState(variables.gameState.fullscreenEnabled);
     };

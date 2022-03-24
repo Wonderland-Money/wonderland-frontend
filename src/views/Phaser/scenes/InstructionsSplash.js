@@ -20,7 +20,7 @@ class InstructionsSplash extends Phaser.Scene {
         this.load.spritesheet("pause-keys", "assets/instructions/pause.png", {
             frameWidth: 32,
             frameHeight: 32,
-        })
+        });
         this.load.spritesheet("space-bar", "assets/instructions/spacebar.png", {
             frameWidth: 160,
             frameHeight: 32,
@@ -84,7 +84,7 @@ class InstructionsSplash extends Phaser.Scene {
             .setOrigin(1, 0)
             .setScale(2);
         this.add
-            .text(width - PADDING - 4 * SPACE_BETWEEN - 4 * 64 - (this.keyOne.width * 2), height / 2 - 128 - SPACE_BETWEEN - 44 - 24, "Select Element", {
+            .text(width - PADDING - 4 * SPACE_BETWEEN - 4 * 64 - this.keyOne.width * 2, height / 2 - 128 - SPACE_BETWEEN - 44 - 24, "Select Element", {
                 fontSize: 24,
                 fontFamily: "Cormorant Garamond",
             })
@@ -92,15 +92,15 @@ class InstructionsSplash extends Phaser.Scene {
 
         // Pause Keys
         this.keyEsc = this.add
-            .sprite(width - PADDING - (6+2) * SPACE_BETWEEN - 6 * 64, height / 2 - 128 - SPACE_BETWEEN - 44, "pause-keys", 0)
+            .sprite(width - PADDING - (6 + 2) * SPACE_BETWEEN - 6 * 64, height / 2 - 128 - SPACE_BETWEEN - 44, "pause-keys", 0)
             .setOrigin(1, 0)
             .setScale(2);
         this.keyP = this.add
-            .sprite(width - PADDING - (5+2) * SPACE_BETWEEN - 5 * 64, height / 2 - 128 - SPACE_BETWEEN - 44, "pause-keys", 1)
+            .sprite(width - PADDING - (5 + 2) * SPACE_BETWEEN - 5 * 64, height / 2 - 128 - SPACE_BETWEEN - 44, "pause-keys", 1)
             .setOrigin(1, 0)
             .setScale(2);
         this.add
-            .text(width - PADDING - (6+2) * SPACE_BETWEEN - 6 * 64 - (this.keyEsc.width * 2), height / 2 - 128 - SPACE_BETWEEN - 44 - 24, "Pause", {
+            .text(width - PADDING - (6 + 2) * SPACE_BETWEEN - 6 * 64 - this.keyEsc.width * 2, height / 2 - 128 - SPACE_BETWEEN - 44 - 24, "Pause", {
                 fontSize: 24,
                 fontFamily: "Cormorant Garamond",
             })
@@ -124,7 +124,7 @@ class InstructionsSplash extends Phaser.Scene {
             .setOrigin(1, 0)
             .setScale(2);
         this.add
-            .text(width - PADDING - 128 - 2 * SPACE_BETWEEN - (this.lArrow.width * 2), height / 2 - 64 - SPACE_BETWEEN - 24, "Movement", {
+            .text(width - PADDING - 128 - 2 * SPACE_BETWEEN - this.lArrow.width * 2, height / 2 - 64 - SPACE_BETWEEN - 24, "Movement", {
                 fontSize: 24,
                 fontFamily: "Cormorant Garamond",
             })
@@ -136,7 +136,7 @@ class InstructionsSplash extends Phaser.Scene {
             .setOrigin(1, 0)
             .setScale(2);
         this.add
-            .text(width - PADDING - (this.spaceBar.width * 2), height / 2 + 64 + SPACE_BETWEEN + 24 - 24, "Attack", {
+            .text(width - PADDING - this.spaceBar.width * 2, height / 2 + 64 + SPACE_BETWEEN + 24 - 24, "Attack", {
                 fontSize: 24,
                 fontFamily: "Cormorant Garamond",
             })

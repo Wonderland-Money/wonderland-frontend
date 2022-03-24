@@ -239,7 +239,7 @@ class Menu extends Phaser.Scene {
 
             variables.resetStateVariables();
             this.sys.game.destroy(true, false);
-            
+
             events.destroy();
 
             window.postMessage("shutdownFinal", variables.gameUrl);

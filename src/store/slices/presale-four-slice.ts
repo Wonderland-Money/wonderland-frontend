@@ -189,53 +189,56 @@ interface IClaimPresaleFour {
     stake: boolean;
 }
 
-export const claimPresaleFour = createAsyncThunk("presaleFour/claimPresaleFour", async ({ address, presaleAddress, networkID, provider, stake }: IClaimPresaleFour, { dispatch }) => {
-    if (!provider) {
-        dispatch(warning({ text: messages.please_connect_wallet }));
-        return;
-    }
-
-    const signer = provider.getSigner();
-    const presale = new Contract(presaleAddress, PresaleContract, signer);
-
-    let claimTx;
-    try {
-        const gasPrice = await getGasPrice(provider);
-
-        const claimablePsi = await presale.claimableFor(address);
-        if (stake) {
-            claimTx = await presale.stake(claimablePsi, { gasPrice });
-            dispatch(
-                fetchPendingTxns({
-                    txnHash: claimTx.hash,
-                    text: "Claiming PSI",
-                    type: "claiming",
-                }),
-            );
-        } else {
-            claimTx = await presale.claim(claimablePsi, { gasPrice });
-            console.log("CLAIMTX: ", claimTx.hash);
-            dispatch(
-                fetchPendingTxns({
-                    txnHash: claimTx.hash,
-                    text: "Claiming PSI",
-                    type: "claiming",
-                }),
-            );
+export const claimPresaleFour = createAsyncThunk(
+    "presaleFour/claimPresaleFour",
+    async ({ address, presaleAddress, networkID, provider, stake }: IClaimPresaleFour, { dispatch }) => {
+        if (!provider) {
+            dispatch(warning({ text: messages.please_connect_wallet }));
+            return;
         }
-        dispatch(success({ text: messages.tx_successfully_send }));
-        await claimTx.wait();
-        dispatch(getBalances({ address, networkID, provider }));
-        dispatch(info({ text: messages.your_balance_updated }));
-        return;
-    } catch (err: any) {
-        dispatch(error({ text: messages.something_wrong, error: err.message }));
-    } finally {
-        if (claimTx) {
-            dispatch(clearPendingTxn(claimTx.hash));
+
+        const signer = provider.getSigner();
+        const presale = new Contract(presaleAddress, PresaleContract, signer);
+
+        let claimTx;
+        try {
+            const gasPrice = await getGasPrice(provider);
+
+            const claimablePsi = await presale.claimableFor(address);
+            if (stake) {
+                claimTx = await presale.stake(claimablePsi, { gasPrice });
+                dispatch(
+                    fetchPendingTxns({
+                        txnHash: claimTx.hash,
+                        text: "Claiming PSI",
+                        type: "claiming",
+                    }),
+                );
+            } else {
+                claimTx = await presale.claim(claimablePsi, { gasPrice });
+                console.log("CLAIMTX: ", claimTx.hash);
+                dispatch(
+                    fetchPendingTxns({
+                        txnHash: claimTx.hash,
+                        text: "Claiming PSI",
+                        type: "claiming",
+                    }),
+                );
+            }
+            dispatch(success({ text: messages.tx_successfully_send }));
+            await claimTx.wait();
+            dispatch(getBalances({ address, networkID, provider }));
+            dispatch(info({ text: messages.your_balance_updated }));
+            return;
+        } catch (err: any) {
+            dispatch(error({ text: messages.something_wrong, error: err.message }));
+        } finally {
+            if (claimTx) {
+                dispatch(clearPendingTxn(claimTx.hash));
+            }
         }
-    }
-});
+    },
+);
 
 export interface IPresaleFourSlice {
     loading: boolean;

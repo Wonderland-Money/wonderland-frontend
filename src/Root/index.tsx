@@ -18,7 +18,7 @@ function Root() {
     }, []);
 
     // To be used until mobile version is developed
-    if (isMobileDevice) return <Mobile />
+    if (isMobileDevice) return <Mobile />;
 
     if (loading) return <Loading />;
 

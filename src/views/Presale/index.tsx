@@ -43,7 +43,7 @@ function Presale(props: any) {
 
     const presaleAddress = useSelector<IReduxState, string>(state => {
         let approvedAddress;
-        if(phase == 1) {
+        if (phase == 1) {
             approvedAddress = state.presaleOne.approvedContractAddress;
         } else if (phase == 2) {
             approvedAddress = state.presaleTwo.approvedContractAddress;
@@ -56,11 +56,11 @@ function Presale(props: any) {
     });
     const buyable = useSelector<IReduxState, string>(state => {
         let amountBuyable;
-        if(phase == 1) {
+        if (phase == 1) {
             amountBuyable = state.presaleOne.amountBuyable;
         } else if (phase == 2) {
             amountBuyable = state.presaleTwo.amountBuyable;
-        } else if (phase == 3){
+        } else if (phase == 3) {
             amountBuyable = state.presaleThree.amountBuyable;
         } else {
             amountBuyable = state.presaleFour.amountBuyable;
@@ -69,11 +69,11 @@ function Presale(props: any) {
     });
     const psiPrice = useSelector<IReduxState, any>(state => {
         let psiPrice;
-        if(phase == 1) {
+        if (phase == 1) {
             psiPrice = state.presaleOne.psiPrice;
         } else if (phase == 2) {
             psiPrice = state.presaleTwo.psiPrice;
-        } else if (phase == 3){
+        } else if (phase == 3) {
             psiPrice = state.presaleThree.psiPrice;
         } else {
             psiPrice = state.presaleFour.psiPrice;
@@ -82,11 +82,11 @@ function Presale(props: any) {
     });
     const untilVestingStart = useSelector<IReduxState, string>(state => {
         let vestingStart;
-        if(phase == 1) {
+        if (phase == 1) {
             vestingStart = state.presaleOne.vestingStart;
         } else if (phase == 2) {
             vestingStart = state.presaleTwo.vestingStart;
-        } else if (phase == 3){
+        } else if (phase == 3) {
             vestingStart = state.presaleThree.vestingStart;
         } else {
             vestingStart = state.presaleFour.vestingStart;
@@ -95,11 +95,11 @@ function Presale(props: any) {
     });
     const vestingPeriod = useSelector<IReduxState, string>(state => {
         let vestingTerm;
-        if(phase == 1) {
+        if (phase == 1) {
             vestingTerm = state.presaleOne.vestingTerm;
         } else if (phase == 2) {
             vestingTerm = state.presaleTwo.vestingTerm;
-        } else if (phase == 3){
+        } else if (phase == 3) {
             vestingTerm = state.presaleThree.vestingTerm;
         } else {
             vestingTerm = state.presaleFour.vestingTerm;
@@ -108,11 +108,11 @@ function Presale(props: any) {
     });
     const allowance = useSelector<IReduxState, number>(state => {
         let allowanceVal;
-        if(phase == 1) {
+        if (phase == 1) {
             allowanceVal = state.presaleOne.allowanceVal;
         } else if (phase == 2) {
             allowanceVal = state.presaleTwo.allowanceVal;
-        } else if (phase == 3){
+        } else if (phase == 3) {
             allowanceVal = state.presaleThree.allowanceVal;
         } else {
             allowanceVal = state.presaleFour.allowanceVal;
@@ -121,11 +121,11 @@ function Presale(props: any) {
     });
     const claimablePsi = useSelector<IReduxState, number>(state => {
         let claimablePsi;
-        if(phase == 1) {
+        if (phase == 1) {
             claimablePsi = state.presaleOne.claimablePsi;
         } else if (phase == 2) {
             claimablePsi = state.presaleTwo.claimablePsi;
-        } else if (phase == 3){
+        } else if (phase == 3) {
             claimablePsi = state.presaleThree.claimablePsi;
         } else {
             claimablePsi = state.presaleThree.claimablePsi;
@@ -134,11 +134,11 @@ function Presale(props: any) {
     });
     const claimedPsi = useSelector<IReduxState, number>(state => {
         let claimedPsi;
-        if(phase == 1) {
+        if (phase == 1) {
             claimedPsi = state.presaleOne.claimedPsi;
         } else if (phase == 2) {
             claimedPsi = state.presaleTwo.claimedPsi;
-        } else if (phase == 3){
+        } else if (phase == 3) {
             claimedPsi = state.presaleThree.claimedPsi;
         } else {
             claimedPsi = state.presaleThree.claimedPsi;
@@ -175,7 +175,7 @@ function Presale(props: any) {
         if (quantity === "" || parseFloat(quantity) === 0) {
             dispatch(warning({ text: messages.before_minting }));
         } else {
-            if(phase == 1) {
+            if (phase == 1) {
                 await dispatch(buyPresaleOne({ value: String(quantity), presaleAddress, provider }));
                 dispatch(getPresaleOneDetails({ provider, networkID: chainID, address }));
             } else if (phase == 2) {
@@ -194,7 +194,7 @@ function Presale(props: any) {
 
     const onClaimPresale = async (stake: boolean) => {
         if (await checkWrongNetwork()) return;
-        if(phase == 1) {
+        if (phase == 1) {
             await dispatch(claimPresaleOne({ address, presaleAddress, networkID: chainID, provider, stake }));
             dispatch(getPresaleOneDetails({ provider, networkID: chainID, address }));
         } else if (phase == 2) {
@@ -216,11 +216,11 @@ function Presale(props: any) {
 
     const isAllowed = useSelector<IReduxState, boolean>(state => {
         let allowed;
-        if(phase == 1) {
+        if (phase == 1) {
             allowed = state.presaleOne.approvedContractAddress != "";
         } else if (phase == 2) {
             allowed = state.presaleTwo.approvedContractAddress != "";
-        } else if (phase == 3){
+        } else if (phase == 3) {
             allowed = true;
         } else {
             allowed = true;
@@ -234,10 +234,10 @@ function Presale(props: any) {
     };
 
     const changePhase = (newPhase: number) => () => {
-        changeView(0)
+        changeView(0);
         setPhase(newPhase);
         setQuantity("");
-    }
+    };
 
     return (
         <div className={classNames("presale-view", { disabled: !props.active })}>
@@ -272,23 +272,23 @@ function Presale(props: any) {
                                 <div>
                                     <div className="presale-card-action-area">
                                         <div className="presale-card-action-stage-btns-wrap">
-                                            <div onClick={changePhase(1)} className={classnames("presale-phase-btn", { active: phase==1 })}>
+                                            <div onClick={changePhase(1)} className={classnames("presale-phase-btn", { active: phase == 1 })}>
                                                 <p>WL</p>
                                             </div>
-                                            <div onClick={changePhase(2)} className={classnames("presale-phase-btn", { active: phase==2 })}>
+                                            <div onClick={changePhase(2)} className={classnames("presale-phase-btn", { active: phase == 2 })}>
                                                 <p>Discord</p>
                                             </div>
-                                            <div onClick={changePhase(3)} className={classnames("presale-phase-btn", { active: phase==3 })}>
+                                            <div onClick={changePhase(3)} className={classnames("presale-phase-btn", { active: phase == 3 })}>
                                                 <p>Open Round 1</p>
                                             </div>
-                                            { 
-                                            /*
-                                             *  Uncomment the following once open round one is bought out
-                                             *  (Also remove curly brackets)
-                                             */
-                                            // <div onClick={changePhase(4)} className={classnames("presale-card-action-stage-btn", { active: phase==4 })}>
-                                            //     <p>Open Round 2</p>
-                                            // </div>
+                                            {
+                                                /*
+                                                 *  Uncomment the following once open round one is bought out
+                                                 *  (Also remove curly brackets)
+                                                 */
+                                                // <div onClick={changePhase(4)} className={classnames("presale-card-action-stage-btn", { active: phase==4 })}>
+                                                //     <p>Open Round 2</p>
+                                                // </div>
                                             }
                                         </div>
                                         <div className="presale-content-card">
@@ -421,7 +421,9 @@ function Presale(props: any) {
 
                                                     <div className="data-row">
                                                         <p className="data-row-name">Time Until Vesting Starts</p>
-                                                        <p className="data-row-value">{isAppLoading || presaleAddress == "" ? <Skeleton width="80px" /> : <>{untilVestingStart}</>}</p>
+                                                        <p className="data-row-value">
+                                                            {isAppLoading || presaleAddress == "" ? <Skeleton width="80px" /> : <>{untilVestingStart}</>}
+                                                        </p>
                                                     </div>
 
                                                     <div className="data-row">
@@ -448,7 +450,9 @@ function Presale(props: any) {
 
                                                     <div className="data-row">
                                                         <p className="data-row-name">Time Until Vesting Starts</p>
-                                                        <p className="data-row-value">{isAppLoading || presaleAddress == "" ? <Skeleton width="80px" /> : <>{untilVestingStart}</>}</p>
+                                                        <p className="data-row-value">
+                                                            {isAppLoading || presaleAddress == "" ? <Skeleton width="80px" /> : <>{untilVestingStart}</>}
+                                                        </p>
                                                     </div>
 
                                                     <div className="data-row">
@@ -458,9 +462,7 @@ function Presale(props: any) {
                                                 </div>
                                             )}
                                         </div>
-                                        
                                     </div>
-                                    
                                 </div>
                             )}
                         </div>

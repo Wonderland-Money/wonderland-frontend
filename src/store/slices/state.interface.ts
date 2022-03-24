@@ -5,7 +5,7 @@ import { IBondSlice } from "./bond-slice";
 import { IPresaleOneSlice } from "./presale-one-slice";
 import { IPresaleTwoSlice } from "./presale-two-slice";
 import { IPresaleThreeSlice } from "./presale-three-slice";
-import { IPresaleFourSlice } from "./presale-four-slice"
+import { IPresaleFourSlice } from "./presale-four-slice";
 import { MessagesState } from "./messages-slice";
 
 export interface IReduxState {

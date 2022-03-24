@@ -1,4 +1,4 @@
- export default {
+export default {
     musicEnabled: true,
     soundEnabled: true,
     fullscreenEnabled: false,

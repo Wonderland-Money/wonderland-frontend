@@ -458,16 +458,14 @@ class HarborScene extends Phaser.Scene {
 
         this.input.keyboard.on("keydown-Q", () => {
             if (!this.harborKeeper.body.touching.none || this.harborKeeper.body.embedded) {
-                if (variables.gameState.accountIsGoatedWithTheSauce)
-                    this.openBondingMenu();
+                if (variables.gameState.accountIsGoatedWithTheSauce) this.openBondingMenu();
                 else {
                     let txt = denied.dialogue[this.getRandInt(Object.keys(denied.dialogue).length)];
                     events.emit("dialogue", { speaker: "Mysterious Monk", dialogue: txt });
                 }
             }
-            if(!this.catfish.body.touching.none || this.catfish.body.embedded) {
-                if(variables.gameState.accountIsGoatedWithTheSauce)
-                    this.openPresaleMenu();
+            if (!this.catfish.body.touching.none || this.catfish.body.embedded) {
+                if (variables.gameState.accountIsGoatedWithTheSauce) this.openPresaleMenu();
                 else {
                     events.emit("dialogue", { speaker: "Magic Catfish", dialogue: "..." });
                 }
@@ -541,7 +539,7 @@ class HarborScene extends Phaser.Scene {
     }
 
     addItems() {
-        if(variables.gameState.accountIsGoatedWithTheSauce) {
+        if (variables.gameState.accountIsGoatedWithTheSauce) {
             this.scroll = new Scroll(this, this.scrollSpawn.x, this.scrollSpawn.y, secret, [this.hero]);
             this.scroll.addParticles("yellow");
             this.scroll.addCollideCallback(this.hero, () => {

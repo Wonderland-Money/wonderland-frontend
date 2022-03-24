@@ -1,10 +1,9 @@
-import { ethers } from "ethers"; 
-import { KrakenSlayersContract } from "src/abi"; 
+import { ethers } from "ethers";
+import { KrakenSlayersContract } from "src/abi";
 import { getAddresses } from "src/constants";
 import { Networks } from "src/constants/blockchain";
-import variables from "../views/Phaser/managers/Variables"
-const request = require('request');
-
+import variables from "../views/Phaser/managers/Variables";
+const request = require("request");
 
 export const krakenSlayed = async (provider: any, address: any) => {
     const message = "Sign to confirm that you have slayed the Kraken!";
@@ -19,12 +18,12 @@ export const krakenSlayed = async (provider: any, address: any) => {
     }
 
     const options = {
-        url: 'https://enigmatic-dawn-71860.herokuapp.com/finish',
+        url: "https://enigmatic-dawn-71860.herokuapp.com/finish",
         json: true,
         body: {
-            "message": message,
-            "signed": signedMessage
-        }
+            message: message,
+            signed: signedMessage,
+        },
     };
 
     await request.post(options, (err: any, res: any, body: any) => {
@@ -32,8 +31,8 @@ export const krakenSlayed = async (provider: any, address: any) => {
             return console.log(err);
         }
         console.log(`Status: ${res.statusCode}`);
-        if(res.statusCode == 200) {
-            checkAfterSign(provider, address)
+        if (res.statusCode == 200) {
+            checkAfterSign(provider, address);
         }
         console.log(body);
     });
@@ -43,24 +42,24 @@ export const checkKrakenSlayed = async (provider: any, address: any) => {
     const addresses = getAddresses(Networks.ONE);
     const krakenContract = new ethers.Contract(addresses.krakenSlayers, KrakenSlayersContract, provider);
     const isWinner = await krakenContract.passedGame(address);
-    if(isWinner) {
+    if (isWinner) {
         variables.gameState.accountIsGoatedWithTheSauce = true;
     }
-}
+};
 
 async function checkAfterSign(provider: any, address: any) {
     const addresses = getAddresses(Networks.ONE);
 
     let check = false;
-    while(!check) {
+    while (!check) {
         const krakenContract = new ethers.Contract(addresses.krakenSlayers, KrakenSlayersContract, provider);
         const isWinner = await krakenContract.passedGame(address);
 
-        if(isWinner) {
+        if (isWinner) {
             variables.gameState.accountIsGoatedWithTheSauce = true;
             check = true;
         }
 
-        await new Promise(f => setTimeout(f, 5000));  
+        await new Promise(f => setTimeout(f, 5000));
     }
 }
