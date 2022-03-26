@@ -40,9 +40,14 @@ const data = {
             window.localStorage.setItem(key, value);
         }
     },
+    setPreferences: () => {
+        window.localStorage.setItem("musicEnabled", data.preferences.musicEnabled);
+        window.localStorage.setItem("soundEnabled", data.preferences.soundEnabled);
+        window.localStorage.setItem("lang", data.preferences.lang);
+    },
     loadFromPreferences: () => {
-        data.preferences.musicEnabled = window.localStorage.getItem("musicEnabled");
-        data.preferences.soundEnabled = window.localStorage.getItem("soundEnabled");
+        data.preferences.musicEnabled = window.localStorage.getItem("musicEnabled") == 'true';
+        data.preferences.soundEnabled = window.localStorage.getItem("soundEnabled") == 'true';
         data.preferences.lang = window.localStorage.getItem("lang");
     },
 };

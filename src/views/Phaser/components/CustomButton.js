@@ -39,8 +39,7 @@ class CustomButton extends Phaser.GameObjects.Sprite {
                 );
             });
         } else {
-            this.buttonState = setState;
-            this.buttonState ? this.setFrame(0) : this.setFrame(1);
+            this.resetState(setState);
 
             this.on("pointerdown", () => {
                 this.toggleState();
@@ -69,8 +68,8 @@ class CustomButton extends Phaser.GameObjects.Sprite {
     resetState = setState => {
         if (this.toggleable) {
             this.buttonState = setState;
+            this.buttonState ? this.setFrame(0) : this.setFrame(1);
         } else return;
-        this.buttonState ? this.setFrame(0) : this.setFrame(1);
     };
 }
 

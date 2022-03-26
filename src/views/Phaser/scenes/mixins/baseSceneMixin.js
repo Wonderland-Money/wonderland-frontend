@@ -29,11 +29,13 @@ const baseSceneMixin = {
     },
 
     getMusicEnabled() {
-        return variables.preferences.musicEnabled;
+        return variables.preferences.musicEnabled == true;
     },
 
     playBackgroundMusic() {
-        if (variables.preferences.musicEnabled) this.backgroundmusic.play({ loop: true });
+        if (this.getMusicEnabled()) {
+            this.backgroundmusic.play({ loop: true });
+        }
     },
 
     getRandInt(max) {
@@ -43,7 +45,7 @@ const baseSceneMixin = {
     // Due to limitations with Phaser garbage collection I need to nuke everything
     nukeItAll() {
         this.backgroundmusic.stop();
-        this.physics.world.bodies.iterate(obj => {
+        this.physics.world && this.physics.world.bodies.iterate(obj => {
             obj.destroy();
         });
         events.eventNames().forEach(event => {

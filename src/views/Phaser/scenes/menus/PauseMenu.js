@@ -117,12 +117,15 @@ class PauseMenu extends Phaser.Scene {
         /* IE / Edge */
         document.addEventListener("msfullscreenchange", this.checkFullscreenState);
 
-        document.addEventListener("shutdownInit", this.setDead);
+        window.addEventListener("message", this.messageHandler, false);
     }
 
-    setDead() {
-        this.dead = true;
-        document.removeEventListener("shutdownInit", this.setDead);
+    messageHandler = e => {
+        if (e.origin.startsWith(variables.gameUrl) && e.data.toString().startsWith("shutdownInit")) {
+            console.log("TESINTG: Dead");
+            this.dead = true;
+            window.removeEventListener("message", this.messageHandler);
+        } else return;
     }
 
     checkFullscreenState = () => {
@@ -173,6 +176,7 @@ class PauseMenu extends Phaser.Scene {
     }
 
     unpauseGame() {
+        variables.setPreferences();
         /* Standard syntax */
         document.removeEventListener("fullscreenchange", this.checkFullscreenState);
         /* Firefox */

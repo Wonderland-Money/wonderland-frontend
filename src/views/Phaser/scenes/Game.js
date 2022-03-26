@@ -318,7 +318,6 @@ class Game extends Phaser.Scene {
 
         this.gameover = false;
         this.nextCycle();
-        this.musicToggled = true;
         // Green, White, Blue, Red, Yellow
         this.elementColors = [0x00ff00, 0xffffff, 0x0000ff, 0xff5555, 0xffff00];
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);

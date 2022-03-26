@@ -53,6 +53,7 @@ export default function App(props) {
 
     const startGame = () => {
         window.parent.postMessage("hideUI", variables.gameUrl);
+        variables.loadFromPreferences();
         setInitialize(true);
     };
 

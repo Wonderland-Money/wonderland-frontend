@@ -42,9 +42,9 @@ function MessageSign(props: any) {
                     <p className="message-view-card-title">Confirm Account</p>
                 </div>
                 <div className="message-card">
-                    <p>Congratulations. You've defeated the Kraken, and claimed a trident of your own. Welcome, to Atlantis. From this moment forward, you are Atlantian.</p>
-
-                    <p>To confirm, a signature from your wallet is requested to complete your account creation. After that, you may bond for PSI at the Harbor.</p>
+                    <p>A Trident is earned, not given. With your newly found skills in combat, the gates of Atlantis are wide open for you. </p>
+                    <p>Accept the call, and take responsibility in protecting the growing city of Atlantis.</p>
+                    <p>Confirm your wallet address below to create an account. The services offered in The Harbor will then become available to you.</p>
                     {/* <div
                         className="message-sign-btn"
                         onClick={() => {

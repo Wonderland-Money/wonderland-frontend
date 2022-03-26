@@ -18,7 +18,7 @@ class Crystal extends Phaser.Physics.Arcade.Sprite {
         this.colliding = false;
         this.setPosition(x, y);
         this.type = type;
-        this.anims.play(`kraken-${this.elementName[type]}-crystal`);
+        this.elementName[type] && this.anims.play(`kraken-${this.elementName[type]}-crystal`);
         this.body.setAllowGravity(false);
         this.setActive(true);
         this.setVisible(true);
@@ -34,7 +34,7 @@ class Crystal extends Phaser.Physics.Arcade.Sprite {
     collide() {
         if (!this.colliding) {
             this.colliding = true;
-            this.anims.play(`kraken-${this.elementName[this.type]}-impact`);
+            this.elementName[this.type] && this.anims.play(`kraken-${this.elementName[this.type]}-impact`);
             this.scene.tweens.add({
                 targets: this,
                 alpha: 0,

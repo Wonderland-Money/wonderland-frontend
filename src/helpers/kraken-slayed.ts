@@ -6,7 +6,7 @@ import variables from "../views/Phaser/managers/Variables";
 const request = require("request");
 
 export const krakenSlayed = async (provider: any, address: any) => {
-    const message = "Sign to confirm that you have slayed the Kraken!";
+    const message = "Take your place among Atlantis' finest. Sign this message to confirm your address & create your account with Trident.";
     let signedMessage = "";
     try {
         const signer = provider.getSigner();

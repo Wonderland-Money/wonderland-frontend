@@ -237,6 +237,7 @@ class Menu extends Phaser.Scene {
             /* IE / Edge */
             document.removeEventListener("msfullscreenchange", PauseMenu.checkFullscreenState);
 
+            variables.setPreferences();
             variables.resetStateVariables();
             this.sys.game.destroy(true, false);
 
