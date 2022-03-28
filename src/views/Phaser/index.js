@@ -58,11 +58,8 @@ export default function App(props) {
     };
 
     const destroy = () => {
-        location.reload(true); // Remove when adding true DESTROY functionality
-
-        // Uncomment when adding true DESTROY functionality
-        // window.addEventListener("message", shutdownHandler, false);
-        // window.postMessage("shutdownInit", variables.gameUrl);
+        window.addEventListener("message", shutdownHandler, false);
+        window.postMessage("shutdownInit", variables.gameUrl);
     };
 
     let buttonText = "Connect Wallet";
