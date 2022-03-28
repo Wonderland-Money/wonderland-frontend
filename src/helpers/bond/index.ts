@@ -47,8 +47,8 @@ export const frax = new StableBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.ONE]: {
-            bondAddress: "0x990E354B54088e5FC362F22a23049E076f4F506e",
-            reserveAddress: "0xdA0113d74D8d3fc8401090f385cD98aa3E027505", // TODO - change to real FRAX after testing
+            bondAddress: "0x017b01b210F2Cb3B8b3c5F3A1b1FF2E7cf9177A3",
+            reserveAddress: "0xFa7191D292d5633f702B0bd7E3E3BcCC0e633200", // TODO - change to real FRAX after testing
         },
     },
 });
@@ -63,11 +63,11 @@ export const fraxPsi = new LPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.ONE]: {
-            bondAddress: "0x1e1d881889832214224E0d77becFB2B12f56b18a",
-            reserveAddress: "0x43a60f70bc0c2a339626e5994a9e3cb8e3fb6c17", // TODO - change
+            bondAddress: "0x3BA4Ea56ac264a9c80850a5A5442DBaA440D3722",
+            reserveAddress: "0x8Ee113Eb4F0e9596A8e2a6Acd4095eeED1E0B9b6", // TODO - change
         },
     },
-    lpUrl: "https://app.sushi.com/add/0x43a60F70bC0c2A339626E5994A9E3CB8e3fb6c17",
+    lpUrl: "https://app.sushi.com/add/0x8Ee113Eb4F0e9596A8e2a6Acd4095eeED1E0B9b6",
 });
 
 export default [frax, fraxPsi];

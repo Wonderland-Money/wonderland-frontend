@@ -465,10 +465,7 @@ class HarborScene extends Phaser.Scene {
                 }
             }
             if (!this.catfish.body.touching.none || this.catfish.body.embedded) {
-                if (variables.gameState.accountIsGoatedWithTheSauce) this.openPresaleMenu();
-                else {
-                    events.emit("dialogue", { speaker: "Magic Catfish", dialogue: "..." });
-                }
+                this.openPresaleMenu();
             }
         });
         this.input.keyboard.on("keydown-R", () => {
