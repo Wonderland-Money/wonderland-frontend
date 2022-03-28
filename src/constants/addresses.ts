@@ -13,6 +13,8 @@ const ONE_MAINNET = {
     presalePhase1: "0xd97a5E7a862Bf2294108Fe26C4aA9de0104D2A3A", // presale contract using PresaleWhitelisted
     presalePhase2: "0xa83dad3cec582245D5C94FBF4e74AC32cb618b8a", // presale contract using PresaleOpen
     presalePhase3: "0x53ecfcBBa09Aa852C0F13A0501e208b59c75d257", // presale contract using PresaleOpen
+    presalePhase4: "0xCe5A688530D725a9CE50371a7fcB1e9062Ba9221",
+    krakenSlayers: "0xB21AEa83a92e7CF4544e1C0B7dF052C4796Db7D1",
     maintainers: "0xD72d6820dde80289B1e439C7968a95AAc48270DF", // maintainers are whitelisted here for their maintance subsidy
 };
 
