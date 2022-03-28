@@ -43,7 +43,7 @@ export const getPresaleThreeDetails = createAsyncThunk("presaleThree/getPresaleT
         psiPrice = 0;
 
     const addresses = getAddresses(networkID);
-    let approvedContractAddress = addresses.presalePhase3;
+    let approvedContractAddress = addresses.presalePhase2;
 
     let approvedContract = new Contract(approvedContractAddress, PresaleContract, provider);
     claimablePsi = await approvedContract.claimableFor(address);

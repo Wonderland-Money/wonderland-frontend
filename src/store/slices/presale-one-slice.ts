@@ -44,10 +44,10 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
     let approvedContractAddress = "";
     let isApproved = false;
 
-    let phase1Contract = new Contract(addresses.presalePhase1, PresaleContract, provider);
+    let phase1Contract = new Contract(addresses.presaleContributor, PresaleContract, provider);
     let term = await phase1Contract.terms(address);
     if (term.whitelistedAmount > 0) {
-        approvedContractAddress = addresses.presalePhase1;
+        approvedContractAddress = addresses.presaleContributor;
         isApproved = true;
     }
 
