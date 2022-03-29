@@ -67,7 +67,7 @@ export const fraxPsi = new LPBond({
             reserveAddress: "0x8Ee113Eb4F0e9596A8e2a6Acd4095eeED1E0B9b6", // TODO - change
         },
     },
-    lpUrl: "https://app.sushi.com/add/0x8Ee113Eb4F0e9596A8e2a6Acd4095eeED1E0B9b6",
+    lpUrl: "https://app.sushi.com/add/0x23eDB53026F17906cD7Fd9f4192fbD42bf61aC6d/0xFa7191D292d5633f702B0bd7E3E3BcCC0e633200",
 });
 
 export default [frax, fraxPsi];
