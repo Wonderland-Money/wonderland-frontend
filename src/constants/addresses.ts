@@ -6,7 +6,7 @@ const ONE_MAINNET = {
     SPSI_ADDRESS: "0x4BE07F1dA7D67364458F8C0E937b067baF472B3C",
     STAKING_ADDRESS: "0xF1B81FE5290Abf53F690903837feb25671c415F5", // rebases every 8 hours
     STAKING_HELPER_ADDRESS: "0x7b222A1B02e8bE3223C56220117ef0DD33310BE1", // use this instead of the staking contract directly to avoid user having to do extra steps to get their stake_token
-    TREASURY_ADDRESS: "0x83D22067A9503335BB996f30Bd488f163Ac4b2FD",
+    TREASURY_ADDRESS: "0x6e0b3957b8c22c0ccd9d145d7188311ceda10670",
     PSI_BONDING_CALC_ADDRESS: "0x1e5A65bF2Bf283959665d04C13f37c71b7541081", // calculate the value of bonds when paying with LP
     presaleCore: "0xB20174263CD73683b1d19B84eA72EBAAa1ECB688", // presale contract using PresalePrestaked
     presaleContributor: "0x89E36931976E1372831E11416fF2008348D9602e", // presale contract using PresaleWhitelisted
@@ -23,6 +23,19 @@ export const getAddresses = (networkID: number) => {
 
     throw Error("Network don't support");
 };
+
+/*
+ * Test Addresses
+ */
+
+    // SPSI_ADDRESS: "0xbC464D465A8788b51671FaC8cF300E27407e20e4",
+    // PSI_ADDRESS: "0xe58E6E6Efb5B0f8A9B9DE571cf9B31D04F5dde73",
+    // STAKING_ADDRESS: "0x4F84933a98BdC0636B49d8e6C2e7619Ac9559D5D",
+    // STAKING_HELPER_ADDRESS: "0xdCf45115B8eA146CEF6C38032AD29534eb69e201",
+    // PSI_BONDING_CALC_ADDRESS: "0x00Bda6e44D8ca79Bc1F9a6EbBC43A919dd643145", // todo - need this
+    // TREASURY_ADDRESS: "0x33B9dfba0E67ab54c1a7694d1607170C408134f2",
+    // FRAX_ADDRESS: "0xdA0113d74D8d3fc8401090f385cD98aa3E027505",
+    // presaleCore: "0xd719784EFB182EB579Dc5DFD8590FBcFcf02bfFd",
 
 // SPSI_ADDRESS: "0xcAB1d656468d9e3A2F1074C82c33Dd49181aB46a",
 // PSI_ADDRESS: "0xDb7f51b799FF2C10Af027b3BF9Af14b398645D83",

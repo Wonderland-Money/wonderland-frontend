@@ -289,7 +289,7 @@ const presaleOneSlice = createSlice({
             })
             .addCase(getPresaleOneDetails.rejected, (state, { error }) => {
                 state.loading = false;
-                console.log(error);
+                //console.log(error);
             });
     },
 });

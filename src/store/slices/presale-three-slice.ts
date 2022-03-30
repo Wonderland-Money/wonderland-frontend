@@ -286,7 +286,7 @@ const presaleThreeSlice = createSlice({
             })
             .addCase(getPresaleThreeDetails.rejected, (state, { error }) => {
                 state.loading = false;
-                console.log(error);
+                //console.log(error);
             });
     },
 });
