@@ -47,11 +47,9 @@ export const loadAppDetails = createAsyncThunk(
         const tokenAmount = await token.balanceOf(addresses.TREASURY_ADDRESS);
         const treasuryBalance = tokenAmount / Math.pow(10, 18);
 
-        console.log(treasuryBalance)
-
-         const tokenAmountsPromises = allBonds.map(bond => bond.getTokenAmount(networkID, provider));
-         const tokenAmounts = await Promise.all(tokenAmountsPromises);
-         const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1);
+        const tokenAmountsPromises = allBonds.map(bond => bond.getTokenAmount(networkID, provider));
+        const tokenAmounts = await Promise.all(tokenAmountsPromises);
+        const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1);
 
         const psiBondsAmountsPromises = allBonds.map(bond => bond.getPsiAmount(networkID, provider));
         const psiBondsAmounts = await Promise.all(psiBondsAmountsPromises);

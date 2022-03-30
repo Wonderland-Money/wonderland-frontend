@@ -3,7 +3,7 @@ import { getAddresses } from "../../constants";
 import { StakingHelperContract, PsiTokenContract, SpsiTokenContract, StakingContract } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchAccountSuccess, getBalances } from "./account-slice";
+import { fetchAccountSuccess, getBalances, loadAccountDetails } from "./account-slice";
 import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { Networks } from "../../constants/blockchain";
 import { warning, success, info, error } from "../../store/slices/messages-slice";
@@ -52,6 +52,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     } finally {
         if (approveTx) {
             dispatch(clearPendingTxn(approveTx.hash));
+            dispatch(loadAccountDetails({ networkID, address, provider }));
         }
     }
 

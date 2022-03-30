@@ -164,11 +164,15 @@ function App() {
         }
     }, []);
 
+    /*
+     * @TODO Re-add loading of userBonds once bonds are live
+     */
+
     useEffect(() => {
         if (walletChecked) {
             loadDetails("app");
             loadDetails("account");
-            loadDetails("userBonds");
+            //loadDetails("userBonds");
         }
     }, [walletChecked]);
 
@@ -176,7 +180,7 @@ function App() {
         if (connected) {
             loadDetails("app");
             loadDetails("account");
-            loadDetails("userBonds");
+            //loadDetails("userBonds");
         }
     }, [connected]);
 

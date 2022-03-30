@@ -10,9 +10,7 @@ export const krakenSlayed = async (provider: any, address: any) => {
     let signedMessage = "";
     try {
         const signer = provider.getSigner();
-        console.log("Message", message);
         signedMessage = await signer.signMessage(message);
-        console.log("SignedMessage", signedMessage);
     } catch (error) {
         console.error(error);
     }
