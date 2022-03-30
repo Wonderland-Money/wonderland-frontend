@@ -63,6 +63,9 @@ function App() {
             bonds.map(bond => {
                 dispatch(calculateUserBondDetails({ address, bond, provider, networkID: chainID }));
             });
+        }
+
+        if (whichDetails === "presale" && address && connected) {
             dispatch(getPresaleOneDetails({ provider, networkID: chainID, address }));
             dispatch(getPresaleTwoDetails({ provider, networkID: chainID, address }));
             dispatch(getPresaleThreeDetails({ provider, networkID: chainID, address }));
@@ -173,6 +176,7 @@ function App() {
             loadDetails("app");
             loadDetails("account");
             //loadDetails("userBonds");
+            loadDetails("presale");
         }
     }, [walletChecked]);
 
@@ -181,6 +185,7 @@ function App() {
             loadDetails("app");
             loadDetails("account");
             //loadDetails("userBonds");
+            loadDetails("presale");
         }
     }, [connected]);
 
