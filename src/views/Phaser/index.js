@@ -79,7 +79,7 @@ export default function App(props) {
     }
 
     if (isConnected && providerChainID !== DEFAULT_NETWORK) {
-        buttonText = "Wrong Network";
+        buttonText = "Connect to Harmony";
         clickFunc = () => {
             checkWrongNetwork();
         };

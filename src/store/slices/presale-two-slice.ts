@@ -291,7 +291,7 @@ const presaleTwoSlice = createSlice({
             })
             .addCase(getPresaleTwoDetails.rejected, (state, { error }) => {
                 state.loading = false;
-                console.log(error);
+                //console.log(error);
             });
     },
 });

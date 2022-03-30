@@ -38,7 +38,7 @@ function ConnectMenu() {
     }
 
     if (isConnected && providerChainID !== DEFAULT_NETWORK) {
-        buttonText = "Wrong network";
+        buttonText = "Please Connect to Harmony";
         buttonStyle = { backgroundColor: "rgb(255, 67, 67)" };
         clickFunc = () => {
             checkWrongNetwork();
