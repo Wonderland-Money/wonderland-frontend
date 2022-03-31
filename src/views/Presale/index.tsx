@@ -80,18 +80,18 @@ function Presale(props: any) {
         }
         return psiPrice;
     });
-    const untilVestingStart = useSelector<IReduxState, string>(state => {
-        let vestingStart;
+    const vestingRemaining = useSelector<IReduxState, string>(state => {
+        let vestingRemaining;
         if (phase == 1) {
-            vestingStart = state.presaleOne.vestingStart;
+            vestingRemaining = state.presaleOne.vestingRemaining;
         } else if (phase == 2) {
-            vestingStart = state.presaleTwo.vestingStart;
+            vestingRemaining = state.presaleTwo.vestingRemaining;
         } else if (phase == 3) {
-            vestingStart = state.presaleThree.vestingStart;
+            vestingRemaining = state.presaleThree.vestingRemaining;
         } else {
-            vestingStart = state.presaleFour.vestingStart;
+            vestingRemaining = state.presaleFour.vestingRemaining;
         }
-        return vestingStart;
+        return vestingRemaining;
     });
     const vestingPeriod = useSelector<IReduxState, string>(state => {
         let vestingTerm;
@@ -350,14 +350,16 @@ function Presale(props: any) {
                                                     </div>
                                                 )}
 
+                                                
+
                                                 {view === 1 && (
-                                                    <div className="presale-card-tab-panel">
+                                                    <div className="presale-card-tab-panel claim-panel">
                                                         {address && !isAllowed ? (
                                                             <div className="presale-card-tab-panel-non">
                                                                 <p>Not Eligible</p>
                                                             </div>
                                                         ) : (
-                                                            <div>
+                                                            <>
                                                                 <div
                                                                     className="presale-card-tab-panel-btn"
                                                                     onClick={() => {
@@ -376,11 +378,18 @@ function Presale(props: any) {
                                                                 >
                                                                     <p>{txnButtonText(pendingTransactions, "claiming", "Claim and Autostake")}</p>
                                                                 </div>
-                                                            </div>
+                                                            </>
                                                         )}
                                                     </div>
                                                 )}
                                             </div>
+                                            {view == 0 && (
+                                                <div className="presale-card-action-help-text">
+                                                    <p>
+                                                        Note: Subsequent purchases of the presale will reset the vesting period. 
+                                                    </p>
+                                                </div>
+                                            )}
                                             {view === 0 && (
                                                 <div className="presale-user-data">
                                                     <div className="data-row">
@@ -420,9 +429,9 @@ function Presale(props: any) {
                                                     </div>
 
                                                     <div className="data-row">
-                                                        <p className="data-row-name">Time Until Vesting Starts</p>
+                                                        <p className="data-row-name">Vesting Period Remaining</p>
                                                         <p className="data-row-value">
-                                                            {isAppLoading || presaleAddress == "" ? <Skeleton width="80px" /> : <>{untilVestingStart}</>}
+                                                            {isAppLoading || presaleAddress == "" ? <Skeleton width="80px" /> : <>{vestingRemaining}</>}
                                                         </p>
                                                     </div>
 
@@ -449,9 +458,9 @@ function Presale(props: any) {
                                                     </div>
 
                                                     <div className="data-row">
-                                                        <p className="data-row-name">Time Until Vesting Starts</p>
+                                                        <p className="data-row-name">Vesting Period Remaining</p>
                                                         <p className="data-row-value">
-                                                            {isAppLoading || presaleAddress == "" ? <Skeleton width="80px" /> : <>{untilVestingStart}</>}
+                                                            {isAppLoading || presaleAddress == "" ? <Skeleton width="80px" /> : <>{vestingRemaining}</>}
                                                         </p>
                                                     </div>
 

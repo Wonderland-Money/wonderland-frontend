@@ -13,5 +13,6 @@ export { abi as StakingContract } from "./StakingContract.json";
 export { abi as StakingHelperContract } from "./StakingHelperContract.json";
 export { abi as TreasuryContract } from "./TreasuryContract.json";
 
-export { abi as PresaleContract } from "./Presale.json";
+export { abi as PresaleWhitelistedContract } from "./PresaleWhitelisted.json";
+export { abi as PresaleOpenContract } from "./PresaleOpen.json";
 export { abi as KrakenSlayersContract } from "./KrakenSlayers.json";

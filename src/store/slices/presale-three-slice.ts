@@ -5,7 +5,7 @@ import { fetchPendingTxns, clearPendingTxn } from "./pending-txns-slice";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { fetchAccountSuccess } from "./account-slice";
-import { PresaleContract } from "../../abi/index";
+import { PresaleOpenContract } from "../../abi/index";
 import { Networks } from "../../constants/blockchain";
 import { getBondCalculator } from "../../helpers/bond-calculator";
 import { RootState } from "../store";
@@ -27,7 +27,7 @@ export interface IPresaleThreeDetails {
     claimablePsi: string;
     amountBuyable: string;
     claimedPsi: string;
-    vestingStart: string;
+    vestingRemaining: string;
     vestingTerm: string;
     psiPrice: number;
     allowanceVal: number;
@@ -38,19 +38,21 @@ export const getPresaleThreeDetails = createAsyncThunk("presaleThree/getPresaleT
     let claimablePsi = "",
         amountBuyable = "",
         claimedPsi = "",
-        vestingStart = "",
+        vestingRemaining = "",
         vestingTerm = "",
         psiPrice = 0;
 
     const addresses = getAddresses(networkID);
     let approvedContractAddress = addresses.presalePhase2;
 
-    let approvedContract = new Contract(approvedContractAddress, PresaleContract, provider);
+    let approvedContract = new Contract(approvedContractAddress, PresaleOpenContract, provider);
     claimablePsi = await approvedContract.claimableFor(address);
     amountBuyable = await approvedContract.buyableFor(address);
     claimedPsi = await approvedContract.claimed(address);
 
-    const vestingStartBlock = await approvedContract.vestingStart();
+    const term = await approvedContract.terms(address);
+
+    const vestingStartBlock = term.boughtAt;
     const vestingTermBlock = await approvedContract.vestingPeriod();
     psiPrice = await approvedContract.pricePerBase();
 
@@ -61,7 +63,11 @@ export const getPresaleThreeDetails = createAsyncThunk("presaleThree/getPresaleT
     amountBuyable = ethers.utils.formatEther(amountBuyable);
     claimedPsi = ethers.utils.formatUnits(claimedPsi, 9);
 
-    vestingStart = prettyVestingPeriod(currentBlock, vestingStartBlock);
+    if(ethers.utils.formatUnits(vestingStartBlock) != "0.0") {
+        vestingRemaining = prettyVestingPeriod(currentBlock, vestingStartBlock.add(vestingTermBlock));
+    } else {
+        vestingRemaining = "Not Yet Purchased";
+    }
     vestingTerm = prettyVestingPeriod(vestingStartBlock, vestingStartBlock.add(vestingTermBlock));
 
     const signer = provider.getSigner();
@@ -77,7 +83,7 @@ export const getPresaleThreeDetails = createAsyncThunk("presaleThree/getPresaleT
         claimablePsi,
         amountBuyable,
         claimedPsi,
-        vestingStart,
+        vestingRemaining,
         vestingTerm,
         psiPrice,
         allowanceVal,
@@ -150,7 +156,7 @@ export const buyPresaleThree = createAsyncThunk("presaleThree/buyPresaleThree", 
     const valueInWei = ethers.utils.parseUnits(value.toString(), 18);
 
     const signer = provider.getSigner();
-    const presale = new Contract(presaleAddress, PresaleContract, signer);
+    const presale = new Contract(presaleAddress, PresaleOpenContract, signer);
 
     let presaleTx;
     try {
@@ -199,7 +205,7 @@ export const claimPresaleThree = createAsyncThunk(
         }
 
         const signer = provider.getSigner();
-        const presale = new Contract(presaleAddress, PresaleContract, signer);
+        const presale = new Contract(presaleAddress, PresaleOpenContract, signer);
 
         let claimTx;
         try {
@@ -247,7 +253,7 @@ export interface IPresaleThreeSlice {
     claimablePsi: number;
     amountBuyable: string;
     claimedPsi: number;
-    vestingStart: string;
+    vestingRemaining: string;
     vestingTerm: string;
     psiPrice: number;
     allowanceVal: number;
@@ -260,7 +266,7 @@ const initialState: IPresaleThreeSlice = {
     claimablePsi: 0,
     amountBuyable: "",
     claimedPsi: 0,
-    vestingStart: "",
+    vestingRemaining: "",
     vestingTerm: "",
     psiPrice: 0,
     allowanceVal: 0,
