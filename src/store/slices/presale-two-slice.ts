@@ -5,7 +5,7 @@ import { fetchPendingTxns, clearPendingTxn } from "./pending-txns-slice";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { fetchAccountSuccess } from "./account-slice";
-import { PresaleContract } from "../../abi/index";
+import { PresaleWhitelistedContract } from "../../abi/index";
 import { Networks } from "../../constants/blockchain";
 import { getBondCalculator } from "../../helpers/bond-calculator";
 import { RootState } from "../store";
@@ -27,7 +27,7 @@ export interface IPresaleTwoDetails {
     claimablePsi: string;
     amountBuyable: string;
     claimedPsi: string;
-    vestingStart: string;
+    vestingRemaining: string;
     vestingTerm: string;
     psiPrice: number;
     allowanceVal: number;
@@ -38,7 +38,7 @@ export const getPresaleTwoDetails = createAsyncThunk("presaleTwo/getPresaleTwoDe
     let claimablePsi = "",
         amountBuyable = "",
         claimedPsi = "",
-        vestingStart = "",
+        vestingRemaining = "",
         vestingTerm = "",
         psiPrice = 0;
 
@@ -46,19 +46,19 @@ export const getPresaleTwoDetails = createAsyncThunk("presaleTwo/getPresaleTwoDe
     let approvedContractAddress = "";
     let isApproved = false;
 
-    let phase2Contract = new Contract(addresses.presalePhase1, PresaleContract, provider);
+    let phase2Contract = new Contract(addresses.presalePhase1, PresaleWhitelistedContract, provider);
     let term = await phase2Contract.terms(address);
     if (term.whitelistedAmount > 0) {
         approvedContractAddress = addresses.presalePhase1;
         isApproved = true;
     }
 
-    let approvedContract = new Contract(approvedContractAddress, PresaleContract, provider);
+    let approvedContract = new Contract(approvedContractAddress, PresaleWhitelistedContract, provider);
     claimablePsi = await approvedContract.claimableFor(address);
     amountBuyable = await approvedContract.buyableFor(address);
     claimedPsi = await approvedContract.claimed(address);
 
-    const vestingStartBlock = await approvedContract.vestingStart();
+    const vestingStartBlock = term.boughtAt;
     const vestingTermBlock = await approvedContract.vestingPeriod();
     psiPrice = await approvedContract.pricePerBase();
 
@@ -69,7 +69,11 @@ export const getPresaleTwoDetails = createAsyncThunk("presaleTwo/getPresaleTwoDe
     amountBuyable = ethers.utils.formatEther(amountBuyable);
     claimedPsi = ethers.utils.formatUnits(claimedPsi, 9);
 
-    vestingStart = prettyVestingPeriod(currentBlock, vestingStartBlock);
+    if(ethers.utils.formatUnits(vestingStartBlock) != "0.0") {
+        vestingRemaining = prettyVestingPeriod(currentBlock, vestingStartBlock.add(vestingTermBlock));
+    } else {
+        vestingRemaining = "Not Yet Purchased";
+    }
     vestingTerm = prettyVestingPeriod(vestingStartBlock, vestingStartBlock.add(vestingTermBlock));
 
     const signer = provider.getSigner();
@@ -85,7 +89,7 @@ export const getPresaleTwoDetails = createAsyncThunk("presaleTwo/getPresaleTwoDe
         claimablePsi,
         amountBuyable,
         claimedPsi,
-        vestingStart,
+        vestingRemaining,
         vestingTerm,
         psiPrice,
         allowanceVal,
@@ -158,7 +162,7 @@ export const buyPresaleTwo = createAsyncThunk("presaleTwo/buyPresaleTwo", async 
     const valueInWei = ethers.utils.parseUnits(value.toString(), 18);
 
     const signer = provider.getSigner();
-    const presale = new Contract(presaleAddress, PresaleContract, signer);
+    const presale = new Contract(presaleAddress, PresaleWhitelistedContract, signer);
 
     let presaleTx;
     try {
@@ -205,7 +209,7 @@ export const claimPresaleTwo = createAsyncThunk("presaleTwo/claimPresaleTwo", as
     }
 
     const signer = provider.getSigner();
-    const presale = new Contract(presaleAddress, PresaleContract, signer);
+    const presale = new Contract(presaleAddress, PresaleWhitelistedContract, signer);
 
     let claimTx;
     try {
@@ -252,7 +256,7 @@ export interface IPresaleTwoSlice {
     claimablePsi: number;
     amountBuyable: string;
     claimedPsi: number;
-    vestingStart: string;
+    vestingRemaining: string;
     vestingTerm: string;
     psiPrice: number;
     allowanceVal: number;
@@ -265,7 +269,7 @@ const initialState: IPresaleTwoSlice = {
     claimablePsi: 0,
     amountBuyable: "",
     claimedPsi: 0,
-    vestingStart: "",
+    vestingRemaining: "",
     vestingTerm: "",
     psiPrice: 0,
     allowanceVal: 0,

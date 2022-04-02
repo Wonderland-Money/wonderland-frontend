@@ -4,7 +4,7 @@ import { getAddresses } from "../../constants";
 import { fetchPendingTxns, clearPendingTxn } from "./pending-txns-slice";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
-import { PresaleContract } from "../../abi/index";
+import { PresaleWhitelistedContract } from "../../abi/index";
 import { Networks } from "../../constants/blockchain";
 import { RootState } from "../store";
 import { error, warning, success, info } from "./messages-slice";
@@ -25,7 +25,7 @@ export interface IPresaleOneDetails {
     claimablePsi: string | undefined;
     amountBuyable: string | undefined;
     claimedPsi: string | undefined;
-    vestingStart: string | undefined;
+    vestingRemaining: string | undefined;
     vestingTerm: string | undefined;
     psiPrice: number | undefined;
     allowanceVal: number | undefined;
@@ -36,7 +36,7 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
     let claimablePsi = "",
         amountBuyable = "",
         claimedPsi = "",
-        vestingStart = "",
+        vestingRemaining = "",
         vestingTerm = "",
         psiPrice = 0;
 
@@ -44,19 +44,19 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
     let approvedContractAddress = "";
     let isApproved = false;
 
-    let phase1Contract = new Contract(addresses.presaleContributor, PresaleContract, provider);
+    let phase1Contract = new Contract(addresses.presaleContributor, PresaleWhitelistedContract, provider);
     let term = await phase1Contract.terms(address);
     if (term.whitelistedAmount > 0) {
         approvedContractAddress = addresses.presaleContributor;
         isApproved = true;
     }
 
-    let approvedContract = new Contract(approvedContractAddress, PresaleContract, provider);
+    let approvedContract = new Contract(approvedContractAddress, PresaleWhitelistedContract, provider);
     claimablePsi = await approvedContract.claimableFor(address);
     amountBuyable = await approvedContract.buyableFor(address);
     claimedPsi = await approvedContract.claimed(address);
 
-    const vestingStartBlock = await approvedContract.vestingStart();
+    const vestingStartBlock = term.boughtAt;
     const vestingTermBlock = await approvedContract.vestingPeriod();
     psiPrice = await approvedContract.pricePerBase();
 
@@ -67,7 +67,12 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
     amountBuyable = ethers.utils.formatEther(amountBuyable);
     claimedPsi = ethers.utils.formatUnits(claimedPsi, 9);
 
-    vestingStart = prettyVestingPeriod(currentBlock, vestingStartBlock);
+    if(ethers.utils.formatUnits(vestingStartBlock) != "0.0") {
+        vestingRemaining = prettyVestingPeriod(currentBlock, vestingStartBlock.add(vestingTermBlock));
+    } else {
+        vestingRemaining = "Not Yet Purchased";
+    }
+
     vestingTerm = prettyVestingPeriod(vestingStartBlock, vestingStartBlock.add(vestingTermBlock));
 
     const signer = provider.getSigner();
@@ -83,7 +88,7 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
         claimablePsi,
         amountBuyable,
         claimedPsi,
-        vestingStart,
+        vestingRemaining,
         vestingTerm,
         psiPrice,
         allowanceVal,
@@ -156,7 +161,7 @@ export const buyPresaleOne = createAsyncThunk("presaleOne/buyPresaleOne", async 
     const valueInWei = ethers.utils.parseUnits(value.toString(), 18);
 
     const signer = provider.getSigner();
-    const presale = new Contract(presaleAddress, PresaleContract, signer);
+    const presale = new Contract(presaleAddress, PresaleWhitelistedContract, signer);
 
     let presaleTx;
     try {
@@ -203,7 +208,7 @@ export const claimPresaleOne = createAsyncThunk("presaleOne/claimPresaleOne", as
     }
 
     const signer = provider.getSigner();
-    const presale = new Contract(presaleAddress, PresaleContract, signer);
+    const presale = new Contract(presaleAddress, PresaleWhitelistedContract, signer);
 
     let claimTx;
     try {
@@ -250,7 +255,7 @@ export interface IPresaleOneSlice {
     claimablePsi: number;
     amountBuyable: string;
     claimedPsi: number;
-    vestingStart: string;
+    vestingRemaining: string;
     vestingTerm: string;
     psiPrice: number;
     allowanceVal: number;
@@ -263,7 +268,7 @@ const initialState: IPresaleOneSlice = {
     claimablePsi: 0,
     amountBuyable: "",
     claimedPsi: 0,
-    vestingStart: "",
+    vestingRemaining: "",
     vestingTerm: "",
     psiPrice: 0,
     allowanceVal: 0,
