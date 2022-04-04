@@ -156,7 +156,7 @@ function Stake(props: any) {
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="stake-card-index">
                                             <p className="stake-card-metrics-title">Current Index</p>
-                                            <p className="stake-card-metrics-value">{currentIndex ? <>{trim(Number(currentIndex), 2)} PSI</> : <Skeleton width="150px" />}</p>
+                                            <p className="stake-card-metrics-value">{currentIndex ? <>{trim(Number(currentIndex), 3)} PSI</> : <Skeleton width="150px" />}</p>
                                         </div>
                                     </Grid>
                                 </Grid>
