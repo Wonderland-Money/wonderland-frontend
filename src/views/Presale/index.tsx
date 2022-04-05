@@ -128,7 +128,7 @@ function Presale(props: any) {
         } else if (phase == 3) {
             claimablePsi = state.presaleThree.claimablePsi;
         } else {
-            claimablePsi = state.presaleThree.claimablePsi;
+            claimablePsi = state.presaleFour.claimablePsi;
         }
         return claimablePsi;
     });
@@ -141,7 +141,7 @@ function Presale(props: any) {
         } else if (phase == 3) {
             claimedPsi = state.presaleThree.claimedPsi;
         } else {
-            claimedPsi = state.presaleThree.claimedPsi;
+            claimedPsi = state.presaleFour.claimedPsi;
         }
         return claimedPsi;
     });
@@ -155,7 +155,7 @@ function Presale(props: any) {
         } else if (phase == 3) {
             boughtAmount = state.presaleThree.boughtAmount;
         } else {
-            boughtAmount = state.presaleThree.boughtAmount;
+            boughtAmount = state.presaleFour.boughtAmount;
         }
         return boughtAmount;
     });
