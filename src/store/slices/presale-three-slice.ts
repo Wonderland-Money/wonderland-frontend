@@ -32,6 +32,7 @@ export interface IPresaleThreeDetails {
     psiPrice: number;
     allowanceVal: number;
     balanceVal: number;
+    boughtAmount: string;
 }
 
 export const getPresaleThreeDetails = createAsyncThunk("presaleThree/getPresaleThreeDetails", async ({ provider, networkID, address }: IGetPresaleThreeDetails, { dispatch }) => {
@@ -40,6 +41,7 @@ export const getPresaleThreeDetails = createAsyncThunk("presaleThree/getPresaleT
         claimedPsi = "",
         vestingRemaining = "",
         vestingTerm = "",
+        boughtAmount = "",
         psiPrice = 0;
 
     const addresses = getAddresses(networkID);
@@ -55,13 +57,14 @@ export const getPresaleThreeDetails = createAsyncThunk("presaleThree/getPresaleT
     const vestingStartBlock = term.boughtAt;
     const vestingTermBlock = await approvedContract.vestingPeriod();
     psiPrice = await approvedContract.pricePerBase();
-
+    boughtAmount = term.boughtAmount;
     const currentBlock = await provider.getBlockNumber();
     const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
 
     claimablePsi = ethers.utils.formatUnits(claimablePsi, 9);
     amountBuyable = ethers.utils.formatEther(amountBuyable);
     claimedPsi = ethers.utils.formatUnits(claimedPsi, 9);
+    boughtAmount = ethers.utils.formatUnits(boughtAmount, 9);
 
     if(ethers.utils.formatUnits(vestingStartBlock) != "0.0") {
         vestingRemaining = prettyVestingPeriod(currentBlock, vestingStartBlock.add(vestingTermBlock));
@@ -88,6 +91,7 @@ export const getPresaleThreeDetails = createAsyncThunk("presaleThree/getPresaleT
         psiPrice,
         allowanceVal,
         balanceVal,
+        boughtAmount
     };
 });
 
@@ -258,6 +262,7 @@ export interface IPresaleThreeSlice {
     psiPrice: number;
     allowanceVal: number;
     balanceVal: number;
+    boughtAmount: number;
 }
 
 const initialState: IPresaleThreeSlice = {
@@ -271,6 +276,7 @@ const initialState: IPresaleThreeSlice = {
     psiPrice: 0,
     allowanceVal: 0,
     balanceVal: 0,
+    boughtAmount: 0
 };
 
 const presaleThreeSlice = createSlice({

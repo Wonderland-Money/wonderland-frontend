@@ -146,6 +146,20 @@ function Presale(props: any) {
         return claimedPsi;
     });
 
+    const boughtAmount = useSelector<IReduxState, number>(state => {
+        let boughtAmount;
+        if (phase == 1) {
+            boughtAmount = state.presaleOne.boughtAmount;
+        } else if (phase == 2) {
+            boughtAmount = state.presaleTwo.boughtAmount;
+        } else if (phase == 3) {
+            boughtAmount = state.presaleThree.boughtAmount;
+        } else {
+            boughtAmount = state.presaleThree.boughtAmount;
+        }
+        return boughtAmount;
+    });
+
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
     });
@@ -454,6 +468,13 @@ function Presale(props: any) {
                                                         <p className="data-row-name">Claimed PSI</p>
                                                         <p className="data-row-value">
                                                             {isAppLoading || presaleAddress == "" ? <Skeleton width="80px" /> : <>{trim(claimedPsi, 2)} PSI</>}
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="data-row">
+                                                        <p className="data-row-name">Purchased PSI</p>
+                                                        <p className="data-row-value">
+                                                            {isAppLoading || presaleAddress == "" ? <Skeleton width="80px" /> : <>{trim(boughtAmount, 2)} PSI</>}
                                                         </p>
                                                     </div>
 

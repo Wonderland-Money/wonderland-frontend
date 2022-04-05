@@ -30,6 +30,7 @@ export interface IPresaleOneDetails {
     psiPrice: number | undefined;
     allowanceVal: number | undefined;
     balanceVal: number | undefined;
+    boughtAmount: string | undefined;
 }
 
 export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDetails", async ({ provider, networkID, address }: IGetPresaleOneDetails, { dispatch }) => {
@@ -38,6 +39,7 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
         claimedPsi = "",
         vestingRemaining = "",
         vestingTerm = "",
+        boughtAmount = "",
         psiPrice = 0;
 
     const addresses = getAddresses(networkID);
@@ -55,7 +57,7 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
     claimablePsi = await approvedContract.claimableFor(address);
     amountBuyable = await approvedContract.buyableFor(address);
     claimedPsi = await approvedContract.claimed(address);
-
+    boughtAmount = term.boughtAmount
     const vestingStartBlock = term.boughtAt;
     const vestingTermBlock = await approvedContract.vestingPeriod();
     psiPrice = await approvedContract.pricePerBase();
@@ -66,6 +68,7 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
     claimablePsi = ethers.utils.formatUnits(claimablePsi, 9);
     amountBuyable = ethers.utils.formatEther(amountBuyable);
     claimedPsi = ethers.utils.formatUnits(claimedPsi, 9);
+    boughtAmount = ethers.utils.formatUnits(boughtAmount, 9);
 
     if(ethers.utils.formatUnits(vestingStartBlock) != "0.0") {
         vestingRemaining = prettyVestingPeriod(currentBlock, vestingStartBlock.add(vestingTermBlock));
@@ -93,6 +96,7 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
         psiPrice,
         allowanceVal,
         balanceVal,
+        boughtAmount,
     };
 });
 
@@ -260,6 +264,7 @@ export interface IPresaleOneSlice {
     psiPrice: number;
     allowanceVal: number;
     balanceVal: number;
+    boughtAmount: number;
 }
 
 const initialState: IPresaleOneSlice = {
@@ -273,6 +278,7 @@ const initialState: IPresaleOneSlice = {
     psiPrice: 0,
     allowanceVal: 0,
     balanceVal: 0,
+    boughtAmount: 0
 };
 
 const presaleOneSlice = createSlice({

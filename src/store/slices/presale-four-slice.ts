@@ -32,6 +32,7 @@ export interface IPresaleFourDetails {
     psiPrice: number;
     allowanceVal: number;
     balanceVal: number;
+    boughtAmount: string;
 }
 
 export const getPresaleFourDetails = createAsyncThunk("presaleFour/getPresaleFourDetails", async ({ provider, networkID, address }: IGetPresaleFourDetails, { dispatch }) => {
@@ -40,6 +41,7 @@ export const getPresaleFourDetails = createAsyncThunk("presaleFour/getPresaleFou
         claimedPsi = "",
         vestingRemaining = "",
         vestingTerm = "",
+        boughtAmount = "",
         psiPrice = 0;
 
     const addresses = getAddresses(networkID);
@@ -54,13 +56,14 @@ export const getPresaleFourDetails = createAsyncThunk("presaleFour/getPresaleFou
     const vestingStartBlock = term.boughtAt;
     const vestingTermBlock = await approvedContract.vestingPeriod();
     psiPrice = await approvedContract.pricePerBase();
-
+    boughtAmount = term.boughtAmount;
     const currentBlock = await provider.getBlockNumber();
     const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
 
     claimablePsi = ethers.utils.formatUnits(claimablePsi, 9);
     amountBuyable = ethers.utils.formatEther(amountBuyable);
     claimedPsi = ethers.utils.formatUnits(claimedPsi, 9);
+    boughtAmount = ethers.utils.formatUnits(boughtAmount, 9);
 
     if(ethers.utils.formatUnits(vestingStartBlock) != "0.0") {
         vestingRemaining = prettyVestingPeriod(currentBlock, vestingStartBlock.add(vestingTermBlock));
@@ -87,6 +90,7 @@ export const getPresaleFourDetails = createAsyncThunk("presaleFour/getPresaleFou
         psiPrice,
         allowanceVal,
         balanceVal,
+        boughtAmount
     };
 });
 
@@ -257,6 +261,7 @@ export interface IPresaleFourSlice {
     psiPrice: number;
     allowanceVal: number;
     balanceVal: number;
+    boughtAmount: number;
 }
 
 const initialState: IPresaleFourSlice = {
@@ -270,6 +275,7 @@ const initialState: IPresaleFourSlice = {
     psiPrice: 0,
     allowanceVal: 0,
     balanceVal: 0,
+    boughtAmount: 0
 };
 
 const presaleFourSlice = createSlice({
