@@ -3,6 +3,8 @@ import Button from "../../components/Button";
 
 import variables from "../../managers/Variables";
 
+import baseSceneMixin from "../mixins/baseSceneMixin";
+
 class PlayerWinMenu extends Phaser.Scene {
     constructor() {
         super({ key: "PlayerWinMenu" });
@@ -50,25 +52,15 @@ class PlayerWinMenu extends Phaser.Scene {
         window.removeEventListener("message", this.handler, false);
 
         this.scene.manager.stop(this.toScene);
+        this.resetSceneOrder();
         this.scene.manager.start("MainMenu");
         this.scene.manager.bringToTop("MainMenu");
-
-        this.scene.manager.sendToBack("InstructionsSplash");
-        this.scene.manager.stop("InstructionsSplash");
-        this.scene.manager.sendToBack("IngameUI");
-        this.scene.manager.stop("IngameUI");
-        this.scene.manager.sendToBack("GameScene");
-        this.scene.manager.getScene("GameScene").nukeItAll();
-        this.scene.manager.stop("GameScene");
-        this.scene.manager.sendToBack("HarborScene");
-        this.scene.manager.stop("HarborScene");
-        this.scene.manager.sendToBack("ForgeScene");
-        this.scene.manager.stop("ForgeScene");
-
         this.scene.stop();
     }
 
     update(time, delta) {}
 }
+
+Object.assign(PlayerWinMenu.prototype, baseSceneMixin);
 
 export default PlayerWinMenu;

@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import Button from "../components/Button";
 
 import frontendControlsMixin from "./mixins/frontendControlsMixin";
+import baseSceneMixin from "./mixins/baseSceneMixin";
 
 class PlayerWinScene extends Phaser.Scene {
     constructor() {
@@ -13,6 +14,7 @@ class PlayerWinScene extends Phaser.Scene {
     }
 
     create(data) {
+        this.sceneInit();
         this.cameras.main.fadeIn(5000, 255, 255, 255);
 
         this.input.mouse.disableContextMenu();
@@ -26,6 +28,7 @@ class PlayerWinScene extends Phaser.Scene {
     update(time, delta) {}
 }
 
+Object.assign(PlayerWinScene.prototype, baseSceneMixin);
 Object.assign(PlayerWinScene.prototype, frontendControlsMixin);
 
 export default PlayerWinScene;

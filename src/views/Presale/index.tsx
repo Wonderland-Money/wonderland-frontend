@@ -258,16 +258,16 @@ function Presale(props: any) {
             <Zoom in={true}>
                 <div className="presale-card">
                     <Grid className="presale-card-grid" container direction="column" spacing={2}>
-                        <Grid item>
+                        <Grid item className="card-header">
                             <div className="presale-card-header">
                                 <a
                                     onClick={() => {
                                         window.parent.postMessage("closeMenu", window.location.origin);
                                         window.parent.postMessage("closePresale", window.location.origin);
                                     }}
-                                    className="close-app-btn"
+                                    className="close-app-btn window-btn"
                                 >
-                                    <SvgIcon color="primary" component={XIcon} />
+                                    <SvgIcon viewBox={"0 0 18 18"} color="primary" component={XIcon} />
                                 </a>
                                 <p className="presale-card-header-title">Presale</p>
                             </div>
@@ -364,8 +364,6 @@ function Presale(props: any) {
                                                     </div>
                                                 )}
 
-                                                
-
                                                 {view === 1 && (
                                                     <div className="presale-card-tab-panel claim-panel">
                                                         {address && !isAllowed ? (
@@ -399,9 +397,7 @@ function Presale(props: any) {
                                             </div>
                                             {view == 0 && (
                                                 <div className="presale-card-action-help-text">
-                                                    <p>
-                                                        Note: Subsequent purchases of the presale will reset the vesting period. 
-                                                    </p>
+                                                    <p>Note: Subsequent purchases of the presale will reset the vesting period.</p>
                                                 </div>
                                             )}
                                             {view === 0 && (

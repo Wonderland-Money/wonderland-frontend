@@ -1,5 +1,5 @@
 import PsiImg from "../assets/tokens/PSI.svg";
-import SpsiImg from "../assets/tokens/PSI.svg";
+import SpsiImg from "../assets/tokens/sPSI.svg";
 
 function toUrl(tokenPath: string): string {
     const host = window.location.origin;

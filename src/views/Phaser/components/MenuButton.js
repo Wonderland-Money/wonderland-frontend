@@ -7,28 +7,33 @@ class MenuButton extends Phaser.GameObjects.Sprite {
             ["harbor-button", "harbor-button-hover"],
             ["forge-button", "forge-button-hover"],
             ["appraiser-button", "appraiser-button-hover"],
+            ["oasis-button", "oasis-button-hover"],
         ];
 
-        super(scene, x + 64, y + 16, images[imgId][0], 0);
+        super(scene, x, y, images[imgId][0], 0);
         scene.add.existing(this);
         this.clickSound = scene.sound.add("button-click");
-        this.setOrigin(0.5, 0.5);
-        this.setSize(20, 56);
+        this.setOrigin(1, 0.5);
+
+        this.width = 114;
+        this.height = 26;
+        // this.setSize(20, 56);
 
         this.setInteractive({
-            hitArea: new Phaser.Geom.Rectangle(0, 0, 128, 32),
+            hitArea: new Phaser.Geom.Rectangle(0, 0, this.width, this.height),
             hitAreaCallback: Phaser.Geom.Rectangle.Contains,
             //cursor: 'url(assets/cursor-pointer.png), pointer',
         });
 
         this.buttonText = scene.add
-            .text(x + 64, y + 16, text, {
+            .text(x - this.width, y, text, {
                 fontSize: 34,
                 color: "#ffffff",
                 fontFamily: "Cormorant Garamond",
                 fontWeight: "Bold",
             })
             .setOrigin(0.5);
+        
         this.scale = 2;
 
         this.on("pointerover", () => {

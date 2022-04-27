@@ -7,13 +7,14 @@
     margin: auto;
 
     .presale-card {
+        @include theme.card();
+
         position: relative;
         z-index: 2;
 
         width: 100%;
         max-width: 833px;
         border-radius: 6px;
-        background-color: theme.$dark-gray;
         border: 1px solid theme.$dark-gray;
         padding:20px;
 

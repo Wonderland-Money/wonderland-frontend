@@ -28,6 +28,7 @@ class InstructionsSplash extends Phaser.Scene {
     }
 
     create(data) {
+        this.sceneInit();
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
         this.input.mouse.disableContextMenu();
@@ -301,7 +302,7 @@ class InstructionsSplash extends Phaser.Scene {
 
             this.cameras.main.fadeOut(1000);
             this.time.delayedCall(1500, () => {
-                this.scene.start("GameScene");
+                this.scene.start("KrakenScene");
             });
         } else return;
     }

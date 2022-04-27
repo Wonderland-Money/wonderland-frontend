@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { sharedInstance as events } from "../managers/EventCenter";
+import { sharedInstance as events } from "../../../managers/EventCenter";
 
 class EnergySphere extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {

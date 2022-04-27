@@ -35,9 +35,9 @@ function MessageSign(props: any) {
                             window.parent.postMessage("closeMenu", window.location.origin);
                             window.parent.postMessage("closeMessage", window.location.origin);
                         }}
-                        className="close-app-btn"
+                        className="close-app-btn window-btn"
                     >
-                        <SvgIcon color="primary" component={XIcon} />
+                        <SvgIcon viewBox={"0 0 18 18"} color="primary" component={XIcon} />
                     </a>
                     <p className="message-view-card-title">Confirm Account</p>
                 </div>

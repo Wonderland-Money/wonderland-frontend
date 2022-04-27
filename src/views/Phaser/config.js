@@ -38,7 +38,7 @@ export default {
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     render: {
-        pixelArt: true,
+        pixelArt: false,
     },
     physics: {
         default: "arcade",
@@ -54,6 +54,9 @@ export default {
     dom: {
         createContainer: true,
     },
+    antialias: true,
+    antialiasGL: true,
+    
     plugins: {
         scene: [
             {

@@ -4,19 +4,20 @@ import { IonPhaser } from "@ion-phaser/react";
 import config from "./config";
 import "./style.scss";
 // Scenes
-import InstructionsSplash from "./scenes/InstructionsSplash";
+import InstructionsSplash from "./scenes/pve/InstructionsSplash";
 
-import GameScene from "./scenes/Game";
+import KrakenScene from "./scenes/pve/KrakenScene";
 import ForgeScene from "./scenes/ForgeScene";
 import HarborScene from "./scenes/HarborScene";
 import AppraiserScene from "./scenes/AppraiserScene";
 
-import PlayerWinScene from "./scenes/PlayerWinScene";
+import PlayerWinScene from "./scenes/pve/PlayerWinScene";
 // Interfaces
-import MainMenu from "./scenes/menus/Menu";
+import MainMenu from "./scenes/menus/MainMenu";
 import FreezeScreen from "./scenes/menus/FreezeScreen";
 import PauseMenu from "./scenes/menus/PauseMenu";
 import SettingsMenu from "./scenes/menus/SettingsMenu";
+import PlayerMenu from "./scenes/menus/PlayerMenu";
 import GameUI from "./scenes/menus/IngameUI";
 import PlayerWinMenu from "./scenes/menus/PlayerWinMenu";
 import DeathScreen from "./scenes/menus/DeathScreen";
@@ -93,13 +94,14 @@ export default function App(props) {
                 game={Object.assign(config, {
                     scene: [
                         MainMenu,
-                        GameScene,
+                        KrakenScene,
                         HarborScene,
                         ForgeScene,
                         AppraiserScene,
+                        PlayerMenu,
+                        SettingsMenu,
                         GameUI,
                         InstructionsSplash,
-                        SettingsMenu,
                         PauseMenu,
                         FreezeScreen,
                         DeathScreen,

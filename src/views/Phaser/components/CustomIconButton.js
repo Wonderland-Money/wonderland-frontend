@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-class CustomButton extends Phaser.GameObjects.Sprite {
+class CustomIconButton extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, text, clickAction, imageKey, toggleable, setState, scale) {
         super(scene, x, y, imageKey, 0);
         scene.add.existing(this);
@@ -73,4 +73,4 @@ class CustomButton extends Phaser.GameObjects.Sprite {
     };
 }
 
-export default CustomButton;
+export default CustomIconButton;

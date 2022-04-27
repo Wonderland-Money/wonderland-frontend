@@ -1,6 +1,8 @@
 @use "src/theme.scss";
 
 .dashboard-view {
+    @include theme.card();
+
     display: flex;
     align-items: center;
     justify-content: center;

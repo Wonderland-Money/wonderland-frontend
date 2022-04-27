@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import Hero from "../entities/Hero";
+import HeroLegacy from "../entities/pve/HeroLegacy";
 
 import baseSceneMixin from "./mixins/baseSceneMixin";
 import frontendControlsMixin from "./mixins/frontendControlsMixin";
@@ -381,6 +381,7 @@ class AppraiserScene extends Phaser.Scene {
     }
 
     create() {
+        this.sceneInit();
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         this.input.mouse.disableContextMenu();
 
@@ -423,7 +424,7 @@ class AppraiserScene extends Phaser.Scene {
     }
 
     addHero() {
-        this.hero = new Hero(this, this.spawnPos.x, this.spawnPos.y);
+        this.hero = new HeroLegacy(this, this.spawnPos.x, this.spawnPos.y);
         this.groundCollider = this.physics.add.collider(this.hero, this.map.getLayer("Collide").tilemapLayer);
         this.physics.add.overlap(this.hero, this.scaleObject, () => {
             if (this.hoverTimer == 0) {

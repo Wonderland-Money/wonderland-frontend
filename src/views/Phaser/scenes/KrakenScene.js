@@ -15,9 +15,9 @@ import loadingBar from "./mixins/loadingBar";
 import { sharedInstance as events } from "../managers/EventCenter";
 import variables from "../managers/Variables";
 
-class Game extends Phaser.Scene {
+class KrakenScene extends Phaser.Scene {
     constructor() {
-        super({ key: "GameScene" });
+        super({ key: "KrakenScene" });
     }
 
     preload() {
@@ -295,14 +295,12 @@ class Game extends Phaser.Scene {
     }
 
     create(data) {
+        this.sceneInit();
         this.hideUI();
         this.hideExitButton();
 
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         this.input.mouse.disableContextMenu();
-        // if (!this.scene.isActive("DeathScreen")) {
-        //     this.scene.launch("GameUI").moveAbove("GameScene");
-        // }
 
         this.loadAnims();
         this.loadEventHandlers();
@@ -333,7 +331,6 @@ class Game extends Phaser.Scene {
 
         this.cameras.main.startFollow(this.hero, true, 0.06, 0.06);
         this.cameras.main.setFollowOffset(-90, 140);
-        //this.cameras.main.setZoom(0.9)
     }
 
     loadAnims() {
@@ -703,8 +700,6 @@ class Game extends Phaser.Scene {
         this.krakenGrunt = this.sound.add("kraken-grunt");
         this.backgroundmusic = this.sound.add("background-music");
         if (this.getRandInt(1000) === 1) {
-            //this.getRandInt(200)
-            // if(1 === 1)
             this.backgroundmusic = this.sound.add("segaaa");
             let baseStyles = ["color: #0000ff", "background-color: #ffffff", "font-size: 18px", "padding: 2px 4px", "border-radius: 2px", "font-weight: bold"].join(";");
             console.log("%c- S E G A -", baseStyles);
@@ -728,7 +723,6 @@ class Game extends Phaser.Scene {
          */
         // ON PLAYER ATTACK
         events.on("player-attack", type => {
-            //let attack = new Particle(this, this.hero.body.center, this.hero.body.center, type, this.hero.flip)
             this.heroBullets.fireProjectile(this.hero.body.center.x + this.hero.flip * 5, this.hero.body.center.y - 15, type, this.hero.flip);
         });
         // ON RESUME GAME
@@ -741,15 +735,7 @@ class Game extends Phaser.Scene {
         events.on("player-died", () => {
             this.cameras.main.zoomTo(1.42, 2000);
             this.krakenRageAttacking = false;
-            //this.physics.world.removeCollider(this.groundCollider)
-            /*
-      this.time.addEvent({
-        delay: 200,
-        callback: () => {
-          this.hero.body.allowGravity = false
-        }
-      }, this)
-      */
+
             this.tweens.add({
                 targets: this.hero,
                 alpha: 0,
@@ -887,7 +873,6 @@ class Game extends Phaser.Scene {
             .setScrollFactor(0.9);
         backgroundSprite.scale = 3.9;
         backgroundSprite.play("background-anim");
-        //backgroundSprite.setFrame(0)
 
         const groundTiles = this.map.addTilesetImage("Castlestone", "atlantis-tilemap");
         const backgroundLayer = this.map.createLayer("Background", groundTiles);
@@ -1143,8 +1128,8 @@ class Game extends Phaser.Scene {
     }
 }
 
-Object.assign(Game.prototype, baseSceneMixin);
-Object.assign(Game.prototype, frontendControlsMixin);
-Object.assign(Game.prototype, loadingBar);
+Object.assign(KrakenScene.prototype, baseSceneMixin);
+Object.assign(KrakenScene.prototype, frontendControlsMixin);
+Object.assign(KrakenScene.prototype, loadingBar);
 
-export default Game;
+export default KrakenScene;

@@ -72,7 +72,7 @@ export const getPresaleTwoDetails = createAsyncThunk("presaleTwo/getPresaleTwoDe
     claimedPsi = ethers.utils.formatUnits(claimedPsi, 9);
     boughtAmount = ethers.utils.formatUnits(boughtAmount, 9);
 
-    if(ethers.utils.formatUnits(vestingStartBlock) != "0.0") {
+    if (ethers.utils.formatUnits(vestingStartBlock) != "0.0") {
         vestingRemaining = prettyVestingPeriod(currentBlock, vestingStartBlock.add(vestingTermBlock));
     } else {
         vestingRemaining = "Not Yet Purchased";
@@ -97,7 +97,7 @@ export const getPresaleTwoDetails = createAsyncThunk("presaleTwo/getPresaleTwoDe
         psiPrice,
         allowanceVal,
         balanceVal,
-        boughtAmount
+        boughtAmount,
     };
 });
 
@@ -279,7 +279,7 @@ const initialState: IPresaleTwoSlice = {
     psiPrice: 0,
     allowanceVal: 0,
     balanceVal: 0,
-    boughtAmount: 0
+    boughtAmount: 0,
 };
 
 const presaleTwoSlice = createSlice({

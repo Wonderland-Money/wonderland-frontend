@@ -4,6 +4,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import MenuIcon from "../../assets/icons/hamburger.svg";
 import PsiMenu from "./psi-menu";
 import ConnectButton from "./connect-button";
+import BridgeMenu from "./bridge-menu";
 import "./header.scss";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 
@@ -46,6 +47,7 @@ function Header() {
             <AppBar position="sticky" className={classes.appBar} elevation={0}>
                 <Toolbar disableGutters className="dapp-topbar">
                     <div className="dapp-topbar-btns-wrap">
+                        <BridgeMenu />
                         {!isVerySmallScreen && <PsiMenu />}
                         <ConnectButton />
                     </div>

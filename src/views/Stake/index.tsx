@@ -104,16 +104,16 @@ function Stake(props: any) {
             <Zoom in={true}>
                 <div className="stake-card">
                     <Grid className="stake-card-grid" container direction="column" spacing={2}>
-                        <Grid item>
+                        <Grid item className="card-header">
                             <div className="stake-card-header">
                                 <a
                                     onClick={() => {
                                         window.parent.postMessage("closeMenu", window.location.origin);
                                         window.parent.postMessage("closeStaking", window.location.origin);
                                     }}
-                                    className="close-app-btn"
+                                    className="close-app-btn window-btn"
                                 >
-                                    <SvgIcon color="primary" component={XIcon} />
+                                    <SvgIcon viewBox={"0 0 18 18"} color="primary" component={XIcon} />
                                 </a>
                                 <div className="staking-title">
                                     <p className="stake-card-header-title">Stake</p>
@@ -123,7 +123,6 @@ function Stake(props: any) {
                         </Grid>
 
                         <Grid item>
-                            <div className="divider"></div>
                             <div className="stake-card-metrics">
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={4} md={4} lg={4}>

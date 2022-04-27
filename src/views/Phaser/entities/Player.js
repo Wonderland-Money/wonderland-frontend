@@ -3,12 +3,12 @@ import StateMachine from "javascript-state-machine";
 import { sharedInstance as events } from "../managers/EventCenter";
 import variables from "../managers/Variables";
 
-class Hero extends Phaser.GameObjects.Sprite {
+class HeroLegacy extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, attackEnabled) {
         super(scene, x, y, "hero-running", 0);
         scene.add.existing(this);
         scene.physics.add.existing(this);
-        //this.scene = scene
+        this.scene = scene
         this.anims.play("player-running");
 
         this.setOrigin(0.5, 1);
@@ -37,13 +37,17 @@ class Hero extends Phaser.GameObjects.Sprite {
         }
 
         scene.input.keyboard.on("keydown-ESC", () => {
-            scene.scene.launch("PauseMenu", scene);
-            scene.scene.pause();
+            this.pauseGame();
         });
         scene.input.keyboard.on("keydown-P", () => {
-            scene.scene.launch("PauseMenu", scene);
-            scene.scene.pause();
+            this.pauseGame();
         });
+    }
+
+    pauseGame() {
+        this.scene.scene.launch("PauseMenu", this.scene);
+        this.scene.scene.bringToTop("PauseMenu");
+        this.scene.scene.pause();
     }
 
     setupAnimations() {
@@ -306,4 +310,4 @@ class Hero extends Phaser.GameObjects.Sprite {
     }
 }
 
-export default Hero;
+export default HeroLegacy;

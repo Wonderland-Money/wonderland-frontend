@@ -57,7 +57,7 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
     claimablePsi = await approvedContract.claimableFor(address);
     amountBuyable = await approvedContract.buyableFor(address);
     claimedPsi = await approvedContract.claimed(address);
-    boughtAmount = term.boughtAmount
+    boughtAmount = term.boughtAmount;
     const vestingStartBlock = term.boughtAt;
     const vestingTermBlock = await approvedContract.vestingPeriod();
     psiPrice = await approvedContract.pricePerBase();
@@ -70,7 +70,7 @@ export const getPresaleOneDetails = createAsyncThunk("presaleOne/getPresaleOneDe
     claimedPsi = ethers.utils.formatUnits(claimedPsi, 9);
     boughtAmount = ethers.utils.formatUnits(boughtAmount, 9);
 
-    if(ethers.utils.formatUnits(vestingStartBlock) != "0.0") {
+    if (ethers.utils.formatUnits(vestingStartBlock) != "0.0") {
         vestingRemaining = prettyVestingPeriod(currentBlock, vestingStartBlock.add(vestingTermBlock));
     } else {
         vestingRemaining = "Not Yet Purchased";
@@ -278,7 +278,7 @@ const initialState: IPresaleOneSlice = {
     psiPrice: 0,
     allowanceVal: 0,
     balanceVal: 0,
-    boughtAmount: 0
+    boughtAmount: 0,
 };
 
 const presaleOneSlice = createSlice({

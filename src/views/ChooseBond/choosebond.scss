@@ -35,7 +35,10 @@
         }
 
         .choose-bond-view-card-metrics {
-            margin: 30px 0;
+            margin: 10px 0;
+            background-color: #111111;
+            border-radius: 4px;
+            border: 1px solid #222222;
 
             .choose-bond-view-card-metrics-title {
                 font-family: 'Cormorant Garamond', serif;
@@ -58,6 +61,9 @@
         }
 
         .choose-bond-view-card-table {
+            border-radius: 4px;
+            border: 1px solid #222222;
+
             .choose-bond-view-card-table-title {
                 font-family: 'Cormorant Garamond', serif;
                 font-weight: 600;

@@ -54,8 +54,8 @@ class DeathScreen extends Phaser.Scene {
     }
 
     restartGame() {
-        this.scene.manager.getScene("GameScene").nukeItAll();
-        this.scene.manager.getScene("GameScene").scene.restart();
+        this.scene.manager.getScene("KrakenScene").nukeItAll();
+        this.scene.manager.getScene("KrakenScene").scene.restart();
         this.scene.stop();
     }
 

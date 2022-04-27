@@ -1,0 +1,78 @@
+@use "src/theme.scss";
+
+.psi-menu-root {
+    .psi-menu-btn {
+        padding: 9px 20px;
+        height: 46px;
+        background: theme.$deep-sea;
+        box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+        border: 1px solid theme.$psi-aqua;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 20px;
+
+        &:hover {
+            background-color: lighten(theme.$deep-sea, 2%);
+        }
+
+        p {
+            font-family: "Cormorant Garamond", serif;
+            font-weight: 600;
+            font-size: 22px;
+            color: #ffffff;
+        }
+    }
+}
+
+.psi-menu-popper {
+    margin-top: 1rem;
+    @include theme.card();
+    padding: 0;
+    overflow: hidden;
+    z-index: 10;
+    border: 1px solid theme.$psi-aqua;
+
+    .tooltip {
+        display: flex;
+        flex-direction: column;
+
+        .tooltip-item {
+            text-decoration: none;
+            padding: 13px 20px;
+            cursor: pointer;
+
+            &.buy {
+                p {
+                    font-family: "Cormorant Garamond", serif;
+                }
+            }
+
+            &:hover {
+                background: lighten(theme.$deep-sea, 2%);
+            }
+
+            p {
+                font-family: "Cormorant Garamond", serif;
+                font-weight: 600;
+                font-size: 1rem;
+                line-height: 20px;
+                color: #ffffff;
+                text-align: center;
+            }
+        }
+
+        .add-tokens-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 14px;
+            color: theme.$platinum;
+            text-align: center;
+            margin: 0.5rem 0;
+        }
+
+        .divider {
+            height: 1px;
+            background: theme.$psi-aqua;
+            border: none;
+        }
+    }
+}

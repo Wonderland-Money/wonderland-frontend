@@ -1,9 +1,11 @@
 import Phaser from "phaser";
 import Button from "../../components/Button";
-import CustomButton from "../../components/CustomButton";
+import CustomIconButton from "../../components/CustomIconButton";
 import WideButton from "../../components/WideButton";
 
 import variables from "../../managers/Variables";
+
+import baseSceneMixin from "../mixins/baseSceneMixin";
 
 class PauseMenu extends Phaser.Scene {
     constructor() {
@@ -13,6 +15,7 @@ class PauseMenu extends Phaser.Scene {
     preload() {}
 
     create(data) {
+        this.sceneInit();
         this.toScene = data;
         this.scene.pause(data);
         this.input.mouse.disableContextMenu();
@@ -34,9 +37,9 @@ class PauseMenu extends Phaser.Scene {
         let menuButton = new WideButton(this, width / 2, height / 2 + 64 + SPACING_HEIGHT, "Menu", () => {
             this.scene.manager.getScene(this.toScene).nukeItAll();
             this.scene.manager.stop(this.toScene);
+            this.resetSceneOrder();
             this.scene.manager.start("MainMenu");
             this.scene.manager.bringToTop("MainMenu");
-            this.resetScenes();
             this.scene.stop();
         });
 
@@ -54,7 +57,7 @@ class PauseMenu extends Phaser.Scene {
         );
 
         // Settings buttons
-        let musicToggleButton = new CustomButton(
+        let musicToggleButton = new CustomIconButton(
             this,
             width - 96,
             height - 48,
@@ -68,7 +71,7 @@ class PauseMenu extends Phaser.Scene {
             3,
         );
 
-        let soundToggleButton = new CustomButton(
+        let soundToggleButton = new CustomIconButton(
             this,
             width - 48,
             height - 48,
@@ -82,7 +85,7 @@ class PauseMenu extends Phaser.Scene {
             3,
         );
 
-        this.fullscreenToggleButton = new CustomButton(
+        this.fullscreenToggleButton = new CustomIconButton(
             this,
             width - 144,
             height - 48,
@@ -122,11 +125,10 @@ class PauseMenu extends Phaser.Scene {
 
     messageHandler = e => {
         if (e.origin.startsWith(variables.gameUrl) && e.data.toString().startsWith("shutdownInit")) {
-            console.log("TESINTG: Dead");
             this.dead = true;
             window.removeEventListener("message", this.messageHandler);
         } else return;
-    }
+    };
 
     checkFullscreenState = () => {
         if (this.dead) return;
@@ -167,8 +169,8 @@ class PauseMenu extends Phaser.Scene {
         this.scene.manager.stop("IngameUI");
         this.scene.manager.sendToBack("InstructionsSplash");
         this.scene.manager.stop("InstructionsSplash");
-        this.scene.manager.sendToBack("GameScene");
-        this.scene.manager.stop("GameScene");
+        this.scene.manager.sendToBack("KrakenScene");
+        this.scene.manager.stop("KrakenScene");
         this.scene.manager.sendToBack("HarborScene");
         this.scene.manager.stop("HarborScene");
         this.scene.manager.sendToBack("ForgeScene");
@@ -191,5 +193,7 @@ class PauseMenu extends Phaser.Scene {
 
     update(time, delta) {}
 }
+
+Object.assign(PauseMenu.prototype, baseSceneMixin);
 
 export default PauseMenu;

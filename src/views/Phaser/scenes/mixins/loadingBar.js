@@ -1,6 +1,7 @@
 const loadingBarMixin = {
     loadingBar(loadFuncs) {
         let { width, height } = this.sys.game.canvas;
+        let backgroundImg = this.add.image(this.sys.game.canvas.width / 2, this.sys.game.canvas.height / 2, "menu-bg").setScale(1.1);
 
         // PROGRESS BAR
         let progressBar = this.add.graphics();

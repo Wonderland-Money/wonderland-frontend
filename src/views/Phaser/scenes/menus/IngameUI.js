@@ -4,6 +4,8 @@ import { sharedInstance as events } from "../../managers/EventCenter";
 
 import { TextArea, Toast, Label, RoundRectangle } from "phaser3-rex-plugins/templates/ui/ui-components.js";
 
+import baseSceneMixin from "../mixins/baseSceneMixin";
+
 class InGameUI extends Phaser.Scene {
     constructor() {
         super({ key: "GameUI" });
@@ -30,6 +32,8 @@ class InGameUI extends Phaser.Scene {
     }
 
     create(data) {
+        this.sceneInit();
+
         this.playerAttackEnabled = data.attackEnabled;
         this.playerHp = data.hp;
         this.dialogueActive = false;
@@ -243,6 +247,8 @@ class InGameUI extends Phaser.Scene {
             })
             .setOrigin(0.5, 0)
             .setDepth(3);
+        // Phaser.Display.Canvas.Smoothing.disable(this.dialogueToolTip.canvas.getContext("2d"));
+        // this.dialogueToolTip.updateText();
     }
 
     clearDialogue() {
@@ -526,5 +532,7 @@ class InGameUI extends Phaser.Scene {
 
     update(time, delta) {}
 }
+
+Object.assign(InGameUI.prototype, baseSceneMixin);
 
 export default InGameUI;

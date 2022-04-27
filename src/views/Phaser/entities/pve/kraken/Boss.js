@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import StateMachine from "javascript-state-machine";
-import { sharedInstance as events } from "../managers/EventCenter";
+import { sharedInstance as events } from "../../../managers/EventCenter";
 
 class Boss extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y) {

@@ -7,7 +7,7 @@ import { JsonRpcProvider } from "@ethersproject/providers";
 import { getMarketPrice, getTokenPrice } from "../../helpers";
 import { RootState } from "../store";
 import allBonds from "../../helpers/bond";
-import {StableReserveContract} from "../../abi"
+import { StableReserveContract } from "../../abi";
 
 interface ILoadAppDetails {
     networkID: number;
@@ -43,7 +43,7 @@ export const loadAppDetails = createAsyncThunk(
         // const tokenBalances = await Promise.all(tokenBalPromises);
         // const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1);
 
-        const token = new ethers.Contract(addresses.FRAX_ADDRESS, StableReserveContract, provider);;
+        const token = new ethers.Contract(addresses.FRAX_ADDRESS, StableReserveContract, provider);
         const tokenAmount = await token.balanceOf(addresses.TREASURY_ADDRESS);
         const treasuryBalance = tokenAmount / Math.pow(10, 18);
 

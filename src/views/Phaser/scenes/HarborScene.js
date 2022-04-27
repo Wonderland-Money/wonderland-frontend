@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import Hero from "../entities/Hero";
+import HeroLegacy from "../entities/pve/HeroLegacy";
 
 import { sharedInstance as events } from "../managers/EventCenter";
 
@@ -413,6 +413,7 @@ class HarborScene extends Phaser.Scene {
     }
 
     create() {
+        this.sceneInit();
         this.cursorKeys = this.input.keyboard.createCursorKeys();
         this.input.mouse.disableContextMenu();
 
@@ -488,7 +489,7 @@ class HarborScene extends Phaser.Scene {
     }
 
     addHero() {
-        this.hero = new Hero(this, this.spawnPos.x, this.spawnPos.y);
+        this.hero = new HeroLegacy(this, this.spawnPos.x, this.spawnPos.y);
         // this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.groundCollider = this.physics.add.collider(this.hero, this.map.getLayer("Collide").tilemapLayer);
 
