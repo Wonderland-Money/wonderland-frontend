@@ -33,7 +33,6 @@ class HeroLegacy extends Phaser.GameObjects.Sprite {
         this.isAttacking = false;
 
         if (!this.scene.scene.isActive("DeathScreen")) {
-            console.log("Test");
             this.scene.scene.launch("GameUI", { attackEnabled: this.attackEnabled, hp: this.hitPoints }).bringToTop("GameUI");
         }
 

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { Buttons } from "phaser3-rex-plugins/templates/ui/ui-components";
 
 const fillRoundedRect = (x, y, width, height, borderRadius, color, alpha, scene, centered) => {
     let center = (centered !== undefined) ? centered : true;
@@ -66,7 +67,7 @@ export const createBlackButton = (x1, y1, width, text, callback, setScene) => {
 
     var rect1 = fillRoundedRect(x1, y1 + CORNER_SIZE, width, DEFAULT_HEIGHT - (2 * CORNER_SIZE), 0, 0x000000, 1, scene, false);
     var rect2 = fillRoundedRect(x1 + CORNER_SIZE, y1, width - (2 * CORNER_SIZE), DEFAULT_HEIGHT, 0, 0x000000, 1, scene, false);
-    strokePolygon(polygon, 0x242424, 2, 1, scene);
+    var polygonRender = strokePolygon(polygon, 0x242424, 2, 1, scene);
     //drawLine(x1 + CORNER_SIZE, y1,  )
     var txt = scene.add.text(x1 + (width / 2), y1 + (DEFAULT_HEIGHT / 2), text, {
         fontSize: 28,
@@ -75,23 +76,89 @@ export const createBlackButton = (x1, y1, width, text, callback, setScene) => {
         fontStyle: "normal",
     }).setOrigin(0.5);
 
-    hitbox.on('pointerover', () => {
-        rect1.clear();
-        rect2.clear();
-        rect1 = fillRoundedRect(x1, y1 + CORNER_SIZE, width, DEFAULT_HEIGHT - (2 * CORNER_SIZE), 0, 0x1a1a1a, 1, scene, false);
-        rect2 = fillRoundedRect(x1 + CORNER_SIZE, y1, width - (2 * CORNER_SIZE), DEFAULT_HEIGHT, 0, 0x1a1a1a, 1, scene, false);
-        strokePolygon(polygon, 0xffffff, 2, 1, scene);
-        txt.setDepth(rect2.depth + 1);
-    });
-    hitbox.on('pointerout', () => {
-        rect1.clear();
-        rect2.clear();
-        rect1 = fillRoundedRect(x1, y1 + CORNER_SIZE, width, DEFAULT_HEIGHT - (2 * CORNER_SIZE), 0, 0x000000, 1, scene, false);
-        rect2 = fillRoundedRect(x1 + CORNER_SIZE, y1, width - (2 * CORNER_SIZE), DEFAULT_HEIGHT, 0, 0x000000, 1, scene, false);
-        strokePolygon(polygon, 0x242424, 2, 1, scene);
-        txt.setDepth(rect2.depth + 1);
-    });
-    hitbox.on('pointerdown', callback);
+    // hitbox.on('pointerover', () => {
+    //     rect1.clear();
+    //     rect2.clear();
+    //     rect1 = fillRoundedRect(x1, y1 + CORNER_SIZE, width, DEFAULT_HEIGHT - (2 * CORNER_SIZE), 0, 0x1a1a1a, 1, scene, false);
+    //     rect2 = fillRoundedRect(x1 + CORNER_SIZE, y1, width - (2 * CORNER_SIZE), DEFAULT_HEIGHT, 0, 0x1a1a1a, 1, scene, false);
+    //     polygonRender.clear();
+    //     polygonRender = strokePolygon(polygon, 0xffffff, 2, 1, scene);
+    //     txt.setDepth(rect2.depth + 1);
+    // });
+    // hitbox.on('pointerout', () => {
+    //     rect1.clear();
+    //     rect2.clear();
+    //     rect1 = fillRoundedRect(x1, y1 + CORNER_SIZE, width, DEFAULT_HEIGHT - (2 * CORNER_SIZE), 0, 0x000000, 1, scene, false);
+    //     rect2 = fillRoundedRect(x1 + CORNER_SIZE, y1, width - (2 * CORNER_SIZE), DEFAULT_HEIGHT, 0, 0x000000, 1, scene, false);
+    //     polygonRender.clear();
+    //     polygonRender = strokePolygon(polygon, 0x242424, 2, 1, scene);
+    //     txt.setDepth(rect2.depth + 1);
+    // });
+    // hitbox.on('pointerdown', callback);
+
+    const button = {
+        objects: {
+            rect1: rect1,
+            rect2: rect2,
+            hitbox: hitbox,
+            txt: txt,
+            polygonRender: polygonRender
+        },
+        registerEvents: () => {
+            hitbox.on('pointerover', () => {
+                rect1.clear();
+                rect2.clear();
+                rect1 = fillRoundedRect(x1, y1 + CORNER_SIZE, width, DEFAULT_HEIGHT - (2 * CORNER_SIZE), 0, 0x1a1a1a, 1, scene, false);
+                rect2 = fillRoundedRect(x1 + CORNER_SIZE, y1, width - (2 * CORNER_SIZE), DEFAULT_HEIGHT, 0, 0x1a1a1a, 1, scene, false);
+                polygonRender.clear();
+                polygonRender = strokePolygon(polygon, 0xffffff, 2, 1, scene);
+                txt.setDepth(rect2.depth + 1);
+            });
+            hitbox.on('pointerout', () => {
+                rect1.clear();
+                rect2.clear();
+                rect1 = fillRoundedRect(x1, y1 + CORNER_SIZE, width, DEFAULT_HEIGHT - (2 * CORNER_SIZE), 0, 0x000000, 1, scene, false);
+                rect2 = fillRoundedRect(x1 + CORNER_SIZE, y1, width - (2 * CORNER_SIZE), DEFAULT_HEIGHT, 0, 0x000000, 1, scene, false);
+                polygonRender.clear();
+                polygonRender = strokePolygon(polygon, 0x242424, 2, 1, scene);
+                txt.setDepth(rect2.depth + 1);
+            });
+            hitbox.on('pointerdown', callback);
+        },
+        deregisterEvents: () => {
+            hitbox.removeAllListeners();
+        },
+        destroy: () => {
+            hitbox.disableInteractive();
+            hitbox.destroy();
+            txt.destroy();
+            rect1.clear();
+            rect2.clear();
+            polygonRender.destroy();
+        },
+        hide: () => {
+            hitbox.disableInteractive();
+            button.deregisterEvents();
+            txt.setVisible(false);
+            txt.alpha = 0;
+            rect1.clear();
+            rect2.clear();
+            polygonRender.clear();
+        },
+        show: () => {
+            hitbox.setInteractive();
+            button.registerEvents();
+            txt.setVisible(true);
+            txt.alpha = 1;
+            txt.setDepth(rect2.depth + 1);
+            rect1 = fillRoundedRect(x1, y1 + CORNER_SIZE, width, DEFAULT_HEIGHT - (2 * CORNER_SIZE), 0, 0x000000, 1, scene, false);
+            rect2 = fillRoundedRect(x1 + CORNER_SIZE, y1, width - (2 * CORNER_SIZE), DEFAULT_HEIGHT, 0, 0x000000, 1, scene, false);
+            polygonRender = strokePolygon(polygon, 0x242424, 2, 1, scene);
+        },
+    }
+    button.registerEvents();
+
+    return button;
 }
 
 export const createCloseButton = (x, y, callback, setScene) => {

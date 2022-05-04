@@ -14,7 +14,9 @@ function Root() {
     const isMobileDevice = useMediaQuery("(max-width: 960px)");
 
     useEffect(() => {
-        loadTokenPrices().then(() => setLoading(false));
+        // REMOVE FOR PROD
+        // loadTokenPrices().then(() => setLoading(false));
+        setLoading(false);
     }, []);
 
     // To be used until mobile version is developed

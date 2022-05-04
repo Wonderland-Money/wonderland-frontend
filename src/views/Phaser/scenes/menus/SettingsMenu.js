@@ -68,11 +68,13 @@ class SettingsMenu extends Phaser.Scene {
         );
 
         // Placed on first column, second row. Width stretches to end of column. 
-        createBlackButton(
+        var test = createBlackButton(
             grid.cols[0]["leftInner"] + grid.xOffset, 
             grid.rows[0]["leftInner"] + grid.yOffset, 
-            grid.cols[0]["rightInner"] - grid.cols[0]["leftInner"], "Sneed", () => console.log("Test"), this
+            grid.cols[0]["rightInner"] - grid.cols[0]["leftInner"], "Destroy >:)", () => test.destroy(), this
         );
+
+        
 
         // Debug grid
         // visualizeGrid(grid, 0x000fff, this);

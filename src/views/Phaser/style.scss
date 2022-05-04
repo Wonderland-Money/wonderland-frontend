@@ -17,20 +17,29 @@
 #initialize-button {
     //background-color: transparentize(theme.$saffron, .5);
     //border: 1px solid lighten(theme.$saffron, 25%);
+    position: absolute;
+    left: auto;
+    right: auto;
+    bottom: 36%;
     font-weight: bold;
+    font-size: 24px;
     color: theme.$black;
-    width: 300px;
-    height: 100px;
-    background-image: url('../../assets/images/game_button.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+    width: 220px;
+    height: 60px;
+    border: 2px solid #A59507;
+    background-color: #F3D448;
+    // background-image: url('../../assets/images/game_button.png');
+    // background-repeat: no-repeat;
+    // background-position: center center;
+    // background-size: cover;
+    
     font-family: 'Cormorant Unicase', serif;
+    transition: all 150ms;
     
     &:hover {
-        background-image: url('../../assets/images/game_button_hover.gif');
-        opacity: 0.9;
-        cursor: pointer;
+        background-color: #FFD723;
+        border-color: #ffffff;
+        cursor: url('../../assets/cursors/sword-pointer.png'), pointer;
     }
 }
 
@@ -39,6 +48,7 @@
     background-color: #000000;
     border-radius: 0;
     border: 2px solid #242424;
+    padding: 0px;
 
     position: absolute;
     top: 20px;
@@ -48,6 +58,7 @@
     &:hover {
         background-color: #1a1a1a;
         border-color: #fff;
+        cursor: url('../../assets/cursors/sword-pointer.png'), auto;
     }
 }
 

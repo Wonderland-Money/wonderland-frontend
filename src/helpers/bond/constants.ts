@@ -12,4 +12,5 @@ export interface BondAddresses {
 
 export interface NetworkAddresses {
     [Networks.ONE]: BondAddresses;
+    [Networks.AVAX]: BondAddresses;
 }

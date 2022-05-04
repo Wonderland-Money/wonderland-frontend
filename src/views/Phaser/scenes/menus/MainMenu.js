@@ -3,6 +3,7 @@ import Phaser from "phaser";
 import Button from "../../components/Button";
 import MenuButton from "../../components/MenuButton";
 import CustomIconButton from "../../components/CustomIconButton";
+import ButtonMenu from "../../components/Buttons/ButtonMenu";
 
 import PauseMenu from "./PauseMenu";
 
@@ -46,6 +47,10 @@ class MainMenu extends Phaser.Scene {
             frameHeight: 26,
         });
         this.load.spritesheet("oasis-button", "assets/menu_assets/main_menu/buttons/oasis-hover.png", {
+            frameWidth: 114,
+            frameHeight: 26,
+        });
+        this.load.spritesheet("pve-button", "assets/menu_assets/main_menu/buttons/pve-hover.png", {
             frameWidth: 114,
             frameHeight: 26,
         });
@@ -164,6 +169,12 @@ class MainMenu extends Phaser.Scene {
             frameRate: 16,
             repeat: -1,
         });
+        this.anims.create({
+            key: "pve-button-hover",
+            frames: this.anims.generateFrameNumbers("pve-button", { start: 1 }),
+            frameRate: 16,
+            repeat: -1,
+        });
 
 
         this.anims.create({
@@ -213,7 +224,6 @@ class MainMenu extends Phaser.Scene {
         title.scale = titleScale;
 
         const backgroundScale = this.sys.canvas.height / buttonBackground.height;
-        console.log(this.sys.canvas.height);
         // buttonBackground.scale = backgroundScale;
         buttonBackground.scale = 3;
         
@@ -221,6 +231,15 @@ class MainMenu extends Phaser.Scene {
 
         const buttonGrid = generateGrid(0, 0, width, height, 0, 12, 10);
         // visualizeGrid(buttonGrid, 0x00ff00, this);
+
+        let pveButtonMenu = new MenuButton(
+            this,
+            width - 12,
+            (buttonGrid.rows[3].rightInner + buttonGrid.rows[3].leftInner) / 2,
+            "Story",
+            () => {},
+            5,
+        );
 
         let krakenButton = new MenuButton(
             this,
@@ -282,6 +301,15 @@ class MainMenu extends Phaser.Scene {
             4,
         );
 
+        let buttonMenu = new ButtonMenu(this, [pveButtonMenu, harborButton, forgeButton, appraiserButton, oasisButton], false);
+        let buttonSubMenu = new ButtonMenu(this, [krakenButton], true, buttonMenu);
+
+        pveButtonMenu.setCallback(() => {
+            buttonSubMenu.show()
+        });
+
+        // let textoo = this.add.text(0, 0, "sneed").
+        let iajdw = this.add.rectangle(0, 0,100, 100).removeAllListeners();
         // Display settings button with next release
 
         let settingsButton = new CustomIconButton(

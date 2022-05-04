@@ -2,10 +2,14 @@
   width: 100%;
   align-items: center;
   margin: auto;
-  padding-right:30px;
 
   &.disabled {
     display: none;
+  }
+
+  .trident-wordmark-mini {
+    max-height: 40px;
+    max-width: 36%;
   }
 
   .dapp-topbar-slider-btn{
@@ -16,7 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+    cursor: url('../../assets/cursors/sword-pointer.png'), auto;
     margin-right: 16px;
   }
 

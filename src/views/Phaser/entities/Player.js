@@ -3,33 +3,32 @@ import StateMachine from "javascript-state-machine";
 import { sharedInstance as events } from "../managers/EventCenter";
 import variables from "../managers/Variables";
 
-class HeroLegacy extends Phaser.GameObjects.Sprite {
+class Player extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, attackEnabled) {
         super(scene, x, y, "hero-running", 0);
         scene.add.existing(this);
         scene.physics.add.existing(this);
-        this.scene = scene
-        this.anims.play("player-running");
+        this.scene = scene;
 
         this.setOrigin(0.5, 1);
         this.body.setCollideWorldBounds(true);
-        this.body.setSize(7, 23);
+        // this.body.setSize(7, 23);
         this.setScale(2);
         this.body.setOffset(25, 28);
-        this.body.setMaxVelocity(300, 600);
-        this.body.setDragX(650);
+        this.body.setMaxVelocity(400, 650);
+        this.body.setDragX(850);
         this.keys = scene.cursorKeys;
         this.attackEnabled = attackEnabled;
         this.input = {};
         this.keyboard = this.scene.input.keyboard;
+
         this.setupMovement();
         this.setupAnimations();
-        this.hitPoints = 4;
+        
+        this.hitPoints = 1;
         this.flip = 1;
-        this.currentAttackSelection = 0;
         this.isAlive = true;
         this.isHit = false;
-        this.isTeleporting = false;
         this.isAttacking = false;
 
         if (!this.scene.scene.isActive("DeathScreen")) {
@@ -310,4 +309,4 @@ class HeroLegacy extends Phaser.GameObjects.Sprite {
     }
 }
 
-export default HeroLegacy;
+export default Player;

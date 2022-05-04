@@ -24,6 +24,7 @@ function App() {
     const dispatch = useDispatch();
 
     const { connect, provider, hasCachedProvider, providerChainID, chainID, connected } = useWeb3Context();
+    console.log("Chain: " + chainID, "Provider: " + providerChainID);
     const address = useAddress();
 
     const phaserWrapper = useRef<any>(null);
@@ -40,7 +41,8 @@ function App() {
 
     const [exitButtonOpen, setExitButtonOpen] = useState(true);
 
-    const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
+    // const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
+    const isAppLoading = false;
     const isAppLoaded = useSelector<IReduxState, boolean>(state => !Boolean(state.app.marketPrice));
 
     const { bonds } = useBonds();
@@ -179,6 +181,15 @@ function App() {
             loadDetails("presale");
         }
     }, [walletChecked]);
+
+    useEffect(() => {
+        if (providerChainID) {
+            loadDetails("app");
+            loadDetails("account");
+            //loadDetails("userBonds");
+            loadDetails("presale");
+        }
+    }, [providerChainID]);
 
     useEffect(() => {
         if (connected) {

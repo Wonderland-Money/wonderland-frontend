@@ -2,6 +2,7 @@ import { AppBar, Toolbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import MenuIcon from "../../assets/icons/hamburger.svg";
+import TridentWordmark from "../../assets/icons/TridentWordmark.png";
 import PsiMenu from "./psi-menu";
 import ConnectButton from "./connect-button";
 import BridgeMenu from "./bridge-menu";
@@ -12,9 +13,8 @@ const useStyles = makeStyles(theme => ({
     appBar: {
         [theme.breakpoints.up("sm")]: {
             position: "absolute",
-            right: "0",
-            width: "80%",
-            padding: "20px 0 30px 0",
+            width: "100%",
+            padding: "20px 30px 30px 30px",
         },
         justifyContent: "flex-end",
         alignItems: "flex-end",
@@ -46,6 +46,7 @@ function Header() {
         <div className={`${classes.topBar} ${classes.topBarShift}`}>
             <AppBar position="sticky" className={classes.appBar} elevation={0}>
                 <Toolbar disableGutters className="dapp-topbar">
+                    <img className="trident-wordmark-mini" src={TridentWordmark} />
                     <div className="dapp-topbar-btns-wrap">
                         <BridgeMenu />
                         {!isVerySmallScreen && <PsiMenu />}

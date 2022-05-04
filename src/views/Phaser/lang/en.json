@@ -1,0 +1,244 @@
+{
+    "scenes": {
+        "MainMenu": {
+            "buttons": {
+                "Story": "Story",
+                "Kraken": "Kraken",
+                "Harbor": "Harbor",
+                "Forge": "Forge",
+                "Appraiser": "Appraiser",
+                "Oasis": "Oasis"
+            }
+        },
+        "IngameUI": {
+            "UI": {
+                "Health": "Health"
+            },
+            "Notifications": {
+                "Press Q to ": "Press Q to ",
+                "Press R to ": "Press R to "
+            }
+        },
+        "SettingsMenu": {
+            "Header": "Settings"
+        },
+        "PauseMenu": {
+            "buttons": {
+                "Resume": "Resume",
+                "Menu": "Menu",
+                "Retry": "Retry"
+            }
+        },
+        "PlayerMenu": {
+
+        },
+        "FreezeScreen": {},
+        "DeathScreen": {
+            "Message": "You Died!",
+            "buttons": {
+                "Retry": "Retry"
+            }
+        },
+        "PlayerWinMenu": {},
+        "HarborScene": {
+            "dialogue": [
+                "We’ve some texts, depictions of merfolk who lived on the surface. Those same texts contain paintings of crystals, something they seemed to worship at the time.",
+        
+                "The Great Exile brought immense growth in our race. There was no place to go, other than the mines underneath that great lightning mountain. And so they dug. Funny how life tends to thrive in the darkness isn’t it.",
+        
+        
+                "Change will come. Lightning is strong, it is fast, but seas absorb all things.",
+        
+        
+                "When the merfolk arrived, they competed with cave natives for resources, however, dwellers of this scape had known the caves much better. ",
+        
+        
+                "Exploration and preservation prove time and time again to be the most fruitful of the monastery’s endeavors. We care not for politics and war. With our lightning borrowed from above, and master diving techniques, cave natives dare not tempt our wrath.",
+        
+        
+                "The truth resides in the middle, not the dark, nor the light. One must be on both sides of the fence to grasp reality.",
+        
+        
+                "Folks on the surface are just that, folks of surface. We in the depths are just that, folks of depth.",
+        
+        
+                "We’ve only witnessed roughly 1% of what the chasms have to offer. This is to our benefit, not our detriment.",
+        
+        
+                "Water is reflective, and fluid. It absorbs things we imagine are being washed away. They don’t disappear, only manifest, transferred to another place.",
+        
+        
+                "The crystals really only serve one purpose, to store our electricity, bringing us illumination in the chasms. The flaunting and vanity has taken over. Little do they know the crystals are abundant, only hard to refine and acquire.",
+        
+        
+                "A merfolk that is of frog descent, is a merfolk that is of fish descent. Depending on one’s actions, they will evolve to be a cat, or a koi. One cannot determine ahead of time.",
+        
+        
+                "Be here, now. ",
+        
+        
+                "Folks in the city fixate on each other. Avoiding attachment is the way to revelation.",
+        
+        
+                "A koi and cat different in appearance, but two sides of one coin.",
+        
+        
+                "The arena will be of great benefit to our civilization. Our angers and strife will bleed through jolly competition. Swordsmanship will bring us apt skill in venturing beyond this small span called “home”.",
+        
+        
+                "I serve to represent the other monks publicly, and one shall take my place when time is ripe for following the nomad’s path.",
+        
+        
+                "A blue moon will shine. This is when one will know if they are cat, or koi. ",
+        
+        
+                "Monks refrain from having children. The world is their child. This plate must be empty to receive a gift of responsibility. Nevertheless, without children, no new monks to preserve the library."
+            ],
+            "dialogueDenied": [
+                "How can I trust you, when you haven't proven yourself? Slay the kraken, and return to me."
+            ]
+        },
+        "ForgeScene": {
+            "dialogue": [
+                "If you’ve toiled over crystalline structures for eons, you’ll get a sense for them. A terse pulse and the tuned frequency will reveal any impurities. Then they’re labored upon to be shed.",
+        
+                "Eyes baffle me. Atlantians have told me a decent chunk about sonar. Its more like that than anything else.",
+        
+                "Crafting a universe is simple really. A recursion of this one. The blueprint is there.",
+                
+                "Its the materials. How must we extract things outside of our own box? Hmmm… could lure them in… ",
+        
+                "Tinkering with timespace tends to leave one in a distorted frame of mind.",
+        
+                "There’s this crystal, one can synthesize it. I wasn’t always of a body in this fashion.",
+        
+                "The Law of Equal Exchange states, one must provide equal value to transmute for another.",
+        
+                "Pressure hardens the spirit.",
+        
+                "Spacetime is experienced as relativity. Shift your perception, the result may be quite jarring.",
+        
+                "Divine logic is a gift. Where would we be without mathematics? I ponder that we’ve only discovered 10%.",
+        
+                "The truth is anomalous, it is all, or nothing, and a marriage of the two.",
+        
+                "Waves ebb and flow, metals and gems are forever.",
+        
+                "I’ve told each and every emperor, and I will repeat as such to all future emperors. I desire not to rule Atlantis, nor give my advice to their ruling as they’ve requested many a time. I simply like the gems.",
+        
+                "Find a void cube, and its density will stow your pockets with abundance. No matter, however, does it ever break the Law of Equal Exchange. A price not all are willing to pay.",
+        
+                "To be in Atlantis, is a perception of yours. Really, you’ve no idea where you are, nor where I am. Im agnostic to this, Atlantis is a place to labor and refine my craft, the rest is noise.",
+        
+                "There will come a moment, where I will no longer accept the exchange of crystals for newly minted PSI coins. Extracting from an environment is one that must be done in balance and rhythm with nature. She needs time to replenish her resources. ",
+        
+                "A being unbound by constraints of time must bear immense willpower, lest they grow to be of sloth… complacent… sluggish.",
+        
+                "The cube is impenetrable, a blessing, and a curse. One who views the cube as a prison, will live as such. One who views the cube as freedom, will live as such. ",
+        
+                "The way one views the world tends to reflect, the world viewing them simultaneously. ",
+        
+                "Negative-density-volume ray refraction is necessary to locate the box. Variables change over time, the strength of the box is determined by its lock period, a derivative of effort expended and time sacrificed. The variables must be entangled to access the correct box with precision, you wouldn’t want to access someone else’s box unless you were up to insidious ventures.",
+        
+                "When an object is in quantum stasis, it does not feel the effects of time, nor space. The box is perfectly still, in a frozen state. If the entanglement is to decay, accessing the box location is near impossible.",
+        
+                "If one were to hack open a quantum stasis box, this would indicate a discontinuum in the timeline. The contents may, or may not be there when the box is cracked open if this were to happen. ",
+        
+                "A chiseled mind is a chiseled reality",
+        
+                "No stone nor crystal is like any other. If that were true, we’d have machines to exploit them all at once long ago."
+            ],
+        },
+        "AppraiserScene": {
+            "dialogue": [
+                "That arena is surely to raise lots of capital for Atlantis. A hefty price tag for its construction, as all great risks entail great rewards.",
+        
+                "Serfs know nothing of saving. Spend… spend… spend… all they know.",
+                
+                "When I see a tide forming, I rush in to buy, adding force to the flux. This is not irrational.",
+                
+                "The ocean is reflexive, it does not tend towards equilibrium, a daft idea, as equilibrium would mean the end of change itself. Seek the constant of delta, profit the difference. This is how its been done for ages.",
+                
+                "Crashes are inevitable, to the upside, and to the downside. We only assign names for each, but they are one and the same.",        
+                
+                "Crystals? Dime a dozen, however there’s only one here who can smith them properly, his labor quite pricey. Pearls on the other hand, never enough.",
+                    
+                "When Atlantis’ people begin to live in luxury and prosper, I suggest you be weary of greed. The inverse is also the case.",
+                
+                "Risk to this day remains undefined, calculated to an extent with probability, nonetheless, elusive evermore.",
+                
+                "Sure sure, stare at your charts, construct your narratives as a derivative, at the end of the session the price is all you have as tangibility.",
+                
+                "When proposing a trade, it is important to take the denomination into account.",
+                
+                "All things fluctuate, stillness in the market is an indication of activity elsewhere.",
+                
+                "To discover a new paradigm, is to venture beyond the fear of that which has been defined in the past.",
+                
+                "Atlantis has had 99 former emperors, Psidas being the 100th. Its civilization is young. I would not be overly optimistic for the future, we’ve yet to prove stability. On the other hand, heavy conviction bets placed in proper timing have created Plutus Avenue’s most premier financiers.",
+                
+                "Nothing easy was ever worth doing my friend.",
+                
+                "Failure is an opportunity. Folks tend to overreact, on both sides of expectations. Capitalize on this emotion, your mind is a sharp and shrewd blade with which to cut illusion and flimflam.",
+                
+                "Fortune, fame, and power. Choose, at the expense of another.",
+                
+                "There is no such thing as a free fish.",
+                
+                "One merfolk’s chipped crystal is another’s unrefined dagger.",
+                
+                "Be wary of one shilling their wares. Most things worth acquiring are kept hidden. Excess is cheap. True scarcity bags ever growing premium.",
+                
+                "I ought to have a personal word with Psidas should he devalue our currency. Inflation is no toy. Folks and I on Plutus Avenue do not spend effort in vain. Without us, there’d be no fruitful mining, nor any projects it has nurtured.",
+                
+                "Ha. You wish to gain access to Plutus Avenue? All have proven themselves in the market, and now collude to protect the ramps we ascended through. At least in this city, meritocracy is protected. There is no such thing as a free fish.",
+                
+                "Even a serf will have immense opportunity to gain impactful wealth for their lineage in the arena. For now, they must mine and capture the difference in prices on the market. Of course… one could search for rare items in the dreaded caverns… With great risk is great reward my friend.",
+                
+                "Strong folk make easy times, easy times breed weak folk, weak folk spawn difficult times, difficult times pressure folk to become strong once more. Everything in cycles.",
+                
+                "Keep a peaceful mind, preserve your rationality, lest you miss the catfish in the crystal mine. Pay keen attention to signals, the traffic will seem not so chaotic.",
+                
+                "The fact of the matter is, don’t focus on the coins. Should you choose to help people on a pain they suffer from, gladly, they will hand you their hard earned currency for a solution to their problem. Cheers my friend, don’t forget our roots of exile."
+            ]
+        },
+        "OasisScene": {
+            "dialogue": []
+        },
+        "ArmoryScene": {
+            "dialogue": []
+        },
+        "InstructionsSplash": {
+            "text": [
+                "Trial of the Trident",
+                " ",
+                "A clan of krakens have been residing in the",
+                "shallow mines of Atlantis, siphoning precious Fraxium",
+                "crystal reserves, and teleporting them back to their home",
+                "world. The Atlantian Royal Guard has placed a bounty",
+                "on their slaughter, a trident claimable on their defeat,",
+                "as well as an invitation to the Atlantian Citizens Militia",
+                " ",
+                "Your mission is to defeat a kraken, and",
+                "retrieve the trident. This won't be easy; the",
+                "kraken is a fearsome foe and won't give up without",
+                "a fight.",
+                " ",
+                "You must dodge the kraken's crystal & tentacle",
+                "attacks, while matching your own attacks to the element",
+                "of the kraken at the time.",
+                " ",
+                "Once you succeed, the real adventure begins...",
+            ],
+            "labels": {
+                "Select Element": "Select Element",
+                "Pause": "Pause",
+                "Movement": "Movement",
+                "Attack": "Attack",
+                "Proceed": "Press [ENTER] to continue...",
+            }
+        },
+        "KrakenScene": {},
+        "PlayerWinScene": {}
+    }
+}

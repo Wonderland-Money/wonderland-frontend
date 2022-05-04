@@ -4,6 +4,7 @@ import { ContractInterface, Contract } from "ethers";
 import React from "react";
 import { JsonRpcSigner, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { getTokenPrice } from "../token-price";
+import { debug } from "console";
 
 export interface BondOpts {
     readonly name: string; // Internal name used for references
@@ -45,6 +46,7 @@ export abstract class Bond {
     }
 
     public getAddressForBond(networkID: Networks) {
+        console.log(networkID + " => " + Networks[networkID]); // DEBUG: Remove this
         return this.networkAddrs[networkID].bondAddress;
     }
 

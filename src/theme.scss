@@ -42,6 +42,10 @@ $card-background: $murky-black;
 $divider: $bermuda-gray;
 
 // GLOBAL RULES
+* {
+    cursor: url('./assets/cursors/sword-cursor.png'), auto;
+}
+
 a:hover {
     text-decoration: none !important;
 }
@@ -113,7 +117,7 @@ a:hover {
 }
 
 @mixin primary-button {
-    cursor: pointer;
+    cursor: url('./assets/cursors/sword-pointer.png'), auto;
     transition: all 0.4s ease;
     background: $deep-sea;
     border: 1px solid $psi-aqua;

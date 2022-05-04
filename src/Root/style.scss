@@ -36,9 +36,8 @@ body {
     bottom:0;
     height: 100vh;
     display:flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
-    padding-left: 30px;
     z-index: 5;
 }
 
@@ -179,7 +178,7 @@ p {
                 font-weight: 600;
                 font-size: 18px;
                 color: #ffffff;
-                cursor: pointer;
+                cursor: url('../assets/cursors/sword-pointer.png'), auto;
 
                 &:last-child {
                     color: rgba(255, 255, 255, 0.6);

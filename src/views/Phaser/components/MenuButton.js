@@ -8,12 +8,14 @@ class MenuButton extends Phaser.GameObjects.Sprite {
             ["forge-button", "forge-button-hover"],
             ["appraiser-button", "appraiser-button-hover"],
             ["oasis-button", "oasis-button-hover"],
+            ["pve-button", "pve-button-hover"],
         ];
 
         super(scene, x, y, images[imgId][0], 0);
         scene.add.existing(this);
         this.clickSound = scene.sound.add("button-click");
         this.setOrigin(1, 0.5);
+        this.callback = clickAction;
 
         this.width = 114;
         this.height = 26;
@@ -45,14 +47,17 @@ class MenuButton extends Phaser.GameObjects.Sprite {
         });
         this.on("pointerdown", () => {
             this.clickSound.play();
-            this.scene.time.addEvent(
-                {
-                    delay: 1500,
-                    callback: clickAction(),
-                },
-                this,
-            );
+            this.callback();
         });
+    }
+
+    show(bool) {
+        this.setVisible(bool);
+        this.buttonText.setVisible(bool);
+    }
+
+    setCallback(callback) {
+        this.callback = callback;
     }
 }
 

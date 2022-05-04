@@ -13,46 +13,58 @@
     bottom: 0;
     left:0; 
     right:0;
-
+    padding-bottom: 10px;
+    height: 200px;
     display: flex;
+    flex-direction: column;
     flex-wrap: nowrap;
-    align-content: center;
-    justify-content: center;
+    align-content: flex-end;
+    justify-content: flex-end;
 
+    background: linear-gradient(360deg, #000000 16.92%, rgba(0, 0, 0, 0) 100%);
 
-    .social-link {
+    .social-container {
         width: 100%;
-        height: 100%;
         display: flex;
+        flex-direction: row;
         justify-content: center;
-        align-content: top;
-        padding: 6px;
-    }
+        align-content: center;
 
-    svg {
-        width: 18px;
-        height: 18px;
-        fill: theme.$black;
-    }
-
-    a {
-        transition: all 200ms;
-        background-image: url('../../assets/images/social_button_normal.png');
-        background-size: contain;
-        background-repeat: no-repeat;
-        align-content: top;
-        color: theme.$black;
-        font-weight: bold;
-        line-height: 16px;
-        font-size: 18px;
-        &:hover {
-            background-image: url('../../assets/images/social_button_hover.gif');
-            fill: theme.$saffron;
-            transform: scale(1.05);
+        .social-link {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-content: top;
+            padding: 6px;
+            cursor: url('../../assets/cursors/sword-pointer.png'), pointer;
         }
-        margin: 8px;
-        width:128px;
-        height:64px;
+    
+        svg {
+            width: 18px;
+            height: 18px;
+            fill: theme.$black;
+        }
+    
+        a {
+            transition: all 200ms;
+            background-image: url('../../assets/images/social_button_normal.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            align-content: top;
+            color: theme.$black;
+            font-weight: bold;
+            line-height: 16px;
+            font-size: 18px;
+            &:hover {
+                background-image: url('../../assets/images/social_button_hover.gif');
+                fill: theme.$saffron;
+                transform: scale(1.05);
+            }
+            margin: 8px;
+            width:128px;
+            height:64px;
+        }
     }
 }
 

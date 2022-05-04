@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useWeb3Context } from "../../../hooks";
-import { DEFAULT_NETWORK } from "../../../constants";
+import { checkValidNetwork, DEFAULT_NETWORK } from "../../../constants";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { IPendingTxn } from "../../../store/slices/pending-txns-slice";
 import { Link, SvgIcon } from "@material-ui/core";
@@ -37,7 +37,7 @@ function ConnectMenu() {
         clickFunc = () => {};
     }
 
-    if (isConnected && providerChainID !== DEFAULT_NETWORK) {
+    if (isConnected && (!checkValidNetwork(providerChainID))) {
         buttonText = "Please Connect to Harmony";
         buttonStyle = { backgroundColor: "rgb(255, 67, 67)" };
         clickFunc = () => {
@@ -59,7 +59,7 @@ function ConnectMenu() {
                 </div>
             )}
             <div className="connect-button" style={buttonStyle} onClick={clickFunc}>
-                {isConnected && pendingTransactions.length == 0 && providerChainID == DEFAULT_NETWORK && <SvgIcon color="primary" component={XIcon} />}
+                {isConnected && pendingTransactions.length == 0 && (checkValidNetwork(providerChainID)) && <SvgIcon viewBox={"0 0 18 18"} color="primary" component={XIcon} />}
                 <p>{buttonText}</p>
                 {pendingTransactions.length > 0 && (
                     <div className="connect-button-progress">

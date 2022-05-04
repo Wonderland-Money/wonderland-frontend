@@ -49,8 +49,8 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
     const dispatch = useDispatch();
 
     const [connected, setConnected] = useState(false);
-    const [chainID, setChainID] = useState(DEFAULT_NETWORK);
-    const [providerChainID, setProviderChainID] = useState(DEFAULT_NETWORK);
+    const [chainID, setChainID] = useState(DEFAULT_NETWORK); // DEBUG: Change this
+    const [providerChainID, setProviderChainID] = useState(DEFAULT_NETWORK); // DEBUG: Change this
     const [address, setAddress] = useState("");
 
     const [uri, setUri] = useState(getMainnetURI());
@@ -115,7 +115,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
         const connectedAddress = await connectedProvider.getSigner().getAddress();
 
         setAddress(connectedAddress);
-
+        
         setProviderChainID(chainId);
 
         if (chainId === Networks.ONE) {

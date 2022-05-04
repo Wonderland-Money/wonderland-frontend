@@ -3,6 +3,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { IonPhaser } from "@ion-phaser/react";
 import config from "./config";
 import "./style.scss";
+import { Link, SvgIcon } from "@material-ui/core";
+import { ReactComponent as XIcon } from "../../assets/icons/x.svg";
 // Scenes
 import InstructionsSplash from "./scenes/pve/InstructionsSplash";
 
@@ -26,7 +28,7 @@ import classNames from "classnames";
 import { useWeb3Context, useAddress } from "../../hooks";
 import variables from "./managers/Variables";
 
-import { DEFAULT_NETWORK } from "../../constants";
+import { DEFAULT_NETWORK, checkValidNetwork } from "../../constants";
 
 export default function App(props) {
     const { connect, connected, web3, providerChainID, checkWrongNetwork } = useWeb3Context();
@@ -76,8 +78,8 @@ export default function App(props) {
         };
     }
 
-    if (isConnected && providerChainID !== DEFAULT_NETWORK) {
-        buttonText = "Connect to Harmony";
+    if (isConnected && !(checkValidNetwork(providerChainID))) {
+        buttonText = "Connect Wallet";
         clickFunc = () => {
             checkWrongNetwork();
         };
@@ -114,8 +116,8 @@ export default function App(props) {
             <a id="initialize-button" className={classNames("button", { disabled: initialize })} onClick={clickFunc}>
                 {buttonText}
             </a>
-            <a className={classNames("button", "exit-button", { disabled: !initialize || !props.exitButtonOpen })} onClick={destroy}>
-                Quit
+            <a className={classNames("button", "exit-button", "window-btn", { disabled: !initialize || !props.exitButtonOpen })} onClick={destroy}>
+                <SvgIcon viewBox={"0 0 18 18"} color="primary" component={XIcon} />
             </a>
         </>
     );
