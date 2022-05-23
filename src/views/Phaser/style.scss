@@ -39,6 +39,7 @@
     &:hover {
         background-color: #FFD723;
         border-color: #ffffff;
+        transform: scale(1.03);
         cursor: url('../../assets/cursors/sword-pointer.png'), pointer;
     }
 }

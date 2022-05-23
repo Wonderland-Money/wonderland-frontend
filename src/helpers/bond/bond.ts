@@ -46,7 +46,7 @@ export abstract class Bond {
     }
 
     public getAddressForBond(networkID: Networks) {
-        console.log(networkID + " => " + Networks[networkID]); // DEBUG: Remove this
+        console.log(networkID + " => " + Networks[networkID]); // @TODO: Remove this
         return this.networkAddrs[networkID].bondAddress;
     }
 

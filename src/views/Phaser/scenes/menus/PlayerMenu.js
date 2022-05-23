@@ -54,7 +54,11 @@ class PlayerMenu extends Phaser.Scene {
             contentContainer.getTopLeft().y + 86,
             contentContainer.getTopRight().x - 16,
             contentContainer.getTopRight().y + 86,
-            0x333333, 1, 1, this);
+            0x333333,
+            1,
+            1,
+            this,
+        );
 
         //let column = this.add.image(width / 2, 60, "menu-column").setOrigin(0.5, 0.5).setScale(3);
 

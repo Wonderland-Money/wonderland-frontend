@@ -147,7 +147,7 @@
                 "A chiseled mind is a chiseled reality",
         
                 "No stone nor crystal is like any other. If that were true, we’d have machines to exploit them all at once long ago."
-            ],
+            ]
         },
         "AppraiserScene": {
             "dialogue": [
@@ -228,14 +228,14 @@
                 "attacks, while matching your own attacks to the element",
                 "of the kraken at the time.",
                 " ",
-                "Once you succeed, the real adventure begins...",
+                "Once you succeed, the real adventure begins..."
             ],
             "labels": {
                 "Select Element": "Select Element",
                 "Pause": "Pause",
                 "Movement": "Movement",
                 "Attack": "Attack",
-                "Proceed": "Press [ENTER] to continue...",
+                "Proceed": "Press [ENTER] to continue..."
             }
         },
         "KrakenScene": {},

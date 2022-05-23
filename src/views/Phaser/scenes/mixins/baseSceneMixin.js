@@ -5,11 +5,11 @@ import { sharedInstance as events } from "../../managers/EventCenter";
 
 const baseSceneMixin = {
     sceneInit() {
-        // Sets the sound settings for the scene 
+        // Sets the sound settings for the scene
         this.sound.setMute(this.getSoundEnabled());
-        
+
         // Renders textures as pixel art
-        this.textures.getTextureKeys().forEach((item) => {
+        this.textures.getTextureKeys().forEach(item => {
             this.textures.get(item).setFilter(Phaser.Textures.FilterMode.NEAREST);
         });
     },
@@ -81,7 +81,7 @@ const baseSceneMixin = {
         this.scene.manager.stop("AppraiserScene");
         this.scene.manager.stop("OasisScene");
         this.scene.manager.stop("LilySanctuaryScene");
-        
+
         this.scene.manager.bringToTop("KrakenScene");
         this.scene.manager.bringToTop("HarborScene");
         this.scene.manager.bringToTop("ForgeScene");

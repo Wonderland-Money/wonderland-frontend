@@ -14,10 +14,8 @@ const data = {
     preferences: {
         musicEnabled: true,
         soundEnabled: true,
-        lang: "en-US",
-        languages: {
-            "en-US": "English",
-        },
+        languages: ['en', 'cn', 'fr', 'es'],
+        language: [0],
     },
     keybindings: {
         "keydown-LEFT": "keydown-LEFT",
@@ -43,12 +41,12 @@ const data = {
     setPreferences: () => {
         window.localStorage.setItem("musicEnabled", data.preferences.musicEnabled);
         window.localStorage.setItem("soundEnabled", data.preferences.soundEnabled);
-        window.localStorage.setItem("lang", data.preferences.lang);
+        window.localStorage.setItem("language", data.preferences.language);
     },
     loadFromPreferences: () => {
         data.preferences.musicEnabled = window.localStorage.getItem("musicEnabled") == "true";
         data.preferences.soundEnabled = window.localStorage.getItem("soundEnabled") == "true";
-        data.preferences.lang = window.localStorage.getItem("lang");
+        data.preferences.language = window.localStorage.getItem("language");
     },
 };
 

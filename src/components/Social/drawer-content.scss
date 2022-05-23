@@ -47,6 +47,11 @@
         }
     
         a {
+            &::after{
+                position:absolute; width:0; height:0; overflow:hidden; z-index:-1; // hide images
+                content:url('../../assets/images/social_button_hover.gif');   // load images
+            }
+
             transition: all 200ms;
             background-image: url('../../assets/images/social_button_normal.png');
             background-size: contain;

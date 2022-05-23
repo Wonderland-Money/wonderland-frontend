@@ -43,7 +43,7 @@ function PsiMenu() {
     const SPSI_ADDRESS = addresses.SPSI_ADDRESS;
     const PSI_ADDRESS = addresses.PSI_ADDRESS;
     const SUSHI_SWAP_LINK = `https://app.sushi.com/swap?inputCurrency=&outputCurrency=${PSI_ADDRESS}`;
-    const SYNAPSE_LINK = 'https://synapseprotocol.com/?inputCurrency=USDC&outputCurrency=USDC&outputChain=1666600000';
+    const SYNAPSE_LINK = "https://synapseprotocol.com/?inputCurrency=USDC&outputCurrency=USDC&outputChain=1666600000";
 
     const handleClick = (event: any) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);

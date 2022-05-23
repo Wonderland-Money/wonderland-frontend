@@ -29,14 +29,13 @@ class SettingsMenu extends Phaser.Scene {
         let pauseBg = this.add.rectangle(0, 0, width, height, 0x000000, 1);
         pauseBg.setOrigin(0, 0);
         let backgroundImg = this.add.image(width / 2, height / 2, "menu-bg").setScale(1.1);
+        
 
         const SPACING_HEIGHT = 58;
         const SPACING_WIDTH = 110;
 
-        let contentContainer = this.add
-            .image(width / 2, height / 2, "menu-box")
-            .setOrigin(0.5, 0.5)
-            .setScale(2);
+        let contentContainer = this.add.nineslice(40, 40, width - 80, height - 80, "menu-box", 6);
+
         let title = this.add
             .text(contentContainer.getTopLeft().x + 48 + 48, contentContainer.getTopCenter().y + 48, "Settings", {
                 color: "#ffe7bc",
@@ -50,43 +49,42 @@ class SettingsMenu extends Phaser.Scene {
          * **************** TOP BAR *******************
          */
         createCloseButton(contentContainer.getTopLeft().x + 48, contentContainer.getTopLeft().y + 48, () => this.unpauseGame(), this);
-        drawLine(
+        
+        this.menuLine = drawLine(
             contentContainer.getTopLeft().x + 16,
             contentContainer.getTopLeft().y + 86,
             contentContainer.getTopRight().x - 16,
             contentContainer.getTopRight().y + 86,
-            0x333333, 1, 1, this);
+            0x333333,
+            1,
+            1,
+            this,
+        );
 
-        const grid = generateGrid(
+        this.grid = generateGrid(
             contentContainer.getTopLeft().x,
             contentContainer.getTopLeft().y + 86,
             contentContainer.width * contentContainer.scale,
-            (contentContainer.height * contentContainer.scale) - 86,
+            contentContainer.height * contentContainer.scale - 86,
             3,
             6,
-            30
+            30,
         );
 
-        // Placed on first column, second row. Width stretches to end of column. 
-        var test = createBlackButton(
-            grid.cols[0]["leftInner"] + grid.xOffset, 
-            grid.rows[0]["leftInner"] + grid.yOffset, 
-            grid.cols[0]["rightInner"] - grid.cols[0]["leftInner"], "Destroy >:)", () => test.destroy(), this
-        );
-
-        
+        // Placed on first column, second row. Width stretches to end of column.
+        this.createDestroyButton();
 
         // Debug grid
         // visualizeGrid(grid, 0x000fff, this);
-        
+
         /**
          * **************** TOGGLE BUTTONS ******************
          */
 
-        let soundToggleButton = new CustomIconButton(
+        this.soundToggleButton = new CustomIconButton(
             this,
-            grid.cols[2].rightInner + grid.xOffset + 24 - 48,
-            ((grid.rows[5]["rightInner"] + grid.rows[5]["leftInner"]) / 2) + grid.yOffset,
+            this.grid.cols[2].rightInner + this.grid.xOffset + 24 - 48,
+            (this.grid.rows[5]["rightInner"] + this.grid.rows[5]["leftInner"]) / 2 + this.grid.yOffset,
             "",
             () => {
                 this.scene.manager.getScene(this.toScene).toggleSound();
@@ -97,10 +95,10 @@ class SettingsMenu extends Phaser.Scene {
             3,
         );
 
-        let musicToggleButton = new CustomIconButton(
+        this.musicToggleButton = new CustomIconButton(
             this,
-            grid.cols[2].rightInner + grid.xOffset + 24 - (48 * 2),
-            ((grid.rows[5]["rightInner"] + grid.rows[5]["leftInner"]) / 2) + grid.yOffset,
+            this.grid.cols[2].rightInner + this.grid.xOffset + 24 - 48 * 2,
+            (this.grid.rows[5]["rightInner"] + this.grid.rows[5]["leftInner"]) / 2 + this.grid.yOffset,
             "",
             () => {
                 this.scene.manager.getScene(this.toScene).toggleMusic();
@@ -111,10 +109,10 @@ class SettingsMenu extends Phaser.Scene {
             3,
         );
 
-        let fullscreenToggleButton = new CustomIconButton(
+        this.fullscreenToggleButton = new CustomIconButton(
             this,
-            grid.cols[2].rightInner + grid.xOffset + 24 - (48 * 3),
-            ((grid.rows[5]["rightInner"] + grid.rows[5]["leftInner"]) / 2) + grid.yOffset,
+            this.grid.cols[2].rightInner + this.grid.xOffset + 24 - 48 * 3,
+            (this.grid.rows[5]["rightInner"] + this.grid.rows[5]["leftInner"]) / 2 + this.grid.yOffset,
             "",
             () => {
                 !variables.gameState.fullscreenEnabled ? this.openFullscreen() : this.closeFullscreen();
@@ -129,6 +127,29 @@ class SettingsMenu extends Phaser.Scene {
             if (variables.gameState.fullscreenEnabled) variables.gameState.fullscreenEnabled = false;
             this.unpauseGame();
         });
+
+        // Update UI on window resize
+        this.scale.on('resize', function(gameSize, baseSize, displaySize, previousWidth, previousHeight) {
+            const widthDiff = previousWidth - gameSize._width;
+            const heightDiff = previousHeight - gameSize._height;
+            console.log(widthDiff, heightDiff);
+            // Update container
+            contentContainer.resize(displaySize._width - 80, displaySize._height - 80);
+        });
+    }
+
+    createDestroyButton() {
+        this.test = createBlackButton(
+            this.grid.cols[0]["leftInner"] + this.grid.xOffset,
+            this.grid.rows[0]["leftInner"] + this.grid.yOffset,
+            this.grid.cols[0]["rightInner"] - this.grid.cols[0]["leftInner"],
+            "Destroy >:)",
+            () => {
+                this.test.destroy()
+                this.time.delayedCall(1000, () => this.createDestroyButton());
+            },
+            this,
+        );
     }
 
     openFullscreen() {

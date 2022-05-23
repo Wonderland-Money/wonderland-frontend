@@ -1,5 +1,5 @@
 export const messages = {
-    please_connect: "Please connect your wallet to Harmony network",
+    please_connect: "Connect your wallet to Avalanche Network",
     please_connect_wallet: "Please connect your wallet!",
     try_mint_more: (value: string) => `You're trying to mint more than the maximum payout available! The maximum mint payout is ${value} PSI.`,
     before_minting: "Before minting enter a value",
@@ -11,5 +11,5 @@ export const messages = {
     your_balance_updated: "Your balance is successfully updated",
     nothing_to_claim: "Nothing to claim",
     something_wrong: "Something went wrong",
-    switch_to_harmony: "Switch to Harmony?",
+    switch_to_avax: "Switch to Avax?",
 };

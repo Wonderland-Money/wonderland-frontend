@@ -8,7 +8,7 @@ class HeroLegacy extends Phaser.GameObjects.Sprite {
         super(scene, x, y, "hero-running", 0);
         scene.add.existing(this);
         scene.physics.add.existing(this);
-        this.scene = scene
+        this.scene = scene;
         this.anims.play("player-running");
 
         this.setOrigin(0.5, 1);

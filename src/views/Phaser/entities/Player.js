@@ -24,7 +24,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
         this.setupMovement();
         this.setupAnimations();
-        
+
         this.hitPoints = 1;
         this.flip = 1;
         this.isAlive = true;

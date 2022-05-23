@@ -35,7 +35,7 @@ class MenuButton extends Phaser.GameObjects.Sprite {
                 fontWeight: "Bold",
             })
             .setOrigin(0.5);
-        
+
         this.scale = 2;
 
         this.on("pointerover", () => {

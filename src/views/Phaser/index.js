@@ -78,7 +78,7 @@ export default function App(props) {
         };
     }
 
-    if (isConnected && !(checkValidNetwork(providerChainID))) {
+    if (isConnected && !checkValidNetwork(providerChainID)) {
         buttonText = "Connect Wallet";
         clickFunc = () => {
             checkWrongNetwork();

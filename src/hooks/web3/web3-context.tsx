@@ -3,11 +3,11 @@ import Web3Modal from "web3modal";
 import { StaticJsonRpcProvider, JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import { getMainnetURI } from "./helpers";
-import { DEFAULT_NETWORK } from "../../constants";
+import { checkValidNetwork, DEFAULT_NETWORK } from "../../constants";
 import { Networks } from "../../constants";
 import { messages } from "../../constants/messages";
 import { useDispatch } from "react-redux";
-import { swithNetwork } from "../../helpers/switch-network";
+import { switchNetwork } from "../../helpers/switch-network";
 
 type onChainProvider = {
     connect: () => Promise<Web3Provider>;
@@ -49,11 +49,13 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
     const dispatch = useDispatch();
 
     const [connected, setConnected] = useState(false);
-    const [chainID, setChainID] = useState(DEFAULT_NETWORK); // DEBUG: Change this
+    const [chainID, setChainID] = useState(DEFAULT_NETWORK);
     const [providerChainID, setProviderChainID] = useState(DEFAULT_NETWORK); // DEBUG: Change this
     const [address, setAddress] = useState("");
 
-    const [uri, setUri] = useState(getMainnetURI());
+    // const [uri, setUri] = useState(getMainnetURI(providerChainID));
+    const [uri, setUri] = useState(getMainnetURI(providerChainID));
+
     const [provider, setProvider] = useState<JsonRpcProvider>(new StaticJsonRpcProvider(uri));
 
     const [web3Modal] = useState<Web3Modal>(
@@ -64,7 +66,8 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
                     package: WalletConnectProvider,
                     options: {
                         rpc: {
-                            [Networks.ONE]: getMainnetURI(),
+                            [Networks.ONE]: getMainnetURI(1666600000),
+                            [Networks.AVAX]: getMainnetURI(43114),
                         },
                     },
                 },
@@ -101,6 +104,11 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
     const changeNetwork = async (otherChainID: number) => {
         const network = Number(otherChainID);
 
+        if (checkValidNetwork(network)) {
+            setUri(getMainnetURI(network));
+            setChainID(network);
+        }
+
         setProviderChainID(network);
     };
 
@@ -111,14 +119,22 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
         const connectedProvider = new Web3Provider(rawProvider, "any");
 
-        const chainId = await connectedProvider.getNetwork().then(network => Number(network.chainId));
+        const chainId = await connectedProvider.getNetwork().then(network => {
+            console.log("Connected: " + network.chainId);
+            return Number(network.chainId);
+        });
         const connectedAddress = await connectedProvider.getSigner().getAddress();
 
         setAddress(connectedAddress);
-        
+
+        if (checkValidNetwork(chainId)) {
+            await setUri(getMainnetURI(chainId));
+            await setChainID(chainId);
+        }
+
         setProviderChainID(chainId);
 
-        if (chainId === Networks.ONE) {
+        if (checkValidNetwork(chainId)) {
             setProvider(connectedProvider);
         }
 
@@ -129,9 +145,9 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
     const checkWrongNetwork = async (): Promise<boolean> => {
         if (providerChainID !== DEFAULT_NETWORK) {
-            const shouldSwitch = window.confirm(messages.switch_to_harmony);
+            const shouldSwitch = window.confirm(messages.switch_to_avax);
             if (shouldSwitch) {
-                await swithNetwork();
+                await switchNetwork();
                 window.location.reload();
             }
             return true;

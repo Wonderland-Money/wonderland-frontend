@@ -5,13 +5,15 @@ export enum Networks {
     AVAX = 43114,
 }
 
-export const DEFAULT_NETWORK = Networks.ONE;
+export const DEFAULT_NETWORK = Networks.AVAX;
 
 // Make sure this is a valid way to check
 export const checkValidNetwork = (chainId: Number) => {
-    switch(chainId) {
-        case Networks.ONE: return true
-        case Networks.AVAX: return true
+    switch (chainId) {
+        case Networks.ONE:
+            return true;
+        case Networks.AVAX:
+            return true;
     }
-    return false
-}
+    return false;
+};

@@ -3,18 +3,16 @@ import Phaser from "phaser";
 import Button from "../../components/Button";
 import MenuButton from "../../components/MenuButton";
 import CustomIconButton from "../../components/CustomIconButton";
-import ButtonMenu from "../../components/Buttons/ButtonMenu";
 
-import PauseMenu from "./PauseMenu";
+import PauseMenu from "../../scenes/menus/PauseMenu";
 
 import variables from "../../managers/Variables";
 import { sharedInstance as events } from "../../managers/EventCenter";
-import { generateGrid, visualizeGrid } from "../../components/Utils/DrawingUtils";
 
 import baseSceneMixin from "../mixins/baseSceneMixin";
 import frontendControlsMixin from "../mixins/frontendControlsMixin";
 
-class MainMenu extends Phaser.Scene {
+class Menu extends Phaser.Scene {
     constructor(config) {
         super({ key: "MainMenu" });
     }
@@ -22,37 +20,28 @@ class MainMenu extends Phaser.Scene {
     preload() {
         this.load.audio("button-click", "assets/audio/button-click.mp3");
         this.load.image("trident-title", "assets/Wordmark.png");
-        this.load.image("button-background", "assets/menu_assets/main_menu/button-background.png");
 
         this.load.image("menu-column", "assets/menu_assets/column-horizontal.png");
-        this.load.image("menu-box", "assets/menu_assets/box.png");
+        this.load.image("menu-box", "assets/menu_assets/box-nineslice.png");
 
         this.load.image("menu-bg", "assets/menu_assets/menu-bg.jpg");
 
         // Menu Specific Buttons
-        this.load.spritesheet("trial-button", "assets/menu_assets/main_menu/buttons/trial-hover.png", {
-            frameWidth: 114,
-            frameHeight: 26,
+        this.load.spritesheet("trial-button", "assets/buttons/menu/trial-hover.png", {
+            frameWidth: 128,
+            frameHeight: 32,
         });
-        this.load.spritesheet("harbor-button", "assets/menu_assets/main_menu/buttons/harbor-hover.png", {
-            frameWidth: 114,
-            frameHeight: 26,
+        this.load.spritesheet("harbor-button", "assets/buttons/menu/harbor-hover.png", {
+            frameWidth: 128,
+            frameHeight: 32,
         });
-        this.load.spritesheet("forge-button", "assets/menu_assets/main_menu/buttons/forge-hover.png", {
-            frameWidth: 114,
-            frameHeight: 26,
+        this.load.spritesheet("forge-button", "assets/buttons/menu/forge-hover.png", {
+            frameWidth: 128,
+            frameHeight: 32,
         });
-        this.load.spritesheet("appraiser-button", "assets/menu_assets/main_menu/buttons/appraiser-hover.png", {
-            frameWidth: 114,
-            frameHeight: 26,
-        });
-        this.load.spritesheet("oasis-button", "assets/menu_assets/main_menu/buttons/oasis-hover.png", {
-            frameWidth: 114,
-            frameHeight: 26,
-        });
-        this.load.spritesheet("pve-button", "assets/menu_assets/main_menu/buttons/pve-hover.png", {
-            frameWidth: 114,
-            frameHeight: 26,
+        this.load.spritesheet("appraiser-button", "assets/buttons/menu/appraiser-hover.png", {
+            frameWidth: 128,
+            frameHeight: 32,
         });
 
         this.load.spritesheet("sml-button", "assets/buttons/small/button.png", {
@@ -141,37 +130,25 @@ class MainMenu extends Phaser.Scene {
 
         this.anims.create({
             key: "trial-button-hover",
-            frames: this.anims.generateFrameNumbers("trial-button", { start: 1 }),
+            frames: this.anims.generateFrameNumbers("trial-button"),
             frameRate: 16,
             repeat: -1,
         });
         this.anims.create({
             key: "harbor-button-hover",
-            frames: this.anims.generateFrameNumbers("harbor-button", { start: 1 }),
+            frames: this.anims.generateFrameNumbers("harbor-button"),
             frameRate: 16,
             repeat: -1,
         });
         this.anims.create({
             key: "forge-button-hover",
-            frames: this.anims.generateFrameNumbers("forge-button", { start: 1 }),
+            frames: this.anims.generateFrameNumbers("forge-button"),
             frameRate: 16,
             repeat: -1,
         });
         this.anims.create({
             key: "appraiser-button-hover",
-            frames: this.anims.generateFrameNumbers("appraiser-button", { start: 1 }),
-            frameRate: 16,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: "oasis-button-hover",
-            frames: this.anims.generateFrameNumbers("oasis-button", { start: 1 }),
-            frameRate: 16,
-            repeat: -1,
-        });
-        this.anims.create({
-            key: "pve-button-hover",
-            frames: this.anims.generateFrameNumbers("pve-button", { start: 1 }),
+            frames: this.anims.generateFrameNumbers("appraiser-button"),
             frameRate: 16,
             repeat: -1,
         });
@@ -208,100 +185,61 @@ class MainMenu extends Phaser.Scene {
         let title = this.add.sprite(width / 2, height / 2, "main-menu");
         title.play("menu-loop");
         title.setOrigin(0.5, 0.5);
-
-        let buttonBackground = this.add.sprite(width, height, "button-background");
-        buttonBackground.setOrigin(1, 1);
-
-        this.textures.getTextureKeys().forEach(item => {
+        
+        this.textures.getTextureKeys().forEach((item) => {
             this.textures.get(item).setFilter(Phaser.Textures.FilterMode.NEAREST);
         });
         let wordmark = this.add.image(100, 48, "trident-title");
-
+        
         wordmark.setOrigin(0);
         wordmark.setScale(0.5);
-        const titleScale = this.sys.canvas.width / title.width;
-        title.scale = titleScale;
-
-        const backgroundScale = this.sys.canvas.height / buttonBackground.height;
-        // buttonBackground.scale = backgroundScale;
-        buttonBackground.scale = 3;
-
-        // --------- Grid ---------
-
-        const buttonGrid = generateGrid(0, 0, width, height, 0, 12, 10);
-        // visualizeGrid(buttonGrid, 0x00ff00, this);
-
-        let pveButtonMenu = new MenuButton(this, width - 12, (buttonGrid.rows[3].rightInner + buttonGrid.rows[3].leftInner) / 2, "Story", () => {}, 5);
+        let scale = this.sys.canvas.width / title.width;
+        title.scale = scale;
 
         let krakenButton = new MenuButton(
             this,
-            width - 12,
-            (buttonGrid.rows[3].rightInner + buttonGrid.rows[3].leftInner) / 2,
+            width - 48,
+            height / 2 - 64 - SPACING - 64 - SPACING,
             "Kraken",
             () => {
                 this.scene.start("InstructionsSplash");
-                this.scene.bringToTop("InstructionsSplash");
             },
             0,
         );
 
         let harborButton = new MenuButton(
             this,
-            width - 12,
-            (buttonGrid.rows[4].rightInner + buttonGrid.rows[4].leftInner) / 2,
+            width - 48,
+            height / 2 - 64 - SPACING,
             "Harbor",
             () => {
                 this.scene.start("HarborScene");
-                this.scene.bringToTop("HarborScene");
             },
             1,
         );
 
         let forgeButton = new MenuButton(
             this,
-            width - 12,
-            (buttonGrid.rows[5].rightInner + buttonGrid.rows[5].leftInner) / 2,
+            width - 48,
+            height / 2,
             "Forge",
             () => {
                 this.scene.start("ForgeScene");
-                this.scene.bringToTop("ForgeScene");
             },
             2,
         );
 
         let appraiserButton = new MenuButton(
             this,
-            width - 12,
-            (buttonGrid.rows[6].rightInner + buttonGrid.rows[6].leftInner) / 2,
+            width - 48,
+            height / 2 + 64 + SPACING,
             "Appraiser",
             () => {
                 this.scene.start("AppraiserScene");
-                this.scene.bringToTop("AppraiserScene");
             },
             3,
         );
 
-        let oasisButton = new MenuButton(
-            this,
-            width - 12,
-            (buttonGrid.rows[7].rightInner + buttonGrid.rows[7].leftInner) / 2,
-            "Oasis",
-            () => {
-                this.scene.start("AppraiserScene");
-                this.scene.bringToTop("AppraiserScene");
-            },
-            4,
-        );
-
-        let buttonMenu = new ButtonMenu(this, [pveButtonMenu, harborButton, forgeButton, appraiserButton, oasisButton], false);
-        let buttonSubMenu = new ButtonMenu(this, [krakenButton], true, buttonMenu);
-
-        pveButtonMenu.setCallback(() => {
-            buttonSubMenu.show();
-        });
-
-        // let textoo = this.add.text(0, 0, "sneed").
-        let iajdw = this.add.rectangle(0, 0, 100, 100).removeAllListeners();
         // Display settings button with next release
 
         let settingsButton = new CustomIconButton(
@@ -310,8 +248,7 @@ class MainMenu extends Phaser.Scene {
             height - 48,
             "",
             () => {
-                this.scene.launch("SettingsMenu", "MainMenu");
-                this.scene.bringToTop("SettingsMenu");
+                this.scene.start("SettingsMenu");
             },
             "settings-button",
         );
@@ -320,11 +257,10 @@ class MainMenu extends Phaser.Scene {
         let playerMenuButton = new CustomIconButton(
             this,
             width - 48,
-            120,
+            48,
             "",
             () => {
-                this.scene.launch("PlayerMenu", "MainMenu");
-                this.scene.bringToTop("PlayerMenu");
+                this.scene.start("PlayerMenu");
             },
             "player-menu-button",
         );
@@ -357,7 +293,7 @@ class MainMenu extends Phaser.Scene {
     update(time, delta) {}
 }
 
-Object.assign(MainMenu.prototype, baseSceneMixin);
-Object.assign(MainMenu.prototype, frontendControlsMixin);
+Object.assign(Menu.prototype, baseSceneMixin);
+Object.assign(Menu.prototype, frontendControlsMixin);
 
-export default MainMenu;
+export default Menu;

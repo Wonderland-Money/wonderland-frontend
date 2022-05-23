@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import RexUIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
+import { Plugin as NineSlicePlugin } from '@teampanfu/phaser-nineslice';
 
 function getWidth() {
     return Math.max(
@@ -34,7 +35,8 @@ export default {
     scale: {
         width: WIDTH,
         height: HEIGHT,
-        mode: Phaser.Scale.FIT,
+        // mode: Phaser.Scale.FIT,
+        mode: Phaser.Scale.RESIZE,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     render: {
@@ -56,8 +58,15 @@ export default {
     },
     antialias: true,
     antialiasGL: true,
-    
+
     plugins: {
+        global: [
+            {
+                key: 'NineSlicePlugin',
+                plugin: NineSlicePlugin,
+                start: true
+            },
+        ],
         scene: [
             {
                 key: "rexUI",
