@@ -5,7 +5,7 @@
     "main": "src/index.js",
     "scripts": {
         "build": "GENERATE_SOURCEMAP=false react-scripts build",
-        "start": "react-scripts start",
+        "start": "react-scripts --openssl-legacy-provider start",
         "react:build": "GENERATE_SOURCEMAP=false react-scripts build",
         "eject": "react-scripts eject",
         "react:start": "react-scripts start",
@@ -39,7 +39,6 @@
         "intl": "^1.2.5",
         "javascript-state-machine": "^3.1.0",
         "lodash": "^4.17.21",
-        "node-sass": "^6.0.1",
         "node-watch": "^0.7.1",
         "notistack": "^1.0.10",
         "path": "^0.12.7",
@@ -80,6 +79,14 @@
         "eslint-plugin-jsx-a11y": "^6.4.1",
         "eslint-plugin-react": "^7.22.0",
         "eslint-plugin-react-hooks": "^4.2.0"
+    },
+    "resolutions": {
+        "@types/react": "<18.0.0",
+        "@types/react-dom": "<18.0.0"
+    },
+    "overrides": {
+        "@types/react": "<18.0.0",
+        "@types/react-dom": "<18.0.0"
     },
     "eslintConfig": {
         "extends": "react-app"
