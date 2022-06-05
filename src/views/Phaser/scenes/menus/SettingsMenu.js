@@ -50,7 +50,7 @@ class SettingsMenu extends Phaser.Scene {
          */
         createCloseButton(contentContainer.getTopLeft().x + 48, contentContainer.getTopLeft().y + 48, () => this.unpauseGame(), this);
         
-        this.menuLine = drawLine(
+        this.menuLine = new drawLine(
             contentContainer.getTopLeft().x + 16,
             contentContainer.getTopLeft().y + 86,
             contentContainer.getTopRight().x - 16,
@@ -132,21 +132,39 @@ class SettingsMenu extends Phaser.Scene {
         this.scale.on('resize', function(gameSize, baseSize, displaySize, previousWidth, previousHeight) {
             const widthDiff = previousWidth - gameSize._width;
             const heightDiff = previousHeight - gameSize._height;
-            console.log(widthDiff, heightDiff);
+            // console.log(widthDiff, heightDiff);
             // Update container
             contentContainer.resize(displaySize._width - 80, displaySize._height - 80);
-        });
+            // Update Menu Line
+            this.menuLine.destroy();
+            const vals = [...this.menuLine.prevVals]; // get previous values
+            vals[2] -= widthDiff; // Change x2 value of line according to width change on resize
+            this.menuLine.draw(...vals);
+            // Update grid
+            this.grid = generateGrid(
+                contentContainer.getTopLeft().x,
+                contentContainer.getTopLeft().y + 86,
+                contentContainer.width * contentContainer.scale,
+                contentContainer.height * contentContainer.scale - 86,
+                3,
+                6,
+                30,
+            );
+            // Update buttons
+            // To update the button, simply set its width using the updated grid
+            this.test.setWidth(this.grid.cols[0]["rightInner"] - this.grid.cols[0]["leftInner"]);
+            // this.test.changeWidth(widthDiff * -1);
+        }, this);
     }
 
     createDestroyButton() {
-        this.test = createBlackButton(
+        this.test = new createBlackButton(
             this.grid.cols[0]["leftInner"] + this.grid.xOffset,
             this.grid.rows[0]["leftInner"] + this.grid.yOffset,
             this.grid.cols[0]["rightInner"] - this.grid.cols[0]["leftInner"],
-            "Destroy >:)",
+            "Visualize Grid",
             () => {
-                this.test.destroy()
-                this.time.delayedCall(1000, () => this.createDestroyButton());
+                visualizeGrid(this.grid, Math.random() * 500000, this);
             },
             this,
         );
@@ -187,6 +205,7 @@ class SettingsMenu extends Phaser.Scene {
     }
 
     unpauseGame() {
+        this.scale.removeAllListeners();
         this.resetSceneOrder();
         this.scene.stop();
         this.scene.start(this.toScene);

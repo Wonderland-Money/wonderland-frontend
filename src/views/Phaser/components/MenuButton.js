@@ -51,6 +51,14 @@ class MenuButton extends Phaser.GameObjects.Sprite {
         });
     }
 
+    // Moves button & text
+    setPosition(x, y) {
+        // If buttonText exists, then adjust with button
+        this.buttonText && this.buttonText.setPosition(x - this.width, y);
+        super.setPosition(x, y);
+    }
+
+    // Sets button visible or invisible
     show(bool) {
         this.setVisible(bool);
         this.buttonText.setVisible(bool);

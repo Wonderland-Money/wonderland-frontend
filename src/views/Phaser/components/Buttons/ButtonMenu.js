@@ -64,7 +64,7 @@ class ButtonMenu {
     }
 
     addHideButton() {
-        this.exitButton = createBlackButton(
+        this.exitButton = new createBlackButton(
             this.startX,
             this.buttons[this.buttons.length - 1].getBottomLeft().y + this.padding,
             this.width, // Change to this.width

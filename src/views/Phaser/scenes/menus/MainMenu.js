@@ -228,7 +228,7 @@ class MainMenu extends Phaser.Scene {
 
         // --------- Grid ---------
 
-        const buttonGrid = generateGrid(0, 0, width, height, 0, 12, 10);
+        var buttonGrid = generateGrid(0, 0, width, height, 0, 12, 10);
         // visualizeGrid(buttonGrid, 0x00ff00, this);
 
         let pveButtonMenu = new MenuButton(this, width - 12, (buttonGrid.rows[3].rightInner + buttonGrid.rows[3].leftInner) / 2, "Story", () => {}, 5);
@@ -300,8 +300,6 @@ class MainMenu extends Phaser.Scene {
             buttonSubMenu.show();
         });
 
-        // let textoo = this.add.text(0, 0, "sneed").
-        let iajdw = this.add.rectangle(0, 0, 100, 100).removeAllListeners();
         // Display settings button with next release
 
         let settingsButton = new CustomIconButton(
@@ -329,6 +327,32 @@ class MainMenu extends Phaser.Scene {
             "player-menu-button",
         );
         playerMenuButton.setScale(3);
+
+        this.scale.on('resize', function(gameSize, baseSize, displaySize, previousWidth, previousHeight) {
+            // Update 'width' and 'height' with new canvas size
+            let { width, height } = this.sys.game.canvas;
+            const widthDiff = previousWidth - gameSize._width;
+            const heightDiff = previousHeight - gameSize._height;
+
+            // Adjust buttonBackground position relative to change
+            buttonBackground.x -= widthDiff;
+
+            // --- Adjust buttons positions relative to change ---
+            // Regenerate grid
+            buttonGrid = generateGrid(0, 0, width, height, 0, 12, 10);
+            // Align buttons to grid, and adjust based on new width
+            // Menu Buttons
+            pveButtonMenu.setPosition(pveButtonMenu.x - widthDiff, pveButtonMenu.y);
+            krakenButton.setPosition(krakenButton.x - widthDiff, krakenButton.y);
+            harborButton.setPosition(harborButton.x - widthDiff, harborButton.y);
+            forgeButton.setPosition(forgeButton.x - widthDiff, forgeButton.y);
+            appraiserButton.setPosition(appraiserButton.x - widthDiff, appraiserButton.y);
+            oasisButton.setPosition(oasisButton.x - widthDiff, oasisButton.y);
+            // Settings & Profile Buttons
+            settingsButton.setPosition(settingsButton.x - widthDiff, settingsButton.y);
+
+            // visualizeGrid(buttonGrid, 0xffff00, this);
+        }, this);
     }
 
     shutdownHandler = e => {
