@@ -287,8 +287,8 @@ class MainMenu extends Phaser.Scene {
             (buttonGrid.rows[7].rightInner + buttonGrid.rows[7].leftInner) / 2,
             "Oasis",
             () => {
-                this.scene.start("AppraiserScene");
-                this.scene.bringToTop("AppraiserScene");
+                this.scene.start("OasisScene");
+                this.scene.bringToTop("OasisScene");
             },
             4,
         );
@@ -342,15 +342,19 @@ class MainMenu extends Phaser.Scene {
             buttonGrid = generateGrid(0, 0, width, height, 0, 12, 10);
             // Align buttons to grid, and adjust based on new width
             // Menu Buttons
-            pveButtonMenu.setPosition(pveButtonMenu.x - widthDiff, pveButtonMenu.y);
-            krakenButton.setPosition(krakenButton.x - widthDiff, krakenButton.y);
-            harborButton.setPosition(harborButton.x - widthDiff, harborButton.y);
-            forgeButton.setPosition(forgeButton.x - widthDiff, forgeButton.y);
-            appraiserButton.setPosition(appraiserButton.x - widthDiff, appraiserButton.y);
-            oasisButton.setPosition(oasisButton.x - widthDiff, oasisButton.y);
+            // pveButtonMenu.setPosition(pveButtonMenu.x - widthDiff, pveButtonMenu.y);
+            // krakenButton.setPosition(krakenButton.x - widthDiff, krakenButton.y);
+            // harborButton.setPosition(harborButton.x - widthDiff, harborButton.y);
+            // forgeButton.setPosition(forgeButton.x - widthDiff, forgeButton.y);
+            // appraiserButton.setPosition(appraiserButton.x - widthDiff, appraiserButton.y);
+            // oasisButton.setPosition(oasisButton.x - widthDiff, oasisButton.y);
             // Settings & Profile Buttons
-            settingsButton.setPosition(settingsButton.x - widthDiff, settingsButton.y);
+            // settingsButton.setPosition(settingsButton.x - widthDiff, settingsButton.y);
+            // playerMenuButton.setPosition(playerMenuButton.x - widthDiff, playerMenuButton.y);
 
+            // @todo fix buttonSubMenu exit button positioning relative to its buttons
+            buttonMenu.setStartX(buttonMenu.endX - widthDiff);
+            buttonSubMenu.setStartX(buttonSubMenu.endX - widthDiff);
             // visualizeGrid(buttonGrid, 0xffff00, this);
         }, this);
     }

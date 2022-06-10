@@ -13,7 +13,7 @@ class ButtonMenu {
         this.menu = menu || null;
 
         // Defines padding based on button spacing (first and second buttons), or defaults to '10'.
-        this.padding = buttons.length > 1 ? buttons[1].getTopLeft().y - buttons[0].getBottomLeft().y : 10;
+        this.padding = buttons.length > 1 ? buttons[1].getTopLeft().y - buttons[0].getBottomLeft().y : 16;
 
         // Define bounds of menu
         this.startX = buttons[0].getTopLeft().x;
@@ -33,6 +33,20 @@ class ButtonMenu {
         this.height = this.endY - this.startY;
 
         if (this.menu) this.hide();
+    }
+
+
+    // Shifts all associated buttons, and the exit button, on the x-axis
+    setStartX(x) {
+        // Update buttons with new startX position
+        this.buttons.forEach(button => {
+            button.setPosition(x, button.y);
+        });
+        // Set startX
+        this.startX = x;
+
+        // If the exit button exists, move it to new startX
+        this.exitButton && this.exitButton.setPosition(this.startX, this.exitButton.y1);
     }
 
     addButton(button) {
@@ -66,8 +80,8 @@ class ButtonMenu {
     addHideButton() {
         this.exitButton = new createBlackButton(
             this.startX,
-            this.buttons[this.buttons.length - 1].getBottomLeft().y + this.padding,
-            this.width, // Change to this.width
+            this.buttons[this.buttons.length - 1].getBottomLeft().y + this.padding, // Place button using bottom of last button
+            this.width,
             "Back",
             () => {
                 this.hide();

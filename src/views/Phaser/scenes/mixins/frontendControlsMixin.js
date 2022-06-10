@@ -38,6 +38,22 @@ const frontendControlsMixin = {
         window.parent.postMessage("openBonding", variables.gameUrl);
     },
 
+    // OasisDex
+    hideOasisDex() {
+        window.parent.postMessage("closeOasisDex", variables.gameUrl);
+    },
+    showOasisDex() {
+        window.parent.postMessage("openOasisDex", variables.gameUrl);
+    },
+
+    // LilyFarm
+    hideLilyFarm() {
+        window.parent.postMessage("closeLilyFarm", variables.gameUrl);
+    },
+    showLilyFarm() {
+        window.parent.postMessage("openLilyFarm", variables.gameUrl);
+    },
+
     // Presale
     hidePresale() {
         window.parent.postMessage("closePresale", variables.gameUrl);
@@ -96,6 +112,24 @@ const frontendControlsMixin = {
     openBondingMenu() {
         if (!this.scene.isActive("FreezeScreen")) {
             this.showBonding();
+            this.hero.setPauseInput(true);
+            this.scene.launch("FreezeScreen", this);
+        } else return;
+    },
+
+    // OasisDex
+    openOasisDex() {
+        if (!this.scene.isActive("FreezeScreen")) {
+            this.showOasisDex();
+            this.hero.setPauseInput(true);
+            this.scene.launch("FreezeScreen", this);
+        } else return;
+    },
+
+    // LilyFarm
+    openLilyFarm() {
+        if (!this.scene.isActive("FreezeScreen")) {
+            this.showLilyFarm();
             this.hero.setPauseInput(true);
             this.scene.launch("FreezeScreen", this);
         } else return;

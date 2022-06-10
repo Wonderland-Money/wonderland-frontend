@@ -1,0 +1,17 @@
+menu-button {
+    position: absolute;
+    right: 10;
+    width: 200;
+
+    story-button {
+        &::before {
+            position:absolute; width:0; height:0; overflow:hidden; z-index:-1; // hide images
+            content:url('../../assets/images/social_button_hover.gif');
+        }
+
+        &:hover {
+            transform: scale(1.02);
+        }
+    }
+
+}

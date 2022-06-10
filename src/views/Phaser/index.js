@@ -12,6 +12,7 @@ import KrakenScene from "./scenes/pve/KrakenScene";
 import ForgeScene from "./scenes/ForgeScene";
 import HarborScene from "./scenes/HarborScene";
 import AppraiserScene from "./scenes/AppraiserScene";
+import OasisScene from "./scenes/OasisScene";
 
 import PlayerWinScene from "./scenes/pve/PlayerWinScene";
 // Interfaces
@@ -100,6 +101,7 @@ export default function App(props) {
                         HarborScene,
                         ForgeScene,
                         AppraiserScene,
+                        OasisScene,
                         PlayerMenu,
                         SettingsMenu,
                         GameUI,

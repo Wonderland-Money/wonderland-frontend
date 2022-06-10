@@ -5,6 +5,8 @@ import { sharedInstance as events } from "../../managers/EventCenter";
 
 const baseSceneMixin = {
     sceneInit() {
+        // Removes any scale events from the scale manager
+        this.scale.removeAllListeners();
         // Sets the sound settings for the scene
         this.sound.setMute(this.getSoundEnabled());
 

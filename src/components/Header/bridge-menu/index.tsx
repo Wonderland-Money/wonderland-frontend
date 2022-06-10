@@ -18,7 +18,7 @@ function BridgeMenu() {
 
     const SPSI_ADDRESS = addresses.SPSI_ADDRESS;
     const PSI_ADDRESS = addresses.PSI_ADDRESS;
-    const SYNAPSE_LINK = "https://synapseprotocol.com/?inputCurrency=USDC&outputCurrency=USDC&outputChain=1666600000";
+    const SYNAPSE_LINK = "https://synapseprotocol.com/?inputCurrency=USDC&outputCurrency=USDC&outputChain=1666600000"; // @todo Change to Avalanche bridge
     const MULTICHAIN_LINK = "https://app.multichain.org/#/router";
     const HARMONY_OFFICIAL_LINK = "https://bridge.harmony.one/erc20";
 
