@@ -5,7 +5,7 @@
     "main": "src/index.js",
     "scripts": {
         "build": "GENERATE_SOURCEMAP=false react-scripts build",
-        "start": "react-scripts --openssl-legacy-provider start",
+        "start": "react-scripts start",
         "react:build": "GENERATE_SOURCEMAP=false react-scripts build",
         "eject": "react-scripts eject",
         "react:start": "react-scripts start",

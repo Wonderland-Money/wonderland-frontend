@@ -19,7 +19,7 @@ const ONE_MAINNET = {
 };
 
 const AVAX_MAINNET = {
-    FRAX_ADDRESS: "0xFa7191D292d5633f702B0bd7E3E3BcCC0e633200", // the USD stablecoin used in stableBond and the baseToken/stableToken LP pair.
+    FRAX_ADDRESS: "0xaXXXXXD292d5633f702B0bd7E3E3BcCC0e633200", // the USD stablecoin used in stableBond and the baseToken/stableToken LP pair.
     PSI_ADDRESS: "0x23eDB53026F17906cD7Fd9f4192fbD42bf61aC6d",
     SPSI_ADDRESS: "0x4BE07F1dA7D67364458F8C0E937b067baF472B3C",
     STAKING_ADDRESS: "0xF1B81FE5290Abf53F690903837feb25671c415F5", // rebases every 8 hours

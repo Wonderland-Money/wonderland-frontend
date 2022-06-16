@@ -144,6 +144,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
     }, [provider, web3Modal, connected]);
 
     const checkWrongNetwork = async (): Promise<boolean> => {
+        if(chainID == 1666600000) return false;
         if (providerChainID !== DEFAULT_NETWORK) {
             const shouldSwitch = window.confirm(messages.switch_to_avax);
             if (shouldSwitch) {
