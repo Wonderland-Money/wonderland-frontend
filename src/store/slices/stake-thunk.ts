@@ -28,6 +28,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const psiContract = new ethers.Contract(addresses.PSI_ADDRESS, PsiTokenContract, signer);
     const sPsiContract = new ethers.Contract(addresses.SPSI_ADDRESS, SpsiTokenContract, signer);
 
+    //console.log(addresses.FRAX_ADDRESS)
     let approveTx;
     try {
         const gasPrice = await getGasPrice(provider);
@@ -87,6 +88,7 @@ export const changeStake = createAsyncThunk("stake/changeStake", async ({ action
     const staking = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, signer);
     const stakingHelper = new ethers.Contract(addresses.STAKING_HELPER_ADDRESS, StakingHelperContract, signer);
 
+    console.log(staking);
     let stakeTx;
 
     try {
