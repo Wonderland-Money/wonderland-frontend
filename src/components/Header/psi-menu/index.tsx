@@ -61,7 +61,6 @@ function PsiMenu() {
                         <div className="tooltip">
                             {isEthereumAPIAvailable && (
                                 <div className="add-tokens">
-                                    <div className="divider" />
                                     <p className="add-tokens-title">Add token to wallet</p>
                                     {/* <div className="divider" /> */}
                                     <div className="tooltip-item" onClick={addTokenToWallet("PSI", PSI_ADDRESS)}>

@@ -212,9 +212,6 @@ class MainMenu extends Phaser.Scene {
         let buttonBackground = this.add.sprite(width, height, "button-background");
         buttonBackground.setOrigin(1, 1);
 
-        this.textures.getTextureKeys().forEach(item => {
-            this.textures.get(item).setFilter(Phaser.Textures.FilterMode.NEAREST);
-        });
         let wordmark = this.add.image(100, 48, "trident-title");
 
         wordmark.setOrigin(0);

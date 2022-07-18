@@ -44,7 +44,7 @@ function Background() {
                 uMouse: { value: new THREE.Vector2() },
                 uBigWavesElevation: { value: 0.2 },
                 uBigWavesFrequency: { value: new THREE.Vector2(4, 2) },
-                uBigWaveSpeed: { value: 0.525 },
+                uBigWaveSpeed: { value: 0.925 },
                 // Small Waves
                 uSmallWavesElevation: { value: 0.15 },
                 uSmallWavesFrequency: { value: 3 },

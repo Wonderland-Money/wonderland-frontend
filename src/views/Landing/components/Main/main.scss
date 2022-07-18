@@ -77,6 +77,55 @@
             }
         }
     }
+
+    .landing-main-btn-svg {
+        min-width: 300px;
+        height: 60px;
+
+        svg {
+            width: 300px;
+            transition: all 150ms;
+
+            &:hover {
+                g {
+                    .btn-border {
+                        fill: theme.$psi-kelp;
+                    }
+                    .btn-background {
+                        fill: transparentize(lighten(theme.$deep-sea, 20%), 0.3);
+                    }
+                    .btn-text {
+                        fill: #ffffff;
+                    }
+                }
+            }
+
+            g {
+                path {
+                    transition: all 150ms;
+                }
+                text {
+                    transition: all 150ms;
+                }
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+                text-align: center;
+                .btn-text {
+                    font-weight: bold;
+                    font-size: 58px;
+                    fill: #ffe7bc;
+                }
+                .btn-background {
+                    fill: rgba(19, 34, 23, 0.7);
+                }
+                .btn-border {
+                    fill: #335b54;;
+                }
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 560px) {

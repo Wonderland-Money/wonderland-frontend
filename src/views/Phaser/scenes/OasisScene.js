@@ -240,18 +240,19 @@ class OasisScene extends Phaser.Scene {
     addMap() {
         this.map = this.make.tilemap({ key: "oasis" });
 
-        const oasisBG = this.add.image(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "oasis-bg").setOrigin(0.5, 0.8);
+        // Background moves in parallax
+        const oasisBG = this.add.image(this.map.widthInPixels / 2, 0, "oasis-bg").setOrigin(0.5, 0.1);
         const scaleFactor = this.map.widthInPixels / oasisBG.width;
         oasisBG.setScrollFactor(0.9)
-        oasisBG.scale = scaleFactor - 0.1;
+        oasisBG.scale = scaleFactor;
 
-        const oasisClouds = this.add.image(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "oasis-clouds").setOrigin(0.5, 0.8);
+        // Clouds move in parallax
+        const oasisClouds = this.add.image(this.map.widthInPixels / 2, 0, "oasis-clouds").setOrigin(0.5, 0);
         oasisClouds.setScrollFactor(0.8);
-        oasisClouds.scale = 1.3;
+        oasisClouds.scale = 2;
 
         
         const foregroundLoop = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, "oasis-fg")
-        // const backgroundSprite = this.add.sprite(this.map.widthInPixels / 2, this.map.heightInPixels / 2, 'harbor-bg-anim').setOrigin(0.5, 0.5).setScrollFactor(0.7)
         foregroundLoop.play("oasis-loop");
         foregroundLoop.scale = scaleFactor;
 
@@ -260,14 +261,12 @@ class OasisScene extends Phaser.Scene {
         const collisionLayer = this.map.createLayer("Collide", groundTiles);
         const backgroundLayer = this.map.createLayer("Background", groundTiles);
 
-        // Place foreground loop at topmost tile
+        // Place bottom of foregroundLoop at top of topmost ground tile i.e. sitting on top of ground. 
         foregroundLoop.setPosition(this.map.widthInPixels / 2, collisionLayer.findByIndex(1).getTop()).setOrigin(0.5, 1);
-        // console.log(collisionLayer.findTile((tile) => tile.properties)
-        
         
         //const decorationLayer = this.map.createStaticLayer('Decoration' , groundTiles)
 
-        collisionLayer.setCollision([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 31, 32, 33, 34, 41, 42, 43, 44, 52, 82], true);
+        collisionLayer.setCollision([1, 2, 3, 4, 5, 6], true);
 
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBoundsCollision(true, true, false, true);
