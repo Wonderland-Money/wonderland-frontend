@@ -46,8 +46,8 @@ function Background() {
                 uBigWavesFrequency: { value: new THREE.Vector2(4, 2) },
                 uBigWaveSpeed: { value: 0.925 },
                 // Small Waves
-                uSmallWavesElevation: { value: 0.15 },
-                uSmallWavesFrequency: { value: 3 },
+                uSmallWavesElevation: { value: 0.4 },
+                uSmallWavesFrequency: { value: 20 },
                 uSmallWavesSpeed: { value: 0.15 },
                 uSmallWavesIterations: { value: 4 },
                 // Color

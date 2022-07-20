@@ -93,6 +93,7 @@
                     }
                     .btn-background {
                         fill: transparentize(lighten(theme.$deep-sea, 20%), 0.3);
+                        filter: blur(10px);
                     }
                     .btn-text {
                         fill: #ffffff;
@@ -103,6 +104,8 @@
             g {
                 path {
                     transition: all 150ms;
+                    backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
                 }
                 text {
                     transition: all 150ms;
