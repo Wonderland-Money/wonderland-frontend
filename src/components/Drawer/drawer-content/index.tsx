@@ -130,6 +130,10 @@ function NavContent() {
                 </div>
             </div>
             <div className="dapp-menu-doc-link">
+                <Link href="https://twitter.com/jambestwick" target="_blank">
+                    <img alt="" src={DocsIcon} />
+                    <p>Creator . caicailong</p>
+                </Link>
                 <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank">
                     <img alt="" src={DocsIcon} />
                     <p>Docs</p>
