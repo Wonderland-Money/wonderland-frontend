@@ -110,36 +110,6 @@
         width: 100%;
         margin-top: 25px;
 
-        .stake-card-action-stage-btns-wrap{
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          .stake-card-action-stage-btn{
-            margin: 0px 30px;
-            padding: 6px;
-            cursor: pointer;
-            transition: all .4s ease;
-            
-            p{
-              font-family: Montserrat SemiBold;
-              font-style: normal;
-              font-weight: 600;
-              font-size: 18px;
-              color: rgba(255, 255, 255, 0.6);
-            }
-          }
-
-          .stake-card-action-stage-btn.active{
-
-            p{
-              color: #FFFFFF;
-            }
-
-            border-bottom: 1px solid #FFFFFF;;
-          }
-        }
-
         .stake-card-action-row{
           display: flex;
           align-items: center;
@@ -240,6 +210,11 @@
     font-size: 14px;
     color: #FFFFFF;
   }
+
+  .data-row-grey{
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+
   .data-row-value{
     font-family: Montserrat;
     font-size: 14px;
@@ -286,5 +261,35 @@
 @media screen and (max-width: 1240px) {
   .stake-view{
     width: 100%;
+  }
+}
+
+.stake-card-action-stage-btns-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .stake-card-action-stage-btn{
+    margin: 0px 30px;
+    padding: 6px;
+    cursor: pointer;
+    transition: all .4s ease;
+    
+    p{
+      font-family: Montserrat SemiBold;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .stake-card-action-stage-btn.active{
+
+    p{
+      color: #FFFFFF;
+    }
+
+    border-bottom: 1px solid #FFFFFF;;
   }
 }

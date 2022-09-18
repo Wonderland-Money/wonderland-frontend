@@ -1,0 +1,127 @@
+.accordion-root{
+    width: 100%;
+    border-radius: 10px;
+    margin: 10px 0;
+
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        background: rgba(36, 39, 41, 0.1);
+        backdrop-filter: blur(40px);
+    }
+
+    /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+        background: #181B1C;
+    }
+
+    .accordion-header{
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        align-items: center;
+
+        padding: 20px;
+        border-radius: 10px;
+
+        @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+            background: rgba(36, 39, 41, 0.1);
+            backdrop-filter: blur(40px);
+        }
+    
+        /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+        @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+            background: #181B1C;
+        }
+
+        .accordion-header-icon-wrap{
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .accordion-header-title-wrap{
+            .accordion-header-title{
+                font-family: Montserrat Bold;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 20px;
+                color: #FFFFFF;
+            }
+
+            .accordion-header-value{
+                font-family: Montserrat SemiBold;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                color: #FFFFFF;
+            }
+        }   
+        
+        .accordion-nav-wrap{
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+
+            .accordion-chart-btn-wrap{
+                margin-right: 20px;
+                display: flex;
+                align-items: center;
+                
+                .accordion-chart-btn-text{
+                    font-family: Montserrat SemiBold;
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 12px;
+                    color: #FFFFFF;
+                    margin-right: 20px;
+                }
+            }
+
+            .accordion-btf{
+                min-width: 16px;
+                height: 16px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        .accordion-btf-active{
+            transform:rotate(180deg); 
+        }
+    }
+
+    .accordion-body{
+        padding: 20px;
+    }
+
+}
+
+@media screen and (max-width: 580px) {
+    .accordion-root{
+        .accordion-body{
+            padding: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .accordion-root{
+        .accordion-header{
+            .accordion-nav-wrap{
+                .accordion-chart-btn-wrap{
+                    flex-direction: column;
+                    .accordion-chart-btn-text {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -17,4 +17,8 @@ export const messages = {
     your_balance_update_soon: "Your balance will update soon",
     before_wrap: "Before wrapping, enter a value.",
     before_unwrap: "Before un wrapping, enter a value.",
+    before_bridge: "Before bridge, enter a value.",
+    rpc_connection_lost: "Rpc connection lost",
+    min_bridge_amount: "Minimum Crosschain Amount 0.00063 wMEMO",
+    before_redemption: "Before redemption, enter a value.",
 };

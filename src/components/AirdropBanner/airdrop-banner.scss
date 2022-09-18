@@ -1,0 +1,44 @@
+.airdrop-banner-root {
+    background: url('./bg.png');
+    background-position: center;
+    background-size: cover;
+    border-radius: 20px;
+    padding: 11px 23px;
+    width: 89%;
+    max-width: 833px;
+    margin: 0px auto 20px auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    .airdrop-banner-text-conteiner {
+        text-align: center;
+        margin: 0px auto;
+        padding-left: 30px;
+
+        .airdrop-banner-text {
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            color: #FFFFFF;
+
+            span {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+
+        .airdrop-banner-text.upper {
+            text-transform: uppercase;
+        }
+    }
+
+    .airdrop-banner-close-wrap {
+        cursor: pointer;
+        margin-left: 30px;
+        margin-top: 5px;
+    }
+}

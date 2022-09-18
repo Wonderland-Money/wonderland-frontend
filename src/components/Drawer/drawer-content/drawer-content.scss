@@ -94,6 +94,15 @@
             float: right;
             margin-left: 33px;
           }
+
+          .deprecated{
+            color: rgba(255, 255, 255) !important;
+            text-decoration: line-through;
+            p{
+              color: rgba(255, 255, 255) !important;
+              text-decoration: line-through;
+            }
+          }
         }
       }
     }

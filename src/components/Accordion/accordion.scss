@@ -1,0 +1,60 @@
+.accordion-component-root{
+    width: 100%;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    .accordion-component-header{
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        align-items: center;
+
+        .accordion-component-header-title{
+            font-family: Montserrat Medium;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            color: #FFFFFF;
+        }
+
+        .accordion-component-btf{
+            min-width: 16px;
+            height: 16px;
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .accordion-component-btf-active{
+            transform:rotate(180deg); 
+        }
+    }
+
+    .accordion-component-body{
+        padding-top: 20px;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .accordion-component-root{
+        .accordion-component-header{
+            padding: 10px;
+
+            .accordion-component-header-title{
+                font-size: 16px;
+                line-height: 22px;
+            }
+
+            .accordion-component-btf{
+                height: 20px;
+                width: 20px;
+            }
+        }
+
+        .accordion-component-body{
+            padding: 10px;
+        }
+    }
+}

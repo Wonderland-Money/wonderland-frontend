@@ -10,6 +10,5 @@ export interface BondAddresses {
     bondAddress: string;
 }
 
-export interface NetworkAddresses {
-    [Networks.AVAX]: BondAddresses;
-}
+export type NetworkAddresses = { [key in Networks]?: BondAddresses };
+export type Available = { [key in Networks]?: boolean };

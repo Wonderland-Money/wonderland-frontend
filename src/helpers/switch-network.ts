@@ -1,40 +1,40 @@
 import { Networks } from "../constants/blockchain";
+import { getChainInfo } from "../helpers/get-chains";
 
-const switchRequest = () => {
+const switchRequest = (chain: Networks) => {
+    const info = getChainInfo(chain);
     return window.ethereum.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0xa86a" }],
+        params: [{ chainId: info.chainId }],
     });
 };
 
-const addChainRequest = () => {
+const addChainRequest = (chain: Networks) => {
+    const { chainId, chainName, rpcUrls, blockExplorerUrls, nativeCurrency } = getChainInfo(chain);
+
     return window.ethereum.request({
         method: "wallet_addEthereumChain",
         params: [
             {
-                chainId: "0xa86a",
-                chainName: "Avalanche Mainnet",
-                rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
-                blockExplorerUrls: ["https://cchain.explorer.avax.network/"],
-                nativeCurrency: {
-                    name: "AVAX",
-                    symbol: "AVAX",
-                    decimals: 18,
-                },
+                chainId,
+                chainName,
+                rpcUrls,
+                blockExplorerUrls,
+                nativeCurrency,
             },
         ],
     });
 };
 
-export const swithNetwork = async () => {
+export const swithNetwork = async (chain = Networks.AVAX) => {
     if (window.ethereum) {
         try {
-            await switchRequest();
+            await switchRequest(chain);
         } catch (error: any) {
             if (error.code === 4902) {
                 try {
-                    await addChainRequest();
-                    await switchRequest();
+                    await addChainRequest(chain);
+                    await switchRequest(chain);
                 } catch (addError) {
                     console.log(error);
                 }

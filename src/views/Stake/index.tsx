@@ -5,17 +5,21 @@ import RebaseTimer from "../../components/RebaseTimer";
 import { trim } from "../../helpers";
 import { changeStake, changeApproval } from "../../store/slices/stake-thunk";
 import "./stake.scss";
-import { useWeb3Context } from "../../hooks";
+import { usePathForNetwork, useWeb3Context } from "../../hooks";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../store/slices/pending-txns-slice";
 import { Skeleton } from "@material-ui/lab";
 import { IReduxState } from "../../store/slices/state.interface";
 import { messages } from "../../constants/messages";
 import classnames from "classnames";
 import { warning } from "../../store/slices/messages-slice";
+import { useHistory } from "react-router-dom";
 
 function Stake() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const { provider, address, connect, chainID, checkWrongNetwork } = useWeb3Context();
+
+    usePathForNetwork({ pathName: "stake", networkID: chainID, history });
 
     const [view, setView] = useState(0);
     const [quantity, setQuantity] = useState<string>("");
@@ -48,9 +52,16 @@ function Stake() {
     const stakingTVL = useSelector<IReduxState, number>(state => {
         return state.app.stakingTVL;
     });
+    const wmemoBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.wmemo;
+    });
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
+    });
+
+    const wrapPrice = useSelector<IReduxState, number>(state => {
+        return state.wrapping.prices && state.wrapping.prices.wmemoMemo;
     });
 
     const setMax = () => {
@@ -83,7 +94,7 @@ function Stake() {
             if (token === "memo") return unstakeAllowance > 0;
             return 0;
         },
-        [stakeAllowance],
+        [stakeAllowance, unstakeAllowance],
     );
 
     const changeView = (newView: number) => () => {
@@ -92,6 +103,7 @@ function Stake() {
     };
 
     const trimmedMemoBalance = trim(Number(memoBalance), 6);
+    const trimmedWmemoBalance = trim(Number(wmemoBalance), 6);
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
     const stakingRebasePercentage = trim(stakingRebase * 100, 4);
     const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedMemoBalance), 6);
@@ -258,6 +270,16 @@ function Stake() {
                                         <div className="data-row">
                                             <p className="data-row-name">Your Staked Balance</p>
                                             <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedMemoBalance} MEMO</>}</p>
+                                        </div>
+
+                                        <div className="data-row">
+                                            <p className="data-row-name data-row-grey">Wrapped Balance</p>
+                                            <p className="data-row-value data-row-grey">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedWmemoBalance} wMEMO</>}</p>
+                                        </div>
+
+                                        <div className="data-row">
+                                            <p className="data-row-name data-row-grey">Exchange rate</p>
+                                            <p className="data-row-value data-row-grey">{isAppLoading ? <Skeleton width="80px" /> : <>1 wMEMO = {trim(wrapPrice, 4)} MEMO</>}</p>
                                         </div>
 
                                         <div className="data-row">

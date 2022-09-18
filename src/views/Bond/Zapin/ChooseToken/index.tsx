@@ -9,8 +9,8 @@ import { Skeleton } from "@material-ui/lab";
 import useTokens, { IAllTokenData } from "../../../../hooks/tokens";
 import { trim } from "../../../../helpers";
 import { IAllBondData } from "../../../../hooks/bonds";
-import { mim, wavax } from "../../../../helpers/bond";
-import { mim as mimToken, wavax as wavaxToken } from "../../../../helpers/tokens";
+import { mim, wavax, weth } from "../../../../helpers/bond";
+import { mim as mimToken, wavax as wavaxToken, weth as wethToken } from "../../../../helpers/tokens";
 
 interface IChooseTokenProps {
     open: boolean;
@@ -45,6 +45,10 @@ function ChooseToken({ open, handleClose, handleSelect, bond }: IChooseTokenProp
 
         if (bond.name === wavax.name) {
             lpFilter = isAvax ? false : wavaxToken.address !== address;
+        }
+
+        if (bond.name === weth.name) {
+            lpFilter = wethToken.address !== address;
         }
 
         return nameTest && addressTest && lpFilter;

@@ -1,62 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./calculator.scss";
-import { useSelector, useDispatch } from "react-redux";
-import { useWeb3Context } from "../../hooks";
+import { useSelector } from "react-redux";
 import { Grid, InputAdornment, OutlinedInput, Zoom, Slider } from "@material-ui/core";
 import { IReduxState } from "../../store/slices/state.interface";
 import { trim } from "../../helpers";
 import { Skeleton } from "@material-ui/lab";
+import { useHistory } from "react-router-dom";
+import { usePathForNetwork, useWeb3Context } from "../../hooks";
 
 function Calculator() {
+    const history = useHistory();
+    const { chainID } = useWeb3Context();
+
+    usePathForNetwork({ pathName: "calculator", networkID: chainID, history });
+
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
-    const marketPrice = useSelector<IReduxState, number>(state => {
+    const wMemoMarketPrice = useSelector<IReduxState, number>(state => {
+        return state.app.wMemoMarketPrice;
+    });
+    const timeMarketPrice = useSelector<IReduxState, number>(state => {
         return state.app.marketPrice;
     });
     const stakingAPY = useSelector<IReduxState, number>(state => {
         return state.app.stakingAPY;
     });
-    const memoBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.memo;
+    const wMemoBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.wmemo;
+    });
+    const wrapPrice = useSelector<IReduxState, number>(state => {
+        return state.wrapping.prices && state.wrapping.prices.wmemoMemo;
     });
 
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
-    const trimmedMemoBalance = trim(Number(memoBalance), 6);
-    const trimeMarketPrice = trim(marketPrice, 2);
+    const trimmedWMemoBalance = trim(Number(wMemoBalance), 6);
+    const trimeMarketPrice = trim(wMemoMarketPrice, 2);
+    const trimeTimePrice = trim(timeMarketPrice, 2);
 
-    const [memoAmount, setMemoAmount] = useState(trimmedMemoBalance);
+    const [wmemoAmount, setWMemoAmount] = useState(trimmedWMemoBalance);
     const [rewardYield, setRewardYield] = useState(trimmedStakingAPY);
-    const [priceAtPurchase, setPriceAtPurchase] = useState(trimeMarketPrice);
-    const [futureMarketPrice, setFutureMarketPrice] = useState(trimeMarketPrice);
     const [days, setDays] = useState(30);
 
-    const [rewardsEstimation, setRewardsEstimation] = useState("0");
     const [potentialReturn, setPotentialReturn] = useState("0");
 
-    const calcInitialInvestment = () => {
-        const memo = Number(memoAmount) || 0;
-        const price = parseFloat(priceAtPurchase) || 0;
-        const amount = memo * price;
-        return trim(amount, 2);
-    };
-
-    const calcCurrentWealth = () => {
-        const memo = Number(memoAmount) || 0;
+    const currentWealth = useMemo(() => {
+        const wmemo = Number(wmemoAmount) || 0;
         const price = parseFloat(trimeMarketPrice);
-        const amount = memo * price;
+        const amount = wmemo * price;
         return trim(amount, 2);
-    };
-
-    const [initialInvestment, setInitialInvestment] = useState(calcInitialInvestment());
-
-    useEffect(() => {
-        const newInitialInvestment = calcInitialInvestment();
-        setInitialInvestment(newInitialInvestment);
-    }, [memoAmount, priceAtPurchase]);
+    }, [wmemoAmount]);
 
     const calcNewBalance = () => {
         let value = parseFloat(rewardYield) / 100;
         value = Math.pow(value - 1, 1 / (365 * 3)) - 1 || 0;
-        let balance = Number(memoAmount);
+        let balance = Number(wmemoAmount);
+        balance = balance * wrapPrice;
         for (let i = 0; i < days * 3; i++) {
             balance += balance * value;
         }
@@ -65,10 +62,9 @@ function Calculator() {
 
     useEffect(() => {
         const newBalance = calcNewBalance();
-        setRewardsEstimation(trim(newBalance, 6));
-        const newPotentialReturn = newBalance * (parseFloat(futureMarketPrice) || 0);
+        const newPotentialReturn = newBalance * (parseFloat(trimeTimePrice) || 0);
         setPotentialReturn(trim(newPotentialReturn, 2));
-    }, [days, rewardYield, futureMarketPrice, memoAmount]);
+    }, [days, rewardYield, wmemoAmount]);
 
     return (
         <div className="calculator-view">
@@ -86,7 +82,7 @@ function Calculator() {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12} sm={4} md={4} lg={4}>
                                         <div className="calculator-card-apy">
-                                            <p className="calculator-card-metrics-title">TIME Price</p>
+                                            <p className="calculator-card-metrics-title">wMEMO Price</p>
                                             <p className="calculator-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : `$${trimeMarketPrice}`}</p>
                                         </div>
                                     </Grid>
@@ -100,8 +96,8 @@ function Calculator() {
                                     </Grid>
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="calculator-card-index">
-                                            <p className="calculator-card-metrics-title">Your MEMO Balance</p>
-                                            <p className="calculator-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : <>{trimmedMemoBalance} MEMO</>}</p>
+                                            <p className="calculator-card-metrics-title">Your wMEMO Balance</p>
+                                            <p className="calculator-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : <>{trimmedWMemoBalance} wMEMO</>}</p>
                                         </div>
                                     </Grid>
                                 </Grid>
@@ -114,17 +110,17 @@ function Calculator() {
                                     <Grid container spacing={3}>
                                         <Grid item xs={12} sm={6}>
                                             <div className="calculator-card-action-area-inp-wrap">
-                                                <p className="calculator-card-action-area-inp-wrap-title">MEMO Amount</p>
+                                                <p className="calculator-card-action-area-inp-wrap-title">wMEMO Amount</p>
                                                 <OutlinedInput
                                                     type="number"
                                                     placeholder="Amount"
                                                     className="calculator-card-action-input"
-                                                    value={memoAmount}
-                                                    onChange={e => setMemoAmount(e.target.value)}
+                                                    value={wmemoAmount}
+                                                    onChange={e => setWMemoAmount(e.target.value)}
                                                     labelWidth={0}
                                                     endAdornment={
                                                         <InputAdornment position="end">
-                                                            <div onClick={() => setMemoAmount(trimmedMemoBalance)} className="stake-card-action-input-btn">
+                                                            <div onClick={() => setWMemoAmount(trimmedWMemoBalance)} className="stake-card-action-input-btn">
                                                                 <p>Max</p>
                                                             </div>
                                                         </InputAdornment>
@@ -152,46 +148,6 @@ function Calculator() {
                                                 />
                                             </div>
                                         </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <div className="calculator-card-action-area-inp-wrap">
-                                                <p className="calculator-card-action-area-inp-wrap-title">TIME price at purchase ($)</p>
-                                                <OutlinedInput
-                                                    type="number"
-                                                    placeholder="Amount"
-                                                    className="calculator-card-action-input"
-                                                    value={priceAtPurchase}
-                                                    onChange={e => setPriceAtPurchase(e.target.value)}
-                                                    labelWidth={0}
-                                                    endAdornment={
-                                                        <InputAdornment position="end">
-                                                            <div onClick={() => setPriceAtPurchase(trimeMarketPrice)} className="stake-card-action-input-btn">
-                                                                <p>Current</p>
-                                                            </div>
-                                                        </InputAdornment>
-                                                    }
-                                                />
-                                            </div>
-                                        </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <div className="calculator-card-action-area-inp-wrap">
-                                                <p className="calculator-card-action-area-inp-wrap-title">Future TIME market price ($)</p>
-                                                <OutlinedInput
-                                                    type="number"
-                                                    placeholder="Amount"
-                                                    className="calculator-card-action-input"
-                                                    value={futureMarketPrice}
-                                                    onChange={e => setFutureMarketPrice(e.target.value)}
-                                                    labelWidth={0}
-                                                    endAdornment={
-                                                        <InputAdornment position="end">
-                                                            <div onClick={() => setFutureMarketPrice(trimeMarketPrice)} className="stake-card-action-input-btn">
-                                                                <p>Current</p>
-                                                            </div>
-                                                        </InputAdornment>
-                                                    }
-                                                />
-                                            </div>
-                                        </Grid>
                                     </Grid>
                                 </div>
                                 <div className="calculator-days-slider-wrap">
@@ -200,19 +156,11 @@ function Calculator() {
                                 </div>
                                 <div className="calculator-user-data">
                                     <div className="data-row">
-                                        <p className="data-row-name">Your initial investment</p>
-                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>${initialInvestment}</>}</p>
-                                    </div>
-                                    <div className="data-row">
                                         <p className="data-row-name">Current wealth</p>
-                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>${calcCurrentWealth()}</>}</p>
+                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>${currentWealth}</>}</p>
                                     </div>
                                     <div className="data-row">
-                                        <p className="data-row-name">TIME rewards estimation</p>
-                                        <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{rewardsEstimation} TIME</>}</p>
-                                    </div>
-                                    <div className="data-row">
-                                        <p className="data-row-name">Potential return</p>
+                                        <p className="data-row-name">Potential wealth</p>
                                         <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>${potentialReturn}</>}</p>
                                     </div>
                                     <div className="data-row">

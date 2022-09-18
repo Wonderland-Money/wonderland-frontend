@@ -1,0 +1,72 @@
+.fund-view {
+  display: flex;
+  overflow: hidden;
+
+  width: 95%;
+  margin: auto;
+
+  .fund-infos {
+    width: 100%;
+
+    position: relative;
+    z-index: 2;
+
+    .fund-infos-net-worth-container {
+      @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        background: rgba(36, 39, 41, 0.1);
+        backdrop-filter: blur(40px);
+      }
+
+      /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+      @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+        background: #181B1C;
+      }
+
+      border-radius: 10px;
+      padding: 20px;
+      width: 100%;
+
+      .fund-infos-net-worth-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .fund-infos-net-worth-wrap-title {
+          font-family: Montserrat Medium;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 2px;
+        }
+
+        .fund-infos-net-worth-wrap-value {
+          font-family: Montserrat Bold;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 24px;
+          color: #FFFFFF;
+        }
+      }
+
+      .fund-infos-net-chart-container {
+        margin-top: 20px;
+        width: "100%";
+        display: flex;
+
+        .fund-infos-net-chart-wrap {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          width: 100%;
+
+          .chart {
+            max-width: 300px;
+          }
+        }
+      }
+    }
+  }
+}

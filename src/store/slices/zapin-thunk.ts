@@ -7,22 +7,24 @@ import { info, success, warning } from "./messages-slice";
 import { clearPendingTxn, fetchPendingTxns } from "./pending-txns-slice";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
 import { getGasPrice } from "../../helpers/get-gas-price";
-import { ethers } from "ethers";
-import { MimTokenContract, ZapinContract } from "../../abi";
-import { calculateUserBondDetails, fetchAccountSuccess } from "./account-slice";
+import { ethers, utils, BigNumber } from "ethers";
+import { MimTokenContract } from "../../abi";
+import { calculateUserBondDetails, calculateUserTokenDetails, fetchAccountSuccess } from "./account-slice";
 import { IAllBondData } from "../../hooks/bonds";
 import { zapinData, zapinLpData } from "../../helpers/zapin-fetch-data";
 import { trim } from "../../helpers/trim";
 import { sleep } from "../../helpers";
+import { avax, mim, wavax } from "../../helpers/tokens";
 
 interface IChangeApproval {
     token: IToken;
     provider: StaticJsonRpcProvider | JsonRpcProvider;
     address: string;
     networkID: Networks;
+    bond: IAllBondData;
 }
 
-export const changeApproval = createAsyncThunk("zapin/changeApproval", async ({ token, provider, address, networkID }: IChangeApproval, { dispatch }) => {
+export const changeApproval = createAsyncThunk("zapin/changeApproval", async ({ token, provider, address, networkID, bond }: IChangeApproval, { dispatch }) => {
     if (!provider) {
         dispatch(warning({ text: messages.please_connect_wallet }));
         return;
@@ -37,7 +39,11 @@ export const changeApproval = createAsyncThunk("zapin/changeApproval", async ({ 
     try {
         const gasPrice = await getGasPrice(provider);
 
-        approveTx = await tokenContract.approve(addresses.ZAPIN_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        if (bond.isLP) {
+            approveTx = await tokenContract.approve(addresses.ZAPIN_LP_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        } else {
+            approveTx = await tokenContract.approve(addresses.ZAPIN_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        }
 
         const text = "Approve " + token.name;
         const pendingTxnType = "approve_" + token.address;
@@ -55,14 +61,20 @@ export const changeApproval = createAsyncThunk("zapin/changeApproval", async ({ 
 
     await sleep(2);
 
-    const tokenAllowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
+    let tokenData: any = {};
+
+    if (bond.isLP) {
+        const allowance = await tokenContract.allowance(address, addresses.ZAPIN_LP_ADDRESS);
+        tokenData.allowanceLp = Number(allowance);
+    } else {
+        const allowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
+        tokenData.allowance = Number(allowance);
+    }
 
     return dispatch(
         fetchAccountSuccess({
             tokens: {
-                [token.name]: {
-                    allowance: Number(tokenAllowance),
-                },
+                [token.name]: tokenData,
             },
         }),
     );
@@ -76,6 +88,7 @@ interface ITokenZapin {
     slippage: number;
     value: string;
     dispatch: Dispatch<any>;
+    address: string;
 }
 
 export interface ITokenZapinResponse {
@@ -85,7 +98,7 @@ export interface ITokenZapinResponse {
     value: string;
 }
 
-export const calcZapinDetails = async ({ token, provider, networkID, bond, value, slippage, dispatch }: ITokenZapin): Promise<ITokenZapinResponse> => {
+export const calcZapinDetails = async ({ token, provider, networkID, bond, value, slippage, dispatch, address }: ITokenZapin): Promise<ITokenZapinResponse> => {
     let swapTarget: string = "";
     let swapData: string = "";
     let amount: string = "";
@@ -126,7 +139,7 @@ export const calcZapinDetails = async ({ token, provider, networkID, bond, value
 
     try {
         if (bond.isLP) {
-            [swapTarget, swapData, amount] = await zapinLpData(bond, token, valueInWei, networkID, acceptedSlippage);
+            [swapTarget, swapData, amount] = await zapinLpData(bond, token, valueInWei, networkID, acceptedSlippage, address);
         } else {
             [swapTarget, swapData, amount] = await zapinData(bond, token, valueInWei, networkID, acceptedSlippage);
         }
@@ -148,97 +161,54 @@ interface IZapinMint {
     bond: IAllBondData;
     token: IToken;
     value: string;
-    minReturnAmount: string;
     swapTarget: string;
     swapData: string;
-    slippage: number;
     address: string;
 }
 
-export const zapinMint = createAsyncThunk(
-    "zapin/zapinMint",
-    async ({ provider, networkID, bond, token, value, minReturnAmount, swapTarget, swapData, slippage, address }: IZapinMint, { dispatch }) => {
-        if (!provider) {
-            dispatch(warning({ text: messages.please_connect_wallet }));
-            return;
+export const zapinMint = createAsyncThunk("zapin/zapinMint", async ({ provider, networkID, bond, token, value, swapTarget, swapData, address }: IZapinMint, { dispatch }) => {
+    if (!provider) {
+        dispatch(warning({ text: messages.please_connect_wallet }));
+        return;
+    }
+
+    const signer = provider.getSigner();
+
+    let transferTx;
+
+    try {
+        const gasPrice = await getGasPrice(provider);
+
+        transferTx = await signer.sendTransaction({
+            to: swapTarget,
+            data: swapData,
+            gasPrice,
+            value: token.isAvax ? utils.parseEther(value) : BigNumber.from("0"),
+        });
+
+        dispatch(
+            fetchPendingTxns({
+                txnHash: transferTx.hash,
+                text: "Zapin " + token.name,
+                type: "zapin_" + token.name + "_" + bond.name,
+            }),
+        );
+
+        await transferTx.wait();
+        dispatch(success({ text: messages.tx_successfully_send }));
+        await sleep(0.01);
+        dispatch(info({ text: messages.your_balance_update_soon }));
+        await sleep(10);
+        await dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
+
+        for (const _token of [avax, mim, wavax, token]) {
+            await dispatch(calculateUserTokenDetails({ address, networkID, provider, token: _token }));
         }
-        const acceptedSlippage = slippage / 100 || 0.02;
-        const addresses = getAddresses(networkID);
-        const depositorAddress = address;
-
-        const signer = provider.getSigner();
-        const zapinContract = new ethers.Contract(addresses.ZAPIN_ADDRESS, ZapinContract, signer);
-
-        const bondAddress = bond.getAddressForBond(networkID);
-        const valueInWei = trim(Number(value) * Math.pow(10, token.decimals));
-
-        const bondContract = bond.getContractForBond(networkID, signer);
-
-        const calculatePremium = await bondContract.bondPrice();
-        const maxPremium = Math.round(calculatePremium * (1 + acceptedSlippage));
-
-        let zapinTx;
-        try {
-            const gasPrice = await getGasPrice(provider);
-
-            if (bond.isLP) {
-                if (token.isAvax) {
-                    zapinTx = await zapinContract.ZapInLp(
-                        ethers.constants.AddressZero,
-                        bondAddress,
-                        valueInWei,
-                        minReturnAmount,
-                        swapTarget,
-                        swapData,
-                        true,
-                        maxPremium,
-                        depositorAddress,
-                        { value: valueInWei, gasPrice },
-                    );
-                } else {
-                    zapinTx = await zapinContract.ZapInLp(token.address, bondAddress, valueInWei, minReturnAmount, swapTarget, swapData, true, maxPremium, depositorAddress, {
-                        gasPrice,
-                    });
-                }
-            } else {
-                if (token.isAvax) {
-                    zapinTx = await zapinContract.ZapIn(
-                        ethers.constants.AddressZero,
-                        bondAddress,
-                        valueInWei,
-                        minReturnAmount,
-                        swapTarget,
-                        swapData,
-                        maxPremium,
-                        depositorAddress,
-                        { value: valueInWei, gasPrice },
-                    );
-                } else {
-                    zapinTx = await zapinContract.ZapIn(token.address, bondAddress, valueInWei, minReturnAmount, swapTarget, swapData, maxPremium, depositorAddress, { gasPrice });
-                }
-            }
-
-            dispatch(
-                fetchPendingTxns({
-                    txnHash: zapinTx.hash,
-                    text: "Zapin " + token.name,
-                    type: "zapin_" + token.name + "_" + bond.name,
-                }),
-            );
-            await zapinTx.wait();
-            dispatch(success({ text: messages.tx_successfully_send }));
-            await sleep(0.01);
-            dispatch(info({ text: messages.your_balance_update_soon }));
-            await sleep(10);
-            await dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
-            dispatch(info({ text: messages.your_balance_updated }));
-            return;
-        } catch (err) {
-            return metamaskErrorWrap(err, dispatch);
-        } finally {
-            if (zapinTx) {
-                dispatch(clearPendingTxn(zapinTx.hash));
-            }
+    } catch (err) {
+        return metamaskErrorWrap(err, dispatch);
+    } finally {
+        if (transferTx) {
+            dispatch(clearPendingTxn(transferTx.hash));
         }
-    },
-);
+    }
+});

@@ -1,0 +1,107 @@
+.card-view{
+    width: 100%;
+    cursor: pointer;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        background: rgba(36, 39, 41, 0.1);
+        backdrop-filter: blur(40px);
+    }
+    
+      /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+        background: #181B1C;
+    }
+
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+
+    .card-view-img-container{
+        display: flex;
+        align-items: center;
+        position: relative;
+        flex-wrap: wrap;
+
+        .card-view-network-wrap {
+            position: absolute;
+            left: -4px;
+            top: -4px;
+
+            img{
+                height: 16px;
+                width: 16px;
+            }
+        }
+
+        .card-view-protocol-wrap {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+
+            img{
+                height: 16px;
+                width: 16px;
+            }
+        }
+        
+        .card-view-img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+    }
+
+    .card-view-name-container{
+        margin-left: 10px;
+
+        .card-view-name-container-title{
+            font-family: Montserrat SemiBold;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            color: #FFFFFF;
+            text-transform: capitalize
+        }
+
+        .card-view-name-container-value{
+            font-family: Montserrat SemiBold;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+    }
+
+    .card-view-tokens-container{
+        margin-left: auto;
+        text-align: end;
+
+        .card-view-tokens-container-title{
+            font-family: Montserrat SemiBold;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+
+        .card-view-tokens-container-value{
+            font-family: Montserrat;
+            font-style: normal;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+    }
+
+    .card-view-arrow-wrap{
+        margin-left: 10px;
+
+        img{
+            width: 16px;
+            height: 16px;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-import { BondType, NetworkAddresses } from "./constants";
+import { Available, BondType, NetworkAddresses } from "./constants";
 import { Networks } from "../../constants/blockchain";
 import { ContractInterface, Contract } from "ethers";
 import React from "react";
@@ -12,6 +12,10 @@ export interface BondOpts {
     readonly bondContractABI: ContractInterface; // ABI for contract
     readonly networkAddrs: NetworkAddresses; // Mapping of network --> Addresses
     readonly bondToken: string; // Unused, but native token to buy the bond.
+    readonly deprecated?: boolean;
+    readonly isAvailable: Available;
+    readonly v2Bond: boolean;
+    readonly disableZap?: boolean;
 }
 
 export abstract class Bond {
@@ -24,6 +28,12 @@ export abstract class Bond {
     public readonly bondToken: string;
     public readonly lpUrl?: string;
     public readonly tokensInStrategy?: string;
+    public readonly deprecated?: boolean;
+    protected readonly isAvailable: Available;
+    public readonly v2Bond: boolean;
+
+    public readonly customToken?: boolean;
+    public readonly disableZap?: boolean;
 
     // The following two fields will differ on how they are set depending on bond type
     public abstract isLP: boolean;
@@ -32,8 +42,6 @@ export abstract class Bond {
 
     // Async method that returns a Promise
     public abstract getTreasuryBalance(networkID: Networks, provider: StaticJsonRpcProvider): Promise<number>;
-    public abstract getTokenAmount(networkID: Networks, provider: StaticJsonRpcProvider): Promise<number>;
-    public abstract getTimeAmount(networkID: Networks, provider: StaticJsonRpcProvider): Promise<number>;
 
     constructor(type: BondType, bondOpts: BondOpts) {
         this.name = bondOpts.name;
@@ -43,23 +51,31 @@ export abstract class Bond {
         this.bondContractABI = bondOpts.bondContractABI;
         this.networkAddrs = bondOpts.networkAddrs;
         this.bondToken = bondOpts.bondToken;
+        this.deprecated = bondOpts.deprecated;
+        this.isAvailable = bondOpts.isAvailable;
+        this.v2Bond = bondOpts.v2Bond;
+        this.disableZap = bondOpts.disableZap;
+    }
+
+    public getAvailability(networkID: Networks) {
+        return this.isAvailable[networkID];
     }
 
     public getAddressForBond(networkID: Networks) {
-        return this.networkAddrs[networkID].bondAddress;
+        return this.networkAddrs[networkID]?.bondAddress;
     }
 
     public getContractForBond(networkID: Networks, provider: StaticJsonRpcProvider | JsonRpcSigner) {
-        const bondAddress = this.getAddressForBond(networkID);
+        const bondAddress = this.getAddressForBond(networkID) || "";
         return new Contract(bondAddress, this.bondContractABI, provider);
     }
 
     public getAddressForReserve(networkID: Networks) {
-        return this.networkAddrs[networkID].reserveAddress;
+        return this.networkAddrs[networkID]?.reserveAddress;
     }
 
     public getContractForReserve(networkID: Networks, provider: StaticJsonRpcProvider | JsonRpcSigner) {
-        const reserveAddress = this.getAddressForReserve(networkID);
+        const reserveAddress = this.getAddressForReserve(networkID) || "";
         return new Contract(reserveAddress, this.reserveContractAbi, provider);
     }
 

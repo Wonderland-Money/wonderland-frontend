@@ -371,7 +371,7 @@ const wet: IToken = {
     decimals: 18,
 };
 
-const weth: IToken = {
+export const weth: IToken = {
     name: "WETH.e",
     address: "0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB",
     img: WethEIcon,
@@ -389,6 +389,13 @@ const yak: IToken = {
     name: "YAK",
     address: "0x59414b3089ce2AF0010e7523Dea7E2b35d776ec7",
     img: YakIcon,
+    decimals: 18,
+};
+
+const bsgg: IToken = {
+    name: "BSGG",
+    address: "0x63682bdc5f875e9bf69e201550658492c9763f89",
+    img: "https://static.debank.com/image/token/logo_url/0x69570f3e84f51ea70b7b68055c8d667e77735a25/a5e839fb0cd2a63870146955d8e1f3d3.png",
     decimals: 18,
 };
 
@@ -441,4 +448,5 @@ export default [
     weth,
     xava,
     yak,
+    bsgg,
 ];

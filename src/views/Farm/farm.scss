@@ -1,0 +1,375 @@
+.farm-view {
+  width: 89%;
+  max-width: 833px;
+  margin: auto;
+
+  .farm-card {
+    position: relative;
+    z-index: 2;
+
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+      background: rgba(36, 39, 41, 0.1);
+      backdrop-filter: blur(40px);
+    }
+
+    /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+      background: #181B1C;
+    }
+
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+
+    .farm-card-grid {
+      margin: 0;
+      width: 100%;
+    }
+
+    .farm-card-header {
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .farm-card-header-title {
+        font-family: Montserrat Bold;
+        font-weight: bold;
+        font-size: 20px;
+        color: #FFFFFF;
+        margin-bottom: 4px;
+      }
+
+      .farm-card-wrap-btn{
+        cursor: pointer;
+        padding: 5px 35px;
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+        border-radius: 10px;
+
+        p{
+          font-family: Montserrat SemiBold;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          color: #FFFFFF;
+        }
+      }
+      
+    }
+
+    .farm-card-metrics {
+      display: flex;
+      width: 100%;
+      padding: 0;
+      text-align: center;
+      margin-top: 10px;
+
+      .farm-card-apy,
+      .farm-card-tvl,
+      .farm-card-index {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+
+        .farm-card-metrics-title {
+          font-family: Montserrat Medium;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          color: rgba(255, 255, 255, 0.6);
+          margin-bottom: 2px;
+        }
+
+        .farm-card-metrics-value {
+          font-family: Montserrat Bold;
+          font-style: normal;
+          font-weight: bold;
+          font-size: 24px;
+          line-height: 29px;
+          color: #FFFFFF;
+        }
+      }
+    }
+
+    .farm-card-area {
+      .farm-card-wallet-notification {
+        text-align: center;
+
+        .farm-card-wallet-connect-btn {
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+          border-radius: 10px;
+          padding: 14px 58px;
+          cursor: pointer;
+          margin: auto;
+          max-width: 280px;
+          margin-top: 20px;
+
+          p {
+            font-family: Montserrat SemiBold;
+            font-weight: 600;
+            font-size: 18px;
+            color: #FFFFFF;
+          }
+        }
+
+        .farm-card-wallet-desc-text {
+          font-family: Montserrat Light;
+          font-weight: 300;
+          font-size: 14px;
+          color: rgba(255, 255, 255, 0.6);
+          margin-top: 10px;
+          margin-bottom: 6px;
+        }
+      }
+
+      .farm-card-action-area {
+        width: 100%;
+        margin-top: 25px;
+
+        .farm-card-action-stage-btns-wrap {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .farm-card-action-stage-btn {
+            margin: 0px 30px;
+            padding: 6px;
+            cursor: pointer;
+            transition: all .4s ease;
+
+            p {
+              font-family: Montserrat SemiBold;
+              font-style: normal;
+              font-weight: 600;
+              font-size: 18px;
+              color: rgba(255, 255, 255, 0.6);
+            }
+          }
+
+          .farm-card-action-stage-btn.active {
+
+            p {
+              color: #FFFFFF;
+            }
+
+            border-bottom: 1px solid #FFFFFF;
+            ;
+          }
+        }
+
+        .farm-card-action-row {
+          display: flex;
+          align-items: center;
+          margin-top: 20px;
+
+          .farm-card-action-input {
+            width: 100%;
+
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            outline: none;
+
+            .MuiOutlinedInput-input {
+              font-family: Montserrat Medium;
+              font-style: normal;
+              font-weight: 500;
+              font-size: 16px;
+              color: rgba(255, 255, 255, 0.6);
+              padding: 14px 20px;
+            }
+
+            .MuiOutlinedInput-notchedOutline {
+              border-color: rgba(255, 255, 255, 0.2) !important;
+            }
+
+            .farm-card-action-input-btn {
+              cursor: pointer;
+
+              p {
+                font-family: Montserrat SemiBold;
+                font-weight: 600;
+                font-size: 18px;
+                color: #FFFFFF;
+              }
+            }
+          }
+
+          .farm-card-tab-panel {
+            min-width: 215px;
+            margin-left: 10px;
+
+            .farm-card-tab-panel-btn {
+              background: rgba(255, 255, 255, 0.2);
+              box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+              border-radius: 10px;
+              padding: 14px 0px;
+              cursor: pointer;
+              text-align: center;
+
+              p {
+                font-family: Montserrat SemiBold;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 18px;
+                color: #FFFFFF;
+              }
+            }
+          }
+        }
+
+        .farm-card-action-help-text {
+          margin-top: 10px;
+
+          p {
+            font-family: Montserrat Light;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 17px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+          }
+        }
+      }
+
+      .farm-user-data{
+        .farm-staked-balance-wrap{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 20px 0;
+          margin: 20px 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+          .farm-staked-balance-title{
+            font-family: Montserrat Medium;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 20px;
+            color: #FFFFFF;
+          }
+
+          .farm-staked-balance-value{
+            margin-left: auto;
+            
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            color: #FFFFFF;            
+          }
+        }
+
+        .farm-token-img{
+          width: 30px;
+          height: 30px;
+          margin-right: 10px;
+          border-radius: 50%;
+          overflow: hidden;
+
+          img{
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .farm-token-wrap{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 5px 0;
+
+          .farm-token-title{
+            font-family: Montserrat SemiBold;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            color: #FFFFFF;
+          }
+
+          .farm-token-value{
+            margin-left: auto;
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            color: #FFFFFF;
+          }
+        }
+
+        .farm-harvest-btn{
+          margin: 20px auto 0 auto;
+
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+          border-radius: 10px;
+          padding: 14px 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          max-width: 215px;
+
+          p{
+            font-family: Montserrat SemiBold;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            color: #FFFFFF;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: 1240px) {
+  .farm-view {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .farm-view{
+    .farm-card{
+      .farm-card-metrics{
+        .farm-card-apy,
+        .farm-card-tvl,
+        .farm-card-index {
+          align-items: flex-start;
+        }
+
+        .farm-card {
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+
+      .farm-card-area{
+        .farm-card-action-area{
+          .farm-card-action-row{
+            flex-direction: column;
+            .farm-card-tab-panel{
+              margin-left: 0;
+              margin-top: 20px;
+              min-width: none;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

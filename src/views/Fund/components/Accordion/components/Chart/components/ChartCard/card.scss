@@ -1,0 +1,95 @@
+.chart-card-view{
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        background: rgba(36, 39, 41, 0.1);
+        backdrop-filter: blur(40px);
+    }
+    
+      /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+    @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+        background: #181B1C;
+    }
+
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+
+    .chart-card-view-img-container{
+        display: flex;
+        align-items: center;
+        position: relative;
+        flex-wrap: wrap;
+
+        .card-view-network-wrap {
+            position: absolute;
+            left: -4px;
+            top: -4px;
+
+            img{
+                height: 16px;
+                width: 16px;
+            }
+        }
+
+        .card-view-protocol-wrap {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+
+            img{
+                height: 16px;
+                width: 16px;
+            }
+        }
+        
+        .chart-card-view-img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+    }
+
+    .chart-card-view-name-container{
+        margin-left: 10px;
+
+        .chart-card-view-name-container-title{
+            font-family: Montserrat SemiBold;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            color: #FFFFFF;
+            text-transform: capitalize
+        }
+
+        .chart-card-view-name-container-value{
+            font-family: Montserrat SemiBold;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            color: #FFFFFF;
+        }
+    }
+
+    .chart-card-view-dot-wrap{
+        position:absolute;
+        right: 10px;
+        top: 10px;
+
+        .chart-card-view-dot{
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+    }
+}
+
+.chart-card-view.active{
+    border: 1px solid rgba(255, 255, 255, 1);
+}

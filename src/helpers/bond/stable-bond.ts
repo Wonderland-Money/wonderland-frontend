@@ -1,4 +1,4 @@
-import { ContractInterface } from "ethers";
+import { ContractInterface, ethers } from "ethers";
 import { Bond, BondOpts } from "./bond";
 import { BondType } from "./constants";
 import { Networks } from "../../constants/blockchain";
@@ -35,20 +35,14 @@ export class StableBond extends Bond {
         }
         return tokenAmount / Math.pow(10, 18);
     }
-
-    public async getTokenAmount(networkID: Networks, provider: StaticJsonRpcProvider) {
-        return this.getTreasuryBalance(networkID, provider);
-    }
-
-    public getTimeAmount(networkID: Networks, provider: StaticJsonRpcProvider) {
-        return new Promise<number>(reserve => reserve(0));
-    }
 }
 
 // These are special bonds that have different valuation methods
 export interface CustomBondOpts extends StableBondOpts {}
 
 export class CustomBond extends StableBond {
+    readonly customToken = true;
+
     constructor(customBondOpts: CustomBondOpts) {
         super(customBondOpts);
 
@@ -58,5 +52,25 @@ export class CustomBond extends StableBond {
 
             return tokenAmount * tokenPrice;
         };
+    }
+}
+
+export class StableV2Bond extends Bond {
+    readonly isLP = false;
+    readonly reserveContractAbi: ContractInterface;
+    readonly displayUnits: string;
+
+    constructor(stableBondOpts: StableBondOpts) {
+        super(BondType.StableAsset, stableBondOpts);
+
+        this.displayUnits = stableBondOpts.displayName;
+        this.reserveContractAbi = stableBondOpts.reserveContractAbi;
+    }
+
+    public async getTreasuryBalance(networkID: Networks, provider: StaticJsonRpcProvider) {
+        const bondContract = this.getContractForBond(networkID, provider);
+        const purchased = await bondContract.totalPrincipalBonded();
+
+        return Number(ethers.utils.formatEther(purchased));
     }
 }

@@ -3,7 +3,7 @@ import { getAddresses } from "../../constants";
 import { StakingHelperContract, TimeTokenContract, MemoTokenContract, StakingContract } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchAccountSuccess, getBalances } from "./account-slice";
+import { getBalances, getStaking } from "./account-slice";
 import { JsonRpcProvider, StaticJsonRpcProvider } from "@ethersproject/providers";
 import { Networks } from "../../constants/blockchain";
 import { warning, success, info, error } from "../../store/slices/messages-slice";
@@ -58,17 +58,8 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
 
     await sleep(2);
 
-    const stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
-    const unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
-
-    return dispatch(
-        fetchAccountSuccess({
-            staking: {
-                timeStake: Number(stakeAllowance),
-                memoUnstake: Number(unstakeAllowance),
-            },
-        }),
-    );
+    dispatch(getStaking({ address, networkID, provider }));
+    return;
 });
 
 interface IChangeStake {

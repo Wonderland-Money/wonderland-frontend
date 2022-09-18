@@ -1,0 +1,199 @@
+.redemption-view {
+    width: 89%;
+    max-width: 833px;
+    margin: auto;
+
+    .redemption-card {
+        position: relative;
+        z-index: 2;
+
+        @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+            background: rgba(36, 39, 41, 0.1);
+            backdrop-filter: blur(40px);
+        }
+
+        /* slightly transparent fallback for Firefox (not supporting backdrop-filter) */
+        @supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+            background: #181B1C;
+        }
+
+        border-radius: 10px;
+        padding: 20px;
+        width: 100%;
+
+        .redemption-card-grid {
+            margin: 0;
+            width: 100%;
+        }
+
+        .redemption-card-header {
+            .redemption-card-header-title {
+                font-family: Montserrat Bold;
+                font-weight: bold;
+                font-size: 20px;
+                color: #FFFFFF;
+                margin-bottom: 4px;
+            }
+        }
+
+        .redemption-card-area{
+            .redemption-card-wallet-notification {
+                text-align: center;
+
+                .redemption-card-wallet-connect-btn {
+                    background: rgba(255, 255, 255, 0.2);
+                    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+                    border-radius: 10px;
+                    padding: 14px 58px;
+                    cursor: pointer;
+                    margin: auto;
+                    max-width: 280px;
+                    margin-top: 20px;
+
+                    p {
+                        font-family: Montserrat SemiBold;
+                        font-weight: 600;
+                        font-size: 18px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .redemption-card-wallet-desc-text {
+                    font-family: Montserrat Light;
+                    font-weight: 300;
+                    font-size: 14px;
+                    color: rgba(255, 255, 255, 0.6);
+                    margin-top: 10px;
+                    margin-bottom: 6px;
+                }
+            }
+
+            .redemption-body-wrap{
+                display: flex;
+                flex-direction: column;
+                margin-top: 40px;
+                margin-bottom: 30px;
+
+                max-width: 560px;
+                margin-left: auto;
+                margin-right: auto;
+
+                .redemption-input-wrap{
+                    .redemption-input-wrap-title{
+                        font-family: Montserrat;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        color: #FFFFFF;
+                        margin-left: 10px;
+                        margin-bottom: 5px;
+                    }
+
+                    .redemption-input{
+                        width: 100%;
+
+                        background: rgba(255, 255, 255, 0.2);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                        border-radius: 10px;
+                        outline: none;
+
+                        .MuiOutlinedInput-input {
+                            font-family: Montserrat Medium;
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 16px;
+                            color: rgba(255, 255, 255, 0.6);
+                            padding: 14px 20px;
+                        }
+
+                        .MuiOutlinedInput-notchedOutline {
+                            border-color: rgba(255, 255, 255, 0.2) !important;
+                        }
+
+                        .redemption-input-btn {
+                            cursor: pointer;
+
+                            p {
+                                font-family: Montserrat SemiBold;
+                                font-weight: 600;
+                                font-size: 18px;
+                                color: #FFFFFF;
+                            }
+                        }
+
+                        .redemption-input-token-wrap {
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+
+                            p{
+                                margin-left: 10px;
+                                margin-right: 5px;
+        
+                                font-family: Montserrat Medium;
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 16px;
+                                line-height: 20px;
+                                color: rgba(255, 255, 255, 0.6);
+                            }
+
+                            .redemption-input-token-wrap-logo{
+                                width: 30px;
+                                height: 30px;
+                                border-radius: 24px;
+                                box-shadow: rgb(0 0 0 / 8%) 0px 6px 10px;
+                            }
+                        }
+                    }
+                }
+
+                .redemption-arrows{
+                    margin: 20px auto;
+                    height: 24px;
+                    width: 24px;
+                    transform: rotate(90deg);
+
+                    img{
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                .redemption-swap-button{
+                    background: rgba(255, 255, 255, 0.2);
+                    box-shadow: 0px 0px 10px rgba(44, 39, 109, 0.1);
+                    border-radius: 10px;
+                    margin-top: 20px;
+                    margin-bottom: 5px;
+                    padding: 14px;
+                    text-align: center;
+                    cursor: pointer;
+
+                    p{
+                        font-family: Montserrat;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 16px;
+                        color: #FFFFFF;
+                    }
+                }
+
+                .help-text{
+                    font-family: Montserrat;
+                    font-style: normal;
+                    font-weight: 300;
+                    font-size: 14px;
+                    text-align: center;
+                    color: rgba(255, 255, 255, 0.6);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1240px) {
+    .redemption-view {
+        width: 100%;
+    }
+}
